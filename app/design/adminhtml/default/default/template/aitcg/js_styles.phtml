@@ -1,0 +1,100 @@
+<?php
+    $_styles = Mage::helper('aitcg/style')->getStyleOptions();
+?>
+<script type="text/javascript">
+//<![CDATA[
+
+var AitPopupHtml = '<div id="loading-mask" style="display:none">'+
+        '<p class="loader" id="loading_mask_loader">'+
+            '<img src="<?php echo $this->getSkinUrl('images/rule-ajax-loader.gif') ?>" alt="<?php echo $this->__('Please wait...') ?>" title="<?php echo $this->__('Please wait...') ?>" class="v-middle" /> <?php echo $this->__('Please wait...') ?>'+
+        '</p></div>';
+           
+var aitcgTooltipsStyle = '<?php echo $_styles->getTooltipsStyle(); ?>';
+
+var aitcgBaseConfig = {
+    text: {
+        close: "<?php echo $this->__('Close'); ?>",
+        save: "<?php echo $this->__('Save'); ?>",
+        cancel: "<?php echo $this->__('Cancel'); ?>",
+        apply: "<?php echo $this->__('Apply') ?>",
+        reset: "<?php echo $this->__('Reset'); ?>",
+        edit: "<?php echo $this->__('Edit'); ?>",
+        required: "<?php echo $this->__('This is a required field.'); ?>",
+        texttoadd: "<?php echo $this->__('Text:'); ?>",
+        font: "<?php echo $this->__('Font:'); ?>",
+        addtext: "<?php echo $this->__('Add text'); ?>",
+        pickcolor: "<?php echo $this->__('Color:'); ?>",
+        emboss_text: "<?php echo $this->__('Place your logo/text in the position you  would like it in on the menu.if you select blind emboss your logo/text will print with this effect.'); ?>",
+        engraving_text: "<?php echo $this->__('Place your logo/text in the position you  would like it in on the menu.if you select blind emboss your logo/text will print with this effect.'); ?>",
+        library_img_text: "<?php echo $this->__('Our library of images.'); ?>",
+        full_cover_img_text: "<?php echo $this->__('Or upload your own full colour image.'); ?>",
+        outline: "<?php echo $this->__('Outline'); ?>",
+        shadow: "<?php echo $this->__('Shadow'); ?>",
+        shadowalpha: "<?php echo $this->__('Alpha of Shadow (from 0 to 126)'); ?>",
+        shadowoffsetx: "<?php echo $this->__('Offset X of Shadow'); ?>",
+        shadowoffsety: "<?php echo $this->__('Offset Y of Shadow'); ?>",
+        pickcoloroutline: "<?php echo $this->__('Pick outline color'); ?>",
+        pickcolorshadow: "<?php echo $this->__('Pick outline shadow'); ?>",
+        widthoutline: "<?php echo $this->__('Choose outline width'); ?>",
+        addimage: "<?php echo $this->__('Add image'); ?>",
+        addmasks: "<?php echo $this->__('Add mask'); ?>",
+        delmasks: "<?php echo $this->__('Remove mask'); ?>",
+        user_title: "<?php echo $this->__('Upload Image'); ?>",
+        predefined_title: "<?php echo $this->__('Select Material Colour'); ?>",
+        predefined_title_spec_cat: "<?php echo $this->__('Select Material Colour'); ?>",
+        predefined_title_inside: "<?php echo $this->__('Select Material'); ?>",
+        masks_title: "<?php echo $this->__('Hand Printed Metallic Foil printed logo/blind embossing'); ?>",
+        masks_title_spec_cat:"<?php echo $this->__('Hand Printed Metallic Foil printed logo/blind embossing/wood-laser engraved'); ?>",
+        masks_subtitle: "<?php echo $this->__('Please upload your image and tick the size below:'); ?>",
+        masks_shape: "<?php echo $this->__('Select a mask for the shape of you Logo/Custom Font'); ?>",
+        foil_logo_text: "<?php echo $this->__('Upload Logo - Cost: '.Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().'0.25'); ?>",
+        // digital_image_text:"<?php  //echo $this->__('Upload a Digital Image - Cost: '.Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().'1.50'); ?>",
+        digital_image_text:"<?php echo $this->__('Full colour Digital logo cost '.Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().'1.50 per unit'); ?>",
+        digital_image_text_spec_cat:"<?php echo $this->__('Upload a Digital Image (not full cover) - Cost: '.Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().'1.50'); ?>",
+        applycolor_text: "<?php echo $this->__('Apply colour to Logo'); ?>",
+        text_title:"<?php echo $this->__('Hand Printed Metallic Foil Text'); ?>",
+        text_title_spec_cat:"<?php echo $this->__('Add metallic foil text'); ?>",
+        under_template_text: "<?php echo $this->__('Place image behind template'); ?>",
+        save_title: "<?php echo $this->__('Save Design'); ?>",
+        save_about: "<?php echo $this->__('Please upload the graphics and/or add the text first. This block will show links to images that were uploaded to the server.'); ?>",
+        svg: "<?php echo $this->__('Save as SVG'); ?>",
+        png: "<?php echo $this->__('Save as PNG'); ?>",
+        pdf: "<?php echo $this->__('Save as PDF'); ?>",
+        scale: "<?php echo $this->__('Graphics Scale:'); ?>",
+        print_text: "<?php echo $this->__('Choose graphics layers to save:'); ?>",
+        print_type_top: "<?php echo $this->__('Graphics placed above product image'); ?>",
+        print_type_bottom: "<?php echo $this->__('Graphics placed behind product image'); ?>",
+        print_type_bg: "<?php echo $this->__('Product image'); ?>",
+        print_type_mask: "<?php echo $this->__('Custom shape mask'); ?>",
+        print_type_error: "<?php echo $this->__('Please select at least one layer'); ?>",
+        editorHelp: "<?php echo $this->__('Once you select your image, click Add Image to add it to the product.<br />Next move around or resize the image to suit your desired end state.<br />If you would like to add multiple images or text, you can select another image or text and click add to image.'); ?>", 
+        buttonHelp: "<?php echo $this->__('Save custom image preview to your hard drive (optional)'); ?>",
+        galleryTooltip: "<?php echo $this->__('Click on the image above to edit') ?>",
+        thumbTooltipEdit: "<?php echo $this->__('Click to start editing') ?>",
+        thumbTooltipPreview: "<?php echo $this->__('Click to view full version') ?>",
+        areYouSure: "<?php echo $this->__('Are you sure? Any unsaved changes will be lost!') ?>",
+        moreViews: "<?php echo Mage::helper('catalog')->__('More Views') ?>",
+        confirm: "<?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_fulltext'); ?>",
+        confirm_title: "<?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_title'); ?>",
+        agree: "<?php echo $this->__('Agree'); ?>",
+        disagree: "<?php echo $this->__('Disagree'); ?>",
+        saved_color: '<?php echo $this->__('Text color:');?>',
+        saved_text: '<?php echo $this->__('Text:');?>',
+        bindemboss_text: '<?php echo $this->__('Blind Emboss:');?>',
+        saved_size: '<?php echo $this->__('Size:');?>',
+        save_type_text: '<?php echo $this->__('Text image:');?>',
+        save_type_image: '<?php echo $this->__('Uploaded full cover image:');?>',
+        save_cover_type_image: '<?php echo $this->__('Uploaded Cover image:');?>',
+        save_links_title: '<?php echo $this->__('Open original size images in a new window'); ?>',
+        save_digital_type_image: '<?php echo $this->__('Uploaded Digital image:');?>',
+        save_new_tab_error: '<?php echo $this->__('To save as PNG please allow popup in the browser settings.');?>',
+        engraving:'<?php echo $this->__('Engraving'); ?>'
+    },
+
+    emptyImgUrl: '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS).'aitoc/aitcg/img/blank.gif' ?>',
+    toolsIconsStyle: '<?php echo $_styles->getIconsStyle(); ?>',
+    toolboxStyle: 'accordion'
+};
+
+//]]>
+</script>

@@ -1,0 +1,439 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+if (!isset($disabledHtml)){
+    $disabledHtml = "";
+}
+if (!isset($disabledHtmlRadio)){
+    $disabledHtmlRadio = "";
+}
+if (!isset($inputDisabled)){
+    $inputDisabled = false;
+}
+if (!isset($disabledOnClick)){
+    $disabledOnClick = false;
+}
+?>
+<?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_SHIPPING_INFORMATION)): ?>
+<div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('sales')->__('Shipping Information') . ''; ?></h4>
+</div>
+<div id="_newsletterbase_fieldset" class="fieldset">
+<div class="hor-scroll">
+<?php
+$spanStyle = '';
+$inputDisplay = '';
+
+if (!$this->isAvaliableShipPrice()) {
+    $spanStyle = 'style="display:none;"';
+}
+if (!$this->isAvaliableShipPrice() || !$quoteModel->getData('shipping_type')) {
+    $inputDisplay = 'disabled="disabled"';
+}
+
+$shippingPrice = $this->getQuoteShipPrice();
+$spippingPrice = $shippingPrice;
+
+//fallback for situations where getWebsite doesn't return a object
+if(is_object(Mage::app()->getWebsite(true))){
+    $defaultStoreId = Mage::app()->getWebsite(true)->getDefaultGroup()->getDefaultStoreId();
+} else {
+    $defaultStoreId = Mage::app()->getStore('default')->getStoreId();
+    $message = 'Mage::app()->getWebsite(true) is not a object, fallback applied';
+    Mage::log('Message: ' .$message, null, 'c2q.log');
+}
+
+$quoteStoreId = $quoteModel->getStoreId();
+$priceContainsTax = Mage::helper('tax')->shippingPriceIncludesTax($quoteStoreId);
+if ($priceContainsTax) {
+    //fallback for situations where getWebsite doesn't return a object
+    if (is_object(Mage::app()->getWebsite(true))) {
+        $store = Mage::app()->getWebsite(true)->getDefaultGroup()->getDefaultStore();
+    } else {
+        $store = Mage::app()->getStore('default');
+        $message = 'Mage::app()->getWebsite(true) is not a object, fallback applied';
+        Mage::log('Message: ' . $message, null, 'c2q.log');
+    }
+
+    $taxCalculation = Mage::getModel('tax/calculation');
+    $request = $taxCalculation->getRateOriginRequest($store);
+    $taxClassId = Mage::helper('tax')->getShippingTaxClass($store);
+    $percent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
+
+    $quoteStore = Mage::getModel('core/store')->load($quoteStoreId);
+    $taxCalculation = Mage::getModel('tax/calculation');
+    $request = $taxCalculation->getRateRequest(null, null, null, $quoteStore);
+    $taxClassId = Mage::helper('tax')->getShippingTaxClass($quoteStore);
+    $quotePercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
+
+    if ($percent != $quotePercent) {
+        $shippingPrice = ($spippingPrice / (100.000 + $percent)) * (100.000 + $quotePercent);
+    }
+}
+
+$sPrice = '
+        <span ' . $spanStyle . ' id="shipping" >
+                    <label for="shipping_price" class="normal">' . Mage::helper('sales')->__('Price') . '</label> <span class="required">*</span>
+                    <input type="text" value="' . round($shippingPrice, 2) . '" size="3"  id="shipping_price" name="shipping_price"
+         ' . $inputDisplay . '   style="width:70px;"
+        	class="required-entry validate-zero-or-greater required-entry input-text" '.$disabledHtml.'/>
+
+        </span>';
+?>
+
+<?php
+$currentMethod = '';
+?>
+
+<table cellspacing="0" class="form-list" border="0" style="width:100%;">
+<tbody>
+
+<tr>
+<td class="label">
+    <label for="shipping_type" class="normal"><?php echo $this->__('Use Store Settings'); ?></label>
+</td>
+<?php
+// Check for selected shipping method
+$useDefault = false;
+$useC2Qship = in_array($quoteModel->getData('shipping_type'), array("I", "O")) ? true : false;
+$styleHide = '';
+
+if (!$quoteModel->getAddress()->getShippingMethod() == null && $useC2Qship === false) {
+    $useDefault = true;
+    $styleHide = 'style="display:none;"';
+} ?>
+<td id="store-shipping-settings" style="width:50px; vertical-align:top;">
+    <?php if (!$useDefault === true): ?>
+        <input name="shipping_type" type="radio" value=""
+            <?php echo (($useC2Qship === false) ? 'checked="checked"' : $disabledHtmlRadio); ?>
+               onclick="
+                                           if (this.checked) {
+                                               shipI = $('shipI').innerHTML;
+                                               shipO = $('shipO').innerHTML;
+                                               if (shipI.length > 5) {
+                                                   $('shipEmpty').innerHTML = shipI;
+                                                   $('shipI').innerHTML = '';
+                                               }
+                                               else if (shipO.length > 5)
+                                               {
+                                                   $('shipEmpty').innerHTML = shipO;
+                                                   $('shipO').innerHTML = '';
+                                               }
+
+                                               $('shipping_price').disabled = true;
+                                               // $('shipping_price').value='';
+                                               $('shipping').hide();
+                                           }
+                                   "/>
+    <?php endif; ?>
+</td>
+<td>
+    <div id="order-shipping-method-summary">
+        <?php
+        // Check for selected shipping method
+        if ($useDefault === true) {
+            $linkTitle = Mage::helper('sales')->__('Click to change shipping method');
+            $currentMethod = Mage::getModel('qquoteadv/quoteshippingrate')->getShippingMethodByCode($quoteModel->getAddress()->getAddressId(), $quoteModel->getData('shipping_code'));
+        } else {
+            $linkTitle = Mage::helper('sales')->__('Get shipping methods and rates');
+        }
+
+        if ($useDefault === true && $currentMethod):
+            ?>
+            <dl class="shipment-methods">
+                <dt><strong><?php echo $currentMethod->getData('carrier_title'); ?> </strong></dt>
+                <dd>
+                    <ul>
+                        <li>
+                            <input name="shipping_default" type="radio" value="" checked="checked"/>
+                            <label for="<?php echo $currentMethod->getData('code'); ?>" class="normal"
+                                   style="margin: 0 5px 0 0;">
+                                <?php echo $currentMethod->getData('method_title'); ?> - <strong><span
+                                        class="price"><?php
+                                        //set store currency rate
+                                        $store = Mage::getModel('core/store')->load($quoteModel->getStoreId());
+                                        if ($quoteModel->getData('currency')) {
+                                            $store->getCurrentCurrency()->setCurrencyCode($quoteModel->getData('currency'));
+                                            $store->getBaseCurrency()->setRates(array(
+                                                $quoteModel->getData('currency') => $quoteModel->getData('base_to_quote_rate')
+                                            ));
+                                        }
+
+                                        //get shipping proce
+                                        $shippingPrice = Mage::helper('tax')->getShippingPrice(
+                                            $currentMethod->getData('price'),
+                                            $this->helper('tax')->displayShippingPriceIncludingTax(),
+                                            $quoteModel->getAddress(),
+                                            null,
+                                            Mage::getModel('core/store')->load($quoteModel->getStoreId())
+                                        );
+
+                                        //echo the converted price
+                                        echo $store->convertPrice($shippingPrice, true);
+                                        ?></span></strong>
+                            </label>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+
+        <?php endif; ?>
+
+        <?php $onclick = "  $('order-shipping-method-summary').hide();
+                                                $('store-shipping-settings').hide();
+                                                $('order-shipping-method-choose').show();
+                                                $('perItem').show();
+                                                $('perOrder').show();
+                                                $('ship_button').show();
+                                                $('none').show();
+                                                "
+        ?>
+
+        <a href="#order-shipping-method-choose" onclick="<?php echo $onclick; ?>"
+           style="margin: 0 0 0 25px;"><?php echo $linkTitle; ?></a>
+        <input type="hidden" name="order[has_shipping]" value=""/>
+    </div>
+    <div style="display:none;" id="order-shipping-method-choose">
+        <dl class="shipment-methods">
+            <?php
+            if ($groupedShippingRates = Mage::getModel('qquoteadv/quoteshippingrate')->getGroupedAllShippingRates($quoteModel)):
+                foreach ($groupedShippingRates as $shippingRates):
+                    if($shippingRates[0]->getData('code') == 'qquoteshiprate_qquoteshiprate'){
+                        $dontShowQuoteMethode = 'style = "display: none;"';
+                    }else{
+                        $dontShowQuoteMethode = '';
+                    }
+                    ?>
+                    <dt <?php echo $dontShowQuoteMethode; ?> ><strong><?php echo $shippingRates[0]->getData('carrier_title'); ?> </strong></dt>
+                    <dd <?php echo $dontShowQuoteMethode; ?> >
+                        <ul>
+                            <?php
+                            foreach ($shippingRates as $shiprate) {
+                                $checked = '';
+                                if ($shiprate->getData('code') == $quoteModel->getAddress()->getShippingMethod()) {
+                                    $checked = 'checked="checked"';
+                                }
+                                ?>
+                                <li>
+                                    <input name="shipping_type" type="radio"
+                                           id="<?php echo $shiprate->getData('code'); ?>" <?php echo (($checked != '') ? $checked : $disabledHtmlRadio); ?>
+                                           value="<?php echo $shiprate->getData('rate_id'); ?>"
+                                           onclick="
+                                                                    if (this.checked) {
+                                                                        shipI = $('shipI').innerHTML;
+                                                                        shipO = $('shipO').innerHTML;
+                                                                        if (shipI.length > 5) {
+                                                                            $('shipEmpty').innerHTML = shipI;
+                                                                            $('shipI').innerHTML = '';
+                                                                        }
+                                                                        else if (shipO.length > 5)
+                                                                        {
+                                                                            $('shipEmpty').innerHTML = shipO;
+                                                                            $('shipO').innerHTML = '';
+                                                                        }
+
+                                                                        $('shipping_price').disabled = true;
+                                                                        // $('shipping_price').value='';
+                                                                        $('shipping').hide();
+                                                                    }
+                                                            "/>
+                                    <label for="<?php echo $shiprate->getData('code'); ?>" class="normal"
+                                           style="margin: 0 0 0 10px;">
+                                        <?php echo $shiprate->getData('method_title'); ?> - <strong><span
+                                                class="price"><?php
+
+                                                $spippingPrice = $shiprate->getData('price') * $this->getRate();
+
+                                                //fallback for situations where getWebsite doesn't return a object
+                                                if(is_object(Mage::app()->getWebsite(true))){
+                                                    $defaultStoreId = Mage::app()->getWebsite(true)->getDefaultGroup()->getDefaultStoreId();
+                                                } else {
+                                                    $defaultStoreId = Mage::app()->getStore('default')->getStoreId();
+                                                    $message = 'Mage::app()->getWebsite(true) is not a object, fallback applied';
+                                                    Mage::log('Message: ' .$message, null, 'c2q.log');
+                                                }
+
+                                                $quoteStoreId = $quoteModel->getStoreId();
+                                                $priceContainsTax = Mage::helper('tax')->shippingPriceIncludesTax($quoteStoreId);
+                                                if($priceContainsTax){
+                                                    //fallback for situations where getWebsite doesn't return a object
+                                                    if(is_object(Mage::app()->getWebsite(true))){
+                                                        $store = Mage::app()->getWebsite(true)->getDefaultGroup()->getDefaultStore();
+                                                    } else {
+                                                        $store = Mage::app()->getStore('default');
+                                                        $message = 'Mage::app()->getWebsite(true) is not a object, fallback applied';
+                                                        Mage::log('Message: ' .$message, null, 'c2q.log');
+                                                    }
+
+                                                    $taxCalculation = Mage::getModel('tax/calculation');
+                                                    $request = $taxCalculation->getRateOriginRequest($store);
+                                                    $taxClassId = Mage::helper('tax')->getShippingTaxClass($store);
+                                                    $percent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
+
+                                                    $quoteStore = Mage::getModel('core/store')->load($quoteStoreId);
+                                                    $taxCalculation = Mage::getModel('tax/calculation');
+                                                    $request = $taxCalculation->getRateRequest(null, null, null, $quoteStore);
+                                                    $taxClassId = Mage::helper('tax')->getShippingTaxClass($quoteStore);
+                                                    $quotePercent = $taxCalculation->getRate($request->setProductClassId($taxClassId));
+
+                                                    if($percent != $quotePercent){
+                                                        $spippingPrice = ($spippingPrice / (100.000+$percent)) * (100.000+$quotePercent);
+                                                    }
+                                                }
+
+                                                //conversion is not needed here as this price is generated by magento for this store
+                                                echo $quoteModel->formatPrice($spippingPrice); ?></span></strong>
+                                    </label>
+                                </li>
+                            <?php
+                            }
+                            ?>
+                        </ul>
+                    </dd>
+                <?php endforeach; ?>
+            <?php
+            else:
+                echo '<dt><strong>' . $this->__("Currently no shipping methods are available") . '</strong></td>';
+                ?>
+            <?php endif; // groupedShippingRates ?>
+        </dl>
+    </div>
+
+</td>
+
+<td style="vertical-align:middle;"><span
+        id="shipEmpty"><?php if (!in_array($quoteModel->getData('shipping_type'), array("I", "O"))) echo $sPrice; ?></span>
+</td>
+</tr>
+<tr id="perItem" <?php echo $styleHide ?>>
+    <td class="label">
+        <label for="shipping_type" class="normal"><?php echo Mage::helper('adminhtml')->__('Per Item'); ?></label>
+
+    </td>
+    <td style="vertical-align:middle;"><input name="shipping_type" type="radio" value="I"
+            <?php echo (($quoteModel->getData('shipping_type') == 'I') ? 'checked="checked"': $disabledHtmlRadio); ?>
+                                              onclick="
+                                       if (this.checked) {
+
+                                           $('shipping_price').disabled = false;
+
+                                           $('shipping').show();
+
+                                           shipEmpty = $('shipEmpty').innerHTML;
+                                           shipO = $('shipO').innerHTML;
+
+                                           if (shipEmpty.length > 1) {
+                                               $('shipI').innerHTML = shipEmpty;
+                                               $('shipEmpty').innerHTML = '';
+                                           }
+                                           else if (shipO.length > 1)
+                                           {
+                                               $('shipI').innerHTML = shipO;
+                                               $('shipO').innerHTML = '';
+                                           }
+
+                                       }
+                                                              "
+                                              colspan="2" /></td>
+    <td style="vertical-align:middle;"><span
+            id="shipI"><?php if ($quoteModel->getData('shipping_type') == 'I') echo $sPrice; ?></span></td>
+</tr>
+<tr id="perOrder" <?php echo $styleHide ?>>
+    <td class="label">
+        <label for="shipping_type" class="normal"><?php echo $this->__('Fixed Price Per Order'); ?></label>
+
+    </td>
+    <td style="vertical-align:middle;"><input name="shipping_type" type="radio" value="O"
+            <?php echo (($quoteModel->getData('shipping_type') == 'O') ? 'checked="checked"': $disabledHtmlRadio); ?>
+                                              onclick="
+                                       if (this.checked) {
+
+                                           $('shipping_price').disabled = false;
+
+                                           $('shipping').show();
+
+                                           shipEmpty = $('shipEmpty').innerHTML;
+                                           shipI = $('shipI').innerHTML;
+
+                                           if (shipI.length > 5) {
+                                               $('shipO').innerHTML = shipI;
+                                               $('shipI').innerHTML = '';
+                                           }
+                                           else if (shipEmpty.length > 5)
+                                           {
+                                               $('shipO').innerHTML = shipEmpty;
+                                               $('shipEmpty').innerHTML = '';
+                                           }
+                                       }
+                                                              "
+
+                                              colspan="2"/></td>
+    <td style="vertical-align:middle;"><span
+            id="shipO"><?php if ($quoteModel->getData('shipping_type') == 'O') echo $sPrice; ?></span>
+    </td>
+
+</tr>
+<tr id="none" <?php echo $styleHide ?>>
+    <?php // Adding None Option
+    if (($useDefault === true && $currentMethod) || $useC2Qship === true):
+        ?>
+        <td class="label">
+            <label for="shipping_type" class="normal"><?php echo $this->__('Remove Current Rate ?'); ?></label>
+        </td>
+        <td style="vertical-align:middle;"><input name="shipping_type" type="radio" value="none" colspan="2"
+                                                  onclick="   if (this.checked) {
+                                                                    shipI = $('shipI').innerHTML;
+                                                                    shipO = $('shipO').innerHTML;
+
+                                                                    $('shipping_price').disabled = true;
+                                                                }"  <?php echo $disabledHtmlRadio; ?>/>
+        </td>
+    <?php endif; // None Option ?>
+</tr>
+<?php $style = ($currentMethod) ? 'style="display:none"' : '' ?>
+<tr id="ship_button" <?php echo $style ?>>
+    <td colspan="3">
+        &nbsp;
+    </td>
+    <td style="float: right;">
+        <?php
+        $vars = new Varien_Object;
+        $vars->setData('label', Mage::helper('checkout')->__('Apply'));
+
+        if($inputDisabled){
+            $vars->setData('class', 'disabled');
+        }
+
+        echo $this->getSaveButton($vars, $disabledOnClick)->_toHtml();
+        ?>
+    </td>
+</tr>
+
+</table>
+</div>
+</div>
+<?php endif; ?>

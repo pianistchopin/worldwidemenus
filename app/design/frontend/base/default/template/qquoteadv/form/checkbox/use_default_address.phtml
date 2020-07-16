@@ -1,0 +1,50 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ *
+ *
+ * This is the template file of the form fields.
+ * The file is rendered two times:
+ *      1. Shipping details
+ *      2. Billing details
+ * The form_type variable will contain 'shipping' or 'billing'. The fields will contain the ID referring to this form type.
+ *
+ * @block Ophirah_Qquoteadv_Block_Form_Checkbox_Address
+ */
+$billingEmail = $this->getBillingEmail();
+?>
+
+<?php if ($this->isCustomerLoggedIn() && !empty($billingEmail)): ?>
+    <?php if ($this->getRequiredShipping() || $this->getRequiredBilling()): ?>
+        <fieldset>
+            <p>
+                <input type="checkbox" name="billing_address"
+                       value="use_default_billing"
+                       onclick="getBillingShippingOptions(this, '<?php echo $this->getBoxesStatus() ?>')">&nbsp;
+                <label for="customer:use_default_billing"><?php echo $this->__('Use Default Billing and Shipping Address') ?> </label>
+            </p>
+        </fieldset>
+    <?php endif; ?>
+<?php endif; ?>

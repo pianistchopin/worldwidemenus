@@ -1,0 +1,94 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_ACCOUNT_INFORMATION)): ?>
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account"><?php echo Mage::helper('customer')->__('Account Information') ?></h4>
+        </div>
+        <div class="fieldset">
+            <div class="hor-scroll">
+
+                <table class="form-list" cellspacing="0">
+                    <tbody>
+                    <?php $name = $this->getCustomerName($quoteModel->getData('customer_id')); ?>
+                    <?php //$name = $this->helper('qquoteadv')->getBillingName($quote); ?>
+                    <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_ACCOUNT_INFORMATION_CUSTOMER_NAME)): ?>
+                        <tr>
+                            <td class="label"><label><?php echo Mage::helper('customer')->__('Customer Name') ?></label></td>
+                            <td class="value">
+                                <?php if ($_customerUrl = $this->getCustomerViewUrl($quoteModel->getData('customer_id'))) : ?>
+                                    <a href="<?php echo $_customerUrl ?>"
+                                       target="_blank"><strong><?php echo $this->escapeHtml($name) ?></strong></a>
+                                <?php else: ?>
+                                    <strong><?php echo $this->escapeHtml($name) ?></strong>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_ACCOUNT_INFORMATION_COMPANY)): ?>
+                        <?php $company = $quoteModel->getData('company') ?>
+                        <?php if (isset($company)): ?>
+                            <tr>
+                                <td class="label"><label><?php echo Mage::helper('customer')->__('Company') ?></label></td>
+                                <td class="value"><strong><?php echo $this->escapeHtml($company) ?></strong></td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_ACCOUNT_INFORMATION_EMAIL)): ?>
+                        <?php $email = $quoteModel->getData('email') ?>
+                        <?php if (isset($email)): ?>
+                            <tr>
+                                <td class="label"><label><?php echo Mage::helper('customer')->__('Email') ?></label></td>
+                                <td class="value"><a href="mailto:<?php echo $this->escapeHtml($email) ?>"><strong><?php echo $this->escapeHtml($email) ?></strong></a>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_ACCOUNT_INFORMATION_TELEPHONE)): ?>
+                        <?php $tel = $quoteModel->getData('telephone') ?>
+                        <?php if (isset($tel)): ?>
+                            <tr>
+                                <td class="label"><label><?php echo Mage::helper('customer')->__('Telephone') ?></label></td>
+                                <td class="value"><strong><?php echo $this->escapeHtml($tel) ?></strong></td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_ACCOUNT_INFORMATION_CUSTOMER_GROUP)): ?>
+                        <tr>
+                            <td class="label"><label><?php echo Mage::helper('customer')->__('Customer Group') ?></label></td>
+                            <td class="value">
+                                <strong><?php echo $this->getCustomerGroupName($quoteModel->getData('customer_id'), $quoteModel->getCustomerGroupId()) ?></strong>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php endif ?>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Custom_Price>
+      <version>0.1.0</version>
+    </Custom_Price>
+  </modules>
+  <global>
+    <helpers>
+      <price>
+        <class>Custom_Price_Helper</class>
+      </price>
+    </helpers>
+	<models>
+	  <price>
+		<class>Custom_Price_Model</class>
+		<resourceModel>price_mysql4</resourceModel>
+	  </price>
+	</models>
+    <events>
+	  <checkout_cart_product_add_after> <!-- identifier of the event we want to catch -->
+        <observers>
+          <checkout_cart_product_add_after_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>price/observer</class> <!-- observers class alias -->
+            <method>checkCart</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </checkout_cart_product_add_after_handler>
+        </observers>
+      </checkout_cart_product_add_after>
+    </events>
+  </global>
+</config> 

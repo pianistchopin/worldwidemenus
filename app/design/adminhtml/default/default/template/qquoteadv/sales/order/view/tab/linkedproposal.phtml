@@ -1,0 +1,100 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php $_order = $this->getOrder(); ?>
+<?php
+try {
+    $resourceId = Mage::getSingleton('admin/session')->getData('acl')->get('admin/sales/qquoteadv')->getResourceId();
+    if (Mage::getSingleton('admin/session')->isAllowed($resourceId)): ?>
+        <!-- start c2q -->
+        <?php if ($quote_id = $_order->getData('c2q_internal_quote_id')) : ?>
+            <?php $quote = Mage::getModel('qquoteadv/qqadvcustomer')->load($quote_id); ?>
+            <?php if (is_object($quote)): ?>
+                <div id="linked_proposal" class="box-left">
+                    <div class="entry-edit">
+                        <div class="entry-edit-head">
+                            <h4 class="icon-head head-account"><?php echo Mage::helper('qquoteadv')->__('Linked Quote Request') ?></h4>
+                            <div class="tools">&nbsp;</div>
+                        </div>
+                        <div class="fieldset">
+                            <div class="hor-scroll">
+                                <table cellspacing="0" class="form-list">
+                                    <tr>
+                                        <td class="label">
+                                            <label><?php echo Mage::helper('qquoteadv')->__('Price Proposal') ?></label>
+                                        </td>
+                                        <?php $str = Mage::helper('sales')->__('Quotation #%s', $quote->getIncrementId()); ?>
+                                        <?php $link = $this->getUrl('*/qquoteadv/edit', array('id' => $quote_id)); ?>
+                                        <td class="value">
+                                            <a href="<?php echo $link ?>"><strong><?php echo $str ?></strong></a>
+                                        </td>
+                                    </tr>
+
+                                    <?php $name = Mage::helper('qquoteadv')->getAdminName($quote->getUserId()); ?>
+                                    <?php if (empty($name)) $name = Mage::helper('qquoteadv')->__("Auto proposal"); ?>
+                                    <?php //if (!empty($name)): ?>
+                                    <tr>
+                                        <td class="label">
+                                            <label><?php echo Mage::helper('qquoteadv')->__('Assigned To') ?></label>
+                                        </td>
+                                        <td class="value"><strong><?php echo $name; ?></strong></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    var clearSelector = '#sales_order_view_tabs_order_info_content > div > .clear';
+                    var newNode = document.getElementById('linked_proposal');
+                    var clearNode = document.createElement('div');
+                    clearNode.className = ('clear');
+
+                    //make better use of the available space
+                    var firstElementAfterClear = document.querySelector(clearSelector).nextElementSibling;
+                    var secondElementAfterClear = document.querySelector(clearSelector).nextElementSibling.nextElementSibling;
+                    if (!firstElementAfterClear.classList.contains('clear') && secondElementAfterClear.classList.contains('clear')) {
+                        if (firstElementAfterClear.classList.contains('box-left')) {
+                            newNode.className = 'box-right';
+                        }
+                    } else {
+                        //add the clear node
+                        var referenceNode = document.querySelector(clearSelector);
+                        referenceNode.parentNode.insertBefore(clearNode, referenceNode.nextElementSibling);
+                    }
+
+                    //add the new node
+                    var referenceNode = document.querySelector(clearSelector);
+                    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextElementSibling);
+                </script>
+                <!-- end c2q -->
+            <?php endif; ?>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php } catch (Exception $e) {
+    Mage::log('Exception: ' .$e->getMessage(), null, 'c2q_exception.log', true);
+} ?>

@@ -1,0 +1,36 @@
+<!--@subject {{var quote.getStoreGroupName()}}: You have received a new Quote Request #{{var quote.increment_id}} @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img
+                                src="{{var logo_url}}" alt="{{var logo_alt}}"
+                                style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>Hello {{var quote.getSalesRepresentative().getName()}}</strong></Strong><br/><br>
+                                You have received and are assigned to a Quote Request from {{htmlescape var=$customer.name}} for the website {{var
+                                store.getFrontendName()}}, placed on {{var quote.getCreatedAtFormated('long')}}.
+                            </p><br>
+
+                            <p>View <a href="{{var quoteUrl}}" style="color:#1E7EC8;">this Quote Request</a> (You will be redirected to your Admin Panel)</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

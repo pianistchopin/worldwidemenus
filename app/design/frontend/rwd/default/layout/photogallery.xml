@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Photo Photogallery & Products Photogallery extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    Photogallery
+ * @copyright  Copyright 2010 © free-magentoextensions.com All right reserved
+ */
+
+/**
+ * @category   Photogallery
+ * @package    Photogallery
+ * @author     Kamran Rafiq Malik <kamran.malik@unitedsol.net>
+ */
+-->
+<layout version="0.1.0">
+	<default>
+	
+		
+		<reference name="head">
+			 <action method="addCss"><stylesheet>css/fmegallery/cubeportfoliocss.css</stylesheet></action>	
+			<!-- Inlcude jquery-1.9.1.min.js and jquery-migrate-1.1.1.js only if you are not using jquery before or lower version .Otherwise comments below tow libraries -->
+			 
+			 <!-- <action method="addJs"><script>fmegallery/block/jquery-migrate-1.1.1.min.js</script></action>   -->
+<!-- Inlcude jquery-1.9.1.min.js and jquery-migrate-1.1.1.js only if you are not using jquery before or lower version .Otherwise comments above tow libraries -->
+			 <!-- <action method="addJs"><script>fmegallery/block/jquery.easing.js</script></action>
+			 <action method="addJs"><script>fmegallery/block/blockview.js</script></action> -->
+		</reference>
+
+	</default>
+	<photogallery_index_index>
+		 <reference name="head">
+			<!-- <action method="addJs"><script>fmegallery/script/jquery-1.8.3.min.js</script></action> -->
+			 <action method="addCss"><stylesheet>css/fmegallery/cubeportfoliocss.css</stylesheet></action>	
+				
+			 <!-- <action method="addJs"><script>fmegallery/script/cubeportfoliojs.js</script></action>
+			 <action method="addJs"><script>fmegallery/script/jquery.confy.js</script></action>
+			 <action method="addJs"><script>fmegallery/script/main.js</script></action> -->
+		</reference> 
+		<reference name="root">
+		    <action method="setTemplate"><template>page/1column.phtml</template></action>
+		    <action method="setHeaderTitle" translate="title" module="photogallery"><title>Photogallery</title></action>
+		</reference>
+		<reference name="content">
+		    <block type="photogallery/photogallery" name="photogallery" template="photogallery/photogallery.phtml" >
+			<!-- <block type="photogallery/view" after="media" name="view" as="galleryview" /> -->
+		    </block>
+		</reference>
+	</photogallery_index_index>
+	<photogallery_view_index>
+		 <reference name="head">
+			<!-- <action method="addJs"><script>fmegallery/script/jquery-1.8.3.min.js</script></action> -->
+			 <action method="addCss"><stylesheet>css/fmegallery/cubeportfoliocss.css</stylesheet></action>	
+				
+			
+		</reference> 
+		<reference name="root">
+		    <action method="setTemplate"><template>page/1column.phtml</template></action>
+		    <action method="setHeaderTitle" translate="title" module="photogallery"><title>Albums</title></action>
+		</reference>
+		<reference name="content">
+		    <block type="photogallery/albums" name="albums" template="photogallery/albums.phtml" >
+			
+		    </block>
+		</reference>
+	</photogallery_view_index>
+	
+	<catalog_product_view >
+		<reference name="head">
+			<action method="addJs" ifconfig="photogallery/list/enablephotogallery"><script>fmegallery/block/jquery-1.9.1.min.js</script></action>
+			<action method="addJs" ifconfig="photogallery/list/enablephotogallery"><script>fmegallery/block/jquery.easing.js</script></action>
+			 <action method="addJs" ifconfig="photogallery/list/enablephotogallery"><script>fmegallery/product/shadowbox.js</script></action>
+			 <action method="addJs" ifconfig="photogallery/list/enablephotogallery"><script>fmegallery/script/owl-carousel/owl.carousel.js</script></action>
+			 <action method="addJs" ifconfig="photogallery/list/enablephotogallery"><script>fmegallery/script/jquery-function.js</script></action>
+			  <action method="addCss" ifconfig="photogallery/list/enablephotogallery"><stylesheet>css/fmegallery/owl.carousel.css</stylesheet></action>	
+			  <action method="addCss" ifconfig="photogallery/list/enablephotogallery"><stylesheet>css/fmegallery/media.css</stylesheet></action>
+			   <action method="addCss" ifconfig="photogallery/list/enablephotogallery"><stylesheet>css/fmegallery/shadowbox.css</stylesheet></action>	
+		</reference>
+		<reference name="content">
+			<block type="photogallery/ProductPhotogallery"  after="media" name="photogallery.info.photogallery" as="photogallery" >
+				<action method="setFromXml"  >
+					<from_xml>yes</from_xml>
+				</action>
+			</block>
+
+			<block type="photogallery/photogalleryblock"  name="your unique name">
+			<action method="setData">
+			<key>block_identifier</key><value>blockone</value>
+			</action>
+			</block>
+
+		</reference>
+	</catalog_product_view>
+	
+	
+</layout> 

@@ -1,0 +1,60 @@
+<?php
+$iconStyle = Mage::helper('adjicon')->getIconsColorArray();
+$textStyle = Mage::helper('adjicon')->getTextIconsColorArray();
+$fontStyle = Mage::helper('adjicon')->getIconSizeArray();
+?>
+
+<style type="text/css">
+    .adjsmall {
+        min-width: <?php echo $fontStyle['adjsmall']['icon']; ?>px;
+        height: <?php echo $fontStyle['adjsmall']['icon']; ?>px;
+        line-height: <?php echo $fontStyle['adjsmall']['icon'] - 2; ?>px;
+        font-size: <?php echo $fontStyle['adjsmall']['font']; ?>px;
+    }
+
+    .adjmedium {
+        min-width: <?php echo $fontStyle['adjmedium']['icon']; ?>px;
+        height: <?php echo $fontStyle['adjmedium']['icon']; ?>px;
+        line-height: <?php echo $fontStyle['adjmedium']['icon'] - 2; ?>px;
+        font-size: <?php echo $fontStyle['adjmedium']['font']; ?>px;
+    }
+
+    .adjlarge {
+        min-width: <?php echo $fontStyle['adjlarge']['icon']; ?>px;
+        height: <?php echo $fontStyle['adjlarge']['icon']; ?>px;
+        line-height: <?php echo $fontStyle['adjlarge']['icon'] - 2; ?>px;
+        font-size: <?php echo $fontStyle['adjlarge']['font']; ?>px;
+    }
+
+    .adjoption {
+        min-width: <?php echo $fontStyle['adjoption']['icon']; ?>px;
+        height: <?php echo $fontStyle['adjoption']['icon']; ?>px;
+        line-height: <?php echo $fontStyle['adjoption']['icon'] - 2; ?>px;
+        font-size: <?php echo $fontStyle['adjoption']['font']; ?>px;
+    }
+    <?php foreach($iconStyle as $key => $style) : ?>
+    .icons-<?php echo $key; ?>.icon0 span, .icons-<?php echo $key; ?>.icon1 span, .icons-<?php echo $key; ?>.icon2 span,
+    .icons-<?php echo $key; ?>.icon3, .icons-<?php echo $key; ?>.icon4, .icons-<?php echo $key; ?>.icon5 {
+        background: <?php echo $style; ?>;
+    }
+
+    .icons-<?php echo $key; ?>.icon0.adjdef:hover, .icons-<?php echo $key; ?>.icon1.adjdef:hover, .icons-<?php echo $key; ?>.icon2.adjdef:hover,
+    .icons-<?php echo $key; ?>.icon0.adjselected, .icons-<?php echo $key; ?>.icon1.adjselected, .icons-<?php echo $key; ?>.icon2.adjselected {
+        color: <?php echo $style; ?>;
+        box-shadow: 0 0 0 2px <?php echo $style; ?>;
+    }
+    <?php endforeach; ?>
+
+    <?php foreach($textStyle as $key => $style) : ?>
+    .icons-<?php echo $key; ?>.icon0.adjprod, .icons-<?php echo $key; ?>.icon1.adjprod, .icons-<?php echo $key; ?>.icon2.adjprod,
+    .icons-<?php echo $key; ?>.icon0.adjdef, .icons-<?php echo $key; ?>.icon1.adjdef, .icons-<?php echo $key; ?>.icon2.adjdef,
+    .icons-<?php echo $key; ?>.icon0.adjdisabled, .icons-<?php echo $key; ?>.icon1.adjdisabled, .icons-<?php echo $key; ?>.icon2.adjdisabled,
+    .icons-<?php echo $key; ?>.icon3, .icons-<?php echo $key; ?>.icon4, .icons-<?php echo $key; ?>.icon5 {
+        color: <?php echo $style; ?>;
+    }
+    .icons-<?php echo $key; ?>.icon0.adjdef:hover, .icons-<?php echo $key; ?>.icon1.adjdef:hover, .icons-<?php echo $key; ?>.icon2.adjdef:hover,
+    .icons-<?php echo $key; ?>.icon0.adjselected, .icons-<?php echo $key; ?>.icon1.adjselected, .icons-<?php echo $key; ?>.icon2.adjselected{
+        background: <?php echo $style; ?>;
+    }
+    <?php endforeach; ?>
+</style>

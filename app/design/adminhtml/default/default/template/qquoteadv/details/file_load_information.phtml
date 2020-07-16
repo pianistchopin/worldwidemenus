@@ -1,0 +1,120 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+if (!isset($disabledHtml)){
+    $disabledHtml = "";
+}
+if (!isset($disabledHtmlRadio)){
+    $disabledHtmlRadio = "";
+}
+?>
+<?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_ATTACH_FILE_TO_PROPOSAL_EMAIL)): ?>
+<div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('File Upload') ?></h4>
+</div>
+
+<div class="grip np ">
+    <div class="fieldset">
+        <table cellspacing="0" class="form-list" border="0">
+            <tbody>
+            <tr>
+                <td class="file_label use-default" style="width: 50px;"><label for="file_title"
+                                                          class="normal"><?php echo Mage::helper('sales')->__('Title'); ?></label></td>
+                <td style="vertical-align:middle;"><input maxlength="150" class="file_title" id="file_title"
+                                                         name="file_title" type="text"
+                                                         value="<?php if ($quoteModel->getData('file_title')) {
+                                                             echo $this->escapeHtml($quoteModel->getData('file_title'));
+                                                         } ?>"
+                                                         style="min-width: 250px;" <?php echo $disabledHtml; ?> />
+                </td>
+            </tr>
+            <?php
+            $path = Mage::helper('qquoteadv')->isValidHttp($quoteModel->getData('path'));
+            $urlPath = $filePath = '';
+            if (empty($path)) {
+                $filePath = $quoteModel->getData('path');
+            } else {
+                $urlPath = $path;
+            }
+            ?>
+
+            <tr>
+                <td class="fl use-default"><input id="idUrl" name="path_info" type="radio" value="url"
+                        <?php echo (!empty($urlPath) ? 'checked="checked"' : $disabledHtmlRadio); ?>
+                        />&nbsp;<?php echo $this->__('Url'); ?>
+                </td>
+
+                <td style="vertical-align:middle;"><input class="file_title" type="text" name="url_path" id="url_path"
+                                                         onclick="if($('idUrl')) $('idUrl').checked=true; if($('idFile')) $('idFile').checked=false;"
+                                                         value="<?php if (!empty($urlPath)) {
+                                                             echo $quoteModel->getData('path');
+                                                         } ?>"
+                                                        style="min-width: 250px;" <?php echo $disabledHtml; ?> />
+                </td>
+            </tr>
+            <tr>
+                <td class="fl use-default"><input id="idFile" name="path_info" type="radio" value="file"
+                        <?php echo (!empty($urlPath) ? 'checked="checked"' : $disabledHtmlRadio); ?>
+                        />&nbsp;<?php echo Mage::helper('adminhtml')->__('File'); ?>
+                </td>
+
+                <td style="vertical-align:middle;"><input id="file_path" type="file" name="file_path"
+                                                         onclick="if($('idUrl')) $('idUrl').checked=false; if($('idFile')) $('idFile').checked=true;" <?php echo $disabledHtmlRadio; ?>>
+                    <?php
+                    if (!empty($filePath)) {
+                        $path = Mage::getModel('qquoteadv/qqadvcustomer')->getUploadPath(array('dir' => $quoteModel->getData('quote_id'), 'file' => $filePath));
+                        echo '<br /><a href="' . $path . '">' . $filePath . '</a>';
+                    }
+                    ?>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/javascript">
+    function checkUploadTitle() {
+        if ($('url_path').value != "" || $('file_path').value != "") {
+            if (!$('file_title').hasClassName('required-entry')) {
+                $('file_title').addClassName('required-entry');
+            }
+            var xForm = new varienForm('edit_form', '');
+            if (xForm.validator && !xForm.validator.validate()) {
+                $('loading-mask').hide();
+                return false;
+            }
+        } else {
+            if ($('file_title').hasClassName('required-entry')) {
+                $('file_title').removeClassName('required-entry');
+            }
+        }
+        return true;
+    }
+</script>

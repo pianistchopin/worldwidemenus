@@ -1,0 +1,66 @@
+<?php
+/**
+ * Photo Photogallery & Products Photogallery extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    Photogallery
+ * @copyright  Copyright 2010 © free-magentoextensions.com All right reserved
+ */
+
+/**
+ * @category   Photogallery
+ * @package    Photogallery
+ * @author     Kamran Rafiq Malik <kamran.malik@unitedsol.net>
+ */
+?>
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/jquery.min.js') ?>" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js')?>fmegallery/script/jquery-ui.min.js"></script>
+
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/jquery.prettyPhoto.js') ?>" type="text/javascript"></script>
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/portfolio-setter.js') ?>" type="text/javascript"></script>
+
+<?php
+Mage::helper('photogallery')->generateXML();	
+?>
+<script type="text/javascript">
+	jQuery.noConflict()
+    jQuery(document).ready(function(){
+		jQuery('#photogallery').portfolioSetter({  
+			xmlSource : '<?php echo Mage::getBaseUrl('media')."gallery/"?>photogallery.xml',    
+			itemsPerPage: <?php echo Mage::helper('photogallery')->getPgImagesperpage(); ?>,   
+			pageWidth: '100%',
+			pageHeight:'auto',   
+			itemMargin:<?php echo Mage::helper('photogallery')->getThumbmargin(); ?>,    
+			showCategories: <?php echo Mage::helper('photogallery')->getPgShowcategories(); ?>,    
+			allText: 'ALL',
+			easing: 'easeOutExpo',   
+			animationSpeed: <?php echo Mage::helper('photogallery')->getAnimationSpeed(); ?>,   
+			navButtonWidth:<?php echo Mage::helper('photogallery')->getPgNavwidth(); ?>,   
+			wavyAnimation:<?php echo Mage::helper('photogallery')->getWavyAnimation(); ?>,	
+			
+			//Light Box Options
+			LGtheme:'<?php echo Mage::helper('photogallery')->getLightboxTheme(); ?>',
+			LGslideshow:'<?php echo Mage::helper('photogallery')->getLightboxSlideShow(); ?>',
+			LGautoplay:'<?php echo Mage::helper('photogallery')->getLightboxAutoplay(); ?>',
+			LGopacity:'<?php echo Mage::helper('photogallery')->getLightboxOpacity(); ?>',
+			LGshowtitle:'<?php echo Mage::helper('photogallery')->getLightboxShowTitle(); ?>',
+			LGwidth:'<?php echo Mage::helper('photogallery')->getLightboxWidth(); ?>',
+			LGheight:'<?php echo Mage::helper('photogallery')->getLightboxHeight(); ?>'
+			
+			
+		});
+    });
+</script>
+
+<div id="main_container">
+  <div class="center">
+    <div id="photogallery"></div>
+  </div>
+</div>

@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Crmaddon
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<config>
+    <modules>
+        <Ophirah_Crmaddon>
+            <version>1.0.4</version>
+        </Ophirah_Crmaddon>
+    </modules>
+    <global>
+        <models>
+            <crmaddon>
+                <class>Ophirah_Crmaddon_Model</class>
+                <resourceModel>crmaddon_Mysql4</resourceModel>
+            </crmaddon>
+            <crmaddon_Mysql4>
+                <class>Ophirah_Crmaddon_Model_Mysql4</class>
+                <entities>
+                    <crmaddonmessages>
+                        <table>quoteadv_crmaddon_messages</table>
+                    </crmaddonmessages>
+                    <crmaddontemplates>
+                        <table>quoteadv_crmaddon_templates</table>
+                    </crmaddontemplates>
+                </entities>
+            </crmaddon_Mysql4>
+        </models>
+        <resources>
+            <crmaddon_setup>
+                <setup>
+                    <module>Ophirah_Crmaddon</module>
+                    <class>Ophirah_Crmaddon_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </crmaddon_setup>
+            <crmaddon_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </crmaddon_write>
+            <crmaddon_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </crmaddon_read>
+        </resources>
+        <blocks>
+            <crmaddon>
+                <class>Ophirah_Crmaddon_Block</class>
+            </crmaddon>
+            <qquoteadv>
+                <rewrite>
+                    <adminhtml_qquoteadv_edit>Ophirah_Crmaddon_Block_Adminhtml_Crmaddon_Edit</adminhtml_qquoteadv_edit>
+                </rewrite>
+            </qquoteadv>
+        </blocks>
+        <helpers>
+            <crmaddon>
+                <class>Ophirah_Crmaddon_Helper</class>
+            </crmaddon>
+        </helpers>
+        <template>
+            <email>
+                <qquoteadv_sales_representatives_messaging_crmaddon_container translate="label" module="crmaddon">
+                    <label>CRM addon Email container</label>
+                    <file>crmaddon/crmaddon_container.html</file>
+                    <type>html</type>
+                </qquoteadv_sales_representatives_messaging_crmaddon_container>
+                <qquoteadv_sales_representatives_messaging_crmaddon_container_customer translate="label" module="crmaddon">
+                    <label>CRM addon Email two way customer</label>
+                    <file>crmaddon/crmaddon_container_twoway_forcustomer.html</file>
+                    <type>html</type>
+                </qquoteadv_sales_representatives_messaging_crmaddon_container_customer>
+                <qquoteadv_sales_representatives_messaging_crmaddon_container_admin translate="label" module="crmaddon">
+                    <label>CRM addon Email two way admin</label>
+                    <file>crmaddon/crmaddon_container_twoway_foradmin.html</file>
+                    <type>html</type>
+                </qquoteadv_sales_representatives_messaging_crmaddon_container_admin>
+            </email>
+        </template>
+        <events>
+            <ophirah_crmaddon_send_after_save>
+                <observers>
+                    <add_attachment>
+                        <class>crmaddon/observer_attachment</class>
+                        <method>addAttachment</method>
+                    </add_attachment>
+                </observers>
+            </ophirah_crmaddon_send_after_save>
+            <ophirah_crmaddon_send_after_save>
+                <observers>
+                    <change_status>
+                        <class>crmaddon/observer_status</class>
+                        <method>setReadStatus</method>
+                    </change_status>
+                </observers>
+            </ophirah_crmaddon_send_after_save>
+            <ophirah_crmaddon_addSendMail_before>
+                <observers>
+                    <ophirah_crmaddon_send_email_before>
+                        <class>crmaddon/observer_email</class>
+                        <method>ophirahCrmaddonSendEmailBefore</method>
+                    </ophirah_crmaddon_send_email_before>
+                </observers>
+            </ophirah_crmaddon_addSendMail_before>
+        </events>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <crmaddon before="Mage_Adminhtml">Ophirah_Crmaddon_Adminhtml</crmaddon>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <crmaddon>
+                    <file>crmaddon.xml</file>
+                </crmaddon>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Ophirah_Crmaddon>
+                    <files>
+                        <default>Ophirah_Crmaddon.csv</default>
+                    </files>
+                </Ophirah_Crmaddon>
+            </modules>
+        </translate>
+    </adminhtml>
+    <frontend>
+        <secure_url>
+            <crmaddon_message>/crmaddon/message/</crmaddon_message>
+        </secure_url>
+        <layout>
+            <updates>
+                <crmaddon>
+                    <file>crmaddon.xml</file>
+                </crmaddon>
+            </updates>
+        </layout>
+        <routers>
+            <crmaddon>
+                <use>standard</use>
+                <args>
+                    <module>Ophirah_Crmaddon</module>
+                    <frontName>crmaddon</frontName>
+                </args>
+            </crmaddon>
+        </routers>
+    </frontend>
+    <default>
+        <qquoteadv_sales_representatives>
+            <messaging translate="default_description" module="crmaddon">
+                <enabled>1</enabled>
+                <enabled_customer>1</enabled_customer>
+                <crmaddon_shortmsg>100</crmaddon_shortmsg>
+                <crmaddon_container>qquoteadv_sales_representatives_messaging_crmaddon_container_customer</crmaddon_container>
+                <crmaddon_container_admin>qquoteadv_sales_representatives_messaging_crmaddon_container_admin</crmaddon_container_admin>
+            </messaging>
+        </qquoteadv_sales_representatives>
+    </default>
+</config>

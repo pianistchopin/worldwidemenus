@@ -1,0 +1,38 @@
+<!--@subject Confirmación de cuenta para {{var customer.name}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var customer.email":"Customer Email",
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url"}
+@-->
+
+<!--@styles
+@-->
+
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td class="action-content">
+            <h1>{{block type="cms/block" block_id="email_template_say_hello"}} {{htmlescape var=$customer.name}}</h1>
+            <p>Tendrá que confirmar su dirección de correo electrónico {{var customer.email}} antes de poder usarlo para iniciar sesión en nuestra tienda.</p>
+            <p>Clic acá ara confirmar la dirección de correo electrónico e iniciar sesión de forma instantánea (el enlace puede usarse sólo una vez):</p>
+            <table cellspacing="0" cellpadding="0" class="action-button" >
+                <tr>
+                    <td>
+                        <a href="{{store url="customer/account/confirm/" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url}}"><span>Confirmar la cuenta</span></a>
+                    </td>
+                </tr>
+            </table>
+            <p>
+                {{block type="cms/block" block_id="email_template_contact"}}
+            </p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

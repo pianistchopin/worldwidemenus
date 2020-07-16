@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FME
+ * @package    	Local
+ * @copyright  	Copyright 2010 © free-magentoextensions.com All right reserved 
+ * (http://free-magentoextensions.com/) 
+ */
+-->
+<config>
+    <modules>
+        <FME_Photogallery>
+            <active>true</active>
+            <codePool>local</codePool>
+            <extensionName><![CDATA[FME Photogallery]]></extensionName>
+        </FME_Photogallery>
+    </modules>
+</config> 

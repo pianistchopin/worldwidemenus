@@ -1,0 +1,35 @@
+diff -aurBb /home/httpd/htdocs/users/rastorguev/manew131/var/ait_patch_orig/compare84612429729784a16433244fa8 /home/httpd/htdocs/users/rastorguev/manew131/var/ait_patch_modif/compare84612429729784a16433244fa8
+--- option.phtml	2011-03-23 18:29:14 +0200
++++ option_.phtml	2011-05-18 09:32:29 +0300
+@@ -145,6 +145,10 @@
+                 template = OptionTemplateFile;
+                 group = 'file';
+                 break;
++            case 'aitcustomer_image':
++                template = OptionTemplateCg;
++                group = 'cgfile';
++                break;
+             case 'drop_down':
+             case 'radio':
+             case 'checkbox':
+@@ -226,6 +229,10 @@
+                 template = OptionTemplateFile;
+                 group = 'file';
+                 break;
++            case 'aitcustomer_image':
++                template = OptionTemplateCg;
++                group = 'cgfile';
++                break;
+             case 'drop_down':
+             case 'radio':
+             case 'checkbox':
+@@ -267,6 +274,9 @@
+                 });
+                 selectOptionType.bindAddButton();
+                 break;
++            case 'aitcustomer_image':
++                aitcgImageSelector.setOptionId(data.id, data.image_template_id);
++                break;
+         }
+ 
+         if (data.price_type) {

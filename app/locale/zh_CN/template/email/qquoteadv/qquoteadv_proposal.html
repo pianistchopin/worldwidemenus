@@ -1,0 +1,107 @@
+<!--@subject {{var quote.getStoreGroupName()}}: New Proposal for Quote request # {{var quote.increment_id}} @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td align="center" valign="top" style="padding:20px 0 20px 0;">
+                <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650"
+                       style="border:1px solid #E0E0E0;">
+                    <!-- [ header starts here] -->
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                    <!-- [ middle starts here] -->
+                    <tr>
+                        <td valign="top">
+                            <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">你好 {{htmlescape var=$customer.name}},</h1>
+
+                            <p style="font-size:12px; line-height:16px; margin:0;">
+                                感谢你的询价请求{{var quote.getStoreGroupName()}}.
+                                {{if attach_pdf}}<br><br>你会发现我们的报价单在附加的PDF档案中。{{/if}}
+                                {{if attach_doc}}我们的条款和条件也附加为PDF档案中。{{/if}}
+                                <br>要查看所有明细，编辑或接受这个报价单，请在客户仪表盘中点开 <a style="color:#1E7EC8;"
+                                                                                               href="{{var link}}">我的
+                                询价单</a> 。
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h2 style="font-size:18px; font-weight:normal; margin:0;">你的询价单 #{{var
+                                quote.increment_id}}
+                                <small>(放在 {{var quote.getCreatedAtFormated('long')}})</small>
+                            </h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellspacing="0" cellpadding="0" border="0" width="650">
+                                <thead>
+                                <tr>
+                                    <th align="left" width="325" bgcolor="#EAEAEA"
+                                        style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">运送信息:
+                                    </th>
+                                    <th width="10"></th>
+                                    <th align="left" width="325" bgcolor="#EAEAEA"
+                                        style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">备注与请求
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td valign="top"
+                                        style="font-size:12px; padding:7px 9px 9px 9px; border-left:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; border-right:1px solid #EAEAEA;">
+                                        {{var quote.getShippingAddressFormatted()}}
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td valign="top"
+                                        style="font-size:12px; padding:7px 9px 9px 9px; border-left:1px solid #EAEAEA; border-bottom:1px solid #EAEAEA; border-right:1px solid #EAEAEA;">
+                                        {{htmlescape var=$quote.getClientRequest()}}&nbsp;
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            {{layout handle="qquoteadv_email_qquoteadv_items" quote=$quote autoproposal=1}} <br>
+
+                            <p><i>条件：{{depend remark}}<br/>{{var remark}}<br/>{{/depend}}</i><br>
+                                如果你对你的报价请求有任何疑问，请与我们联系： <a
+                                        href="mailto:{{config path='trans_email/ident_support/email'}}"
+                                        style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> 或致电 <span class="nobr">{{config path='general/store_information/phone'}}</span>
+                                周一 - 周五，上午8时 - 下午5点。 {{depend adminname}}建立询价单经由： {{var
+                                adminname}}{{/depend}}
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellspacing="0" cellpadding="0" border="0">
+                                <thead>
+                                <tr>
+                                    <th align="left" width="325" bgcolor="#EAEAEA"
+                                        style="font-size:13px; padding:5px 9px 6px 9px; line-height:1em;">
+                                        附加档案:
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {{var quote.getFileUploadsToHtmlStatic()}}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;">
+                            <center><p style="font-size:12px; margin:0;">谢谢, <strong>{{var
+                                quote.getStoreGroupName()}}</strong></p></center>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

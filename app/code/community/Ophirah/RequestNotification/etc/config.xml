@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<config>
+    <modules>
+        <Ophirah_RequestNotification>
+            <version>1.0.0</version>
+        </Ophirah_RequestNotification>
+    </modules>
+    <global>
+        <helpers>
+            <Ophirah_RequestNotification>
+                <class>Ophirah_RequestNotification_Helper</class>
+            </Ophirah_RequestNotification>
+        </helpers>
+        <models>
+            <Ophirah_RequestNotification>
+                <class>Ophirah_RequestNotification_Model</class>
+            </Ophirah_RequestNotification>
+        </models>
+        <events>
+            <qquoteadv_qqadvcustomer_after_quoterequestaction>
+                <observers>
+                    <Ophirah_RequestNotification>
+                        <type>singleton</type>
+                        <class>Ophirah_RequestNotification/Observer</class>
+                        <method>sendQuoteRequestNotification</method>
+                    </Ophirah_RequestNotification>
+                </observers>
+            </qquoteadv_qqadvcustomer_after_quoterequestaction>
+        </events>
+        <template>
+            <email>
+                <qquoteadv_quote_emails_templates_quote_request_notification translate="label" module="Ophirah_RequestNotification">
+                    <label>cart2quote request notification</label>
+                    <file>qquoteadv/qquoteadv_request_notification.html</file>
+                    <type>html</type>
+                </qquoteadv_quote_emails_templates_quote_request_notification>
+                <qquoteadv_quote_emails_templates_quote_request_notification_responsive translate="label" module="Ophirah_RequestNotification">
+                    <label>cart2quote request notification responsive</label>
+                    <file>qquoteadv/qquoteadv_responsive_request_notification.html</file>
+                    <type>html</type>
+                </qquoteadv_quote_emails_templates_quote_request_notification_responsive>
+                <qquoteadv_quote_emails_templates_quote_request_notification_free translate="label" module="qquoteadv">
+                    <label>cart2quote request details (free)</label>
+                    <file>qquoteadv/qquoteadv_request_notification_free.html</file>
+                    <type>html</type>
+                </qquoteadv_quote_emails_templates_quote_request_notification_free>
+            </email>
+        </template>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Ophirah_RequestNotification before="-">Ophirah_RequestNotification_Adminhtml</Ophirah_RequestNotification>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

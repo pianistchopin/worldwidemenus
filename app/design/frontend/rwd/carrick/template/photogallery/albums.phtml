@@ -1,0 +1,79 @@
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<style>
+div.albumimg {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}	
+
+div.albumimg:hover {
+    border: 1px solid #777;
+}
+
+div.albumimg img {
+    width: 100%;
+    height: auto;
+}
+
+div.albumdesc {
+    padding: 15px;
+    text-align: center;
+}
+</style>
+<?php $collection = $this->getCollection();
+ ?>
+ 
+<?php echo $this->getLayout()->createBlock('flexslider/view')->setTemplate('flexslider/template.phtml')->setCode('galleries')->setStartSlideId('1')->toHtml(); ?>
+
+<div class="page-title">
+    <h1><?php echo Mage::helper('photogallery')->__('Albums') ?></h1>
+</div>
+<?php //echo $this->getPagerHtml(); ?>
+<?php if($collection->getSize()): ?>
+<div class="wrapper gallery-container" style="min-width: 100%;">
+
+           
+
+            <div id="grid-container" class="cbp-l-grid-projects">
+                <ul>
+               
+                <?php foreach ($collection as $_obj):?> 
+                
+                    
+                <li class="<?php echo 'cbp-item '. $_obj->getGalleryId();?>">
+                        <div class="cbp-caption">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="<?php echo  Mage::getBaseUrl('media') .$_obj->getMainImages(); ?>" alt="<?php echo $_obj->getTitle(); ?>" width="100%" height="100%"></div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignCenter">
+                                    <div class="cbp-l-caption-body">
+                                        <a href="<?php echo Mage::getUrl().Mage::helper('photogallery')->getListIdentifier() .DS .$_obj->getGalleryIdentifier(); ?>" class=" cbp-l-caption-buttonRight"><?php echo $this->__('View Album') ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cbp-l-grid-projects-title"><?php echo Mage::helper('photogallery')->__($_obj->getGalleryTitle()); ?></div>
+                        <div class="cbp-l-grid-projects-desc"><?php //echo $description ?></div>
+                    </li>
+               
+                    <?php endforeach; ?>
+                    
+                </ul>
+                </div>
+
+
+       
+    
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('No Albums found.'); ?></p>
+<?php endif ?>
+              
+
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/jquery-1.9.1.min.js') ?>" type="text/javascript"></script>
+
+
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/cubeportfoliojs.js') ?>" type="text/javascript"></script>
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/main.js') ?>" type="text/javascript"></script>
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/jquery.confy.js') ?>" type="text/javascript"></script>

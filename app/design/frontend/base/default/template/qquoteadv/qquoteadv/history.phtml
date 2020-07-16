@@ -1,0 +1,139 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?php $_quotes = $this->getQquotesadv(); ?>
+<div class="page-title">
+    <h1><?php echo $this->__('My Quotes') ?></h1>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<form action="" method="get" ">
+<table cellspacing="0" class="data-table" id="my-orders-table">
+    <thead>
+    <tr>
+        <th style="width: 50px;"><?php echo $this->__('Quote #') ?></th>
+        <th style="width: 200px;"><?php echo Mage::helper('sales')->__('Date') ?></th>
+        <th style="width: 50px;"><?php echo $this->__('Quote Status') ?></th>
+        <th>
+            <span id="filterQuote"
+                  style="float:right;"
+                  onclick="toggleSearchTable(
+                      this,
+                      'searchQuotes',
+                      'width: 100px',
+                      '<?php echo $this->__('Hide Filter')?>',
+                      '<?php echo $this->__('Show Filter')?>' )">
+                <a>
+                    <label><?php echo $this->__('Filter quotes')?></label>
+                </a>
+            </span>
+        </th>
+    </tr>
+    </thead>
+
+    <?php $_odd = ''; ?>
+
+    <tr id="searchQuotes" style="<?php echo $this->getShowFilter()?>">
+        <td>
+            <input
+                value="<?php echo $this->getRequestData('id'); ?>"
+                name="id"
+                style="width: 60px;">
+        </td>
+        <td>
+            <label style="width: 40px; "><?php echo $this->__('From')?></label>
+            <input value="<?php echo $this->getRequestData('from'); ?>"
+                   style="width: 130px;"
+                   type="date"
+                   name="from">
+            <br />
+            <label style="width: 40px; " ><?php echo $this->__('To')?></label>
+            <input value="<?php echo $this->getRequestData('to'); ?>"
+                   style="width: 130px;"
+                   type="date"
+                   name="to">
+        </td>
+        <td>
+            <select name="status"
+                    value="<?php echo $this->getFilterSetting('status'); ?>">
+                <?php
+                echo $this->getSortListForStatus();
+                ?>
+            </select>
+        </td>
+        <td>
+            <button type="submit" value="submit" style="width: 90px;"><?php echo $this->__('Search')?></button>
+            <button style="width: 90px" onclick="event.preventDefault(); location.href='/qquoteadv/view/history/';" value="Refresh"><?php echo $this->__('Reset')?></button>
+            <br/><br/>
+        </td>
+    </tr>
+    </form>
+    <tbody>
+    <?php if ($_quotes->getSize()): ?>
+    <?php foreach ($_quotes as $_item): ?>
+        <tr>
+            <td><?php echo ($_item->getIncrementId()) ? $_item->getIncrementId() : $_item->getQuoteId() ?></td>
+            <td><?php echo $this->formatDate($_item->getCreatedAt()) ?></td>
+
+            <?php if ($_item->getStatus() != Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_SAVED
+                && $_item->getStatus() != Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_BEGIN): ?>
+                <td>
+                    <em><?php echo $this->__($this->getStatusLabel($_item->getStatus())) ?></em>
+                </td>
+                <td class="a-center">
+                    <a href="<?php echo $this->getViewUrl($_item) ?>"><?php echo $this->__('View Quote') ?></a>
+                    <?php /*<span class="separator">|</span><a href="<?php echo $this->getTrackUrl($_order) ?>"><?php echo Mage::helper('sales')->__('Track Order') ?></a>&nbsp;*/ ?>
+                    <?php /*if ($this->helper('sales/reorder')->canReorder($_order)) :*/ ?>
+                    <!-- <span class="separator">|</span> -->
+                    <!-- <a href="<?php echo $this->getReorderUrl($_item) ?>" style="font-weight: bold; color: #FF6600;"><?php echo $this->__('Reorder') ?></a>-->
+                    <?php /*endif*/ ?>
+                </td>
+            <?php else: ?>
+                <td>
+                    <em><?php echo $this->__('In Process') ?></em>
+                </td>
+                <td class="a-center">
+                    &nbsp;
+                </td>
+            <?php endif; ?>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+<?php else: ?>
+    <tbody >
+    <tr>
+        <td colspan="5">
+            <label>
+                <?php echo $this->getUserFilterSet() ?>
+            </label>
+        </td>
+    </tr>
+    </tbody>
+<?php endif; ?>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table')</script>
+<?php echo $this->getPagerHtml(); ?>

@@ -1,0 +1,59 @@
+<!--@subject Welcome, {{htmlescape var=$customer.name}}! @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=''}}"><img src="{{var logo_url}}"
+                            alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p><strong>亲爱的 {{htmlescape var=$customer.name}}</strong>,<br/>
+                                欢迎光临示范商店。我们为了可以处理您的请求须建立您的账户。在很短的时间，您将收到讯息来确认你的这个询价请求。你可以利用下面的讯息来登录并追踪我们的回复状态。
+
+                            <p style="border:1px solid #BEBCB7; padding:13px 18px; background:#F8F7F5; ">
+                                当系统提示您登录使用下列数据:<br/>
+                                电子邮箱: {{var customer.email}}<br/>
+                                密码: {{htmlescape var=$customer.password}}
+
+                            <p>
+
+                            <p>当你登录到你的账户，你将能够做到以下几点:</p>
+
+                            <ul>
+                                <li>编辑，拒绝与接受报价单的内容</li>
+                                <li>检查订单和询价的状态</li>
+                                <li>查看过去的订单，并重新排序</li>
+                                <li>更改你的帐户数据</li>
+                                <li>更改你的密码</li>
+                                <li>储存替代住址（运送到多个家庭成员和朋友们！ ）
+                                </li>
+                            </ul>
+
+                            <p>如果你对你的帐户或任何其他事项有任何疑问，请随时联系我们<a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+                                或致电 <span class="nobr">{{config path='general/store_information/phone'}}</span>.</p>
+
+                            <p>谢谢!</p>
+
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,60 @@
+<?php
+/**
+ * @category    Solide Webservices
+ * @package     Flexslider
+ */
+?>
+
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('flexslider')->__('Information') ?></h4>
+	</div>
+	<fieldset id="xml-info">
+		<p>For more flexibility on where to place this slider group you can use a CMS template tag, template code or Layout XML code to add this slider group to any page or static block. The following template tags or XML code can be used to display the <strong><?php echo $this->getCurrentGroup()->getTitle() ?></strong> slider group in your webshop.</p>
+		<p>Instead of selecting a page or category to display the <strong><?php echo $this->getCurrentGroup()->getTitle() ?></strong> slider group you can copy one of the codes below and paste it into either the content editor of a CMS page or static block (for template tag), a template file (for template code) or a Layout XML file or a Custom Layout Update XML field of a CMS page or category (Layout XML code). You can change the reference name parameter to position the group where you want it to show in the CMS page or category. You can use the start_slide_id parameter to set the starting slide of the group. This only works when a slider group is not set to random.</p>
+	</fieldset>
+</div>
+
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('flexslider')->__('CMS Template Tag (content editor)') ?></h4>
+	</div>
+	<fieldset id="template-tag">
+		<div class="fieldset">
+<textarea id="flexslider-template-tag" rows="1" cols="150" onclick="this.focus();this.select()" readonly="readonly">
+&#123;&#123;block type="flexslider/view" name="flexslider_<?php echo $this->getCurrentGroup()->getCode() ?>" template="flexslider/template.phtml" code="<?php echo $this->getCurrentGroup()->getCode() ?>" start_slide_id="1"&#125;&#125;
+</textarea>
+		</div>
+	</fieldset>
+</div>
+
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('flexslider')->__('Template Code (template file)') ?></h4>
+	</div>
+	<fieldset id="template-code">
+		<div class="fieldset">
+<textarea id="flexslider-template-code" rows="1" cols="150" onclick="this.focus();this.select()" readonly="readonly">
+&#60;?php echo $this->getLayout()->createBlock('flexslider/view')->setTemplate('flexslider/template.phtml')->setCode('<?php echo $this->getCurrentGroup()->getCode() ?>')->setStartSlideId('1')->toHtml(); ?&#62;
+</textarea>
+		</div>
+	</fieldset>
+</div>
+
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('flexslider')->__('XML Code (layout xml code)') ?></h4>
+	</div>
+	<fieldset id="xml-code">
+		<div class="fieldset">
+<textarea id="flexslider-code" rows="6" cols="150" onclick="this.focus();this.select()" readonly="readonly">
+&lt;reference name="content"&gt;
+&lt;block type="flexslider/view" name="flexslider_<?php echo $this->getCurrentGroup()->getCode() ?>" template="flexslider/template.phtml"&gt;
+&lt;action method="setCode"&gt;&lt;code&gt;<?php echo $this->getCurrentGroup()->getCode() ?>&lt;/code&gt;&lt;/action&gt;
+&lt;action method="setStartSlideId"&gt;&lt;start_slide_id&gt;1&lt;/start_slide_id&gt;&lt;/action&gt;
+&lt;/block&gt;
+&lt;/reference&gt;
+</textarea>
+		</div>
+	</fieldset>
+</div>

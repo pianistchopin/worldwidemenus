@@ -1,0 +1,62 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<script type="text/javascript">
+    var fileRowNumber = 0;
+</script>
+<div class="client-data box">
+    <h4>
+        <?php echo Mage::helper('qquoteadv')->__('Add file to Quote') ?>
+    </h4>
+    <table cellspacing="0" id="fileUpload" class="form-list" border="0">
+        <thead>
+        <tr>
+            <th style="width:175px; vertical-align:middle;"><?php echo $this->__('Title') ?></th>
+            <th style="width:40px; vertical-align:middle;"><?php echo $this->__('File') ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="vertical-align:middle;width: 60%;padding-right: 10px;">
+                <input maxlength="150" class="file_title" id="file_title_0" name="file_title_0" type="text" style="min-width: 150px;margin-right: 10px;" />
+            </td>
+            <td style="vertical-align:middle;">
+                <input id="file_path_0" type="file" name="file_path_0" style="border:none"oninput="newUploadRow()" />
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr onclick="newUploadRow(fileRowNumber)" style="cursor: pointer;">
+            <td>
+                <span style="margin-top:20px;" >
+                    <p><i><?php echo $this->__('Add another file') ?></i></p>
+                </span>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

@@ -1,0 +1,62 @@
+﻿<!--@subject Welcome, {{htmlescape var=$customer.name}}! @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=''}}"><img src="{{var logo_url}}"
+                            alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p><strong>Prezado(a) {{htmlescape var=$customer.name}}</strong>,<br/>
+                                Bem-vindo á {{var quote.getStoreGroupName()}}. Uma conta foi criada para você acessar seus pedidos. Em breve
+                                você receberá uma confirmação do seu pedido de cotação. Você pode usar os dados a seguir
+                                para entrar e acompanhar o andamento do seu pedido.
+
+                            <p style="border:1px solid #BEBCB7; padding:13px 18px; background:#F8F7F5; ">
+                                Use os seguintes informações para entrar na sua conta:<br/>
+                                E-mail: {{var customer.email}}<br/>
+                                Senha: {{htmlescape var=$customer.password}}
+
+                            <p>
+
+                            <p>Quando entrar em sua conta, você poderá fazer o seguinte:</p>
+
+                            <ul>
+                                <li>Editar, rejeitar e aceitar propostas de preços</li>
+                                <li>Verificar o andamento dos pedidos e cotações</li>
+                                <li>Ver as compras efetuadas e reordenar</li>
+                                <li>Fazer modificações nas informações da sua conta</li>
+                                <li>Alterar sua senha</li>
+                                <li>Armazenar endereços alternativos</li>
+                            </ul>
+
+                            <p>Se você tem alguma dúvida sobre sua conta ou qualquer outro assunto, por favor, não
+                                hesite em contactar-nos, via email <a href="mailto:{{config path='trans_email/ident_support/email'}}"
+                                                                      style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+                                ou por telefone <span class="nobr">{{config path='general/store_information/phone'}}</span>.</p>
+
+                            <p>Obrigado!</p>
+
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>

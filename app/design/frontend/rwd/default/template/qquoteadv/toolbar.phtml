@@ -1,0 +1,77 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<script>
+    document.observe('dom:loaded', function () {
+
+        var c2qOrder = document.getElementById('c2qOrder');
+        var c2qQuote = document.getElementById('c2qQuote');
+
+        if (c2qOrder && c2qOrder.addEventListener)
+            c2qOrder.addEventListener('click', quoteRedirect, false);
+
+        if (c2qQuote && c2qQuote.addEventListener)
+            c2qQuote.addEventListener('click', orderRedirect, false);
+
+
+        function quoteRedirect(e) {
+            window.location = "<?php echo Mage::getUrl('checkout/cart/'); ?>"
+        }
+
+        function orderRedirect(e) {
+            window.location = "<?php echo Mage::getUrl('qquoteadv/index/'); ?>"
+        }
+
+    });
+</script>
+<?php $isActiveQuote = $this->isActiveQuote(); ?>
+
+<?php if ($this->getShowOrderReferences()) : ?>
+    <div class="checkout-toolbar">
+        <ol class="c2q">
+            <li class="section allow <?php if (!$isActiveQuote) echo 'active'; ?>" id="c2qOrder">
+                <a href="<?php echo Mage::getUrl('checkout/cart/'); ?>">
+                    <button class="button">
+                        <span><span><?php echo Mage::helper('customer')->__('Shopping Cart'); ?></span></span>
+                    </button>
+                </a>
+            </li>
+            <li class="section allow <?php if ($isActiveQuote) echo 'active'; ?>" id="c2qQuote">
+                <a href="<?php echo Mage::getUrl('qquoteadv/index/'); ?>">
+                    <button class="button">
+                        <span><span><?php echo $this->helper('qquoteadv')->__('Request for Quote') ?></span></span>
+                    </button>
+                </a>
+            </li>
+        </ol>
+    </div>
+<?php endif; ?>
+
+
+
+<div class="clear"><!-- --></div>
+

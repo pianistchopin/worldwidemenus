@@ -1,0 +1,31 @@
+<?php
+$_productCollection = $this->getLoadedProductCollection();
+$iconSet = array();
+$adjConfImages = array();
+if($_productCollection->count()) {
+    Mage::helper('adjicon')->init($_productCollection);
+    foreach($_productCollection as $_product) {
+        $icons = Mage::helper('adjicon')->display($_product, $this->getMode());
+        $iconSet[$_product->getProductUrl()] = $icons;
+        $adjConfImages[$_product->getProductUrl()] = Mage::helper('adjicon')->getImagesConfSet($_product);
+    }
+}
+$adjIcons = Mage::helper('core')->jsonEncode($iconSet);
+$adjImages = Mage::helper('core')->jsonEncode($adjConfImages);
+?>
+
+<script type="text/javascript">
+    <?php if($_productCollection->count()): ?>
+        icons = <?php echo $adjIcons ?>;
+    updateProductListWithIcons();
+        var adjSwatch = new AdjListSwatch(<?php echo $adjImages ?>);
+    <?php endif; ?>
+    function updateProductListWithIcons() {
+        $$('.category-products li .product-name').each(function(product) {
+            var url = product.down('a').getAttribute('href');
+            if(icons.hasOwnProperty(url)) {
+                product.insert({after: icons[url]});
+            }
+        })
+    };
+</script>

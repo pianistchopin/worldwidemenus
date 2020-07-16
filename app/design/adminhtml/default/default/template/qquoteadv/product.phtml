@@ -1,0 +1,350 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+Mage::getSingleton('admin/session')->refreshAcl();
+?>
+<div style="" id="quotes_tabs_form_product_content">
+    <div class="entry-edit profile-generator" id="profile-generator">
+        <div id="__fieldmapping">
+
+            <?php
+            // Quote as model
+            // New quote data for this template
+            $quoteModel = $this->getQuoteModel();
+            Mage::helper('catalog/product')->setSkipSaleableCheck(true);
+
+            //check if datainput should be locked
+            $status = $quoteModel->getData('status');
+            if (intval($status) >= 50) {
+                $inputDisabled = true;
+                $disabledHtml = "readonly";
+                $disabledHtmlRadio = "disabled";
+                $disabledOnClick = "
+                        if (confirm('This quote is already send to the customer, would you like to edit it?')) {
+                            edit();
+                        } else {
+                            //Do nothing
+                        }
+                ";
+            } else {
+                $inputDisabled = false;
+                $disabledHtml = "";
+                $disabledHtmlRadio = "";
+                $disabledOnClick = "";
+            }
+
+            $customer = $this->getCustomer($quoteModel->getCustomerId());
+            Mage::getSingleton("core/session")->setCollectTotals(0);
+            $helper = Mage::helper('qquoteadv');
+
+            if (Mage::helper('tax')->priceIncludesTax($quoteModel->getStore())) {
+                $customPriceNote = $helper->__("Enter custom price including default tax");
+            } else {
+                $customPriceNote = $helper->__("Enter custom price excluding tax");
+            }
+
+            $costPriceNote = $helper->__("Profit is based on entered cost prices");
+            ?>
+            <input id="redirect2neworder" name="redirect2neworder" type="hidden" value="0">
+            <?php
+            // Adding trail hash to form
+            if (is_array($this->getHash())) {
+                foreach ($this->getHash() as $k => $v) {
+                    echo '<input id="createHash" name="createHash[' . $k . ']" type="hidden" value="' . $v . '">';
+                }
+            }
+            ?>
+
+            <div style="" id="sales_order_view_tabs_order_info_content">
+                <div>
+                    <div class="box-left">
+                        <!-- Quote Information -->
+                        <?php include('details/quote_information.phtml') ?>
+                        <!-- General Request Information -->
+                        <?php include('details/general_request_information.phtml') ?>
+                        <!-- Custom Quote fields -->
+                        <?php echo $this->getChildHtml('quoteExtraFields'); ?>
+                    </div>
+                    <div class="box-right">
+                        <!-- Account Information -->
+                        <?php include('details/account_information.phtml') ?>
+                        <!-- Linked Orders -->
+                        <?php include('details/linked_orders.phtml') ?>
+                        <!-- Billing Information -->
+                        <?php include('details/billing_information.phtml') ?>
+                        <!-- Shipping Information -->
+                        <?php include('details/shipping_information.phtml') ?>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+            <?php echo $this->getChildHtml('quote_items'); ?>
+
+            <div class="item_barBottom">
+                <small class="custom_note">
+                    <?php echo " * - " . $customPriceNote; ?>
+                </small>
+                <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_BUTTONS_UPDATE_TOTALS)): ?>
+                <div id="updateButton">
+                    <div class="a-right" id="btn_updateGrey">
+                        <?php echo $this->getUpdateTotalButton('disabled', 'return false;')->_toHtml(); ?>
+                    </div>
+                    <div class="a-right" id="btn_updateTotal" style="display: none;">
+                        <?php
+                        if (!$inputDisabled) {
+                            echo $this->getUpdateTotalButton()->_toHtml();
+                        } else {
+                            echo $this->getUpdateTotalButton('disabled', $disabledOnClick)->_toHtml();
+                        }
+                        ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <form id="frmPromt" action="<?php echo $this->getUrl('*/*/addQtyField') ?>">
+            <input type="hidden" name="request_qty" id="request_qty"/>
+            <input type="hidden" name="quote_product_id" id="quote_product_id"/>
+            <input type="hidden" name="quoteadv_id" id="quoteadv_id"
+                   value="<?php echo $this->getRequest()->getParam('id'); ?>"/>
+        </form>
+
+        <script>
+            function updateTotal() {
+                $('btn_updateTotal').show();
+                $('btn_updateGrey').hide();
+            }
+
+            function typeQty(quote_product_id) {
+                var msg = "<?php echo $this->__("Add new Qty").' '.$this->__('(unsaved changes to the quote will be lost)'); ?>";
+                var qty = prompt(msg, "1");
+                if (qty != null && qty != "") {
+                    $('quote_product_id').value = quote_product_id;
+                    $('request_qty').value = qty;
+                    $('frmPromt').submit();
+                    $('loading-mask').show();
+                } else {
+                    $('quote_product_id').value = '';
+                    $('request_qty').value = '';
+
+                    return false;
+                }
+            }
+
+            function parsePrice(price) {
+                // Replace none integers from string with ''
+                price = price.replace(/^\D+/g, '');
+                price = price.replace(/\s+/g, '');
+                price = price.replace(/\D+$/g, '');
+                price = price.trim();
+
+                if (price.substr(price.length - 3, 1) == ',') {
+                    price = price.replace(/\./g, '');
+                    price = price.replace(/\,/g, '.');
+                }
+                else if (price.substr(price.length - 3, 1) == '.') {
+                    price = price.replace(/\,/g, '')
+                }
+
+                return parseFloat(price);
+            }
+
+            Element.addMethods({
+                getInnerText: function (element) {
+                    element = $(element);
+                    return element.textContent && !window.opera ? element.textContent
+                        : element.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g, ' ');
+                }
+            });
+
+            document.observe("dom:loaded", function () {
+                // initially hide all containers for tab content
+                $$('.proposalprice').each(function (element) {
+
+                    var parentTable = element.up('tr');
+                    var costElement = parentTable.down('.price-cost > #price-cost-' + element.id.substr(6) + ' .price');
+                    var originalElement = parentTable.down('.price-original');
+
+                    if(typeof costElement != 'undefined'){
+                        var originalPrice = parsePrice(costElement.getInnerText());
+
+                        if (isNaN(originalPrice) || Math.round(originalPrice * 100) == 0) {
+                            originalPrice = parsePrice(originalElement.getInnerText());
+                        }
+
+                        var marginElement = $('margin-' + element.id.substr(6));
+                        var calculate = function () {
+                            newPrice = $F(element).replace(/\,/g, '.');
+                            newPrice = parseFloat(newPrice);
+
+                            // Formula for Gross profit [Default]
+                            var marginFinal = Math.round(((newPrice - originalPrice) / newPrice ) * 100);
+                            if (isNaN(marginFinal)) {
+                                marginFinal = 0;
+                            }
+                            marginElement.update(marginFinal + ' %');
+                        };
+
+                        //extra function to make sure the update totals button is active after un-focus
+                        setProposalInputLissener();
+
+                        element.observe('keyup', calculate);
+                        calculate();
+                    }
+
+                });
+            });
+
+            /**
+             * Function to make sure the update totals button is active after un-focus of input '.proposalprice'
+             */
+            function setProposalInputLissener(){
+                $$('.proposalprice').each(function(element) {
+                    element.observe('blur', function(e){
+                        updateTotal();
+                    });
+                });
+            }
+
+
+        </script>
+
+        <?php
+        /*  ============================
+         *  CRM MODULE EDITED CODE START
+         *  ============================
+         */
+        // Check for Cart2Quote CRMaddon module and if enabled
+        (Mage::getStoreConfig('qquoteadv_sales_representatives/messaging/enabled') == 1) ? $crmaddon = true : $crmaddon = false;
+        // Check for module disabled
+        if(!Mage::helper('core')->isModuleEnabled('Ophirah_Crmaddon')) {
+            $crmaddon = false;
+        }
+        ?>
+        <div>
+            <div class="box-left">
+                <!--File upload section-->
+                <?php
+                echo $this->getChildHtml('quoteMultiUpload');
+                ?>
+
+                <?php if ($crmaddon === true): ?>
+                    <div id="crmaddon_container">
+                        <div class="crmaddon_history">
+                            <!-- CRM Addon section-->
+                            <?php include('crmaddon/crmaddon_history.phtml'); ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="box-right">
+                <?php
+                // BETA FEATURE
+                //if ($helper->betaIsEnabled($quoteModel->getData('store_id'))):
+                ?>
+                <!-- Shipping section -->
+                <?php include('details/shipping_proposal.phtml'); ?>
+                <?php //else: ?>
+                <!-- Shipping section -->
+                <?php //include('details/shipping_proposal_old.phtml'); ?>
+                <?php //endif; // END BETA FEATURE ?>
+
+                <div id="discount">
+                    <?php include('details/discount.phtml'); ?>
+                </div>
+
+                <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_QUOTE_TOTALS)
+                || Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_BUTTONS)): ?>
+                <div>
+                    <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_QUOTE_TOTALS)): ?>
+                    <div class="entry-edit-head"><h4><?php echo Mage::helper('qquoteadv')->__('Quote Totals') ?></h4></div>
+                    <?php endif; ?>
+                    <div class="order-totals">
+                        <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_QUOTE_TOTALS)): ?>
+                            <?php echo $this->getChild('quote_totals')->setCollectTotals($this->needCollectTotals())->setQuote($quoteModel)->toHtml(); ?>
+                        <?php endif; ?>
+                        <?php echo $this->getChild('quote_buttons')->setQuote($quoteModel)->toHtml(); ?>
+
+                        <?php //show last update date and time if quote if totals are not collected
+                        if (!$this->isTotalsCollected()) {
+                            $date = $this->formatDate($quoteModel->getData('updated_at'), 'medium', true);
+                            echo '<br /><small>(Last Update: ' . $date . ')</small>';
+                        } ?>
+                    </div>
+                    <small class="total_note">
+                        <?php echo " * - " . $costPriceNote; ?>
+                        <?php if ($this->helper('tax')->displayFullSummary()) : ?>
+                            <br />
+                            <?php echo " ** - " . $helper->__("Tax summary lines are based on original product prices"); ?>
+                        <?php endif; ?>
+                    </small>
+                </div>
+                <?php endif; ?>
+        </div>
+
+        <?php
+        /*  ============================
+         *  CRM MODULE EDITED CODE END
+         *  ============================
+         */
+        ?>
+        <script>
+            function showMsg() {
+                msg = '<?php echo $this->__("First save this Quotation"); ?>';
+                alert(msg);
+            }
+
+            function isCheckRadio() {
+                checkedRadio = false;
+                $$('#edit_form .rbt').each(function (item) {
+                        if (item.checked == true) {
+                            str = item.value;
+                            if (str.length > 0) {
+                                checkedRadio = true;
+                                throw $break;
+                            }
+                        }
+                    }
+                );
+
+                if (!checkedRadio) {
+                    msg = '<?php echo $this->__("Select one Qty per product. (When editing this product you will be able to re-enter the extra tiers in this screen.)") ?>';
+                    alert(msg);
+                }
+                return checkedRadio;
+            }
+
+        </script>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<?php
+Mage::helper('catalog/product')->setSkipSaleableCheck(false);
+?>

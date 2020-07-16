@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="notifications">
+            <block type="aitsys/rewriter_notifications" name="aitsys_rewriter_notifications" template="aitcore/rewriter/notifications.phtml" />
+        </reference>
+    </default>
+    
+    <adminhtml_aitsys_index_index>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/edit" name="aitsys.edit" template="aitcore/edit.phtml">
+                <block type="aitsys/news" name="aitsys.news" template="aitcore/news.phtml" />
+            </block>
+        </reference>
+    </adminhtml_aitsys_index_index>
+    
+    <adminhtml_aitsys_patch_index>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/patch_view" name="aitsys.patch.view" template="aitcore/patch/view.phtml" />
+        </reference>
+    </adminhtml_aitsys_patch_index>
+    
+    <adminhtml_aitsys_patch_instruction>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/patch_instruction" name="aitsys.patch.instruction" template="aitcore/patch/instruction.phtml">
+                <block type="aitsys/patch_instruction_one" name="aitsys.patch.instruction.one" template="aitcore/patch/instruction/one.phtml" />
+            </block>
+        </reference>
+    </adminhtml_aitsys_patch_instruction>
+    
+    <adminhtml_aitsys_rewriter_index>
+        <reference name="head">
+            <action method="addCss"><name>aitoc/aitsys.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitsys/rewriter_list" name="aitsys.rewriter.list" template="aitcore/rewriter/list.phtml" />
+        </reference>
+    </adminhtml_aitsys_rewriter_index>
+</layout>

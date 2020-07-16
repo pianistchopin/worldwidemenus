@@ -1,0 +1,59 @@
+<!--@subject Welkom, {{htmlescape var=$customer.name}}! @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <a href="{{store url=''}}"><img src="{{var logo_url}}"
+                            alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p><strong>Beste {{htmlescape var=$customer.name}}</strong>,<br/>
+                                Welkom op {{var quote.getStoreGroupName()}}. Er is een account voor u gemaakt, zodat wij uw aanvraag kunnen behandelen.
+                                Spoedig ontvangt u de bevestiging van uw offerteaanvraag.
+                                U kunt de onderstaande informatie gebruiken om in te loggen en de status van uw aanvraag te volgen.
+
+                            <p style="border:1px solid #BEBCB7; padding:13px 18px; background:#F8F7F5; ">
+                                Gebruik de volgende gegevens wanneer er u gevraagd wordt om in te loggen:<br/>
+                                E-mail: {{var customer.email}}<br/>
+                                Wachtwoord: {{htmlescape var=$customer.password}}
+
+                            <p>
+
+                            <p>Wanneer u bent ingelogd op uw account, kunt u het volgende:</p>
+
+                            <ul>
+                                <li>Bewerken, afwijzen en accepteren van prijsvoorstellen;</li>
+                                <li>De status van bestellingen en offertes bekijken;</li>
+                                <li>De voorgaande bestellingen en nabestellingen bekijken;</li>
+                                <li>Wijzigingen aanbrengen in uw accountinformatie;</li>
+                                <li>Wijzigen van uw wachtwoord;</li>
+                                <li>Opslaan van alternatieve adressen (voor verzending naar familieleden en vrienden!).</li>
+                            </ul>
+
+                            <p>Als u vragen heeft over uw account of een andere kwestie, aarzel dan niet om
+                                contact met ons op te nemen via: <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+                                Wij zijn bereikbaar op: <span class="nobr">{{config path='general/store_information/phone'}}</span> van maandag - vrijdag, tussen 8:30hr - 17:00hr.
+
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>

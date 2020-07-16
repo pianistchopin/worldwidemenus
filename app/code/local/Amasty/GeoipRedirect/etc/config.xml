@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_GeoipRedirect
+ */
+-->
+<config>
+    <modules>
+        <Amasty_GeoipRedirect>
+            <version>1.0.25</version>
+        </Amasty_GeoipRedirect>
+    </modules>
+    <global>
+        <models>
+            <amgeoipredirect>
+                <class>Amasty_GeoipRedirect_Model</class>
+            </amgeoipredirect>
+        </models>
+
+        <resources>
+            <amgeoipredirect_setup>
+                <setup>
+                    <module>Amasty_GeoipRedirect</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </amgeoipredirect_setup>
+
+            <amgeoipredirect_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </amgeoipredirect_write>
+
+            <amgeoipredirect_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </amgeoipredirect_read>
+        </resources>
+        <blocks>
+            <amgeoipredirect>
+                <class>Amasty_GeoipRedirect_Block</class>
+            </amgeoipredirect>
+
+        </blocks>
+
+        <helpers>
+            <amgeoipredirect>
+                <class>Amasty_GeoipRedirect_Helper</class>
+            </amgeoipredirect>
+        </helpers>
+    </global>
+
+    <default>
+        <amgeoipredirect>
+            <general>
+                <enable>1</enable>
+            </general>
+            <restriction>
+                <apply_logic>0</apply_logic>
+                <user_agents_ignore>googlebot, yahoo, msnbot</user_agents_ignore>
+                <excepted_urls><![CDATA[/checkout/
+/paypal/
+/svm/svmPayment/
+/inipay/
+/payment/
+/sgps/]]></excepted_urls>
+                <first_visit_redirect>1</first_visit_redirect>
+                <redirect_between_websites>1</redirect_between_websites>
+            </restriction>
+            <country_store>
+                <enable_store>0</enable_store>
+            </country_store>
+            <country_currency>
+                <enable_currency>0</enable_currency>
+            </country_currency>
+            <country_url>
+                <enable_url>0</enable_url>
+            </country_url>
+        </amgeoipredirect>
+    </default>
+</config>

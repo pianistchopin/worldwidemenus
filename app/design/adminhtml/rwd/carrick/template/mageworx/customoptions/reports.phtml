@@ -1,0 +1,30 @@
+<?php
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+?>
+<?php 
+$helper = Mage::helper('mageworx_customoptions');
+$isInventoryEnabled = $helper->isInventoryEnabled();
+?>
+
+<?php if($isInventoryEnabled) { ?>
+<?php echo $this->getLayout()->createBlock('core/messages')->addNotice(Mage::helper('mageworx_customoptions')->__('Please note that the stock report is generated only when the setting “Enable Custom Options Inventory” is enabled. <br> The quantity of options linked to other SKUs won’t be updated from this report. To update their stock values you should edit the quantity of the linked product. <br> In order to udate quantities in bulk you should select custom options you need to update, choose the “Change Quantity” action and enter the stock value you want to set. You can use “+” and “-” to increase or decrease the stock by a specific value. <br> Example: <br> 10 - set a stock value for all selected options to 10; <br> +10 - increase a stock value for all selected options by 10; <br> -10 - decrease a stock value for all selected options by 10.'))->toHtml() ?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h3 class="icon-head"><?php echo Mage::helper('mageworx_customoptions')->__('Stock Report') ?></h3></td>
+        </tr>
+    </table>
+</div>
+<div><?php echo $this->getGridHtml() ?></div>
+<?php } else { ?>
+    <?php echo $this->getLayout()->createBlock('core/messages')->addNotice(Mage::helper('mageworx_customoptions')->__('Please note that the stock report is generated only when the setting “Enable Custom Options Inventory” is enabled.'))->toHtml() ?>
+<?php } ?>
+
+

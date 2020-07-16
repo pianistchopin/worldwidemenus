@@ -1,0 +1,18 @@
+<?php
+$_icons = $this->getIcons();
+$helper = Mage::helper('adjicon');
+?>
+<?php if (count($_icons)): ?>
+<div class="adj-icons-<?php echo $this->getMode() ?>" >
+<?php foreach ($_icons as $icon): ?>
+	<?php if(($this->getMode() == 'view' && !$icon['show_images_product']) || ($this->getMode() != 'view' && !$icon['show_images_product_listing'])): continue; endif;?>
+    <?php if($icon['visualization_type'] == AdjustWare_Icon_Helper_Data::VISUALIZATION_TYPE_IMAGES): ?>
+        <div id="<?php echo $icon['optionId']?>" class="adj-icon"><img title="<?php echo $this->htmlEscape($icon['title'])?>" alt="<?php echo $this->htmlEscape($icon['title'])?>" src="<?php echo Mage::getBaseUrl('media') . 'icons/' . $icon['filename']?>"></div>
+    <?php elseif($icon['visualization_type'] == AdjustWare_Icon_Helper_Data::VISUALIZATION_TYPE_ICONS): ?>
+	    <div id="<?php echo $icon['optionId']?>" class="adj-icon"><a href="" onclick="return false;" class="icons-<?php echo $icon['id'] ?> icon<?php echo $icon['icon_type'] ?> <?php if($this->getMode() == 'view') { echo 'adjlarge';} else{ echo 'adjmedium ';} ?> adjprod"><span></span><?php echo '&nbsp;' . $this->htmlEscape($icon['title']) . '&nbsp;'?></a></div>
+	<?php elseif($icon['visualization_type'] == AdjustWare_Icon_Helper_Data::VISUALIZATION_TYPE_COLOR): ?>
+		<div id="<?php echo $icon['optionId']?>" class="adj-icon"><a href="" onclick="return false;" title="<?php echo $this->htmlEscape($icon['title']) ?>" class="adjcolor<?php echo $icon['color_icon_type'] ?> <?php if($this->getMode() == 'view') { echo 'adjlarge';} else{ echo 'adjmedium ';} ?> adjprod" style="background: <?php echo $icon['color'] ?>"></a></div>
+	<?php endif; ?>
+<?php endforeach; ?>
+</div>
+<?php endif; ?>

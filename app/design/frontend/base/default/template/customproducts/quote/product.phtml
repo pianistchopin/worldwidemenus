@@ -1,0 +1,67 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Cart2Quote
+ * @package     CustomProducts
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ * @version     1.0.5
+ */
+?>
+
+<?php
+    $item = $this->getItem();
+    $parent = $this->getParentBlock();
+    $product = $this->getProduct();
+    $productInformation = $this->getProductInformation();
+    $message = $this->__("By deleting an item, you will create a new quote request. Do you want to do this?");
+    $quoteByProduct = Mage::helper('qquoteadv')->getQuoteItem($product, $item->getAttribute(), null, $item);
+?>
+
+<td class="a-center">
+    <?php if ($parent->getMergedCells()): ?>
+        <a onclick="var r=confirm('<?php echo $message ?>'); if(r==true)itemDelete('<?php echo $item->getId() ?>');"
+           class="btn-remove btn-remove2" href="#">
+        </a>
+    <?php endif ?>
+</td>
+<td>
+    <a class="product-image" target="_blank" href="#">
+        <?php //$this->getProductImage(); ?>
+        <img
+            src="<?php echo $productInformation->getImageUrl(); ?>"
+            alt="<?php echo $item->getName(); ?>"
+            width="75px"
+            height="75px"/>
+    </a>
+</td>
+<td>
+    <h5 class="title">
+        <a href="#"><?php echo $productInformation->getName()?></a>
+    </h5>
+    <?php
+    foreach ($quoteByProduct->getAllItems() as $_item) {
+        if ($_item->getProductId() == $product->getId()) {
+            echo $this->getChild('customproducts.quote.product.options')->setItem($_item)->toHtml();
+        }
+    }
+    ?>
+</td>

@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_GeoipRedirect
+ */
+-->
+<config>
+    <sections>
+        <amgeoipredirect translate="label" module="amgeoipredirect">
+            <label>GeoIp Redirect</label>
+            <tab>amasty</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>70518</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <amasty_information translate="label">
+                    <label>Information</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>amgeoipredirect/adminhtml_system_config_fieldset_info</frontend_model>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </amasty_information>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable>
+                            <label><![CDATA[Enable GeoIP Redirect]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[General setting affecting all rules]]></comment>
+                        </enable>
+                    </fields>                    
+                </general>
+                <restriction translate="label">
+                    <label>Restriction</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <apply_logic>
+                            <label><![CDATA[Apply Logic To]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>amgeoipredirect/source_applyLogic</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </apply_logic>
+                        <accepted_urls>
+                            <label>Accepted URLs</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><apply_logic>1</apply_logic></depends>
+                            <comment><![CDATA[Please specify relative URLs (like /about-us/). Each URL on a separate line.]]></comment>
+                        </accepted_urls>
+                        <excepted_urls>
+                            <label>Excepted URLs</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends><apply_logic>2</apply_logic></depends>
+                            <comment><![CDATA[Please specify relative URLs (like /about-us/). Each URL on a separate line.
+<br>Note: URLs are excluded by partial occurrence. If you specify "blog", all URL's containing "blog" will be excluded]]></comment>
+                        </excepted_urls>
+                        <user_agents_ignore>
+                            <label>User Agents to Ignore</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </user_agents_ignore>
+                        <ip_restriction>
+                            <label>Ip to Ignore</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Each IP on a separate line.]]></comment>
+                        </ip_restriction>
+                        <first_visit_redirect>
+                            <label><![CDATA[First visit redirect only]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[<strong style="color:red">Warning!</strong> If you select "No" visitors will be not able to change Store View / currency.]]></comment>
+                        </first_visit_redirect>
+                        <redirect_between_websites>
+                            <label><![CDATA[Redirect Between Websites]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </redirect_between_websites>
+                    </fields>
+                </restriction>
+                <country_store translate="label">
+                    <label>Country to Store View Redirect</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable_store>
+                            <label><![CDATA[Enable Country --> Store View]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Please switch 'Current Configuration Scope' to a necessary store view to select affected countries.]]></comment>
+                        </enable_store>
+                        <affected_countries>
+                            <label>Affected Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </affected_countries>
+                    </fields>
+                </country_store>
+                <country_currency translate="label">
+                    <label>Country to Currency Switch</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable_currency>
+                            <label><![CDATA[Enable Country --> Currency]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable_currency>
+                        <currency_mapping>
+                            <label>Country to Currency Mapping</label>
+                            <frontend_model>amgeoipredirect/system_config_form_field_currency</frontend_model>
+                            <backend_model>amgeoipredirect/system_config_backend_country</backend_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </currency_mapping>
+                    </fields>
+                </country_currency>
+                <country_url translate="label">
+                    <label>Country to URL Redirect</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable_url>
+                            <label><![CDATA[Enable Country --> URL]]></label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable_url>
+                        <url_mapping>
+                            <label>Country to URL Mapping</label>
+                            <frontend_model>amgeoipredirect/system_config_form_field_url</frontend_model>
+                            <backend_model>amgeoipredirect/system_config_backend_country</backend_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </url_mapping>
+                    </fields>
+                </country_url>
+            </groups>
+        </amgeoipredirect>
+    </sections>
+</config>

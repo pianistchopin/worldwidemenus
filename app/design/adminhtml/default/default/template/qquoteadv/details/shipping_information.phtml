@@ -1,0 +1,91 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_SHIPPING_ADDRESS)): ?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account"><?php echo Mage::helper('adminhtml')->__('Shipping Address') ?></h4>
+    </div>
+    <fieldset>
+        <address><?php echo $quoteModel->getShippingAddress()->getFormated(true) ?></address>
+    </fieldset>
+
+            <br/>
+            <?php
+            // Adding Extra Option Fields
+            // Define $columnName with the right CONST see /** Ophirah_Qquoteadv_Model_Extraoptions */
+            // Define $optionType with the right CONST see /** Ophirah_Qquoteadv_Model_Extraoptions */
+            $columnName = Ophirah_Qquoteadv_Model_Extraoptions::COLUMN_NAME_SHIPPING_SERVICE;
+            if ($columnName != '' && !empty($quote[$columnName])) :
+                $optionType = Ophirah_Qquoteadv_Model_Extraoptions::OPTION_TYPE_SHIPPING_SERVICE;
+                $addressData = Mage::getModel('qquoteadv/extraoptions');
+                $addressType = $addressData->getOptionData($quote[$columnName], $optionType);
+                $addressOptions = $addressData->getAddressType();
+                $addressSelect = $addressData->createAdminHtml($addressOptions['optionToAdd'], $quote[$columnName]);
+        $shippingData = $quoteModel->getAddressInfoByType(Ophirah_Qquoteadv_Helper_Address::ADDRESS_TYPE_SHIPPING);
+        $shippingData = Mage::getModel('qquoteadv/extraoptions');
+        $shippingService = $shippingData->getMultipleoptionData($quote[$columnName], $optionType);
+        $shippingOptions = $shippingData->getShippingService();
+        $shippingSelect = $shippingData->createAdminHtml($shippingOptions['optionToAdd'], $quote[$columnName]);
+                ?>
+        <div class="fieldset">
+            <div class="hor-scroll">
+                <div class="lbaddr"><?php echo $this->__($addressType['title']); ?></div>
+                <div class="taddr">
+                    <div id="optionSelected_<?php echo $optionType; ?>" class="optionSelected">
+                        <?php echo $this->__($addressType['option']); ?>
+                    </div>
+                    <div id="optionSelect_<?php echo $optionType; ?>" class="optionSelect" style="display:none;">
+                        <?php echo $addressSelect; ?>
+                    </div>
+                    <div class="editAddress"
+                         onclick="{ $('optionSelected_<?php echo $optionType; ?>').hide(); $('optionSelect_<?php echo $optionType; ?>').show(); $(this).hide(); }"><?php echo Mage::helper('adminhtml')->__('Edit'); ?></div>
+                </div>
+                <br/>
+                <?php if (!empty($shippingService['options'])) :
+                    $title = $this->__($shippingService['title']);?>
+                    <div id="multiSelected_<?php echo $optionType; ?>" class="multiSelected">
+                        <?php foreach ($shippingService['options'] as $option): ?>
+                            <div class="lbaddr"><?php echo $title; ?></div>
+                            <div class="taddr"><?php echo $this->__($option['label']); ?></div>
+                            <br/>
+                            <?php $title = '&nbsp;';
+                        endforeach;?>
+                    </div>
+                    <div id="optionMultiSelect_<?php echo $optionType; ?>" class="optionMultiSelect"
+                         style="display:none;">
+                        <div class="lbaddr"><?php echo $this->__($this->__($shippingService['title'])); ?></div>
+                        <div class="taddr"><?php echo $shippingSelect; ?></div>
+                    </div>
+                    <div class="editAddress"
+                         onclick="{ $('multiSelected_<?php echo $optionType; ?>').hide(); $('optionMultiSelect_<?php echo $optionType; ?>').show(); $(this).hide(); }"><?php echo Mage::helper('adminhtml')->__('Edit'); ?></div>
+                <?php endif; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+<?php endif; ?>

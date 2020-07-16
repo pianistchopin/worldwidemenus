@@ -1,0 +1,50 @@
+<!--@subject {{var quote.getStoreGroupName()}}: Reminder: Quote # {{var quote.increment_id}} will expire soon @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>你好 {{htmlescape var=$customer.name}}</strong>,<br/><br>
+
+                            <h3
+                                    style="font-size: 1.05em; padding-bottom: 1px;">你的询价单 #{{var quote.increment_id}}
+                                <small>(放在 {{var quote.getCreatedAtFormated('long')}})</small>
+                                即将到期!!
+                            </h3>
+                            <p>
+                                你可以 <a href="{{store url='customer/account/'}}" style="color:#1E7EC8;">登录</a> 仍然接受这个询价或编辑的报询价请求
+
+                            </p>
+                            <br>
+
+                            <p>如果你对你的询价请求有任何疑问，请与我们联系， <a
+                                href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config
+                            path='trans_email/ident_support/email'}}</a> 或致电 <span class="nobr">{{config path='general/store_information/phone'}}</span>
+                            周一 - 周五，上午8时 - 下午5点。
+                            </p><br>
+
+                            <p>再次感谢你对我们的信任。</p>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>

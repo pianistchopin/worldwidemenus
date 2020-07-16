@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Photo Photogallery & Products Photogallery extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    Photogallery
+ * @copyright  Copyright 2010 © free-magentoextensions.com All right reserved
+ */
+
+/**
+ * @category   Photogallery
+ * @package    Photogallery
+ * @author     Kamran Rafiq Malik <kamran.malik@unitedsol.net>
+ */
+-->
+<config>
+    <tabs translate="label" module="prodfaqs" >
+	    <fmebase>
+	        <label><![CDATA[<div style="position: absolute;"><img id="fme_block" src="" alt="" border="0" /></div>&nbsp;<script>
+	            var n = SKIN_URL.indexOf("adminhtml");
+	            $('fme_block').src = SKIN_URL.substring(0, n) + "adminhtml/default/default/images/photogallery/logo.png";
+	            </script>]]></label>
+	        <sort_order>123</sort_order>
+	    </fmebase>
+	</tabs> 
+    <sections>
+        <photogallery translate="label" module="photogallery">
+            <label>Photo Gallery</label>
+            <tab>fmebase</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>120</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+				<photogallery translate="label">
+				<label>Photogallery Settings</label>
+				<frontend_type>text</frontend_type>
+				<sort_order>2</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<fields>
+					<enabled translate="label">
+						<label>Enable Product Related Photogallery</label>
+						<frontend_type>select</frontend_type>
+						<source_model>adminhtml/system_config_source_yesno</source_model>
+						<sort_order>1</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+					</enabled>
+					<imagesperpage translate="label">
+						<label>Images Per Page</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>2</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<comment>The number of images shown per page</comment>
+					</imagesperpage>
+					<thumbwidth translate="label">
+						<label>Thumbnail width</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>4</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<comment>The size of each thumbnail (applies when image save)</comment>
+					</thumbwidth>
+					<thumbheight translate="label">
+						<label>Thumbnail Height</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>5</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<comment>The size of each thumbnail (applies when image save)</comment>
+					</thumbheight>
+					<keepaspectratio translate="label">
+						<label>Keep Aspect Ratio of Thumb ?</label>
+						<frontend_type>select</frontend_type>
+						<source_model>adminhtml/system_config_source_yesno</source_model>
+						<sort_order>6</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<comment>If you set Keep Aspect Ratio yes the thumbs are generated proportionality to image size (Recommended YES, applies when image save) </comment>
+					</keepaspectratio>
+					<keepframe translate="label">
+						<label>Keep Frame of Thumb ?</label>
+						<frontend_type>select</frontend_type>
+						<source_model>adminhtml/system_config_source_yesno</source_model>
+						<sort_order>6</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<comment>If you set this to YES that mean image thumb generated proportionality and blank area fill with the given below color (applies when image save)</comment>
+					</keepframe>
+					<thumbbackgroundColor translate="label">
+						<label>Thumb Background Color if Keep Aspect Ratio (YES)  ?</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>6</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<comment>e.g 0,0,0 If you set the width and height of thumb and keep set  Keep Aspect Ratio to yes specify the color that is fill in image (applies when image save)</comment>
+					</thumbbackgroundColor>
+					<pagertext translate="label">
+						<label>Pagination Button Text</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>8</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+						<comment>Text Display on pagination button</comment>
+					</pagertext>
+					
+				</fields>
+				</photogallery>   
+		
+				<!--<lightbox translate="label comment" module="photogallery">
+				<label>Lightbox Options</label>
+				<frontend_type>text</frontend_type>
+				<sort_order>3</sort_order>
+				<show_in_default>1</show_in_default>
+				    <fields>
+					<theme translate="label">
+						<label>Select Theme</label>
+						<frontend_type>select</frontend_type>
+						<source_model>photogallery/lightboxtheme</source_model>
+						<sort_order>0</sort_order>
+						<show_in_default>1</show_in_default>
+					</theme>
+					<animationspeed translate="label">
+						<label>Animation Speed</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>1</sort_order>
+						<show_in_default>1</show_in_default>
+						<comment>fast - slow - normal</comment>
+					</animationspeed>
+					<opacity translate="label">
+						<label>Opacity</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>4</sort_order>
+						<show_in_default>1</show_in_default>
+						<comment>Value between 0 and 1</comment>
+					</opacity>
+					<showtitle translate="label">
+						<label>Show Title</label>
+						<frontend_type>select</frontend_type>
+						<source_model>adminhtml/system_config_source_yesno</source_model>
+						<sort_order>5</sort_order>
+						<show_in_default>1</show_in_default>
+						<comment>true OR false</comment>
+					</showtitle>
+					<defaultwidth translate="label">
+						<label>Default Width</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>6</sort_order>
+						<show_in_default>1</show_in_default>
+					</defaultwidth>
+					<defaultheight translate="label">
+						<label>Default Height</label>
+						<frontend_type>text</frontend_type>
+						<sort_order>7</sort_order>
+						<show_in_default>1</show_in_default>
+					</defaultheight>
+			    </fields>	
+			</lightbox>-->
+		
+			<list translate="label comment" module="photogallery">
+			<label>General</label>
+			<frontend_type>text</frontend_type>
+			<sort_order>1</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<fields>
+				<enablephotogallery translate="label">
+						<label>Enable / Disable Photogallery</label>
+						<frontend_type>select</frontend_type>
+						<source_model>adminhtml/system_config_source_enabledisable</source_model>
+						<sort_order>0</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>1</show_in_store>
+				</enablephotogallery>
+				<page_title translate="label">
+					<label>Page Title</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment></comment>
+				</page_title>
+				<identifier translate="label">
+					<label>SEF URL Identifier</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>2</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment>(eg: domain.com/identifier)</comment>
+				</identifier>
+				<seourl_suffix translate="label">
+					<label>SEO URL Suffix</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>3</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment>(eg: .html)</comment>
+				</seourl_suffix>
+				<meta_keywords translate="label">
+					<label>META Keywords</label>
+					<frontend_type>textarea</frontend_type>
+					<sort_order>4</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment></comment>
+				</meta_keywords>
+				<meta_description translate="label">
+					<label>META Description</label>
+					<frontend_type>textarea</frontend_type>
+					<sort_order>5</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment></comment>
+				</meta_description>
+			</fields>
+			</list>            
+            </groups>
+        </photogallery>
+    </sections>
+    <sections>
+         <basesec translate="label" module="photogallery">
+            <label>Extension's Info and Support</label>
+            <tab>fmebase</tab>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <info translate="label">
+                    <label>Extensions Information</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>fmebase/system_config_form_fme_info</frontend_model>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </info>
+                <contact translate="label">
+                    <label>Contact FME Support</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>fmebase/system_config_form_fme_contact</frontend_model>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </contact>
+                <social translate="label">
+                    <label>FME Social</label>
+                    <frontend_type>text</frontend_type>
+                    <frontend_model>fmebase/system_config_form_fme_social</frontend_model>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </social>
+            </groups>
+        </basesec>
+    </sections>
+</config>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Cart2Quote
+ * @package     CustomProducts
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ * @version     1.0.5
+ */
+-->
+
+<layout version="1.0.5">
+    <qquoteadv_email_qquoteadv_items>
+        <reference name="qquoteadv_item">
+            <block type="qquoteadv/qquoteadv_email_item" name="qquoteadv_item_customproducts" as="custom.product" template="customproducts/email/item_customproduct.phtml"/>
+        </reference>
+    </qquoteadv_email_qquoteadv_items>
+    <qquoteadv_view_view>
+        <reference name="qquoteadv.view">
+            <block type="customproducts/quote_product" name="customproducts_quote_product" as="customproducts.quote.product" template="customproducts/quote/product.phtml">
+                <block type="qquoteadv/item_renderer" name="customproducts_quote_product_options" as="customproducts.quote.product.options" template="customproducts/quote/item/options.phtml"/>
+            </block>
+            <block type="customproducts/quote_product" name="fakeproducts_quote_product" as="fakepro.quote.product" template="customproducts/quote/product.phtml">
+                <block type="qquoteadv/item_renderer" name="fakeproducts_quote_product_options" as="fakepro.quote.product.options" template="customproducts/quote/item/options.phtml"/>
+                <block type="qquoteadv/item_renderer" name="customproducts_quote_product_options" as="customproducts.quote.product.options" template="customproducts/quote/item/options.phtml"/>
+            </block>
+        </reference>
+    </qquoteadv_view_view>
+</layout>

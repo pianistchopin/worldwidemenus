@@ -1,0 +1,161 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+if (!isset($disabledHtml)){
+    $disabledHtml = "";
+}
+if (!isset($inputDisabled)){
+    $inputDisabled = false;
+}
+if (!isset($disabledOnClick)){
+    $disabledOnClick = false;
+}
+?>
+<?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_DISCOUNT)): ?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 id="discount" class="icon-head head-account"><?php echo Mage::helper('sales')->__('Discount') ?></h4>
+    </div>
+    <div class="fieldset">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="form-list" border="0" style="width:100%;">
+                <tbody>
+                <tr id="discount_fixed">
+                    <td class="label">
+                        <?php echo $this->__('Enter new Quote Subtotal'); ?>
+                    </td>
+                    <td>
+                        <?php
+                        echo '<input type="text" id="fixed_price" name="recal_price[fixed]" class="file_title" maxlength="150" '.$disabledHtml.'/>';
+                        ?>
+                    </td>
+                    <td style="float: right;">
+                        <?php
+                        $vars = new Varien_Object;
+                        $vars->setData('label', $this->__('Recalculate'));
+
+                        if($inputDisabled){
+                            $vars->setData('class', 'disabled');
+                        }
+
+                        echo $this->getSaveButton($vars, $disabledOnClick)->_toHtml();
+                        ?>
+                    </td>
+                <tr>
+                <tr id="discount_percentage" style="display:none;">
+                    <td class="label">
+                        <?php echo $this->__('Enter Quote Reduction'); ?>
+                    </td>
+                    <td>
+                        <?php
+                        echo '<input type="text" id="percentage_price" name="recal_price[percentage]" class="file_title" maxlength="3" '.$disabledHtml.'/><span>%</span>';
+                        ?>
+                    </td>
+                    <td style="float: right;">
+                        <?php
+                        $vars = new Varien_Object;
+                        $vars->setData('label', $this->__('Recalculate'));
+
+                        if($inputDisabled){
+                            $vars->setData('class', 'disabled');
+                        }
+
+                        echo $this->getSaveButton($vars, $disabledOnClick)->_toHtml();
+                        ?>
+                    </td>
+                <tr>
+                    <td class="label">
+                        &nbsp;
+                    </td>
+                    <td>
+                        <a id="msg_percentage" class="custom_note"
+                           onclick="($('msg_fixed')).show();($('discount_percentage')).show();($('discount_fixed')).hide();hide();"
+                           href="#discount"><?php echo $this->__('Enter Percentage'); ?></a>
+                        <a id="msg_fixed" style="display:none;"
+                           onclick="($('msg_percentage')).show();($('discount_fixed')).show();($('discount_percentage')).hide();hide();"
+                           class="custom_note" href="#discount"><?php echo $this->__('Enter Fixed Price'); ?></a>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="label">
+                        <?php
+                        echo $this->__('Coupon Code %s', ($quoteModel->getData('salesrule')) ? '(Applied)' : ''); ?>
+                    </td>
+                    <td>
+                        <?php
+                        $couponRules = $quoteModel->getCouponOptions(
+                            Mage::app()->getStore($quoteModel->getData('store_id'))->getWebsiteId(),
+                            $customer->getGroupId()
+                        );
+
+                        if ($couponRules) {
+                            if (!Mage::helper('qquoteadv')->getOrderByC2Q($quoteModel->getData('quote_id'), $quoteModel->getData('store_id'))) { // Not converted to order
+                                $couponButton = true;
+                                $default = ($quoteModel->getData('salesrule') > 0) ? $quoteModel->getData('salesrule') : '';
+                                if ($default > 0) {
+                                    $couponRules[0] = Mage::helper('qquoteadv')->__('-- Remove Coupon --');
+                                }
+                                echo '<select type="select" id="salesrule" name="salesrule" class="file_title" '.$disabledHtmlRadio.'>';
+                                foreach ($couponRules as $couponId => $couponName) {
+                                    $selected = ($couponId == $default) ? 'selected="true"' : '';
+                                    echo '<option value="' . $couponId . '" ' . $selected . '>' . $couponName . '</option>';
+                                }
+                                echo '</select>';
+                            } elseif ($quoteModel->getData('salesrule') != null) { // Converted to order
+                                echo $quoteModel->getCouponNameById($quoteModel->getData('salesrule'));
+                            } else {
+                                echo $this->__('No Coupon Code Applied');
+                            }
+
+                        } else {
+                            echo $this->__('No Coupon Codes Available');
+                        }
+                        ?>
+                    </td>
+                    <td style="float: right;">
+                        <?php if (isset($couponButton) && $couponButton === true):
+                            $vars = new Varien_Object;
+                            $vars->setData('label', Mage::helper('sales')->__('Apply'));
+
+                            if($inputDisabled){
+                                $vars->setData('class', 'disabled');
+                            }
+
+                            echo $this->getSaveButton($vars, $disabledOnClick)->_toHtml();
+                            //                                echo $this->getCouponButton()->_toHtml();
+                        endif; ?>
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td><td><small>* global rules, can (be) trigger(ed by) other rules</small></td><td>&nbsp;</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<?php endif; ?>

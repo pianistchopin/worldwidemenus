@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <aitcg_productEdit_scripts>
+        <reference name="head">
+            <action method="addJs"><script>aitoc/aitcg/cropper.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/AreaEditor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/product.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/ImageSelector.js</script></action>        
+            <action method="addItem"><type>skin_css</type><name>aitcgcropper.css</name></action>
+        </reference>
+    </aitcg_productEdit_scripts>
+
+    <default>
+        <reference name="before_body_end">
+            <block type="core/template" name="aitcg_depedence_javascript" template="aitcg/dependence.phtml"/>
+        </reference>
+    </default>
+
+    <default>
+        <reference name="head">
+            <action method="addJs">
+                <script>aitoc/aitcg/Dependence.js</script>
+            </action>
+        </reference>
+    </default>
+
+    <aitcg_preview_scripts>
+        <reference name="head">
+            <action method="addJs"><script helper="aitoc_common/js_events/getLatestFileName" /></action>
+            
+            <action method="addJs"><script>aitoc/aitcg/Aitcg.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Option.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Tooltip.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Mirror.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Shape.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Trackers.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Box.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Resize.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Rotate.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Symbol/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Delete.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToFront.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToBack.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityInc.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityDec.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Debug.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tools.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/PredefinedImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/DigitalImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/UserImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/CategoryPreview.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Mask.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Social.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Save.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Text.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/AreaEditor.js</script></action>
+            
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+            <action method="addJs"><script>aitoc/aitcg/raphael.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/jscolor/jscolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/rgbcolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/canvg.js</script></action>
+        </reference>
+        <reference name="left">
+            <block type="aitcg/template" name="aitcg_js_styles" template="aitcg/js_styles.phtml" before="-" />
+        </reference>
+      <!--   <reference name="order_item_extra_info">
+            <block type="adminhtml/sales_order_view_items"  name="aitcg_order_oneoffcost"  template="aitcg/one_off_cost.phtml" after="-"/>
+        </reference> -->
+        <reference name="order_info">
+            <block type="adminhtml/sales_order_view_info" name="aitcg_order_oneoffcost"
+                   template="aitcg/one_off_cost.phtml"/>
+        </reference>
+    </aitcg_preview_scripts>
+
+    <adminhtml_catalog_product_new>
+    	<update handle="aitcg_productEdit_scripts" />
+    </adminhtml_catalog_product_new>
+    
+    <adminhtml_catalog_product_edit>
+    	<update handle="aitcg_productEdit_scripts" />
+    </adminhtml_catalog_product_edit>
+    
+    <adminhtml_sales_order_view>
+        <update handle="aitcg_preview_scripts" />
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_shipment_new>
+        <update handle="aitcg_preview_scripts" />
+    </adminhtml_sales_order_shipment_new>
+
+    <adminhtml_sales_order_shipment_view>
+        <update handle="aitcg_preview_scripts" />
+    </adminhtml_sales_order_shipment_view>
+
+    <adminhtml_sales_order_invoice_new>
+        <update handle="aitcg_preview_scripts" />
+    </adminhtml_sales_order_invoice_new>
+
+    <adminhtml_sales_order_invoice_view>
+        <update handle="aitcg_preview_scripts" />
+    </adminhtml_sales_order_invoice_view>
+
+    <adminhtml_sales_order_creditmemo_new>
+        <update handle="aitcg_preview_scripts" />
+    </adminhtml_sales_order_creditmemo_new>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <update handle="aitcg_preview_scripts" />
+    </adminhtml_sales_order_creditmemo_view>
+
+    <aitcg_admin_tips_index>
+        <reference name="content">
+            <block type="core/template"  name="tips" template="aitcg/tips/cgfile.phtml"  /> 
+        </reference>
+    </aitcg_admin_tips_index>
+    <aitcg_adminhtml_font_index>
+        <reference name="content">
+            <block type="aitcg/adminhtml_font" name="font" />
+        </reference>
+    </aitcg_adminhtml_font_index>
+    <adminhtml_aitcg_font_color_set_new>
+        <reference name="head">
+            <action method="addCss"><stylesheet>aitoc/aitcg/css/colorset.css</stylesheet></action>
+            <action method="addJs"><script>aitoc/aitcg/jscolor/jscolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/ColorSet/Editor.js</script></action>
+        </reference>
+    </adminhtml_aitcg_font_color_set_new>
+    <adminhtml_aitcg_font_color_set_edit>
+        <reference name="head">
+            <action method="addCss"><stylesheet>aitoc/aitcg/css/colorset.css</stylesheet></action>
+            <action method="addJs"><script>aitoc/aitcg/jscolor/jscolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/ColorSet/Editor.js</script></action>
+        </reference>
+    </adminhtml_aitcg_font_color_set_edit>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addJs"><script>aitoc/aitcg/admin_config.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/jscolor/jscolor.js</script></action>
+        </reference>
+    </adminhtml_system_config_edit>
+</layout>

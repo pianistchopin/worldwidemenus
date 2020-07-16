@@ -1,0 +1,51 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h3
+                    class="icon-head head-products"><?php echo Mage::helper('catalog')->__('Please select product(s).') ?></h3>
+            </td>
+            <td class="a-right">
+                <?php echo $this->getAddNewButtonHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php echo $this->getStoreSwitcherHtml() ?>
+<div>
+    <input type='hidden' name='sas' value=1>
+    <?php echo $this->getGridHtml() ?>
+</div>
+
+<script type="text/javascript">
+    function transfer_items() {
+        document.getElementById('productGrid_massaction-select').value = 'saverows';
+        productGrid_massactionJsObject.apply();
+    }
+</script>

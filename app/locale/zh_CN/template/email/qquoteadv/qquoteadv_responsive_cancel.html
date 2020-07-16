@@ -1,0 +1,43 @@
+<!--@subject {{var quote.getStoreGroupName()}}: Quote request # {{var quote.increment_id}} is cancelled @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="email-heading">
+                        <h2>亲爱的 {{htmlescape var=$customer.name}}</h2>
+                        <h1>你的询价请求<span class="no-link">#{{var quote.increment_id}}</span> 自 {{var store.getFrontendName()}} 已经被取消</h1>
+                        <p>你可以 <a href="{{store url='customer/account/'}}" style="color:#1E7EC8;">登录你的账户</a> 检查取消询价请求的状态。再次感谢你的关注。</p>
+                    </td>
+                    <td class="store-info">
+                        <h4>关于你的询价问题？</h4>
+                        <p>
+                            {{depend store_phone}}
+                            <b>致电我们：</b>
+                            <a href="tel:{{var phone}}">{{var store_phone}}</a><br>
+                            {{/depend}}
+                            {{depend store_hours}}
+                            <span class="no-link">{{var store_hours}}</span><br>
+                            {{/depend}}
+                            {{depend store_email}}
+                            <b>电子邮箱:</b> <a href="mailto:{{var store_email}}">{{var store_email}}</a>
+                            {{/depend}}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}
+
+     

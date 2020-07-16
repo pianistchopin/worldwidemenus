@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- @copyright  Copyright (c) 2009 AITOC, Inc. -->
+<config>
+    <modules>
+        <Aitoc_Common>
+            <version>1.0.3</version>
+            <platform>any</platform>
+        </Aitoc_Common>
+    </modules>
+    
+    <global>
+        <helpers>
+            <aitoc_common>
+                <class>Aitoc_Common_Helper</class>
+            </aitoc_common>
+        </helpers>
+        <models>
+            <aitoc_common>
+                <class>Aitoc_Common_Model</class>
+            </aitoc_common>
+        </models>
+        <blocks>
+            <aitoc_common>
+                <class>Aitoc_Common_Block</class>
+            </aitoc_common>
+        </blocks>
+    </global>
+</config>

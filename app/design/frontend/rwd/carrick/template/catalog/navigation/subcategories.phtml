@@ -1,0 +1,29 @@
+ <?php
+$_category          = $this->getCurrentCategory();
+$_category_children    = $_category->getChildren();
+$catIds                 = explode(',',$_category_children);
+foreach($catIds as $catId) {
+$category = Mage::getModel('catalog/category')->load($catId);
+$categories[$category->getName()] = array(
+'url' => $category->getUrl(),
+'img' => $category->getImageUrl(),
+'desc' => $category->getDescription()
+);
+}
+$cats = ksort($categories);
+?>
+<?php if($category->getIsActive()): ?>
+<?php foreach($categories as $name => $data): ?>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<div class="subcatbox">
+<a href="<?php echo $data['url']; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>">
+<img src="<?php echo $data['img']; ?>" class="img-responsive" alt="<?php echo $name; ?>" />
+<?php 
+$desc = explode('.', strip_tags($data['desc']));
+?>
+<div class="subcat-info"><h3 class="subcatTitle"><?php echo $name; ?></h3><p class="subcatDesc"><?php echo $desc[0]; ?>.</p></div>
+</a>
+</div>
+</div>
+<?php endforeach; ?>
+<?php endif; ?>

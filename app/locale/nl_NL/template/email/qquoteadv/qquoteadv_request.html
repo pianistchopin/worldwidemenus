@@ -1,0 +1,39 @@
+<!--@subject {{var quote.getStoreGroupName()}}: Nieuw offerteverzoek # {{var quote.increment_id}} @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>Beste {{htmlescape var=$customer.name}}</strong>,<br/><br>
+                                Bedankt voor uw offerteaanvraag bij {{var quote.getStoreGroupName()}}.<br><br>
+                                U kunt binnen 48 uur ons aanbod verwachten.<br>
+                                U kunt de status van onze reacties bekijken door <a href="{{store url='customer/account/'}}"
+                                style="color:#1E7EC8;">in te loggen op uw account</a>.<br><br>
+                                Als u vragen heeft over uw offerte, dan kunt u contact opnemen via <a
+                                    href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+                                 Wij zijn bereikbaar op: <span class="nobr">{{config path='general/store_information/phone'}}</span> van maandag - vrijdag, tussen 8:30hr - 17:00hr.
+                            </p><br>
+
+                            <p>Nogmaals bedankt voor uw vertrouwen.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

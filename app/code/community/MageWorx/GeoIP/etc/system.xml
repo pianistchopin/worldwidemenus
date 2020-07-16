@@ -1,0 +1,59 @@
+﻿<?xml version="1.0"?>
+<!--
+/**
+ * MageWorx
+ * GeoIP Extension
+ *
+ * @category   MageWorx
+ * @package    MageWorx_GeoIP
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+-->
+<config>
+    <sections>
+        <mageworx_geoip translate="label" module="mageworx_geoip">
+            <label>GeoIP Extensions</label>
+            <tab>mageworx</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>600</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <geoip translate="label">
+                    <label>GeoIP Database</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+
+                        <db_type translate="label">
+                            <label>Database Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>mageworx_geoip/source_dbtype</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </db_type>
+
+                        <update_db translate="label comment">
+                            <label>Update Database</label>
+                            <frontend_model>mageworx_geoip/adminhtml_system_config_update</frontend_model>
+                            <frontend_type>text</frontend_type>
+                            <comment>Remember that http://maxmind.com has limits on downloads of GeoIP database per day</comment>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </update_db>
+
+                    </fields>
+                </geoip>
+            </groups>
+        </mageworx_geoip>
+    </sections>
+</config>

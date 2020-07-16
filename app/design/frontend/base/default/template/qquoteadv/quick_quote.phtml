@@ -1,0 +1,123 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php if (Mage::helper('qquoteadv')->checkQuickQuote()): ?>
+    <div id="quickQuoteWrapper" style="display: none;">
+        <div id="quickQuoteBack">
+            &nbsp;
+        </div>
+        <div id="quickQuote">
+            <div class="close-icon">
+                <img src="<?php echo $this->getSkinUrl('images/qquoteadv/close-button-retina.png'); ?>" alt="close"
+                     onclick="$('quickQuoteWrapper').hide();"/>
+            </div>
+            <div class="qquote-container">
+                <div class="quick-quote-submit-loader">
+                    <div class="cssload-container">
+                        <div class="cssload-speeding-wheel"></div>
+                    </div>
+                    <div class="error-container-quickquote" style="display:none;">
+                        <div id="error-msg-quickquote"></div>
+                        <div id="error-button-quickquote">
+                            <button onclick="$('quickQuoteWrapper').hide();" class="button btn-proceed-checkout error" title="Close and edit product" type="button">
+                                <span><span><?php echo $this->__('Close and edit product')?></span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="quick-quote-error-bg" style="display: none">
+
+                </div>
+                <div class="qquote-product-details clearfix">
+                    <?php echo $this->getChildHtml('quick.quote.product') ?>
+                    <button id="how-does-it-work" type="button" onclick="toggleFrontBackContent()"><?php echo $this->__('How it works')?></button>
+                </div>
+                <div class="qquote-client-collaterals">
+                    <div id="front-content">
+                        <div class="introduction">
+                            <div class="large-text"><?php echo $this->__('Request your Quote')?></div>
+                            <p><?php echo $this->__('Enter your details for a free and no obligation price proposal.')?></p>
+                        </div>
+                        <div class="client-data">
+                            <?php echo $this->getChildHtml('qquote.customer'); ?>
+                            <?php echo $this->getChildHtml('qquote.checkbox.shipping.requireshippingquote'); ?>
+                        </div>
+                        <div class="qquote-cart-collaterals" <?php echo $this->getShippingBoxSettings(); ?> >
+                            <div id="addressContainer" class="shipping-adress box">
+                                <?php echo $this->getChildHtml('qquote.address.billing')?>
+                                <?php echo $this->getChildHtml('qquote.address.shipping')?>
+                                <?php echo $this->getChildHtml('qquote.checkbox.address')?>
+                                <p class="required"><?php echo Mage::helper('sales')->__('* Required Fields') ?></p>
+                            </div>
+                        </div>
+
+                        <div id="submit-quote-request">
+                            <label for="submitOrder" class="no-obligations"><?php echo $this->__('You may request a quote without any obligations')?></label>
+                            <?php echo $this->getChildHtml('qquote.submit.button'); ?>
+                        </div>
+                    </div>
+                    <div id="back-content">
+                        <div class="introduction">
+                            <div class="large-text"><?php echo $this->__('How it works')?></div>
+                        </div>
+                        <div class="content">
+                            <h4><?php echo $this->__('How does this work?')?></h4>
+                            <ol>
+                                <li><?php echo $this->__('Add the products of your choice to the shopping cart')?></li>
+                                <li><?php echo $this->__('Enter your contact details and submit your request')?></li>
+                                <li><?php echo $this->__('You will be notified by email with our price proposals')?></li>
+                                <li><?php echo $this->__('You simply checkout and wait for your order')?></li>
+                            </ol>
+                            <h4><?php echo $this->__('Why do you need my contact details?')?></h4>
+                            <p><?php echo $this->__('We need your email to send you our offer, and we need to know you\'re a real person.')?></p>
+                            <div class="buttonContainer">
+                                <button onclick="toggleFrontBackContent()" class="button btn-back" title="Submit Quote Request" type="button">
+                                    <span><span><?php echo $this->__('Back')?></span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <?php // END quickQuoteWrapper?>
+    </div> <?php // END quickQuote ?>
+<?php endif; ?>
+<?php if (!$this->getDisableEmailCheck()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        function checkEmail(url, message){
+            var elmEmail = $('customer:email');
+            if (elmEmail) {
+                Event.observe(elmEmail, 'change', function (event) {
+                    isExistUserEmail(event, url, message)
+                });
+            }
+        }
+        checkEmail('<?php echo $this->getEmailErrorUrl(); ?>', '<?php echo $this->getEmailErrorMessage(); ?>');
+        //]]>
+    </script>
+<?php endif; ?>

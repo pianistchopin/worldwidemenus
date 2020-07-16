@@ -1,0 +1,38 @@
+<!--@subject Cuenta confirmada para {{var customer.name}}! @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url"}
+@-->
+
+<!--@styles
+@-->
+
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td class="action-content">
+            <h1>{{block type="cms/block" block_id="email_template_say_hello"}} {{htmlescape var=$customer.name}}</h1>
+            <p>Bienvenido/a a {{var store.getFrontendName()}}.</p>
+            <p>Para iniciar una sesión al visitar nuestro sitio web, sólo tiene que hacer clic en <a href="{{store url="customer/account/"}}">Iniciar sesión</a> o en <a href="{{store url="customer/account/"}}">Mi cuenta</a> en la parte superior de cada página e introducir su dirección de correo electrónico y contraseña.</p>
+            <p>Cuando inicie una sesión con su cuenta, podrá hacer lo siguiente:</p>
+            <ul>
+                <li>Pasar por el proceso de pago más rápido al realizar una compra</li>
+                <li>Comprobar el estado de los pedidos</li>
+                <li>Ver pedidos anteriores</li>
+                <li>Realizar cambios en la información de su cuenta</li>
+                <li>Cambiar su contraseña</li>
+                <li>Guardar direcciones alternativas (¡para envíos a sus clientes y sucursales!)</li>
+            </ul>
+            <p>
+                {{block type="cms/block" block_id="email_template_contact"}}
+            </p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

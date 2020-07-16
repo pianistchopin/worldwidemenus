@@ -1,0 +1,171 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @see Mage_Catalog_Block_Category_View
+ */
+?>
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+    $_imgHtml   = '';
+    if ($_imgUrl = $_category->getImageUrl()) {
+       // $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+?>
+<div class="page-title category-title">
+    <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
+        <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
+    <?php endif; ?>
+    <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+</div>
+
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+
+<?php if($_imgUrl): ?>
+    <?php echo $_imgHtml ?>
+<?php endif; ?>
+
+<?php
+	$cat = Mage::registry('current_category')->getId();
+	$products = Mage::getModel('catalog/category')->load($cat)
+	 ->getProductCollection()
+	 ->addAttributeToSelect('*') // add all attributes - optional
+	 ->addAttributeToFilter('status', 1) // enabled
+	 ->addAttributeToFilter('visibility', 4) //visibility in catalog,search
+	 ->setOrder('size', 'ASC'); //sets the order by price
+?>
+
+<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+    <div class="category-description std">
+        <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+    </div>
+<?php endif; ?>
+
+<?php if($this->isContentMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+
+<?php elseif($this->isMixedMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+    <?php echo $this->getProductListHtml() ?>
+
+<?php else: ?>
+    <?php 
+		$oldvalue = '';
+		$i = 0;
+	?>
+		
+	<div class="products-grid">
+		<?php foreach($products as $product){
+			// echo "<pre>";
+			// print_r($product->getData());
+			// echo "</pre>";
+			$i++; 
+			$newvalue = $product->getSize();
+			$attr = Mage::getModel('catalog/resource_eav_attribute')->load($newvalue);
+			$attributeValue = Mage::getModel('catalog/product')
+	        ->load($product->getId())
+	        ->getAttributeText('size');
+	    ?>
+
+			<?php 
+				if($i == 1){
+					$oldvalue = $product->getSize();
+					echo '<div class="section"><h2>'.$attributeValue.'</h2>';
+				}
+				elseif($oldvalue != $newvalue){
+					echo '</div>';
+					
+					echo '<div class="section"><h2>'.$attributeValue.'</h2>';
+					$oldvalue = $newvalue;			
+				}
+				
+				if($product->getSize() == '11'){
+					$text = 'View Swatch';
+				} else {
+					$text = 'Customise';
+				}
+
+				$formattedPrice = Mage::helper('core')->currency($product->getPrice(), true, false);
+
+				$limit = 60;
+				$productName = $product->getName();
+
+				if (strlen($productName) > $limit){
+			    	$productName = substr($productName, 0, strrpos(substr($productName, 0, $limit), ' ')) . '...';
+			  	} else {
+			    	$productName = $product->getName();
+			  	}
+			?>
+
+
+				<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+					<div class="item">
+						<?php //echo $newvalue; ?>
+						<a href="<?php echo $product->getProductUrl() ?>" title="<?php echo $product->getName() ?>" class="product-image">
+							<img id="product-collection-image-<?php echo $product->getId() ?>" src="<?php echo $product->getImageUrl() ?>" alt="<?php echo $product->getName() ?>" />
+						</a>
+						<div class="product-info">
+							<h2 class="product-name">
+								<a href="<?php echo $product->getProductUrl() ?>" title="<?php echo $product->getName() ?>"><?php echo $productName; ?></a>
+							</h2>
+						
+							<div class="price-box">
+								<span class="regular-price" id="product-price-85">
+									<span class="price"><?php echo $this->__('From').': '.$formattedPrice; ?></span>
+								</span>
+							</div>
+							<div class="actions">
+								<a href="<?php echo $product->getProductUrl() ?>">
+									<button type="button" title="Customise" class="button btn-cart">
+										<span>
+											<span><?php echo $this->__($text); ?></span>
+										</span>
+									</button>
+								</a>
+							</div>
+						</div>
+						<div class="sku-cccccc"><?php echo $product->getSku() ?></div>
+					</div>
+				</div>
+
+		<?php } ?>
+
+		</div>
+	</div>
+	<?php //echo $this->getProductListHtml(); ?>
+<?php endif; ?>
+
+
+
+
+<style type="text/css">
+	.sku-cccccc{display:none;}
+</style>

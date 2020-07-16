@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<config>
+		<menu>
+		    <catalog>
+                <children>
+                    <attributes>
+                        <children>
+                            <adjicon translate="title" module="adjicon">
+                                <title>Visualize Your Attributes</title>
+                                <sort_order>300</sort_order>
+                                <action>adminhtml/adjicon</action>
+                            </adjicon>
+                        </children>
+                    </attributes>
+                </children>
+            </catalog>
+		</menu>
+		
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+            		    <catalog>
+                            <children>
+                                <attributes>
+                                    <children>
+                                        <adjicon translate="title" module="adjicon">
+                                            <title>Visualize Your Attributes</title>
+                                            <sort_order>300</sort_order>
+                                        </adjicon>
+                                    </children>
+                                </attributes>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl> 
+</config>

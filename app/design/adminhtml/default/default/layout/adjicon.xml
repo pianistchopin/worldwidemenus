@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<layout verion="0.1.0">
+    <adminhtml_adjicon_edit>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjadmin.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/aim.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/jscolor/jscolor.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjcolor.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjiconcolor.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>aitoc/adjicon.css</name></action>
+        </reference>
+    </adminhtml_adjicon_edit>
+    <adminhtml_adjicon_new>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjadmin.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/aim.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/jscolor/jscolor.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjcolor.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjiconcolor.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>aitoc/adjicon.css</name></action>
+        </reference>
+    </adminhtml_adjicon_new>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/jscolor/jscolor.js</name></action>
+        </reference>
+    </adminhtml_system_config_edit>
+    <adminhtml_catalog_product_configurable>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/aim.js</name></action>
+            <action method="addItem"><type>js</type><name>aitoc/adjicon/adjgallery.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>aitoc/adjicon.css</name></action>
+        </reference>
+        <reference name="product_tabs">
+            <action method="addTab"><name>visualize_tab</name><block>adjicon/adminhtml_catalog_product_edit_tabs_images</block></action>
+        </reference>
+    </adminhtml_catalog_product_configurable>
+</layout>

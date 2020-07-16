@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * FME
+ * 
+ * @photogallery   	design_default
+ * @package    	Local
+ * @copyright  	Copyright © 2009 - eCommerce Software Solutions Online - Magento Commerce Specialists 
+ * (http://www.ecommercesoftwaresolutionsonline.com) 
+ */
+-->
+<layout version="0.1.0">
+
+    <adminhtml_fme_gallery_index>
+        
+        <reference name="content">
+            <block type="photogallery/adminhtml_gallery" name="gallery" />
+        </reference>
+    </adminhtml_fme_gallery_index>
+     <adminhtml_fme_photogallery_index>
+        
+        <reference name="content">
+            <block type="photogallery/adminhtml_photogallery" name="photogallery" />
+        </reference>
+    </adminhtml_fme_photogallery_index>
+
+	<adminhtml_gimage_index>
+
+        <reference name="content">
+            <block type="photogallery/adminhtml_gimage" name="gimage" />
+        </reference>
+    </adminhtml_gimage_index>
+	
+    <adminhtml_fme_photogallery_products>
+        <block type="core/text_list" name="root">
+            <block type="photogallery/adminhtml_photogallery_edit_tab_products" name="photogallery.edit.tab.products"/>
+            <block type="adminhtml/widget_grid_serializer" name="related_grid_serializer">
+                <reference name="related_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>photogallery.edit.tab.products</grid_block_name>
+                        <data_callback>_getSelectedProducts</data_callback>
+                        <hidden_input_name>links[related]</hidden_input_name>
+                        <reload_param_name>products_related</reload_param_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_fme_photogallery_products>
+
+    <adminhtml_fme_photogallery_productsgrid>
+        <block type="core/text_list" name="root">
+           <block type="photogallery/adminhtml_photogallery_edit_tab_products" name="photogallery.edit.tab.products"/>
+        </block>
+    </adminhtml_fme_photogallery_productsgrid>
+    
+    <!-- come on -->
+    <adminhtml_fme_photogalleryblocks_index>
+		<update handle="editor" />
+        <reference name="content">
+            <block type="photogallery/adminhtml_photogalleryblocks" name="photogalleryblocks" />
+        </reference>
+    </adminhtml_fme_photogalleryblocks_index>
+	
+	<adminhtml_fme_photogalleryblocks_edit>
+			<update handle="editor"/>
+	</adminhtml_fme_photogalleryblocks_edit>
+	
+	<!-- wysiwyg code -->
+	<cms_wysiwyg_images_index>
+	    <remove name="footer" />
+	    <remove name="head" />
+	    <reference name="left">
+		<block name="wysiwyg_images.js" type="adminhtml/cms_wysiwyg_images_content" template="cms/browser/js.phtml" />
+		<block name="wysiwyg_images.tree" type="adminhtml/cms_wysiwyg_images_tree" template="cms/browser/tree.phtml" />
+	    </reference>
+	    <reference name="content">
+		<block name="wysiwyg_images.content"  type="adminhtml/cms_wysiwyg_images_content" template="cms/browser/content.phtml">
+		    <block name="wysiwyg_images.uploader" type="adminhtml/cms_wysiwyg_images_content_uploader" template="cms/browser/content/uploader.phtml" />
+		    <block name="wysiwyg_images.newfolder" type="adminhtml/cms_wysiwyg_images_content_newfolder" template="cms/browser/content/newfolder.phtml" />
+		</block>
+	    </reference>
+	</cms_wysiwyg_images_index>
+	<!-- wysiwyg code -->
+	
+	<adminhtml_fme_photogalleryblocks_new>
+   	    <update handle="editor" />
+	</adminhtml_fme_photogalleryblocks_new>
+	
+	 <adminhtml_fme_photogalleryblocks_relatedphotogallery>
+        <block type="core/text_list" name="root">
+            <block type="photogallery/adminhtml_photogalleryblocks_edit_tab_relatedphotogallery" name="photogalleryblocks.edit.tab.relatedphotogallery"/>
+            <block type="adminhtml/widget_grid_serializer" name="relatedphotogallery_grid_serializer">
+                <reference name="relatedphotogallery_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>photogalleryblocks.edit.tab.relatedphotogallery</grid_block_name>
+                        <data_callback>getSelectedRelatedGallery</data_callback>
+                        <hidden_input_name>links[relatedphotogallery]</hidden_input_name>
+                        <reload_param_name>related_photogallery</reload_param_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_fme_photogalleryblocks_relatedphotogallery>
+
+    <adminhtml_fme_photogalleryblocks_relatedphotogallerygrid>
+        <block type="core/text_list" name="root">
+            <block type="photogallery/adminhtml_photogalleryblocks_edit_tab_relatedphotogallery" name="photogalleryblocks.edit.tab.relatedphotogallery"/>
+        </block>
+    </adminhtml_fme_photogalleryblocks_relatedphotogallerygrid>
+</layout>

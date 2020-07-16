@@ -1,0 +1,29 @@
+<?php
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+
+$item = $this->getItem();
+$thumbnailsSize = Mage::helper('mageworx_customoptions')->getImagesThumbnailsSize();
+if ($thumbnailsSize > 70) $thumbnailsSize = 70;
+if ($item) { ?>
+<a href="<?php echo $item->getBigImgUrl() ?>" rel="mageworxLightbox[]" title="" style="text-decoration:none;">
+    <img <?php if ($thumbnailsSize) { ?>height="<?php echo $thumbnailsSize ?>"<?php } ?> src="<?php echo $item->getUrl() ?>" title="" class="small-image-preview v-middle" />
+</a>
+<input class="customoptions-input-del-img" type="checkbox" name="image_delete[<?php echo $item->getId() ?>]<?php if ($item->getValueId()) { echo '[' . $item->getValueId() . ']'; } ?>" value="<?php echo $item->getId() ?>" id="label-delete-img-<?php echo $item->getId(); if ($item->getValueId()) echo '-'.$item->getValueId(); ?>" />
+<label for="label-delete-img-<?php echo $item->getId(); if ($item->getValueId()) echo '-'.$item->getValueId(); ?>"><?php echo $item->getLabel() ?></label>
+<?php } ?>

@@ -1,0 +1,6 @@
+<meta property="og:title" content="<?php echo $this->stripTags($this->_getProductName(), null, true) ?>" />
+<meta property="og:description" content="<?php echo htmlspecialchars($this->_getProductModel()->getDescription()) ?>" />
+<meta property="og:type" content="product" />
+<meta property="og:image" content="<?php echo $this->_getSharedImgModel()->getUrlThumbnailSharedImg() ?>" />
+<meta property="og:url" content="<?php echo $this->_getCurrentUrl() ?>" />
+<meta property="og:site_name" content="<?php echo Mage::app()->getStore()->getName() ?>" />

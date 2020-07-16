@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h3 class="icon-head"><?php echo Mage::helper('mageworx_customoptions')->__('Manage Options Templates') ?></h3></td>
+            <td class="form-buttons">
+            	<?php echo $this->getAddNewButtonHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<div><?php echo $this->getGridHtml() ?></div>
+<script type="text/javascript">
+//<![CDATA[
+    <?php
+        $massactionClass = $this->getChild('grid')->getMassactionBlock()->getJsObjectName();
+        $massactionFormId =  $this->getChild('grid')->getMassactionBlock()->getHtmlId() . '-form';
+    ?>
+    <?php echo $massactionClass ?>.select.observe('change', function(evt) {
+        var item = <?php echo $massactionClass ?>.getSelectedItem();
+        if (item.id=='import') {
+            <?php echo $massactionClass ?>.checkedString = ' ';
+            $('<?php echo $massactionFormId ?>').enctype = "multipart/form-data";
+        } else if (<?php echo $massactionClass ?>.checkedString == ' ') {
+            <?php echo $massactionClass ?>.checkedString = '';
+        }
+        <?php echo $massactionClass ?>.onSelectChange(evt);
+    });
+//]]>
+</script>

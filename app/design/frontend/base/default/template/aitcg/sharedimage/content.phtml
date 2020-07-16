@@ -1,0 +1,49 @@
+<?php if(Mage::getStoreConfig('catalog/aitcg/aitcg_use_social_networks_sharing')) : ?>
+<div id="fb-root"></div>
+<script type="text/javascript">
+// <<< Facebook Like button code
+  // Load the SDK's source Asynchronously
+  // Note that the debug version is being actively developed and might 
+  // contain some type checks that are overly strict. 
+  // Please report such bugs using the bugs tool.
+  (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+// >>> Facebook Like button code
+</script>
+<script type="text/javascript">
+// <<< Google Share button code
+      window.___gcfg = {
+        lang: 'en-US'
+      };
+
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+// >>> Google Share button code
+</script>
+<?php endif; ?>
+<div style="text-align:center;">
+<h1><?php echo $this->__("Shared images view page") ?></h1>
+<p><?php echo $this->__("This customized image was created for the following product") ?> : <a href="<?php echo $this->_getProductModel()->getProductUrl() ?>"><?php echo $this->_getProductName() ?></a></p>
+<br />
+<a href="<?php echo $this->_getSharedImgModel()->getUrlFullSizeSharedImg() ?>" target="_blank" style="border:0px;"><img src="<?php echo $this->_getSharedImgModel()->getUrlSmallSizeSharedImg()?>" /></a>
+
+<?php if(Mage::getStoreConfig('catalog/aitcg/aitcg_use_social_networks_sharing')) : ?>
+<div><br /></div>
+<div style="display:inline;vertical-align:top;" class="fb-like" data-layout="button_count" data-href="<?php echo $this->_getCurrentUrl() ?>" data-send="true" data-show-faces="false"></div>
+<div style="display:inline;" class="g-plus" data-annotation="none" data-action="share" data-href="<?php echo $this->_getCurrentUrl() ?>" ></div>
+    <?php if (Mage::helper('sendfriend')->isEnabled()): ?>
+    <?php $emailToFriendUrl = Mage::helper('aitcg')->getEmailToFriendUrl($this->_getProductModel(), $this->_getSharedImgId()) ?>
+    <div style="display:inline;">
+    <p style="display:inline;" class="email-friend"><a href="<?php echo $emailToFriendUrl ?>" target="_blank"><img style="widht:107px;height:20px;" src="<?php echo $this->getSkinUrl('aitoc/aitcg/images') . '/email_to_a_friend.gif' ?>" /></a></p>
+    </div>
+    <?php endif; ?>            
+<?php endif; ?>
+</div>

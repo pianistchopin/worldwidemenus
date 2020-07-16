@@ -1,0 +1,50 @@
+<!--@subject {{var quote.getStoreGroupName()}}: お見積依頼 # {{var quote.increment_id}} は本日有効期限です @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>こんにちは {{htmlescape var=$customer.name}}様</strong><br/><br>
+
+                            <h3
+                                    style="font-size: 1.05em; padding-bottom: 1px;">お客様のお見積依頼 #{{var quote.increment_id}}
+                                <small>(ご依頼日 {{var quote.getCreatedAtFormated('long')}})</small>
+                                は本日有効期限切れとなります。
+                            </h3>
+                            <p>
+                                <a href="{{store url='customer/account/'}}" style="color:#1E7EC8;">マイページにログイン</a>してお見積内容に関するご意見・ご発注をお願い致します。
+                            </p>
+                            <br>
+
+                            <p>お見積内容に関するご質問は <a
+                                href="mailto:{{config path='trans_email/ident_support/email'}}"
+                                style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> までメールにてお問い合せいただくか、
+                            <span class="nobr">{{config path='general/store_information/phone'}}</span> までお電話ください。
+                            月曜 - 金曜 午前8時 ~ 午後5時まで受付しております。
+                            </p><br>
+
+                            <p>ありがとうございました、ご注文お待ちしております。</p>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageWorx
+ * GeoIP Extension
+ *
+ * @category   MageWorx
+ * @package    MageWorx_GeoIP
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+-->
+<config>
+    <modules>
+        <MageWorx_GeoIP>
+            <version>1.2.2</version>
+        </MageWorx_GeoIP>
+    </modules>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <MageWorx_GeoIP after="Mage_Adminhtml">MageWorx_GeoIP_Adminhtml</MageWorx_GeoIP>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <frontend>
+        <translate>
+            <modules>
+                <MageWorx_GeoIP>
+                    <files>
+                        <default>MageWorx_GeoIP.csv</default>
+                    </files>
+                </MageWorx_GeoIP>
+            </modules>
+        </translate>
+    </frontend>
+
+    <global>
+        <models>
+            <mageworx_geoip>
+                <class>MageWorx_GeoIP_Model</class>
+            </mageworx_geoip>
+            <mwgeoip>
+                <class>MageWorx_GeoIP_Model</class>
+            </mwgeoip>
+        </models>
+        <blocks>
+            <mageworx_geoip>
+                <class>MageWorx_GeoIP_Block</class>
+            </mageworx_geoip>
+            <mwgeoip>
+                <class>MageWorx_GeoIP_Block</class>
+            </mwgeoip>
+        </blocks>
+        <helpers>
+            <mageworx_geoip>
+                <class>MageWorx_GeoIP_Helper</class>
+            </mageworx_geoip>
+            <mwgeoip>
+                <class>MageWorx_GeoIP_Helper</class>
+            </mwgeoip>
+        </helpers>
+        <resources>
+            <mageworx_geoip_setup>
+                <setup>
+                    <module>MageWorx_GeoIP</module>
+                </setup>
+            </mageworx_geoip_setup>
+        </resources>
+    </global>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <mageworx_geoip>
+                    <file>mageworx_geoip.xml</file>
+                </mageworx_geoip>
+            </updates>
+        </layout>
+        <events>
+            <model_config_data_save_before>
+                <observers>
+                    <mageworx_geoip_change_db_type>
+                        <class>mageworx_geoip/observer</class>
+                        <method>changeDbTypeAfter</method>
+                    </mageworx_geoip_change_db_type>
+                </observers>
+            </model_config_data_save_before>
+            <controller_action_predispatch_adminhtml_system_config_edit>
+                <observers>
+                    <mageworx_geoip_add_system_warning>
+                        <class>mageworx_geoip/observer</class>
+                        <method>addSystemWarning</method>
+                    </mageworx_geoip_add_system_warning>
+                </observers>
+            </controller_action_predispatch_adminhtml_system_config_edit>
+        </events>
+    </adminhtml>
+
+    <default>
+        <mageworx_geoip>
+            <geoip>
+                <db_type>1</db_type>
+            </geoip>
+        </mageworx_geoip>
+    </default>
+
+    <crontab>
+        <jobs>
+            <geoip_db_update>
+                <schedule><cron_expr>0 0 * * 1</cron_expr></schedule>
+                <run><model>mageworx_geoip/observer::cronUpdateDatabase</model></run>
+            </geoip_db_update>
+        </jobs>
+    </crontab>
+</config>

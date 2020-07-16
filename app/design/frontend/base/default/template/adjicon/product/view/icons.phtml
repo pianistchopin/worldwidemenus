@@ -1,0 +1,9 @@
+<?php
+$_product = $this->getProduct();
+Mage::helper('adjicon')->init(array($_product));
+$icons = Mage::helper('adjicon')->display($_product);
+?>
+<script type="text/javascript">
+    var adjIcons = <?php echo Mage::helper('core')->jsonEncode($icons) ?>;
+    $$('.product-name').first().insert({after: adjIcons});
+</script>

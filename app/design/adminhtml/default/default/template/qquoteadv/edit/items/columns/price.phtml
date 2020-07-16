@@ -1,0 +1,101 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+
+<?php
+$qtyHtml = $this->getQtyHtml();
+$prices = $qtyHtml['prices'];
+$margins = $qtyHtml['margins'];
+$customPriceLineHtml = $qtyHtml['customPriceLineHtml'];
+$hideRadio = $qtyHtml['hideRadio'];
+$rowTotalLine = $qtyHtml['rowTotalLine'];
+$requested_item = $this->getItem()->getRequestedProductData()->getFirstItem();
+
+$tierMatch = false;
+if (count($customPriceLineHtml)): ?>
+    <?php foreach ($customPriceLineHtml as $key => $value): ?>
+        <?php
+        // check if requested qty matches tier options
+        if ($value == $requested_item->getRequestQty()) {
+            $tierMatch = true;
+        }
+        ?>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<td style="min-width: 120px;" class="<?php echo $this->getCssContentClasses()?>" onclick="updateTotal()" onchange="updateTotal()" onkeyup="updateTotal()">
+
+    <?php if (isset($bundleDynamic)): // Show message for Bundle products with Dynamic pricing?>
+        <div style="height:25px;"><?php echo $bundleDynamic; ?></div>
+    <?php else: ?>
+        <?php if (count($prices)) ?>
+        <?php foreach ($prices as $key => $value): ?>
+            <?php
+            // Radio button is selected for the requested product qty
+
+            if ($hideRadio) {
+                if (($this->getItem()->getData('qty') === $value['req_qty'] || count($prices) == 1)
+                    && $tierMatch == false
+                ) {
+                    $state = $value['selected'];
+                    if (($this->getItem()->getData('qty') == $value['req_qty']) || ($tierMatch === true)) {
+                        // Setting price for product in totals
+                        $_quoteItems[$this->getProduct()->getId()]['totalQuoteprice'] = $value['quotePrice'];
+                        if ($this->getItem()->getData('qty')) {
+                            $_quoteItems[$this->getItem()->getId()]['totalQty'] = $this->getItem()->getData('qty');
+                            $productQty = $this->getItem()->getData('qty');
+                        } else {
+                            $productQty = 1;
+                        }
+
+                        $productPrice = $value['quotePrice'];
+                        $totalItemPrice = ($productQty * $productPrice);
+                        $this->getQuoteTotal()->setTotalQuotecost(
+                            $this->getQuoteTotal()->getTotalQuotecost() + $totalItemPrice
+                        );
+                    }
+                    $tierMatch = true;
+
+                } else {
+                    $state = $value['unselected'];
+                }
+            } else {
+                $state = "";
+                // Setting price for product in totals
+                $_quoteItems[$this->getItem()->getId()]['totalQuoteprice'] = $value['quotePrice'];
+                $this->getQuoteTotal()->setTotalQuotecost(
+                    $this->getQuoteTotal()->getTotalQuotecost() + ($_quoteItems[$this->getItem()->getId()]['totalQty']
+                        * $value['quotePrice'])
+                );
+            }
+            ?>
+            <div style="height:25px;"><?php echo $state . $value['value']; ?></div>
+
+        <?php endforeach; ?>
+
+    <?php endif; ?>
+</td>

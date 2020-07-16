@@ -1,0 +1,422 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php /** @var $this Ophirah_Qquoteadv_Block_Qquote */ ?>
+<?php if ($this->getQuote()->getData() == array()): ?>
+
+    <div class="page-title">
+        <h1><?php echo $this->__('Request for Quote') ?></h1>
+    </div>
+    <div class="cart-empty">
+        <p><?php echo $this->__('No Items to display.'); ?></p>
+
+        <p><?php echo Mage::helper('checkout')->__('Click <a href="%s">here</a> to continue shopping.', $this->getUrl()) ?></p>
+    </div>
+
+<?php else: ?>
+
+    <?php $productNames = $this->getNotSalableProductNames($this->getQuote()); ?>
+    <form method='post' id="quotelist" name="quotelist" enctype="multipart/form-data"
+          action='<?php echo $this->getUrl('qquoteadv/index/quoteRequest', array('_secure' => Mage::app()->getStore()->isCurrentlySecure())) ?>'>
+        <?php if ($this->displayAssignedTo() && $this->getAdminUser() !== null): ?>
+            <input type="hidden" name="user_id" value="<?php echo $this->getAdminUser()->getId(); ?>"/>
+        <?php endif; ?>
+    <div class="page-title">
+        <h1><?php echo $this->__('Request for Quote') ?></h1>
+        <?php if ($this->displayAssignedTo()): ?>
+            <div class="assigned-to">
+                <?php if (Mage::helper('qquoteadv')->getAdminUser() !== null): ?>
+                    <?php if ($this->isAssignPreviousEnabled()): ?>
+                        <?php if ($this->helper('customer')->isLoggedIn()): ?>
+                            <?php
+                            $customerData = Mage::getSingleton('customer/session')->getCustomer();
+                            echo $this->__('Quote will be assigned to <strong>%s</strong>', Mage::helper('qquoteadv')->getAdminUser(Mage::helper('qquoteadv')->getPreviousAssignedAdmin(null, $customerData->getId()))->getName()); ?>
+                        <?php else: ?>
+                            <?php echo $this->__('If the end user has no previous assigned sales representative the quote will be assigned to <strong>%s</strong>.', $this->getAdminUser()->getName()); ?>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <?php echo $this->__('Quote will be assigned to <strong>%s</strong>', $this->getAdminUser()->getName()); ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+        <input type='hidden' id='customer_isQuote' name='customer[is_quote]' value='1'/>
+
+        <input style="display:none;" type='submit' name='submitOrder' id="submitOrder" class='form-button'
+               value="<?php echo $this->__('Request quote') ?>"/>
+        <button onclick="$('submitOrder').click(); event.preventDefault();  event.stopPropagation();"
+                class="button btn-proceed-checkout btn-checkout"
+                title="<?php echo $this->__('Request quote') ?>" type="button">
+            <span><span><?php echo $this->__('Request quote') ?></span></span>
+        </button>
+    </div>
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+
+        <table cellspacing="0" border="0" id="shopping-cart-table" class="data-table cart-table">
+            <thead>
+            <tr>
+
+                <th><?php echo Mage::helper('sales')->__('Product') ?></th>
+                <th></th>
+                <?php if(!Mage::getStoreConfig('qquoteadv_quote_form_builder/quote_form_remarks/disable_product_remark')): ?>
+                    <th><?php echo $this->__('Request information') ?></th>
+                <?php endif; ?>
+                <th class="a-center"><?php echo Mage::helper('sales')->__('Price') ?></th>
+                <th class="a-center"><?php echo Mage::helper('sales')->__('Qty') ?> <span class="required"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            $i = 0;
+            foreach ($this->getQuote() as $item):
+                $product = $this->getProduct($item->getProductId());
+
+                //SCP support
+                if ($this->getScp()) {
+                    $product = $this->addItemDataToProduct($product, $item);
+                    /** @var \Ophirah_Qquoteadv_Block_Checkout_Miniquote_Item_Miniquoterenderer $scpRenderItem */
+                    $scpRenderItem = $this->getItemRendererScp($item);
+                    $item->setName($scpRenderItem->getProductName());
+                    $product->setName($scpRenderItem->getProductName());
+                }
+
+                if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+                    $childProduct = Mage::getModel('qquoteadv/qqadvproduct')->getConfChildProduct($item->getId());
+                } else {
+                    $childProduct = $product;
+                }
+                ?>
+                <tr>
+
+                    <?php
+                    $attributes = unserialize($item->getAttribute());
+                    $original_product = Mage::getModel('catalog/product')->load($attributes['product']);
+                    $original_product = $this->addItemDataToProduct($original_product, $item);
+                    $original_product_url = $original_product->getProductUrl();
+
+                    //SCP support
+                    if ($this->getScp()) {
+                        $productImage = $scpRenderItem->getProductThumbnail();
+                    } else {
+                        $imageProduct = $this->getImageProduct($product, $childProduct);
+                        $productImage = Mage::helper('catalog/image')->init($imageProduct, 'thumbnail')->resize(180);
+                    }
+                    ?>
+                    <td class="product-quote-image"><a class="product-image" href="<?php echo $original_product_url; ?>"><img
+                                src=" <?php echo $productImage ?>"
+                                alt="<?php echo $item->getName(); ?>"/>
+                            </a>
+                        <div class="a-center">
+                        <?php if (!$this->getScp()): ?>
+                        <button onclick="location.href='<?php echo $this->getUrl('qquoteadv/index/configure', array('id' => $item->getId())) ?>';"><?php echo Mage::helper('sales')->__("Edit") ?></button>
+                        <?php endif; ?>
+                        </div>
+                    </td>
+                    <td class="attributes-col"><h2 class="title product-name">
+                            <?php if (1): //$product->hasProductUrl()):?>
+                                <a href="<?php echo $product->getProductUrl() ?>"><?php echo $this->escapeHtml($product->getName()) ?></a>
+                            <?php else: ?>
+                                <?php echo $this->escapeHtml($item->getName()) ?>
+                            <?php endif; ?>
+                        </h2>
+
+                        <div class="product-cart-sku">
+                            <span class="label"><?php echo Mage::helper('sales')->__('Sku').': '; ?></span><?php echo $childProduct->getSku(); ?>
+                        </div>
+                        <!-- Downloadable information -->
+                        <?php $qqadvproductdownloadable =  Mage::getModel('qquoteadv/qqadvproductdownloadable')->loadProduct($item);
+                        if($qqadvproductdownloadable->isDownloadable($product)): ?>
+                            <?php if ($links = $qqadvproductdownloadable->getLinks()): ?>
+                                <dl class="item-options">
+                                    <dt><?php echo $qqadvproductdownloadable->getLinksTitle() ?></dt>
+                                    <?php foreach ($links as $link): ?>
+                                        <dd><?php echo $this->escapeHtml($link->getTitle()); ?></dd>
+                                    <?php endforeach; ?>
+                                </dl>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <!-- EOF downloadable -->
+                        <?php
+                        if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE ||
+                            $product->isConfigurable() || $product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE  ||
+                            $product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL ||
+                            $qqadvproductdownloadable->isDownloadable($product)):
+                            if($qqadvproductdownloadable->isDownloadable($product)){
+                                $product = $qqadvproductdownloadable->prepareDownloadableProduct($item);
+                            }
+                            $quoteByProduct = Mage::helper('qquoteadv')->getQuoteItem($product, $item->getAttribute(), null, $item, false, false);
+
+                            foreach ($quoteByProduct->getAllItems() as $_item) {
+                                if ($this->getScp()) {
+                                    echo $this->getOptionHtml($scpRenderItem->getOptionList());
+                                } else {
+                                    if ($_item->getProductId() == $product->getId()) {
+                                        echo $this->getItemHtml($_item);
+                                    }
+                                }
+                            }
+
+                            $qty = $quoteByProduct->getItemsQty();
+                            $_finalPrice = $quoteByProduct->getSubtotal() / ($qty > 0 ? $qty : 1);
+
+                        endif; ?>
+                    </td>
+                    <?php if(!Mage::getStoreConfig('qquoteadv_quote_form_builder/quote_form_remarks/disable_product_remark')): ?>
+                    <td class="quickQuote">
+                        <?php if ($i > 0 || $this->getRemarks($item, false) != null): ?>
+                            <textarea   name="quote_request[<?php echo $item->getId(); ?>][client_request]"
+                                        rows="4"
+                                        style="min-width:205px;"
+                            ><?php echo $this->__($this->getRemarks($item, false)); ?></textarea>
+                        <?php else: ?>
+                            <div id="parent">
+                                <textarea id="textArea"
+                                          name="quote_request[<?php echo $item->getId(); ?>][client_request]"
+                                          rows="4"
+                                          style="min-width:205px;height:inherit;"
+                                          onclick="$(event.target).value = ''; $(event.target).setAttribute('onclick', '');"
+                                    ><?php echo $this->__($this->getRemarks($item)); ?></textarea>
+                            </div>
+                        <?php endif; ?>
+                    </td>
+                    <?php endif; ?>
+                    <td>
+                        <?php if (Mage::helper('qquoteadv/not2order')->getShowPrice($product)): ?>
+                            <?php echo Mage::helper('checkout')->formatPrice($_finalPrice) ?>
+                        <?php endif; ?>
+                    </td>
+                    <td nowrap="nowrap" class="quickQuote">
+                        <div id="qdiv_<?php echo $item->getId() ?>" nowrap="nowrap" class="qty-div">
+                            <input type="text"
+                                   class="required-entry validate-zero-or-greater input-text"
+                                   size="6"
+                                   name="quote_request[<?php echo $item->getId() ?>][qty][]"
+                                   value="<?php echo $item->getQty()*1; ?>"/>
+                        </div>
+                        <?php
+                        //Get saved tier quantities from collection
+                        $collection = Mage::getModel('qquoteadv/requestitem')->getCollection()
+                            ->addFieldToFilter('request_qty', array('neq' => $item->getQty()))
+                            ->addFieldToFilter('quoteadv_product_id', array('eq' => $item->getId()));
+                        if ($collection->count()):
+                            foreach($collection as $qtyItem): ?>
+                                <div class="quantity-container clearfix">
+                                    <div id="qdiv_<?php echo $qtyItem->getId() ?>" nowrap="nowrap" class="qty-div">
+                                        <input type="text"
+                                               class="required-entry validate-zero-or-greater input-text"
+                                               size="6"
+                                               name="quote_request[<?php echo $qtyItem->getQuoteadvProductId() ?>][qty][]"
+                                               value="<?php echo $qtyItem->getQty() * 1; ?>"/>
+                                    </div>
+                                    <a class="btn-remove btn-remove2 btn-qty" title="<?php echo Mage::helper('checkout')->__('Remove item') ?>"
+                                       href="<?php echo $this->getUrl('qquoteadv/index/deleteTier', array('request_id' => $qtyItem->getRequestId())); ?>"> <?php echo Mage::helper('checkout')->__('Remove item') ?>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif;?>
+                        <div>
+                            <?php if ($this->getShowTrierOption()) : ?>
+                                <a href="#" id="add-tier"
+                                   onClick="addNewLine(<?php echo $item->getId() ?>, 'quote_request[<?php echo $item->getId() ?>][qty][]'); return false;"><?php echo $this->__('Add Qty') ?></a>
+                            <?php endif; ?>
+                        </div>
+                        <input type="hidden" name="quote[<?php echo $item->getId() ?>][qty]"
+                               value="<?php echo $item->getQty()*1; ?>" size="3"/>&nbsp;
+                        <input type="hidden" name="quote[<?php echo $item->getId() ?>][attributeEncode]"
+                               value="<?php echo base64_encode($item->getAttribute()) ?>"/>
+                        <input type="hidden" name="quote[<?php echo $item->getId() ?>][product]"
+                               value="<?php echo $product->getId() ?>"/>
+                        <input type="hidden" name="quote[<?php echo $item->getId() ?>][quoteid]"
+                               value="<?php echo $item->getId() ?>"/>
+                    </td>
+
+                    <td class="a-center">
+
+                        <input type="hidden" id="quote_id" name="quote_id" value="<?php echo $item->getQuoteId() ?>">
+                        <input type="hidden" class="input-text" name="quote[<?php echo $item->getId() ?>][product]"
+                               value="<?php echo $item->getProductId(); ?>" size="3"/>
+                        <input type="hidden" class="input-text"
+                               name="quote_request[<?php echo $item->getId() ?>][product_id]"
+                               value="<?php echo $item->getProductId(); ?>" size="6"/>
+                        <a class="btn-remove btn-remove2" title="<?php echo Mage::helper('checkout')->__('Remove item') ?>"
+                           href="<?php echo $this->getUrl('qquoteadv/index/delete', array('id' => $item->getId())); ?>"> <?php echo Mage::helper('checkout')->__('Remove item') ?>
+                            </a>
+
+                    </td>
+                </tr>
+                <?php
+                $i++;
+            endforeach;
+            ?>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="100" class="a-right">
+                    <?php $action = "setLocation('" . $this->getUrl('qquoteadv/index/clearQuote') . "');"; ?>
+                    <button type="button" onclick="<?php echo $action; ?>" title="<?php echo $this->__('Empty Quote') ?>"
+                            class="button2 btn-empty" ><span><span><?php echo $this->__('Empty Quote') ?></span></span></button>
+
+                    <?php $action = "setLocation('" . $this->getUrl('qquoteadv/index/save') . "');"; ?>
+                    <button class="button2 btn-update" type="button" onclick="<?php echo $action; ?>" title="<?php echo $this->__('Update Quote') ?>">
+                             <span><span><?php echo $this->__('Update Quote') ?></span></span></button>
+
+                    <span class="or">-<?php echo $this->__('or'); ?>-</span>
+
+                    <?php if ($this->getContinueShoppingUrl()): ?>
+                        <button class="button2 btn-continue"
+                                onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')" type="button">
+                            <span><span><?php echo Mage::helper('customer')->__('Continue Shopping') ?></span></span></button><br>
+                    <?php endif; ?>
+
+                    <?php $action = "setLocation('" . $this->getUrl('qquoteadv/index/switch2Order') . "');";
+
+                    if (count($productNames) > 0) {
+                        $action = 'initMsg();';
+                    }
+                    ?>
+                    <?php if ($this->getShowOrderReferences()) : ?>
+                        <button type="button" onclick="<?php echo $action; ?>"
+                                title="<?php echo Mage::helper('sales')->__('Move to Shopping cart') ?>"
+                                class="button2 btn-update">
+                            <span><span><?php echo Mage::helper('sales')->__('Move to Shopping cart') ?></span></span></button>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            </tfoot>
+
+        </table>
+
+        <?php echo $this->getChildHtml('qquote.address'); ?>
+
+        <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+    </form>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        function requestShippingProposal() {
+            var quotelistForm = new VarienForm('quotelist');
+            var elmEmail = $('customer:email');
+            if (elmEmail.value) {
+                // Reset isQuote to 2
+                var isQuote = document.getElementById('customer_isQuote');
+                isQuote.value = '2';
+
+                // Send quotelist form to another action
+                quotelistForm.form.action = '<?php echo $this->getUrl('qquoteadv/index/quoteShippingEstimate'); ?>';
+
+                //submit
+                quotelistForm.submit();
+            }
+        }
+        //]]>
+    </script>
+
+
+<?php
+//#show pop-up window
+    if (count($productNames) > 0) {
+        echo $this->getLayout()->createBlock("core/template")->setTemplate('qquoteadv/quote_lightbox.phtml')->setProductNames($productNames)->toHtml();
+    }
+    ?>
+
+
+    <script language="javascript">
+
+        var pool = [];
+
+        function addNewLine(itemId, inputName) {
+            if (!pool[itemId]) {
+                pool[itemId] = 1;
+            }
+
+            index = pool[itemId];
+            index++;
+            pool[itemId] = index;
+
+            var parentElemt = document.getElementById('qdiv_' + itemId);
+            var childElem = document.createElement('div');
+            childElem.setAttribute("id", 'div_' + itemId + '_' + index);
+            childElem.className = "add-row-tier";
+            parentDiv = 'div_' + itemId + '_' + index;
+            inputField = 'quote_' + itemId + '_' + index;
+            link = '<a href="#"  class="btn-remove btn-remove2 btn-qty" title="<?php echo $this->quoteEscape(Mage::helper('checkout')->__('Remove item')) ?>" onClick="removeElement(\'' + parentDiv + '\', \'' + inputField + '\'); $(\'' + parentDiv + '\').hide()"><?php echo $this->quoteEscape(Mage::helper('checkout')->__('Remove item')) ?></a>';
+
+            childElem.innerHTML = '<input size="6" type="text" name="' + inputName + '"  id="quote_' + itemId + '_' + index + '" value=""  class="required-entry validate-zero-or-greater input-text m5">' + link;
+
+            parentElemt.appendChild(childElem);
+            addQtyFieldSaver();
+        }
+
+        function removeElement(parentElemt, childElemt) {
+            var parentDiv = document.getElementById(parentElemt);
+            var childElemt = document.getElementById(childElemt);
+            parentDiv.removeChild(childElemt);
+        }
+
+        //add form field observers
+        document.observe('dom:loaded', function(){
+            $$('#shopping-cart-table textarea').each(function (el) {
+                return $(el).observe('blur', function(e){
+                    saveForm();
+                });
+            });
+
+            addQtyFieldSaver();
+            <?php if(!Mage::getStoreConfig('qquoteadv_quote_form_builder/quote_form_remarks/disable_general_remark')): ?>
+            $('customer:client_request').observe('blur', function(e){
+                saveForm();
+            });
+            <?php endif; ?>
+        });
+
+        function saveForm() {
+            var form = $('quotelist').clone(true);
+            //update textarea
+            var i = 0;
+            $('quotelist').select('textarea').each(function (el) {
+                form.select('textarea')[i].value = $(el).value;
+                i++;
+            });
+
+            var action = $('quotelist').action;
+            action = action.replace("quoteRequest", "save");
+            form.action = action;
+            form.request({
+                onComplete: function(){ Miniquote.reloadContent(); }
+            });
+        }
+
+        function addQtyFieldSaver(){
+            $$('#shopping-cart-table input[type=text]').each(function (el) {
+                return $(el).observe('blur', function(e){
+                    saveForm();
+                });
+            });
+        }
+    </script>
+<?php endif; ?>

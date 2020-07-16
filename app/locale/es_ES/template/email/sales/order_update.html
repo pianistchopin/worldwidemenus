@@ -1,0 +1,46 @@
+<!--@subject {{var store.getFrontendName()}}: Pedido nº {{var order.increment_id}} actualizado @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var order.increment_id":"Order Id",
+"var order.getStatusLabel()":"Order Status",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var comment":"Order Comment",
+"var store.getFrontendName()":"Store Name"}
+@-->
+
+<!--@styles
+@-->
+
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="action-content">
+                        <h1>{{block type="cms/block" block_id="email_template_say_hello"}} {{htmlescape var=$order.getCustomerName()}}</h1>
+                        <p>Su pedido <span class="no-link">nº {{var order.increment_id}}</span> se ha actualizado a: <strong>{{var order.getStatusLabel()}}</strong></p>
+                        {{if comment}}
+                        <table cellspacing="0" cellpadding="0" class="message-container">
+                            <tr>
+                                <td>{{var comment}}</td>
+                            </tr>
+                        </table>
+                        {{/if}}
+                        <p>Puede comprobar el estado de su pedido al <a href="{{store url="customer/account/"}}">iniciar una sesión en su cuenta</a>.</p>
+                        <p>
+                            {{block type="cms/block" block_id="email_template_contact"}}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

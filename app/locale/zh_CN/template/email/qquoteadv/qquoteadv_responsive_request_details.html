@@ -1,0 +1,70 @@
+<!--@subject {{var quote.getStoreGroupName()}}: New Quote request # {{var quote.increment_id}} @-->
+
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="email-heading">
+                        <h2>亲爱的 {{htmlescape var=$customer.name}}</h2>
+                        <h1>感谢你的询价要求{{var store.getFrontendName()}}.</h1>
+                        <p>在未来48小时内，你将可收到我们的报价。
+                            您可以检查询价的处理状态 <a href="{{store url='customer/account/'}}"
+                            style="color:#1E7EC8;">登录你的账户.</a> 你的询价单详细明细如下。再次感谢你的关注。</p>
+                    </td>
+                    <td class="store-info">
+                        <h4>关于你的询价问题？</h4>
+                        <p>
+                            {{depend store_phone}}
+                            <b>致电我们：:</b>
+                            <a href="tel:{{var phone}}">{{var store_phone}}</a><br>
+                            {{/depend}}
+                            {{depend store_hours}}
+                            <span class="no-link">{{var store_hours}}</span><br>
+                            {{/depend}}
+                            {{depend store_email}}
+                            <b>电子邮箱:</b> <a href="mailto:{{var store_email}}">{{var store_email}}</a>
+                            {{/depend}}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="quote-details">
+            <h3>你的询价单<span class="no-link">#{{var
+                                quote.increment_id}}</span></h3>
+            <p>放在 {{var quote.getCreatedAtFormated('long')}}</p>
+        </td>
+    </tr>
+    <tr class="quote-information">
+        <td>
+            <table cellspacing="0" cellpadding="0" class="message-container">
+                <tr>
+                    <td class="address-details">
+                        <h6>备注与请求</h6>
+                        <p>{{htmlescape var=$quote.getClientRequest()}}</p></td>
+                </tr>
+            </table>
+            {{layout handle="qquoteadv_email_qquoteadv_items" quote=$quote}}
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="address-details">
+                        <h6>账单地址:</h6>
+                        <p><span class="no-link">{{var quote.getBillingAddress().format('html')}}</span></p>
+                    </td>
+                    <td class="address-details">
+                        <h6>运送地址:</h6>
+                        <p><span class="no-link">{{var quote.getShippingAddress().format('html')}}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

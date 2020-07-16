@@ -1,0 +1,111 @@
+<?php
+/**
+ * Photo Photogallery & Products Photogallery extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    Photogallery
+ * @copyright  Copyright 2010 © free-magentoextensions.com All right reserved
+ */
+
+/**
+ * @category   Photogallery
+ * @package    Photogallery
+ * @author     Kamran Rafiq Malik <kamran.malik@unitedsol.net>
+ */
+
+?>
+<script type="text/javascript">
+//<![CDATA[
+    var SKIN_URL = '<?php echo $this->getSkinUrl(''); ?>';
+//]]>
+</script>
+
+
+
+
+<script type="text/javascript">
+Shadowbox.init({
+    overlayOpacity: 0.6,
+    counterType:'skip',
+
+	flashVars: {
+   		skin: '<?php echo Mage::getBaseUrl('js').'fmegallery/product/skin01.zip'?>'
+  	}
+});
+</script>
+
+<?php
+	$config = Mage::getModel('photogallery/image_configimg');
+	$image = Mage::getModel('media/image');
+	$image->setConfig($config);	
+	$tableNameGalleryProducts = Mage::getSingleton('core/resource')->getTableName('photogallery_products');
+	$tableNameGallery = Mage::getSingleton('core/resource')->getTableName('photogallery'); 
+	$tableNameGimage = Mage::getSingleton('core/resource')->getTableName('photogallery_images');
+	
+?>	
+<?php $pid = $this->getProduct()->getId();
+$galids=array(); ?>
+
+<?php
+  
+    $result = $this->getProductGalleries($pid);
+    
+    foreach($result as $r){
+	$galids[]=$r['photogallery_id'];
+    }
+    if(count($galids))
+    $galleryIDs = implode(",", $galids);
+    else
+    $galleryIDs = '';
+    
+	$galleryImages=array();
+    if($galleryIDs != ''){
+	$galleryImages = $this->getProductGimages($galleryIDs);
+    }
+
+?>
+<?php  $imagePath = Mage::getBaseUrl('media')."gallery/galleryimages"; ?>
+
+<?php if (count($galleryImages)): ?>
+<div class="media_gallery_slider">
+    <h3><?php echo $this->__('Product Picture Gallery');?></h3>
+    <div class="container-carousel">
+      <div id="owl-demo" class="owl-carousel owl-theme">
+
+<?php $collection = $this->getView();?>
+
+	    <?php $i=1; foreach ( $galleryImages as $_gallery ) : ?>
+		<?php   
+		    $imageFile =  Mage::getBaseUrl('media').'gallery/galleryimages'.$_gallery["img_name"];
+		    $str = $_gallery["img_name"];
+		    $aryimg = explode("/",$str);
+		    $img = $aryimg[1].'/'.$aryimg[2].'/'.$aryimg[3];
+		    $img = ltrim(rtrim($img));
+		    $targetPath = $imagePath.$_gallery["img_name"];	
+		    $thumbPath = Mage::helper('photogallery')->getThumbsDirPath($targetPath);	
+		    $arrayName = explode('/',$_gallery["img_name"]);
+		    $thumbnail_path =  $thumbPath . $arrayName[3];
+		?>
+		<div class="item">
+			 <div class="video">
+		    <a  class="cbp-lightbox image" href="<?php echo $imageFile ?>" title="" rel="shadowbox[Gallery]" >
+			<img src="<?php echo $thumbnail_path; ?>" width="100%" height="120px" alt="<?php echo $_gallery["alt_text"];?>" /></a>
+		    </div>
+		</div>
+		
+            <?php endforeach ?>
+		</div>
+		<div class="customNavigation clearfix"> <a class="prev"><i class="icon-left-open"></i></a> <a class="next"><i class="icon-right-open"></i></a> </div>
+    </div>
+    </div>
+<?php endif; ?>
+
+
+

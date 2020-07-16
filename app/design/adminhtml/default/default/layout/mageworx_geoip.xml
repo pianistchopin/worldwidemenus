@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageWorx
+ * GeoIP Extension
+ *
+ * @category   MageWorx
+ * @package    MageWorx_GeoIP
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+-->
+<layout version="0.1.0">
+
+    <default>
+        <reference name="notifications">
+            <block type="mageworx_geoip/adminhtml_notifications" name="geoip_notifications" template="mageworx/geoip/notifications.phtml"/>
+        </reference>
+    </default>
+    <adminhtml_mageworx_geoip_database_update>
+        <remove name="root"/>
+        <block type="adminhtml/page" name="convert_root" output="toHtml" template="page.phtml">
+            <block type="adminhtml/page_head" name="convert_root_head" as="head" template="page/head.phtml">
+                <action method="addJs">
+                    <script>prototype/prototype.js</script>
+                </action>
+                <action method="addJs">
+                    <script>prototype/validation.js</script>
+                </action>
+                <action method="addJs">
+                    <script>varien/js.js</script>
+                </action>
+                <action method="addJs">
+                    <script>mage/translate.js</script>
+                </action>
+                <action method="addJs">
+                    <script>mage/adminhtml/tools.js</script>
+                </action>
+            </block>
+            <block type="adminhtml/template" name="geoip_db_update" template="mageworx/geoip/update.phtml" output="toHtml"/>
+        </block>
+    </adminhtml_mageworx_geoip_database_update>
+
+</layout>

@@ -1,0 +1,2469 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<config>
+    <tabs>
+        <qquoteadv>
+            <label>Cart2Quote</label>
+            <sort_order>310</sort_order>
+        </qquoteadv>
+    </tabs>
+    <sections>
+        <qquoteadv_general>
+            <label>General</label>
+            <tab>qquoteadv</tab>
+            <sort_order>310</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <quotations>
+                    <label>Quotations</label>
+                    <comment><![CDATA[<div class="box"><p><b>Cart2Quote (Version 6.3.1) Provided by <a target="_blank" href="https://www.ophirah.nl">Ophirah | E-commerce Projects</a></b></p>
+            For documentation and support visit <a target="_blank" href="https://cart2quote.zendesk.com">cart2quote.zendesk.com</a> or contact <a target="_blank" href="mailto:support@cart2quote.com">support@cart2quote.com</a>
+            </div>]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enabled>
+                            <label>Enable Cart2Quote</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151639" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </enabled>
+                        <licence_key>
+                            <label>Licence Key</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Enter your license key (max. 1).]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151479" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </licence_key>
+                        <licence_text>
+                            <frontend_type>label</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </licence_text>
+                        <active_c2q_tmpl>
+                            <label>Use Built-in Template Files</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Set to NO to disable the front-end functionality of Cart2Quote or when manually copying Cart2Quote template and layout information into a custom theme.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151829" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </active_c2q_tmpl>
+                    </fields>
+                </quotations>
+            </groups>
+        </qquoteadv_general>
+        <qquoteadv_quote_frontend>
+            <label>Quote Frontend</label>
+            <tab>qquoteadv</tab>
+            <sort_order>320</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <catalog>
+                    <label>Catalog</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <layout_update_detailpage_activated>
+                            <label>Product Page Activation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Show or hide the “Add To Quote” button on the product detail page.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151519" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </layout_update_detailpage_activated>
+                        <layout_update_listgrid_activated>
+                            <label>Category Page Activation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Show or hide the “Add To Quote” button on the product list/grid page.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151469" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </layout_update_listgrid_activated>
+                        <ajax_add>
+                            <label>Ajax Add to Quote</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Opens Ajax popup when adding products to a Quote Request.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151849" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </ajax_add>
+                        <quick_quote_mode>
+                            <label>Enable Quick Quote</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Set to Yes to send the quote request directly from the product detail page. Cart2Quote Business license or higher required. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=Catalog'>Upgrade</a>)]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201426009" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </quick_quote_mode>
+                    </fields>
+                </catalog>
+                <shoppingcart_quotelist>
+                    <label>Shopping Cart / Quote List</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <layout_disable_all_order_references>
+                            <label>Hide Order References</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Hide order buttons and references on quote submit page. To disable order functionality please use <a href="https://www.cart2quote.com/magento-not2order-hiding-prices.html" target="_blank">Not2Order</a>.]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151839" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </layout_disable_all_order_references>
+                        <layout_disable_trier_option>
+                            <label>Disable Qty Tier Request</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Hide option to request quotes for multiple quantities per item.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151669" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </layout_disable_trier_option>
+                        <!--<show_admin_login>
+                            <label>Show admin login</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Show sales representative login (top) link.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151549" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </show_admin_login>-->
+                        <redirect_to_quotation>
+                            <label>After Adding a Product Redirect to Quotation List</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_redirect</source_model>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </redirect_to_quotation>
+                        <disable_exist_account_check>
+                            <label>Registration Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_disableaccountcheck</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Cart2Quote will check the form for a known emailaddres. When a login is not required for existing users, the user will also not be logged in automatically after a quote is submitted.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151499" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </disable_exist_account_check>
+                        <enable_quote_direct_print>
+                            <label>Enable Direct Print</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Print PDF Quote directly from frontend quote list. For logged in visitors only. Cart2Quote Enterprise license or higher required. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=Catalog'>Upgrade</a>)]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="212215263" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </enable_quote_direct_print>
+
+                    </fields>
+                </shoppingcart_quotelist>
+            </groups>
+        </qquoteadv_quote_frontend>
+        <qquoteadv_quote_form_builder>
+            <label>Quote Form Builder</label>
+            <tab>qquoteadv</tab>
+            <sort_order>330</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <options>
+                    <label>Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <require_shipping>
+                            <label>Require Shipping Details</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnogroups</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151629" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </require_shipping>
+                        <require_shipping_groups>
+                            <depends>
+                                <require_shipping>2</require_shipping>
+                            </depends>
+                            <label>Require Billing Details for Customer Groups</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups that do not have to specify their shipping details. For customers that belong to this usergroup the "require shipping details" setting will be ignored.]]></comment>
+                        </require_shipping_groups>
+                        <require_billing>
+                            <label>Require Billing Details</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnogroups</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151929" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </require_billing>
+                        <require_billing_groups>
+                            <depends>
+                                <require_billing>2</require_billing>
+                            </depends>
+                            <label>Require Billing Details for Customer Groups</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups that do not have to specify their billing details. For customers that belong to this usergroup the "require billing details" setting will be ignored.]]></comment>
+                        </require_billing_groups>
+                        <newsletter_subscribe>
+                            <label>Enable Newsletter Signup</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151939" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </newsletter_subscribe>
+                        <hide_shipping_quote>
+                            <label>Disable Shipping Estimator</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204201939" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <comment>When shipping and billing address both aren't required, the Shipping Estimator is always hidden.</comment>
+                        </hide_shipping_quote>
+                    </fields>
+                </options>
+                <account_details>
+                    <label>Account Details</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <email_address>
+                            <label>Email Address</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_source_yesrequired</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </email_address>
+                        <gender>
+                            <label>Gender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </gender>
+                        <prefix>
+                            <label>Prefix</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </prefix>
+                        <firstname>
+                            <label>Firstname</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_source_yesrequired</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </firstname>
+                        <middlename>
+                            <label>Middlename</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </middlename>
+                        <lastname>
+                            <label>Lastname</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_source_yesrequired</frontend_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </lastname>
+                        <suffix>
+                            <label>Suffix</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </suffix>
+                        <telephone>
+                            <label>Telephone</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202239" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </telephone>
+                        <company>
+                            <label>Company</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204877665" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </company>
+                        <vattaxid>
+                            <label>VAT/Tax Id</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202279" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </vattaxid>
+                    </fields>
+                </account_details>
+                <address_details>
+                    <label>Address Details</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <address>
+                            <label>Address</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_source_yesrequired</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </address>
+                        <zip>
+                            <label>Zip</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_source_yesrequired</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zip>
+                        <city>
+                            <label>City</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_source_yesrequired</frontend_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </city>
+                        <country>
+                            <label>Country</label>
+                            <frontend_type>label</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_source_yesrequired</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </country>
+                        <state>
+                            <label>State</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204877795" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <comment>For some countries such as Canada and the United States Magento is preconfigured to require the customer to specify the state.</comment>
+                        </state>
+                    </fields>
+                </address_details>
+                <quote_form_remarks>
+                    <label>Remarks</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <disable_general_remark>
+                            <label>Disable Global Remark Field</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </disable_general_remark>
+                        <disable_product_remark>
+                            <label>Disable Product Remark Field</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </disable_product_remark>
+                    </fields>
+                </quote_form_remarks>
+                <quote_form_file_upload>
+                    <label>File Upload</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enable_file_upload>
+                            <label>Enable File Upload</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <comment><![CDATA[Cart2Quote Enterprise license or higher required. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=CustomFields'>Upgrade</a>)]]></comment>
+                        </enable_file_upload>
+                    </fields>
+                </quote_form_file_upload>
+                <quote_form_customization>
+                    <label>Custom Fields (Beta)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment><![CDATA[<div class="box">Cart2Quote Enterprise license or higher required. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=CustomFields'>Upgrade</a>)</div>]]></comment>
+                    <fields>
+                        <extrafield_1>
+                            <label>Custom Field 1</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_1>
+                        <extrafield_1_label>
+                            <label>Custom Field 1 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_1_label>
+                        <extrafield_1_type>
+                            <label>Custom Field 1 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_1_type>
+                        <extrafield_1_group>
+                            <label>Custom Field 1 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_1_group>
+                        <extrafield_2>
+                            <label>Custom Field 2</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_2>
+                        <extrafield_2_label>
+                            <label>Custom Field 2 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_2_label>
+                        <extrafield_2_type>
+                            <label>Custom Field 2 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_2_type>
+                        <extrafield_2_group>
+                            <label>Custom Field 2 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_2_group>
+                        <extrafield_3>
+                            <label>Custom Field 3</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_3>
+                        <extrafield_3_label>
+                            <label>Custom Field 3 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_3_label>
+                        <extrafield_3_type>
+                            <label>Custom Field 3 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>36</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_3_type>
+                        <extrafield_3_group>
+                            <label>Custom Field 3 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>37</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_3_group>
+                        <extrafield_4>
+                            <label>Custom Field 4</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_4>
+                        <extrafield_4_label>
+                            <label>Custom Field 4 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_4_label>
+                        <extrafield_4_type>
+                            <label>Custom Field 4 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>46</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_4_type>
+                        <extrafield_4_group>
+                            <label>Custom Field 4 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>47</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_4_group>
+                        <extrafield_5>
+                            <label>Custom Field 5</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_5>
+                        <extrafield_5_label>
+                            <label>Custom Field 5 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_5_label>
+                        <extrafield_5_type>
+                            <label>Custom Field 5 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>56</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_5_type>
+                        <extrafield_5_group>
+                            <label>Custom Field 5 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>57</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_5_group>
+                        <extrafield_6>
+                            <label>Custom Field 6</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_6>
+                        <extrafield_6_label>
+                            <label>Custom Field 6 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_6_label>
+                        <extrafield_6_type>
+                            <label>Custom Field 6 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>66</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_6_type>
+                        <extrafield_6_group>
+                            <label>Custom Field 6 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>67</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_6_group>
+                        <extrafield_7>
+                            <label>Custom Field 7</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_7>
+                        <extrafield_7_label>
+                            <label>Custom Field 7 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>75</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_7_label>
+                        <extrafield_7_type>
+                            <label>Custom Field 7 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>76</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_7_type>
+                        <extrafield_7_group>
+                            <label>Custom Field 7 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>77</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_7_group>
+                        <extrafield_8>
+                            <label>Custom Field 8</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_8>
+                        <extrafield_8_label>
+                            <label>Custom Field 8 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>85</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_8_label>
+                        <extrafield_8_type>
+                            <label>Custom Field 8 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>86</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_8_type>
+                        <extrafield_8_group>
+                            <label>Custom Field 8 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>87</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_8_group>
+                        <extrafield_9>
+                            <label>Custom Field 9</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_9>
+                        <extrafield_9_label>
+                            <label>Custom Field 9 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_9_label>
+                        <extrafield_9_type>
+                            <label>Custom Field 9 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>96</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_9_type>
+                        <extrafield_9_group>
+                            <label>Custom Field 9 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>97</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_9_group>
+                        <extrafield_10>
+                            <label>Custom Field 10</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_10>
+                        <extrafield_10_label>
+                            <label>Custom Field 10 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>105</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_10_label>
+                        <extrafield_10_type>
+                            <label>Custom Field 10 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>106</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_10_type>
+                        <extrafield_10_group>
+                            <label>Custom Field 10 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>107</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_10_group>
+                        <extrafield_11>
+                            <label>Custom Field 11</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_11>
+                        <extrafield_11_label>
+                            <label>Custom Field 11 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>115</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_11_label>
+                        <extrafield_11_type>
+                            <label>Custom Field 11 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>116</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_11_type>
+                        <extrafield_11_group>
+                            <label>Custom Field 11 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>117</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_11_group>
+                        <extrafield_12>
+                            <label>Custom Field 12</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_yesnorequired</source_model>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204202809" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_12>
+                        <extrafield_12_label>
+                            <label>Custom Field 12 Label</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>125</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="204878375" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_12_label>
+                        <extrafield_12_type>
+                            <label>Custom Field 12 Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customfieldtype</source_model>
+                            <sort_order>126</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </extrafield_12_type>
+                        <extrafield_12_group>
+                            <label>Custom Field 12 Show on Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>127</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Select usergroups to show only these groups this form field]]></comment>
+                        </extrafield_12_group>
+                    </fields>
+                </quote_form_customization>
+            </groups>
+        </qquoteadv_quote_form_builder>
+        <qquoteadv_quote_emails>
+            <label>Quote Emails</label>
+            <tab>qquoteadv</tab>
+            <sort_order>340</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <sales_representatives>
+                    <label>Sales Representatives</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <sender>
+                            <label>Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Ophirah_Qquoteadv_Model_System_Config_Source_Email_Identity</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151699" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </sender>
+                        <bcc>
+                            <label>Send Quote Email Copy to:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Separate by ";".</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151759" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </bcc>
+                        <send_linked_sale_bcc>
+                            <label>Send BCC to Linked Sales Representative</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[The Magento Admin User email of the linked sales representative will be used. Cart2Quote Enterprise license and higher required. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=SendBCCtoLinkedSalesRepresentative'>Upgrade</a>)]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151769" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </send_linked_sale_bcc>
+                    </fields>
+                </sales_representatives>
+                <templates>
+                    <label>Email Templates</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <new_account>
+                            <label>New Account Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email to be sent.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151579" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </new_account>
+                        <request>
+                            <label>New Request Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email to be sent.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151709" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </request>
+                        <proposal>
+                            <label>New Proposal Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email to be sent.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151719" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </proposal>
+                        <proposal_cancel>
+                            <label>Request Cancelled Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email to be sent.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151589" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </proposal_cancel>
+                        <proposal_reject>
+                            <label>Request Reject Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email to be sent.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151729" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </proposal_reject>
+                        <proposal_expire>
+                            <label>Expire Proposal Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email to be sent.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151899" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </proposal_expire>
+                        <proposal_reminder>
+                            <label>Reminder Proposal Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email to be sent. Enterprise edition only.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151739" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </proposal_reminder>
+                        <proposal_accepted>
+                            <label>Proposal Accepted</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email to be sent.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151749" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </proposal_accepted>
+                    </fields>
+                </templates>
+                <attachments>
+                    <label>Attachments</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <pdf>
+                            <label>Enable PDF Proposal</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151909" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <comment>The price proposal will also be attached as PDF.</comment>
+                        </pdf>
+                        <short_desc>
+                            <label>Add Product Short Description Text to PDF</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151919" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </short_desc>
+                        <doc>
+                            <label>Enable Standard Document</label>
+                            <config_path>qquoteadv_quote_emails/attachments/doc</config_path>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>qquoteadv/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">quoteadv</upload_dir>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Upload any file as default attachment to the proposal email. (i.e. Terms and Conditions) NOTE: Some providers limit the size of emails.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151609" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </doc>
+                    </fields>
+                </attachments>
+            </groups>
+        </qquoteadv_quote_emails>
+        <qquoteadv_quote_configuration>
+            <label>Quote Configuration</label>
+            <tab>qquoteadv</tab>
+            <sort_order>350</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <expiration_times_and_notices>
+                    <label>Expiration Times and Notices</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <!--<expirtime_request>
+                            <label>Default Expiration time Requests</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>In days.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151489" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </expirtime_request>-->
+                        <expirtime_proposal>
+                            <label>Default Expiration Time Proposals</label>
+                            <frontend_type>text</frontend_type>
+                            39892123
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>In days.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151429" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </expirtime_proposal>
+                        <send_reminder>
+                            <label>Default Reminder Notice</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[In days. Set to "0" to disable this feature. This notice is available in the Cart2Quote Enterprise edition. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=ExpirationTimesandNotices'>Upgrade</a>)]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151649" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </send_reminder>
+                    </fields>
+                </expiration_times_and_notices>
+                <proposal>
+                    <label>Proposal</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <auto_proposal>
+                            <label>Auto Proposal</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Price proposals are sent automatically, based on standard catalog prices including price tiers. Cart2Quote Business license and higher required. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=AutoProposal'>Upgrade</a>)]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151659" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </auto_proposal>
+                        <auto_proposal_depend_on_quote_total>
+                            <label>Auto proposal subtotal</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[]]></comment>
+                            <!--<tooltip><![CDATA[<input type="hidden" value="201151659" class="article_id"/>]]></tooltip>-->
+                            <depends>
+                                <auto_proposal>1</auto_proposal>
+                            </depends>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </auto_proposal_depend_on_quote_total>
+                        <auto_proposal_quote_total>
+                            <label>Maximum subtotal for auto proposal</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Set a max amount for Cart2Quote to send a proposal automatically. Quote requests above this amount (grand total) will have to be answered manually.</comment>
+                            <!--<tooltip><![CDATA[<input type="hidden" value="201151429" class="article_id"/>]]></tooltip>-->
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <auto_proposal_depend_on_quote_total>1</auto_proposal_depend_on_quote_total>
+                            </depends>
+                        </auto_proposal_quote_total>
+                        <auto_proposal_depend_on_quote_qty>
+                            <label>Auto proposal quantity</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[]]></comment>
+                            <!--<tooltip><![CDATA[<input type="hidden" value="201151659" class="article_id"/>]]></tooltip>-->
+                            <depends>
+                                <auto_proposal>1</auto_proposal>
+                            </depends>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </auto_proposal_depend_on_quote_qty>
+                        <auto_proposal_quote_qty>
+                            <label>Maximum qty for auto proposal</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Set a max qty for Cart2Quote to send a proposal automatically. Quote requests above this total qty will have to be answered manually.</comment>
+                            <!--<tooltip><![CDATA[<input type="hidden" value="201151429" class="article_id"/>]]></tooltip>-->
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <auto_proposal_depend_on_quote_qty>1</auto_proposal_depend_on_quote_qty>
+                            </depends>
+                        </auto_proposal_quote_qty>
+                        <auto_proposal_shipping_type>
+                            <label>Select Shipping Type</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_shipping_typeselect</source_model>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <auto_proposal>1</auto_proposal>
+                            </depends>
+                            <comment>The shipping will automatically be set to quote if the shipping is available.</comment>
+                            <!--<tooltip><![CDATA[<input type="hidden" value="201151659" class="article_id"/>]]></tooltip>-->
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </auto_proposal_shipping_type>
+                        <auto_proposal_shipping_price>
+                            <label>Shipping Price</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number</validate>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <auto_proposal_shipping_type separator="|">
+                                    <value>I|O</value>
+                                </auto_proposal_shipping_type>
+                            </depends>
+                            <comment>Configure a default shipping price per item or per quote.</comment>
+                            <!--<tooltip><![CDATA[<input type="hidden" value="201151659" class="article_id"/>]]></tooltip>-->
+                        </auto_proposal_shipping_price>
+                        <quoteconfirmation>
+                            <label>Lock Proposal</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Proposal items cannot be removed or added from quote via the shopping cart.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151509" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </quoteconfirmation>
+                        <itemprice>
+                            <label>Show Items Price</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Disable to hide individual item prices in PDF, email and customer dashboard by default. (Only show totals)</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151819" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </itemprice>
+                        <adjustment>
+                            <label>Show Quote Adjustment to Customers</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Total quote discount will be visible for customers in the Proposal total block.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151449" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </adjustment>
+                        <profit>
+                            <label>Allow Negative Profit</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>When enabled quote proposals can be sent with negative profit.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151529" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </profit>
+                        <qquoteadv_remark>
+                            <label>Set Standard (Fixed) Remark with Proposal</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Add remark that appears in new proposal email and in the quote proposal PDF.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151439" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </qquoteadv_remark>
+                    </fields>
+                </proposal>
+                <quote_number_format>
+                    <label>Quote Number Format</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <increment_store>
+                            <label>Specify increment By</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_scope</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151889" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </increment_store>
+                        <prefix>
+                            <label>Default Quote Prefix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>a
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151559" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <increment_store>2</increment_store>
+                            </depends>
+                        </prefix>
+                        <startnumber>
+                            <label>Current Numeral Value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151879" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <increment_store>2</increment_store>
+                            </depends>
+                        </startnumber>
+                        <increment>
+                            <label>Default Increment</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151889" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <increment_store>2</increment_store>
+                            </depends>
+                        </increment>
+                        <pad_length>
+                            <label>Pad Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Desired number length without the prefix. Set to 0 to not add leading zeros to doc number.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151569" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <increment_store>2</increment_store>
+                            </depends>
+                        </pad_length>
+                        <prefix_website>
+                            <label>Default Quote Prefix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>a
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151559" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <increment_store>1</increment_store>
+                            </depends>
+                        </prefix_website>
+                        <startnumber_website>
+                            <label>Current Numeral Value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151879" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <increment_store>1</increment_store>
+                            </depends>
+                        </startnumber_website>
+                        <increment_website>
+                            <label>Default Increment</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151889" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <increment_store>1</increment_store>
+                            </depends>
+                        </increment_website>
+                        <pad_length_website>
+                            <label>Pad Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Desired number length without the prefix. Set to 0 to not add leading zeros to doc number.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151569" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <increment_store>1</increment_store>
+                            </depends>
+                        </pad_length_website>
+                        <prefix_default>
+                            <label>Default Quote Prefix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>a
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151559" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </prefix_default>
+                        <startnumber_default>
+                            <label>Current Numeral Value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151879" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </startnumber_default>
+                        <increment_default>
+                            <label>Default Increment</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151889" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </increment_default>
+                        <pad_length_default>
+                            <label>Pad Length</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Desired number length without the prefix. Set to 0 to not add leading zeros to doc number.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151569" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </pad_length_default>
+                    </fields>
+                </quote_number_format>
+            </groups>
+        </qquoteadv_quote_configuration>
+        <qquoteadv_sales_representatives>
+            <label>Sales Representatives</label>
+            <tab>qquoteadv</tab>
+            <sort_order>360</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <quote_assignment>
+                    <label>Quote Assignment</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <auto_assign_rotate>
+                            <label>Assign Sales Representative</label>
+                            <comment>New quotes are assigned automatically, rotating the admin users in the auto assign role below.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151539" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auto_assign_rotate>
+                        <auto_assign_role>
+                            <label>Auto Assign Role</label>
+                            <comment>Admin users with this role and with an active status are used to assign new quote request to based on rotation.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151679" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_adminrole</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auto_assign_role>
+                        <auto_assign_previous>
+                            <label>Sticky Sales Representative</label>
+                            <comment>Assign quotes from existing customers to the sales representative who is linked to the previous request from the customer. This overwrites the auto assign role.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151859" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auto_assign_previous>
+                        <auto_assign_login>
+                            <label>Assign Quote to Logged in Sales Representative</label>
+                            <comment><![CDATA[Cart2Quote Business license and higher required. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=QuoteAssignment'>Upgrade</a>)]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151689" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auto_assign_login>
+                        <limit_available_salesrep>
+                            <label>Limit available Sales Representatives</label>
+                            <comment>When enabled, you can select and exclude sales reps that can be assigned via the backend quote view.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </limit_available_salesrep>
+                        <available_salesrep>
+                            <depends>
+                                <limit_available_salesrep>1</limit_available_salesrep>
+                            </depends>
+                            <label>Select available Sales Representatives</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_salesreps</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </available_salesrep>
+                    </fields>
+                </quote_assignment>
+                <messaging>
+                    <label>Messaging</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                    </fields>
+                </messaging>
+            </groups>
+        </qquoteadv_sales_representatives>
+        <qquoteadv_advanced_settings>
+            <label>Advanced Settings</label>
+            <tab>qquoteadv</tab>
+            <sort_order>370</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general>
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <default_cart2quote_attribute_value>
+                            <label>Default 'Allowed to Quote Mode' Value for New Products</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Only affects newly created products.</comment>
+                        </default_cart2quote_attribute_value>
+                        <force_log>
+                            <label>Enable Email Logging</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enable logging when you have issues sending emails. Make sure Magento logging is enabled.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201354749" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </force_log>
+                        <upload_folder>
+                            <label>Subfolder for File Uploads</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Give subdirectory name to use within store media folder to store file uploads. Default is 'qquoteadv', without trailing slash.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151619" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </upload_folder>
+                        <!-- OPTIONAL: Enable to make the no-merge option available, also uncomment <sales><rewrite><quote> in config.xml -->
+                        <!--<no_product_merge>
+                            <label>Disable product merge on Cart and Quote</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This option makes it possible to disable the default product merge Magento apply on the Cart (and also on the Quote). (With this enabled, every added product gets his own line, even if the same product already exists in the Cart/Quote)</comment>
+                        </no_product_merge>-->
+                    </fields>
+                </general>
+                <backend>
+                    <label>Backend</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <followup>
+                            <label>Follow-up in Grid</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_followup</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Follow-up button in quotation grid will filter quotes to this setting.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151459" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </followup>
+                        <internal_comment>
+                            <label>Enable Internal Comments</label>
+                            <comment>Not visible for customers.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151869" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </internal_comment>
+                        <customer_name_select>
+                            <label>Customer Name Dropdown</label>
+                            <comment>Creates select box in quote overview. May result in memory problems for large amount of customers.</comment>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customer_name_select>
+                        <calculate_quote_totals_on_load>
+                            <label>Calculate Totals on Page Load</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<b>Important</b> Setting this option to yes will increase page load time.]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201978705" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </calculate_quote_totals_on_load>
+                        <force_original_product_price>
+                            <label>Force Original Product Price on Edit Products</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[When an admin edits the products on a quote, the original price can be overwritten by the custom price. This options disables that. <br>NOTE: It uses the default product price and doesn't use any vat/tax/multi-currency calculation.]]></comment>
+                        </force_original_product_price>
+                    </fields>
+                </backend>
+                <checkout>
+                    <label>Checkout</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <link_auto_login>
+                            <label>Auto User Login</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Adds links to proposal email that enable automatic user login - only available in Business and Enterprise edition.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151779" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </link_auto_login>
+                        <auto_confirm>
+                            <label>Use Auto Confirm Proposal</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>The checkout button in the proposal email, links directly to the checkout page. Select 'No' if you want customers to first visit the customer dashboard.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151789" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <depends>
+                                <link_auto_login>1</link_auto_login>
+                            </depends>
+                        </auto_confirm>
+                        <checkout_url>
+                            <label>Checkout Onepage Url</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Default checkout url.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151799" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </checkout_url>
+                        <checkout_alternative>
+                            <label>Enable Alternative Checkout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201978725" class="article_id"/>]]></tooltip>
+                        </checkout_alternative>
+                        <checkout_alternative_url>
+                            <label>Alternative Checkout URL</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enter alternative checkout url. NOTE: When using this feature, the quote items will NOT be placed in the shopping cart.</comment>
+                            <depends>
+                                <checkout_alternative>1</checkout_alternative>
+                            </depends>
+                        </checkout_alternative_url>
+                        <checkout_alternative_email>
+                            <label>Proposal Email with Alternative Checkout Link</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email template to be used when the alternative checkout is used for the quote proposal.</comment>
+                            <depends>
+                                <checkout_alternative>1</checkout_alternative>
+                            </depends>
+                        </checkout_alternative_email>
+                        <confirmed_alternate>
+                            <label>Checkout quotes with accepted status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[When enabled a Quote with state accepted can still be checked out. This is a beta setting. Use at your own risk!]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="204816589" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </confirmed_alternate>
+                        <display_tierprices>
+                            <label>Display product tier prices </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[When enabled, the tier prices are set to the quote automatically]]></comment>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </display_tierprices>
+                    </fields>
+                </checkout>
+                <mass_update>
+                    <label>Mass Update</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <mass_update_cart2quote_attributes>
+                            <label>Mass Update Quote Attribute</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip><![CDATA[<input type="hidden" value="201151949" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </mass_update_cart2quote_attributes>
+                        <mass_update_cart2quote_attribute_ranges>
+                            <label>Product Id Ranges</label>
+                            <frontend_type>textarea</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_massupdateranges</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Be sure to save if you have made any changes before you update. <br /><br />]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151959" class="article_id"/>]]></tooltip>
+                        </mass_update_cart2quote_attribute_ranges>
+                        <default_quote_group_enabled>
+                            <label>Use default allowed customer groups</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Set default allowed customer groups when there aren't any set on the product]]></comment>
+                        </default_quote_group_enabled>
+                        <default_quote_group>
+                            <depends>
+                                <default_quote_group_enabled>1</default_quote_group_enabled>
+                            </depends>
+                            <label>Default allowed customer groups when no groups are configured on the product</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[
+                            When no customer group is selected on the edit product page and quotation is enabled for that product, the groups that are set here are used.<br /><br />
+                            If none are selected, all are allowed.<br />
+                            (This setting doesn't affect the mass update)<br /><br />
+                            Cart2Quote Enterprise license and higher required. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=DefaultQuoteGroup'>Upgrade</a>)]]></comment>
+                        </default_quote_group>
+                    </fields>
+                </mass_update>
+                <pdf_rendering>
+                  <label>PDF Rendering</label>
+                  <comment>
+                      <![CDATA[<div class="box">
+                          We leverage the Magento PDF rendering engine, ZendPDF, to render the quote PDF.<br />
+                          ZendPDF has some issues with PNG and GIF images, resulting in errors or affecting the load time.<br />
+                          We advise to use JPEG images for all images that are used in your quote PDF.<br />
+                          This will improve performance and decrease the PDF file size.
+                      </div>]]>
+                  </comment>
+                  <frontend_type>text</frontend_type>
+                  <sort_order>60</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>
+                  <expanded>1</expanded>
+                  <fields>
+                      <optimize_image_performance>
+                          <label>Optimize Image Rendering</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>adminhtml/system_config_source_yesno</source_model>
+                          <sort_order>10</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <comment>
+                              If "Optimize Image Rendering" is set to "Yes", we will convert any GIF or PNG to JPEG images on runtime.
+                              This will decrease the PDF file size and solve other issues concerning image rendering in ZendPDF.
+                          </comment>
+                      </optimize_image_performance>
+                      <alpha_channel>
+                          <label>Alpha channel</label>
+                          <depends>
+                              <optimize_image_performance>1</optimize_image_performance>
+                          </depends>
+                          <frontend_type>text</frontend_type>
+                          <sort_order>11</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <comment>Alpha channel that will replace transparent backgrounds. Must be a 6 character RGB value.</comment>
+                      </alpha_channel>
+                      <png>
+                          <label>PNG Image Rendering</label>
+                          <depends>
+                              <optimize_image_performance>0</optimize_image_performance>
+                          </depends>
+                          <frontend_type>select</frontend_type>
+                          <source_model>qquoteadv/system_config_source_imagerendering</source_model>
+                          <sort_order>20</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <comment>
+                              ZendPDF does not render 32bit PNG images, 24bit PNG images take a long time to render and increase your file size.
+                              This option allows you to convert PNG images on runtime to an accepted format.
+                              We advise to not use PNG images at all but use JPEG images instead.
+                          </comment>
+                      </png>
+                      <png_alpha>
+                          <label>PNG Alpha channel</label>
+                          <depends>
+                              <optimize_image_performance>0</optimize_image_performance>
+                              <png>2</png>
+                          </depends>
+                          <frontend_type>text</frontend_type>
+                          <sort_order>22</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <comment>Alpha channel that will replace transparent backgrounds. Must be a 6 character RGB value.</comment>
+                      </png_alpha>
+                      <gif>
+                          <label>GIF Image Rendering</label>
+                          <depends>
+                              <optimize_image_performance>0</optimize_image_performance>
+                          </depends>
+                          <frontend_type>select</frontend_type>
+                          <source_model>qquoteadv/system_config_source_imagerendering</source_model>
+                          <sort_order>30</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <comment>
+                              GIF images are unsupported by ZendPDF, if GIF images are used in PDF rendering Magento will throw an error.
+                              We recommend that you DO NOT use GIF images. In case you do use GIF images, this setting gives you the opportunity to convert these on runtime.
+                          </comment>
+                      </gif>
+                      <gif_alpha>
+                          <label>GIF Alpha channel</label>
+                          <depends>
+                              <optimize_image_performance>0</optimize_image_performance>
+                              <gif>2</gif>
+                          </depends>
+                          <frontend_type>text</frontend_type>
+                          <sort_order>32</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <comment>
+                              Alpha channel that will replace transparent backgrounds. Must be a 6 character RGB value.
+                          </comment>
+                      </gif_alpha>
+                      <save_space_on_fonts>
+                          <label>Save space on fonts</label>
+                          <frontend_type>select</frontend_type>
+                          <source_model>adminhtml/system_config_source_yesno</source_model>
+                          <sort_order>40</sort_order>
+                          <show_in_default>1</show_in_default>
+                          <comment>
+                              The default Magento PDF font will be replaced with Times New Roman to save approx. 2MB of space
+                          </comment>
+                      </save_space_on_fonts>
+                  </fields>
+                </pdf_rendering>
+                <beta_features>
+                    <label>Beta Features</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>70</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <beta>
+                            <label>Beta Features</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Overview of current beta features and to submit feedback, go to the <a target="_blank" href="https://cart2quote.zendesk.com/hc/en-us/articles/203548375">Beta Forum</a>.]]></comment>
+                            <tooltip><![CDATA[<input type="hidden" value="201151419" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </beta>
+                        <apo>
+                            <label>APO compatibility</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[If you are experiencing problems with MageWorx' Advanced Product Options, you could enable this setting. This is a beta setting, please test thorougly.]]></comment>
+                        </apo>
+                        <customerforcustomer>
+                            <label>Customer for customer</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Customer can make quotes for other customer if this settings is enabled]]></comment>
+                        </customerforcustomer>
+                        <customerforcustomer_group>
+                            <depends>
+                                <customerforcustomer>1</customerforcustomer>
+                            </depends>
+                            <label>Customer for customer only for Group(s)</label>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>qquoteadv/system_config_source_customergroups</source_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Customer can make quotes for other customer if the customer is in one of the selected groups]]></comment>
+                        </customerforcustomer_group>
+                        <originalprice_requeststatus>
+                            <label>Show original price on quotes that are waiting for price proposal</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </originalprice_requeststatus>
+                    </fields>
+                </beta_features>
+            </groups>
+        </qquoteadv_advanced_settings>
+        <supplierbiddingtool>
+            <label>Supplier Bidding</label>
+            <tab>qquoteadv</tab>
+            <sort_order>380</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <header>
+                    <label>Supplier Bidding Tool</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <header>
+                            <label>text</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_field_sbtool</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </header>
+                    </fields>
+                </header>
+            </groups>
+        </supplierbiddingtool>
+        <qquoteadv_support>
+            <label>Support</label>
+            <tab>qquoteadv</tab>
+            <sort_order>390</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <support>
+                    <label>Support</label>
+                    <comment><![CDATA[<div class="box"><b>General Support Data</b>.</div>]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <support_data>
+                            <label>Support Data</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_field_support</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </support_data>
+                    </fields>
+                </support>
+                <manuals>
+                    <label>Manuals</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment><![CDATA[<div class="box"><b>Available Downloads</b>.</div>]]></comment>
+                    <expanded>1</expanded>
+                    <fields>
+                        <manuals>
+                            <label>Support data</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_field_manuals</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </manuals>
+                    </fields>
+                </manuals>
+                <other>
+                    <label>Other</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>25</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment><![CDATA[<div class="box"><b>Possible issues</b>.</div>]]></comment>
+                    <expanded>1</expanded>
+                    <fields>
+                        <other>
+                            <label>Other</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_field_other</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </other>
+                    </fields>
+                </other>
+                <tests>
+                    <label>Test Email Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <tests>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_field_emailtests</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tests>
+                    </fields>
+                </tests>
+                <create_support_ticket>
+                    <label>Create Support Ticket</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment><![CDATA[
+                    <div class="box">
+                        <p><b>When opening a support ticket, please do include the following information:</b></p>
+                        <li> Your order number and Magento version number</li>
+                        <li> Steps to reproduce the issue in your store</li>
+                        <li> FTP/SSH login as well as Magento admin access (if relevant)</li>
+                        <li> Screenshots with notes describing the issue</li>
+                    </div>
+                    <a target="_blank" href="https://www.cart2quote.com/magento-quotation-module-support.html">Create a support ticket here!</a>
+                    ]]></comment>
+                    <expanded>1</expanded>
+                    <fields>
+                        <support_ticket>
+                            <label>Create a ticket</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>qquoteadv/adminhtml_system_config_field_ticket</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </support_ticket>
+                    </fields>
+                </create_support_ticket>
+                <report_a_bug>
+                    <label>Report a Bug</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment><![CDATA[
+                    <div class="box">
+                        <p><b>When creating a bug report, please do include the following information:</b></p>
+                        <li> Steps to reproduce the issue in your store</li>
+                        <li> Screenshots with notes describing the issue</li>
+                    </div>
+                    <a target="_blank" href="https://cart2quote.zendesk.com/hc/en-us/requests/new">Report a bug here!</a>
+                    ]]></comment>
+                    <expanded>1</expanded>
+                </report_a_bug>
+            </groups>
+        </qquoteadv_support>
+        <carriers>
+            <groups>
+                <qquoteshiprate>
+                    <label>Cart2Quote</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active>
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <title>
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <name>
+                            <label>Method name</label>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </name>
+                    </fields>
+                </qquoteshiprate>
+            </groups>
+        </carriers>
+    </sections>
+</config>

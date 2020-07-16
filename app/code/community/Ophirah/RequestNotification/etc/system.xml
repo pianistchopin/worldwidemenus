@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<config>
+    <sections>
+        <qquoteadv_quote_emails>
+            <tab>qquoteadv</tab>
+            <groups>
+                <sales_representatives>
+                    <fields>
+                        <send_quote_request_notification_to translate="label">
+                            <label>Send Quote e-mail notification to:</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Separate by ";".</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>25</sort_order>
+                            <tooltip><![CDATA[<input type="hidden" value="211216423" class="article_id"/>]]></tooltip>
+                        </send_quote_request_notification_to>
+                    </fields>
+                </sales_representatives>
+                <templates>
+                    <fields>
+                        <quote_request_notification>
+                            <label>New Request notification Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>qquoteadv/system_config_source_email_templatedisable</source_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email to be sent.</comment>
+                        </quote_request_notification>
+                    </fields>
+                </templates>
+            </groups>
+        </qquoteadv_quote_emails>
+    </sections>
+</config>

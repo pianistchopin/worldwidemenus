@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="5.134.13.69" id="819cff8e-ac49-4726-aa11-70b30069d78b" keyPath="D:\client\client\www.worldwidemenus.com - palmer 1.9.4\id_rsa.ppk" port="22" nameFormat="DESCRIPTIVE" username="carrick" />
+    </configs>
+  </component>
+</project>

@@ -1,0 +1,74 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php $_product = Mage::getModel("catalog/product")->load($this->getProduct()->getId());
+$addCartUrl = $this->getAddToCartUrl($_product);
+$html = '';
+$ordermode = '';
+$quotemode = '';
+$btnQuoteTitle = $this->__("Add to Quote");
+$btnCartTitle = Mage::helper('catalog')->__("Add to Cart");
+$isQuickQuote = Mage::helper('qquoteadv')->checkQuickQuote();
+$allowed_to_quotemode = $_product->getAllowedToQuotemode();
+
+$hideCartButton = false;
+$hideQuoteButton = Mage::helper('qquoteadv')->hideQuoteButton($_product);
+if (Mage::getConfig()->getModuleConfig('Ophirah_Not2Order')->is('active', 'true') && $_product->getData('quotemode_conditions') > 0) {
+    $hideCartButton = Mage::helper('not2order')->autoHideCartButton($hideQuoteButton);
+}
+
+if ($_product->isSaleable() && $hideCartButton === false) {
+    $cartBtn = '<button type="button" title="%s" class="button btn-cart" onclick="setLocation(\'%s\')"><span><span>%s</span></span></button>';
+    $ordermode = sprintf($cartBtn, $btnCartTitle, $addCartUrl, $btnCartTitle);
+} else {
+    if (!$_product->isAvailable()) :
+        $ordermode = '<p class="availability out-of-stock"><span>' . Mage::helper('catalog')->__('Out of stock') . '</span></p>';
+    endif;
+}
+
+if ($allowed_to_quotemode == 1 && $hideQuoteButton === false) {
+
+    $isAjax = Mage::getStoreConfig('qquoteadv_quote_frontend/catalog/ajax_add');
+    if ($isAjax) {
+        $actionQuote = "addQuoteList('%s', $isAjax );";
+    } else {
+        $actionQuote = "setLocation('%s');";
+    }
+
+    $quoteBtn = '<button title="%s" type="button" class="button btn-cart" onclick="' . $actionQuote . '"><span><span>%s</span></span></button>';
+    if ($_product->getTypeId() == 'grouped'|| $isQuickQuote) {
+        $url = $_product->getProductUrl() . "?c2qredirect=1";
+    } else {
+        $url = $this->helper('qquoteadv/catalog_product_data')->getUrlAdd2QquoteadvList($_product);
+    }
+
+    $quotemode = sprintf($quoteBtn, $btnQuoteTitle, $url, $btnQuoteTitle);
+}
+
+$html .= "<p>$ordermode&nbsp;&nbsp;$quotemode</p>";
+
+print $html;

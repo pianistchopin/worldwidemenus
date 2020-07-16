@@ -1,0 +1,79 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+$listgridActivated = Mage::getStoreConfig('qquoteadv_quote_frontend/catalog/layout_update_listgrid_activated');
+$isQuickQuote = Mage::helper('qquoteadv')->checkQuickQuote();
+?>
+<?php if ($this->getWishlist()->getItemsCount()
+    && $this->getWishlist()->isSalable()
+    && $listgridActivated
+    && !$isQuickQuote
+): ?>
+    <button type="button"
+            title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add All to Quote')) ?>"
+            onclick="addAllWItemsToQuote()"
+            class="button btn-add">
+        <span>
+            <span><?php echo $this->__('Add All to Quote') ?></span>
+        </span
+    </button>
+    <script type="text/javascript">
+        var wishlistAllCartForm = new Validation($('wishlist-allcart-form'));
+
+        function calculateQtyQuote() {
+            var itemQtys = new Array();
+            $$('#wishlist-view-form .qty').each(
+                function (input, index) {
+                    var idxStr = input.name;
+                    var idx = idxStr.replace(/[^\d.]/g, '');
+                    itemQtys[idx] = input.value;
+
+                    //if we can find the quote button, add input fields to the multi add form
+                    var quoteButton = input.up(3).select('.btn-wl-quote');
+                    if (quoteButton.first()) {
+                        var productId = input.up(3).select('.btn-wl-quote').first().readAttribute('data-productid');
+                        if (productId) {
+                            wishlistAllCartForm.form.insert("<input name='related_products[]' type='hidden' value='" + productId + "'>");
+                            wishlistAllCartForm.form.insert("<input name='related_products_qty[]' type='hidden' value='" + input.value + "'>");
+                        }
+                    }
+                }
+            );
+
+            $$('#qty')[0].value = JSON.stringify(itemQtys);
+        }
+
+        //prepare the form and clone the existing form to change the action before submit
+        function addAllWItemsToQuote() {
+            calculateQtyQuote();
+            var wishlistAllQuoteForm = Object.clone(wishlistAllCartForm);
+            wishlistAllQuoteForm.form.writeAttribute('action', '<?php echo $this->getWishlistAddAllToQuoteUrl() ?>');
+            wishlistAllQuoteForm.form.submit();
+        }
+    </script>
+<?php endif;?>

@@ -1,0 +1,282 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ *
+ *
+ * This is the template file of the form fields.
+ * The file is rendered two times:
+ *      1. Shipping details
+ *      2. Billing details
+ * The form_type variable will contain 'shipping' or 'billing'. The fields will contain the ID referring to this form type.
+ *
+ * @block Ophirah_Qquoteadv_Block_Form_Address
+ */
+
+/** @var Ophirah_Qquoteadv_Block_Form_Address $this */
+/** @var Ophirah_Qquoteadv_Block_Qquoteaddress $parent */
+
+$parent = $this->getParentBlock();
+$formType = $this->getFormType();
+$customerForCustomerIsEnabled = Mage::helper('qquoteadv')->customerForCustomerIsEnabled();
+?>
+
+<!-- ADDRESS START -->
+<div id="<?php echo $this->getMainDiv() ?>" style="<?php //echo $this->getMainDivAllowToShow() ?>">
+    <!-- ADDRESS DETAILS START -->
+    <h4><?php echo $this->__(ucfirst($formType) . ' details') ?></h4>
+    <p class="address-description"><?php echo $this->__($this->getAddressDescription()) ?></p>
+    <!-- ADDRESS DETAILS END   -->
+
+    <p class="address-selection">
+    <?php if($parent->isCustomerLoggedIn() && !$customerForCustomerIsEnabled):?>
+    <!-- ADDRESS DROP DOWN START -->
+        <?php echo Mage::helper('sales')->__('Select an address') ?>
+        <?php //echo $this->getFieldRequiredSpan($this->getRequiredAddress()); ?>
+        <p><?php echo $this->getListOfAddresses(); ?></p>
+    <!-- ADDRESS DROP DOWN END   -->
+    <?php endif; ?>
+    </p>
+
+    <!-- ADDRESS INPUT FORM START  -->
+    <table style="<?php if(!$customerForCustomerIsEnabled): ?> display:none; <?php endif; ?>"
+           id="qquote-tbl-<?php echo $formType; ?>"
+           cellspacing='3'
+           cellpadding='3'
+           border="0"
+           width="100%">
+        <?php if (($parent->getPrefixSettings() != 0) || ($parent->getGenderSettings() != 0)): ?>
+            <tr>
+                <td class="left">
+                    <?php if($parent->getGenderSettings() != 0): ?>
+                        <input type='radio'
+                               value="1"
+                               name='<?php echo $this->getAddedFieldName(); ?>[gender]'
+                               id='<?php echo $this->getAddedFieldName(); ?>:gender'
+                               style="width: auto;"
+                               class="input-radio" checked />
+                        <label for="<?php echo $this->getAddedFieldName(); ?>:gender"><?php echo Mage::helper('customer')->__('Male') ?></label>
+                        <br />
+                        <input type='radio'
+                               value="2"
+                               name='<?php echo $this->getAddedFieldName(); ?>[gender]'
+                               id='<?php echo $this->getAddedFieldName(); ?>:gender'
+                               style="width: auto;"
+                               class="input-radio"/>
+                        <label for="<?php echo $this->getAddedFieldName(); ?>:gender"><?php echo Mage::helper('customer')->__('Female') ?></label>
+                    <?php endif; ?>
+                </td>
+                <td class="p5">
+                    <?php if($parent->getPrefixSettings() != 0): ?>
+                        <label for="<?php echo $this->getAddedFieldName(); ?>:prefix"><?php echo Mage::helper('sales')->__('Prefix') ?></label>
+                        <?php echo $this->getFieldRequiredSpan($parent->getPrefixSettings()); ?>
+                        <input type='text'
+                               value="<?php echo $parent->getValue('prefix', $formType); ?>"
+                               name='<?php echo $this->getAddedFieldName(); ?>[prefix]'
+                               id='<?php echo $this->getAddedFieldName(); ?>:prefix'
+                               class="<?php echo $this->getFieldRequiredClass($parent->getPrefixSettings()); ?> input-text"/>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endif; ?>
+        <tr>
+            <td class="left">
+                <label for="<?php echo $this->getAddedFieldName(); ?>:firstname"><?php echo Mage::helper('sales')->__('First Name') ?></label>
+                <?php echo $this->getFieldRequiredSpan(true); ?>
+                <input type='text'
+                       value="<?php echo $parent->getValue('firstname', $formType); ?>"
+                       name='<?php echo $this->getAddedFieldName(); ?>[firstname]'
+                       id='<?php echo $this->getAddedFieldName(); ?>:firstname'
+                       class="<?php echo $this->getFieldRequiredClass(true); ?> input-text"/>
+            </td>
+            <td class="p5">
+                <label for="<?php echo $this->getAddedFieldName(); ?>:lastname"><?php echo Mage::helper('sales')->__('Last Name') ?></label>
+                <?php echo $this->getFieldRequiredSpan(true); ?>
+                <input type='text'
+                       value="<?php echo $parent->getValue('lastname', $formType); ?>"
+                       name='<?php echo $this->getAddedFieldName(); ?>[lastname]'
+                       id='<?php echo $this->getAddedFieldName(); ?>:lastname'
+                       class="<?php echo $this->getFieldRequiredClass(true); ?> input-text"/>
+            </td>
+        </tr>
+        <?php if (($parent->getMiddlenameSettings() != 0) || ($parent->getSuffixSettings() != 0)): ?>
+        <tr>
+            <td class="left">
+                <?php if($parent->getMiddlenameSettings() != 0): ?>
+                    <label for="<?php echo $this->getAddedFieldName(); ?>:middlename"><?php echo Mage::helper('sales')->__('Middle Name') ?></label>
+                    <?php echo $this->getFieldRequiredSpan($parent->getMiddlenameSettings()); ?>
+                    <input type='text'
+                           value="<?php echo $parent->getValue('middlename', $formType); ?>"
+                           name='<?php echo $this->getAddedFieldName(); ?>[middlename]'
+                           id='<?php echo $this->getAddedFieldName(); ?>:middlename'
+                           class="<?php echo $this->getFieldRequiredClass($parent->getMiddlenameSettings()); ?> input-text"/>
+                <?php endif; ?>
+            </td>
+            <td class="p5">
+                <?php if($parent->getSuffixSettings() != 0): ?>
+                    <label for="<?php echo $this->getAddedFieldName(); ?>:suffix"><?php echo Mage::helper('sales')->__('Suffix') ?></label>
+                    <?php echo $this->getFieldRequiredSpan($parent->getSuffixSettings()); ?>
+                    <input type='text'
+                           value="<?php echo $parent->getValue('suffix', $formType); ?>"
+                           name='<?php echo $this->getAddedFieldName(); ?>[suffix]'
+                           id='<?php echo $this->getAddedFieldName(); ?>:suffix'
+                           class="<?php echo $this->getFieldRequiredClass($parent->getSuffixSettings()); ?> input-text"/>
+                <?php endif; ?>
+            </td>
+        </tr>
+        <?php endif; ?>
+        <tr>
+            <td class="left">
+                <?php if($parent->getPhoneSettings() != 0): ?>
+                    <label for="<?php echo $this->getAddedFieldName(); ?>:telephone"><?php echo Mage::helper('sales')->__('Telephone'); ?></label>
+                    <?php echo $this->getFieldRequiredSpan($parent->getPhoneSettings()); ?>
+                    <input type='text'
+                           value="<?php echo $parent->getValue('telephone', $formType) ?>"
+                           name='<?php echo $this->getAddedFieldName(); ?>[telephone]'
+                           id='<?php echo $this->getAddedFieldName(); ?>:telephone'
+                           class="<?php echo $this->getFieldRequiredClass($parent->getPhoneSettings()); ?> input-text"/>
+                <?php endif; ?>
+            </td>
+            <td class="p5">
+                <?php
+                if($parent->getCompanySettings() != 0): ?>
+                    <label for="<?php echo $this->getAddedFieldName(); ?>:company"><?php echo Mage::helper('sales')->__('Company'); ?></label>
+                    <?php echo $this->getFieldRequiredSpan($parent->getCompanySettings()); ?>
+                    <input type='text'
+                           value="<?php echo $parent->getValue('company', $formType) ?>"
+                           name='<?php echo $this->getAddedFieldName(); ?>[company]'
+                           id='<?php echo $this->getAddedFieldName(); ?>:company'
+                           class="<?php echo $this->getFieldRequiredClass($parent->getCompanySettings()); ?> input-text"/>
+                <?php endif; ?>
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <?php if($parent->getVatTaxSettings() != 0): ?>
+                    <label for="<?php echo $this->getAddedFieldName(); ?>:vat_id"><?php echo Mage::helper('customer')->__('VAT Number'); ?></label>
+                    <?php echo $this->getFieldRequiredSpan($parent->getVatTaxSettings()); ?>
+                    <input type='text'
+                           value="<?php echo $parent->getValue('vat_id', 'billing') ?>"
+                           name='<?php echo $this->getAddedFieldName(); ?>[vat_id]'
+                           id='<?php echo $this->getAddedFieldName(); ?>:vat_id'
+                           class="<?php echo $this->getFieldRequiredClass($parent->getVatTaxSettings()); ?> input-text"/>
+                <?php endif; ?>
+            </td>
+            <td class="p5">
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <label for="<?php echo $this->getAddedFieldName(); ?>:street"><?php echo Mage::helper('sales')->__('Address') ?></label>
+                <?php echo $this->getFieldRequiredSpan(true); ?>
+                <?php for($i = 0; $i < $this->helper('customer/address')->getStreetLines(); $i++):?>
+                <input onfocus=""
+                       type='text'
+                       value="<?php echo $parent->getValue('street' , $formType, $i); ?>"
+                       name='<?php echo $this->getAddedFieldName(); ?>[street][<?php echo $i ?>]'
+                       id='<?php echo $this->getAddedFieldName(); ?>:street'
+                       class="<?php echo $this->getFieldRequiredClass(!(bool)$i); ?> input-text street"/>
+                <?php endfor; ?>
+            </td>
+            <td class="p5 input-select">
+                <label for="<?php echo $this->getAddedFieldName(); ?>:country"><?php echo Mage::helper('sales')->__('Country') ?></label>
+                <?php echo $this->getFieldRequiredSpan(true); ?>
+                <?php $value = $parent->getValue('country_id', $formType);
+                if (empty($value)) {
+                    $value = null;
+                } ?>
+                <?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect(
+                    $value,
+                    $this->getAddedFieldName().'[country_id]',
+                    $this->getAddedFieldName() . ':country',
+                    Mage::helper('sales')->__('Country'));
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <label for="<?php echo $this->getAddedFieldName(); ?>:postcode"><?php echo Mage::helper('sales')->__('Zip/Postal Code') ?></label>
+                <?php echo $this->getFieldRequiredSpan(true); ?>
+                <input onfocus=""
+                       type='text'
+                       value="<?php echo $parent->getValue('postcode', $formType); ?>"
+                       name='<?php echo $this->getAddedFieldName(); ?>[postcode]'
+                       id='<?php echo $this->getAddedFieldName(); ?>:postcode'
+                       class="<?php echo $this->getFieldRequiredClass(true); ?> input-text w224"/>
+            </td>
+            <td class="p5">
+                <?php if ($parent->getStateSettings() > 0) { ?>
+                    <label for="" id="<?php echo $this->getAddedFieldName(); ?>:country-state-label"><?php echo Mage::helper('sales')->__('State/Province'); ?></label>
+                    <?php echo $this->getFieldRequiredSpan($this->getStateSettings()) ?>
+                    <select name='<?php echo $this->getAddedFieldName(); ?>[region_id]'
+                            id='<?php echo $this->getAddedFieldName(); ?>:region_id'
+                            title="<?php echo Mage::helper('sales')->__('State/Province') ?>"
+                            class="<?php echo $this->getFieldRequiredClass($this->getStateSettings()) ?> validate-select w224"
+                            style="display:none;">
+                        <option value=""><?php echo $parent->getValue('region_id', $formType); ?></option>
+                    </select>
+                    <input onfocus="" type="text"
+                           name='<?php echo $this->getAddedFieldName(); ?>[region]'
+                           id='<?php echo $this->getAddedFieldName(); ?>:region'
+                           value="<?php echo $parent->getValue('region', $formType); ?>"
+                           title="<?php echo Mage::helper('sales')->__('State/Province') ?>"
+                           class="<?php echo $this->getFieldRequiredClass($this->getStateSettings()) ?>  input-text w224"
+                           style="display:none;"/>
+                <?php } else { ?>
+                    <input name='<?php echo $this->getAddedFieldName(); ?>[region_id]' id='region_id'
+                           title="<?php echo Mage::helper('sales')->__('State/Province') ?>" type="hidden"/>
+                <?php } ?>
+            </td>
+        </tr>
+        <tr>
+            <td class="left">
+                <label for="<?php echo $this->getAddedFieldName(); ?>:city"><?php echo Mage::helper('sales')->__('City') ?></label>
+                <?php echo $this->getFieldRequiredSpan(true); ?>
+                <input onfocus=""
+                       type='text'
+                       value="<?php echo $parent->getValue('city', $formType); ?>"
+                       name='<?php echo $this->getAddedFieldName(); ?>[city]'
+                       id='<?php echo $this->getAddedFieldName(); ?>:city'
+                       class="required-entry input-text w224"/>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <!-- END ADDRESS INPUT FORM -->
+    <!-- EXTRA SHIPPING INFORMATION START -->
+    <?php
+    echo $this->getChildHtml('qquote.shipping.request');
+    echo $this->getChildHtml('qquote.shipping.list');
+    ?>
+    <!-- EXTRA SHIPPING INFORMATION END -->
+</div>
+<!-- ADDRESS END -->
+
+<?php if ($parent->getStateSettings() > 0) { ?>
+    <script>
+        new RegionUpdater('<?php echo $this->getAddedFieldName(); ?>:country', '<?php echo $this->getAddedFieldName(); ?>:region', '<?php echo $this->getAddedFieldName(); ?>:region_id', <?php echo $this->helper('directory')->getRegionJson() ?>);
+        $('<?php echo $this->getAddedFieldName(); ?>:region_id').addClassName('w224');
+    </script>
+<?php } ?>
+

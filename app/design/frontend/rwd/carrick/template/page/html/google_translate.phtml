@@ -1,0 +1,41 @@
+<?php $locale = Mage::app()->getLocale()->getLocaleCode(); ?>
+<?php if($locale == 'es_ES') { ?>
+	<div id="google_translate_element"></div>
+
+	<script type="text/javascript">
+	function googleTranslateElementInit() {
+	 new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'es', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+	}
+	</script>
+
+	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+	<script type="text/javascript">
+		function setLanguage()
+		{
+
+		var lang = "Spanish";
+		var $frame = jQuery('.goog-te-menu-frame');
+		$frame.contents().find('.goog-te-menu2-item span.text:contains('+lang+')').click();
+
+		setTimeout(function(){
+		setLanguage();
+		}, 500);
+		}
+
+		setLanguage();
+	</script>
+
+	<style>
+		.goog-te-banner-frame.skiptranslate {display: none !important;} 
+		body {top: 0px !important;}
+		#google_translate_element{display: none !important;}
+		.goog-tooltip {display: none !important;}
+		.goog-tooltip:hover {display: none !important;}
+		.goog-text-highlight {
+		    background-color: transparent !important;
+		    border: none !important; 
+		    box-shadow: none !important;
+		}
+	</style>
+<?php } ?>

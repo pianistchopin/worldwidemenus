@@ -1,0 +1,11 @@
+<tr class="one_off_cost_div">
+    <td colspan="8"><?php
+        $quote = Mage::getModel('checkout/cart')->getQuote();
+       ?>
+        <input type='hidden' value='off' name='one_of_cost'>
+       <input type="checkbox" name="one_of_cost" id="one_of_cost" onChange="this.form.submit()" <?php  echo ($quote->hasData('one_off_cost') && $quote->getData('one_off_cost')==1)?"checked":""; ?> ><lable>   <?php echo Mage::helper('aitcg')->getOneOffCostLabel(); ?> </lable>
+    </td>
+</tr>
+<script>
+
+</script>

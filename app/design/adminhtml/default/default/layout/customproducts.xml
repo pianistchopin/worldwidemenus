@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Cart2Quote
+ * @package     CustomProducts
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ * @version     1.0.5
+ */
+-->
+<layout version="1.0.5">
+    <qquoteadv_email_qquoteadv_items>
+        <reference name="qquoteadv_item">
+            <block type="qquoteadv/adminhtml_email_items" name="qquoteadv_item_customproduct" as="custom.product" template="customproducts/email/item_customproduct.phtml"/>
+        </reference>
+    </qquoteadv_email_qquoteadv_items>
+    <adminhtml_qquoteadv_edit>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv/customproducts.js</name>
+            </action>
+        </reference>
+        <reference name="cart2quote.edit.tab.product">
+            <block type="customproducts/adminhtml_button" name="customproducts_button" as="customproducts.button" template="customproducts/button.phtml">
+                <block type="customproducts/adminhtml_button" name="customproducts_edit" as="customproducts.edit" template="customproducts/edit.phtml">
+                    <block type="customproducts/catalog_product_view" name="product.info.options.wrapper" as="product_options_wrapper" template="customproducts/product/view/options/wrapper.phtml" translate="label">
+                        <label>Info Column Options Wrapper</label>
+                        <block type="core/template" name="options_js" template="customproducts/product/view/options/js.phtml"/>
+                        <block type="catalog/product_view_options" name="product.info.options" as="product_options" template="customproducts/product/view/options.phtml">
+                            <action method="addOptionRenderer"><type>text</type><block>catalog/product_view_options_type_text</block><template>customproducts/product/view/options/type/text.phtml</template></action>
+                            <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>customproducts/product/view/options/type/file.phtml</template></action>
+                            <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>customproducts/product/view/options/type/select.phtml</template></action>
+                            <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>customproducts/product/view/options/type/date.phtml</template></action>
+                        </block>
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </adminhtml_qquoteadv_edit>
+</layout>

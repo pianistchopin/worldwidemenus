@@ -1,0 +1,38 @@
+<?php
+/**
+ * @var Ophirah_Qquoteadv_Block_Renderers_Default $this
+ */
+?>
+
+<div class="product-image">
+    <div class="product-image-container"><img
+            src="<?php echo $this->getImage() ?>" alt="close"/>
+    </div>
+</div>
+
+<div class="product-details">
+    <div class="main-details">
+        <div class="product-renderer-text"><?php echo $this->getName() ?></div>
+        <ul>
+            <?php if($this->getPrice()): ?>
+            <li><?php echo $this->__('Price')?>: <?php echo $this->getPrice(); ?></li>
+            <?php endif; ?>
+            <li><?php echo $this->__('Qty')?>: <?php echo $this->getQty(); ?></li>
+        </ul>
+    </div>
+    <?php if ($this->hasOptions()): ?>
+        <div class="configurable-options">
+            <h2><?php echo $this->__('Selected options')?></h2>
+            <ul>
+                <?php foreach ($this->getOptions() as $value): ?>
+                    <li><?php echo $this->escapeHtml($value['label']) ?>: <?php echo $this->escapeHtml($value['value']) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+    <?php if($this->getError()): ?>
+        <div id="add-to-quote-errors" style="display: none;">
+            <?php echo $this->getError(); ?>
+        </div>
+    <?php endif; ?>
+</div>

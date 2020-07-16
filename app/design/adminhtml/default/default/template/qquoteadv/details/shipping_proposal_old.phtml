@@ -1,0 +1,169 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+if (!isset($disabledHtml)){
+    $disabledHtml = "";
+}
+if (!isset($disabledHtmlRadio)){
+    $disabledHtmlRadio = "";
+}
+?>
+
+<div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('sales')->__('Shipping Information') ?></h4>
+</div>
+<div id="_newsletterbase_fieldset" class="fieldset">
+    <div class="hor-scroll">
+        <?php
+        $spanStyle = '';
+        $inputDisplay = '';
+
+        if (!$this->isAvaliableShipPrice()) {
+            $spanStyle = 'style="display:none;"';
+        }
+        if (!$this->isAvaliableShipPrice() || !$quoteModel->getData('shipping_type')) {
+            $inputDisplay = 'disabled="disabled"';
+        }
+
+
+        $sPrice = '
+        <span ' . $spanStyle . ' id="shipping" >
+                    <label for="shipping_price" class="normal">' . Mage::helper('sales')->__('Price') . '</label> <span class="required">*</span>
+                    <input type="text" value="' . $this->getQuoteShipPrice() . '" size="3"  id="shipping_price" name="shipping_price"
+         ' . $inputDisplay . '   style="width:70px;"
+        	class="required-entry validate-zero-or-greater required-entry input-text" '.$disabledHtml.' />
+
+        </span>';
+        ?>
+
+        <table cellspacing="0" class="form-list" border="0">
+            <tbody>
+
+            <tr>
+                <td class="label">
+                    <label for="shipping_type" class="normal"><?php echo $this->__('Use Store Settings'); ?></label>
+                </td>
+                <td style="width:50px; vertical-align:middle;"><input name="shipping_type" type="radio" value=""
+                        <?php echo ((!$quoteModel->getData('shipping_type')) ? 'checked="checked"': $disabledHtmlRadio); ?>
+                                                                      onclick="
+                                if(this.checked) {
+                                         shipI = $('shipI').innerHTML;
+                                         shipO = $('shipO').innerHTML;
+                                         if(shipI.length>5){
+                                             $('shipEmpty').innerHTML = shipI;
+                                             $('shipI').innerHTML='';
+                                         }
+                                         else if(shipO.length>5)
+                                         {
+                                             $('shipEmpty').innerHTML = shipO;
+                                             $('shipO').innerHTML='';
+                                         }
+
+                                         $('shipping_price').disabled=true;
+                                        // $('shipping_price').value='';
+                                         $('shipping').hide();
+                                }
+                                 "
+                        <?php echo $disabledHtml; ?> />
+                </td>
+
+                <td style="vertical-align:middle;"><span
+                        id="shipEmpty"><?php if (!$quoteModel->getData('shipping_type')) echo $sPrice; ?></span></td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="shipping_type" class="normal"><?php echo Mage::helper('adminhtml')->__('Per Item'); ?></label>
+
+                </td>
+                <td style="vertical-align:middle;"><input name="shipping_type" type="radio" value="I"
+                        <?php echo (($quoteModel->getData('shipping_type') == 'I') ? 'checked="checked"': $disabledHtmlRadio); ?>
+
+                                                          onclick="
+         if(this.checked) {
+
+                $('shipping_price').disabled=false;
+
+                $('shipping').show();
+
+                shipEmpty = $('shipEmpty').innerHTML;
+                shipO = $('shipO').innerHTML;
+
+                if(shipEmpty.length>5){
+                    $('shipI').innerHTML = shipEmpty;
+                    $('shipEmpty').innerHTML='';
+                }
+                else if(shipO.length>5)
+                {
+                    $('shipI').innerHTML = shipO;
+                    $('shipO').innerHTML='';
+                }
+
+        }
+        "
+                        <?php echo $disabledHtml; ?> /></td>
+                <td style="vertical-align:middle;"><span
+                        id="shipI"><?php if ($quoteModel->getData('shipping_type') == 'I') echo $sPrice; ?></span></td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="shipping_type" class="normal"><?php echo $this->__('Fixed Price Per Order'); ?></label>
+
+                </td>
+                <td style="vertical-align:middle;"><input name="shipping_type" type="radio" value="O"
+                        <?php echo (($quoteModel->getData('shipping_type') == 'O') ? 'checked="checked"': $disabledHtmlRadio); ?>
+
+                                                          onclick="
+         if(this.checked) {
+
+               $('shipping_price').disabled=false;
+
+               $('shipping').show();
+
+               shipEmpty = $('shipEmpty').innerHTML;
+               shipI = $('shipI').innerHTML;
+
+                if(shipI.length>5){
+                    $('shipO').innerHTML = shipI;
+                    $('shipI').innerHTML='';
+                }
+                else if(shipEmpty.length>5)
+                {
+                    $('shipO').innerHTML = shipEmpty;
+                    $('shipEmpty').innerHTML='';
+                }
+        }
+        "
+
+                        <?php echo $disabledHtml; ?> /></td>
+                <td style="vertical-align:middle;"><span
+                        id="shipO"><?php if ($quoteModel->getData('shipping_type') == 'O') echo $sPrice; ?></span>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+</div>	

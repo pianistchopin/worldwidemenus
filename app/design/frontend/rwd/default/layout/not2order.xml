@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <default>
+        <reference name="wishlist_sidebar">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>simple</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>configurable</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>bundle</type>
+                <block>bundle/catalog_product_price</block>
+                <template>not2order/bundle/catalog/product/price.phtml</template>
+            </action>
+        </reference>
+    </default>
+    <wishlist_index_index translate="label">
+        <reference name="customer.wishlist.item.price">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>simple</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>configurable</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>bundle</type>
+                <block>bundle/catalog_product_price</block>
+                <template>not2order/bundle/catalog/product/price.phtml</template>
+            </action>
+        </reference>
+    </wishlist_index_index>
+    <catalog_category_default>
+        <reference name="product_list">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product_list</name>
+                    <path>not2order/catalog/product/list.phtml</path>
+                </template>
+            </action>
+        </reference>
+        <reference name="product_list">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>simple</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>configurable</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>bundle</type>
+                <block>bundle/catalog_product_price</block>
+                <template>not2order/bundle/catalog/product/price.phtml</template>
+            </action>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_category_layered>
+        <reference name="product_list">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product_list</name>
+                    <path>not2order/catalog/product/list.phtml</path>
+                </template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>simple</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>configurable</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>bundle</type>
+                <block>bundle/catalog_product_price</block>
+                <template>not2order/bundle/catalog/product/price.phtml</template>
+            </action>
+        </reference>
+    </catalog_category_layered>
+
+    <catalog_product_compare_index>
+        <reference name="catalog.compare.list">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>catalog.compare.list</name>
+                    <path>not2order/catalog/product/compare/list.phtml</path>
+                </template>
+            </action>
+        </reference>
+    </catalog_product_compare_index>
+
+    <catalog_product_view>
+        <reference name="product.info">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product.info</name>
+                    <path>not2order/catalog/product/view.phtml</path>
+                </template>
+            </action>
+        </reference>
+
+        <reference name="product.clone_prices">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product.clone_prices</name>
+                    <path>not2order/catalog/product/view/price_clone.phtml</path>
+                </template>
+            </action>
+        </reference>
+
+        <reference name="product.info.upsell">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product.info.upsell</name>
+                    <path>not2order/catalog/product/list/upsell.phtml</path>
+                </template>
+            </action>
+        </reference>
+
+        <reference name="catalog.product.related">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>catalog.product.related</name>
+                    <path>not2order/catalog/product/list/related.phtml</path>
+                </template>
+            </action>
+        </reference>
+    </catalog_product_view>
+
+    <catalogsearch_result_index>
+        <reference name="search_result_list">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>search_result_list</name>
+                    <path>not2order/catalog/product/list.phtml</path>
+                </template>
+            </action>        
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>simple</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>configurable</type>
+                <block>catalog/product_price</block>
+                <template>not2order/catalog/product/price.phtml</template>
+            </action>
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="addPriceBlockType">
+                <type>bundle</type>
+                <block>bundle/catalog_product_price</block>
+                <template>not2order/bundle/catalog/product/price.phtml</template>
+            </action>
+        </reference>
+    </catalogsearch_result_index>
+
+    <wishlist_index_index>
+        <reference name="customer.wishlist.item.cart">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>customer.wishlist.item.cart</name>
+                    <path>not2order/wishlist/item/column/cart.phtml</path>
+                </template>
+            </action>
+        </reference>
+    </wishlist_index_index>
+
+
+    <PRODUCT_TYPE_configurable translate="label" module="catalog">
+        <reference name="product.info.options.configurable">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product.info.options.configurable</name>
+                    <path>not2order/catalog/product/view/type/options/configurable.phtml</path>
+                    <force>true</force>
+                </template>
+            </action>
+        </reference>
+
+    </PRODUCT_TYPE_configurable>
+
+    <PRODUCT_TYPE_grouped translate="label" module="catalog">
+        <reference name="product.info.grouped">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product.info.grouped</name>
+                    <path>not2order/catalog/product/view/type/grouped.phtml</path>
+                </template>
+            </action>
+        </reference>
+    </PRODUCT_TYPE_grouped>
+
+    <PRODUCT_TYPE_bundle translate="label" module="bundle">
+        <reference name="product.info.bundle.options">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product.info.bundle.options</name>
+                    <path>not2order/bundle/catalog/product/view/type/bundle/options.phtml</path>
+                </template>
+            </action>
+        </reference>
+
+        <reference name="product.info.bundle">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product.info.bundle</name>
+                    <path>not2order/bundle/catalog/product/view/type/bundle.phtml</path>
+                </template>
+            </action>
+        </reference>
+    </PRODUCT_TYPE_bundle>
+
+    <PRODUCT_TYPE_downloadable>
+        <reference name="product.info.downloadable">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product.info.downloadable</name>
+                    <path>not2order/downloadable/catalog/product/type.phtml</path>
+                </template>
+            </action>
+        </reference>
+        <reference name="product.info.downloadable.options">
+            <action ifconfig="qquoteadv_general/orderability_and_prices/enabled" method="setTemplate">
+                <template helper="not2order/data/useTemplates">
+                    <name>product.info.downloadable</name>
+                    <path>not2order/downloadable/catalog/product/links.phtml</path>
+                </template>
+            </action>
+        </reference>
+    </PRODUCT_TYPE_downloadable>
+</layout>

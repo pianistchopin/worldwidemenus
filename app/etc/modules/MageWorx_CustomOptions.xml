@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+-->
+<config>
+    <modules>
+        <MageWorx_CustomOptions>
+            <active>false</active>
+            <codePool>community</codePool>
+            <extension_name>Advanced Product Options</extension_name>
+            <depends>
+                <MageWorx_All />
+            </depends>
+        </MageWorx_CustomOptions>
+    </modules>
+</config>

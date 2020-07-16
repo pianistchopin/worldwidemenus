@@ -1,0 +1,107 @@
+<?php
+/**
+*
+* CART2QUOTE CONFIDENTIAL
+* __________________
+*
+*  [2009] - [2020] Cart2Quote B.V.
+*  All Rights Reserved.
+*
+* NOTICE OF LICENSE
+*
+* All information contained herein is, and remains
+* the property of Cart2Quote B.V. and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Cart2Quote B.V.
+* and its suppliers and may be covered by European and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Cart2Quote B.V.
+*
+* @category    Ophirah
+* @package     Qquoteadv
+* @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+* @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+*/
+?>
+<?php
+    /** @var Ophirah_Qquoteadv_Block_Checkout_Miniquote_Miniquote $this */
+
+    $_quoteQty = $this->getTotalQty();
+    if(empty($_quoteQty)) {
+        $_quoteQty = 0;
+    }
+?>
+    <div id="miniquote-error-message" class="miniquote-message"></div>
+    <div id="miniquote-success-message" class="miniquote-message"></div>
+    <div class="block-subtitle">
+    <?php echo $this->__('Recently added item(s)') ?>
+        <a class="close skip-link-close" href="#" title="Close">×</a>
+    </div>
+
+    <div class="block-content-inner">
+        <ol id="quote-sidebar" class="mini-products-list clearer"
+            data-load-url="<?php echo $this->getAjaxLoadUrl() ?>"
+            style="<?php if ($_quoteQty == 0) { echo 'padding: 0;'; } ?>"
+            >
+            <?php foreach ($this->getQuote() as $quoteItem) {
+                echo '<div class="header-miniquote">';
+                $product = $this->getProduct($quoteItem->getProductId());
+                $quoteByProduct = Mage::helper('qquoteadv')->getQuoteItem($product, $quoteItem->getAttribute(), null, $quoteItem);
+                $quoteItems = $quoteByProduct->getAllItems();
+                $quoteItems = $this->makeRecentItems($quoteItems);
+                foreach ($quoteItems as $_item) {
+                    $_item->setId($quoteItem->getId());
+                    if ($_item->getProductId() == $product->getId()) {
+                        //the following two lines don't seem te be used
+                        //$renderer = $this->getItemRenderer($product->getTypeId());
+                        //$renderer->setQquoteAdvRequestItem($quoteItem);
+                        echo $this->getItemHtml($_item);
+                    }
+                }
+                echo '</div>';
+            } ?>
+        </ol>
+
+        <?php if (!$_quoteQty): ?>
+                <div class="block-content-inner">
+                    <div class="empty"><?php echo $this->__('You have no items in your quote.') ?></div>
+                </div>
+        <?php endif; ?>
+
+        <?php if ($_quoteQty && !$this->isOnQuoteRequestPage()): ?>
+            <div class="quote-btn-box">
+                <button
+                    type="button" title="<?php echo $this->__('View all items on your quote') ?>"
+                    class="button"
+                    onclick="setLocation('<?php echo $this->getUrl('qquoteadv/index/') ?>')"
+                >
+                    <span><?php echo $this->__('Submit Request') ?></span>
+                </button>
+            </div>
+            <a class="cart-link" href="<?php echo $this->getUrl('qquoteadv/index/') ?>"><?php echo $this->__('View Quote') ?></a>
+        <?php endif; ?>
+    </div>
+
+<script type="text/javascript">
+    truncateOptions();
+    decorateList('quote-sidebar', 'none-recursive');
+    $j('document').ready(function() {
+        var miniqquoteOptions  = {
+            formKey:           "<?php echo $this->getFormKey();?>"
+        }
+        Miniquote = new Miniqquote(miniqquoteOptions);
+        Miniquote.init();
+    });
+
+    $j('#header-quote').on('click', '.skip-link-close', function (e) {
+        var parent = $j(this).parents('.skip-content');
+        var link = parent.siblings('.skip-link');
+
+        parent.removeClass('skip-active');
+        link.removeClass('skip-active');
+
+        e.preventDefault();
+    });
+</script>

@@ -1,0 +1,14 @@
+<?php
+if($this->getOneOffCost()) {
+?>
+    <ol class="checkout-agreements">
+        <li>
+            <div class="agreement-content aitcg-div">
+            <?php echo Mage::helper('aitcg')->getOneOffCostLabel(); ?>
+            </div>
+        </li>
+
+    </ol>
+    <?php
+}
+?>

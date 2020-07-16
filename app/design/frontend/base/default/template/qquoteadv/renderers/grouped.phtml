@@ -1,0 +1,45 @@
+<?php
+/**
+ * @var Ophirah_Qquoteadv_Block_Renderers_Grouped $this
+ */
+?>
+<div class="product-image">
+    <div class="product-image-container product-image-grouped"><img
+        src="<?php echo $this->getImage() ?>" alt="close"/>
+    </div>
+</div>
+<div class="product-information">
+<div class="grouped-main-product-container">
+    <div class="product-details">
+        <div class="product-renderer-text"><?php echo $this->getName(); ?></div>
+    </div>
+</div>
+<?php foreach ($this->getQuote()->getItemsCollection() as $quoteItem): ?>
+    <div class="grouped-product-container grouped-product">
+        <div class="product-details">
+            <div class="configurable-options">
+                <ul>
+                    <li><h3><?php echo $quoteItem->getName() ?></h3></li>
+                    <?php if($this->getPrice()): ?>
+                        <li>
+                            <span class="option-item"><?php echo $this->__('Price') ?>:
+                                <?php echo $this->getProductPrice($quoteItem->getProduct()); ?>
+                            </span>
+                        </li>
+                    <?php endif; ?>
+                    <li class="option-header-border">
+                        <span class="option-item">
+                            <?php echo $this->__('Qty')?>: <?php echo $quoteItem->getQty() ?>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+</div>
+<?php if($this->getError()): ?>
+    <div id="add-to-quote-errors" style="display: none;">
+        <?php echo $this->getError(); ?>
+    </div>
+<?php endif; ?>

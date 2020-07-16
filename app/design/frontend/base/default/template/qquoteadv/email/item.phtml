@@ -1,0 +1,239 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php $item = $this->getItem(); ?>
+<?php $product = Mage::getModel('catalog/product')->load($item->getProductId()); ?>
+
+<?php
+//helpers
+/** @var \Ophirah_Qquoteadv_Helper_Data $quoteadvHelper */
+$quoteadvHelper = Mage::helper('qquoteadv');
+$checkoutHelper = Mage::helper('checkout');
+$coreHelper = Mage::helper('core');
+
+// get this quote
+//$_quote = $this->getQuotationQuote($item->getQuoteId());
+
+$reqData = $this->getRequestedProductData($item->getId(), $item->getQuoteId());
+$aQty = $reqData['customPriceLineHtml'];
+$prices = $reqData['ownerPrices'];
+$merge = array_combine($aQty, $prices);
+$merge_tier = $merge;
+
+// minimal items in array for showing tier options
+// use 1 by default
+$min_tie_count = 0;
+
+// when unset used, set $min_tie_count to 0
+unset($merge_tier[$item->getData('qty')]);
+
+// Show item price
+//$showPrice = ($_quote->getData('itemprice') == 1) ? true : false;
+$showPrice = $quoteadvHelper->isPriceByDefaultAllowed();
+$itemPriceReplace = ' ';
+$rowTotalReplace = '--';
+?>
+<?php if (Mage::getModel('customproducts/customproduct')->isCustomProduct($item->getProductId())): ?>
+    <?php echo $this->getLayout()->getBlock('qquoteadv_item_customproducts')->setProduct($product)->setItem($item)->toHtml(); ?>
+<?php elseif ($product->getTypeId() == 'bundle' || $product->getTypeId() == 'configurable' || $product->getTypeId() == 'simple' || $product->getTypeId() == 'virtual'): ?>
+    <tr>
+        <td align="left" valign="center" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+              <?php if($item->hasImage($product)):?>
+            <img src="<?php echo $item->getItemPicture($product, 75, false); ?>" alt="<?php echo $item->getName(); ?>"
+                 width="<?php
+                 $maxSize = 200;
+                 $imageWidth = (int)$item->imgSize->getData('width');
+                 if(($imageWidth < $maxSize) && ($imageWidth > 0)) {echo $imageWidth;} else {echo $maxSize;}
+                 ?>"/>
+              <?php endif; ?>
+        </td>
+        <td align="left" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <a href="<?php echo $product->getProductUrl(); ?>">
+                <?php echo $this->escapeHtml($product->getName()) ?></a>
+            <?php
+            $product->setStoreId($item->getStoreId() ? $item->getStoreId() : 1);
+            $quoteByProduct = $quoteadvHelper->getQuoteItem($product, $item->getAttribute(), null,  $item);
+            foreach ($quoteByProduct->getAllItems() as $_unit) {
+                if ($_unit->getProductId() == $product->getId()) {
+                    echo $this->getItemHtml($_unit);
+                }
+            }
+            ?>
+
+        </td>
+        <td align="left" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <div style="height:25px;"><?php echo $this->escapeHtml($product->getSku()); ?></div>
+        </td>
+        <td align="center" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <div style="height:25px;" align="center"><?php echo ($item->getData('qty')*1); ?></div>
+            <?php if (count($merge_tier) > $min_tie_count): ?>
+                <?php foreach ($merge_tier as $key => $value): ?>
+                    <?php if ($key == $item->getData('qty')) {
+                        $selected = "*";
+                        $color = 333;
+                    } else {
+                        $selected = "";
+                        $color = 666;
+                    } ?>
+                    <div style="height:20px; color:#<?php echo $color; ?>; font-style: italic; font-size: 80%;"
+                         align="center"><?php echo ($key*1) . $selected; ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </td>
+        <?php if (!$this->isSetAutoProposal()): ?>
+            <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+        <?php elseif (isset($merge[$item->getData('qty')])): ?>
+            <?php $itemPrice = $merge[$item->getData('qty')]; ?>
+            <td align="center" valign="top" style="padding:3px 9px;  border-bottom:1px dotted #CCCCCC;">
+                <?php $price = ($showPrice) ? $coreHelper->formatPrice($itemPrice, true, false) : $itemPriceReplace; ?>
+                <div style="height:25px;" align="right"><?php echo $price; ?></div>
+                <?php if (count($merge_tier) > $min_tie_count): ?>
+                    <?php foreach ($merge_tier as $key => $value): ?>
+                        <?php if ($key == $item->getData('qty')) {
+                            $color = 333;
+                        } else {
+                            $color = 666;
+                        } ?>
+                        <div style="height:20px; color:#<?php echo $color; ?>; font-style: italic; font-size: 80%;"
+                             align="right"><?php echo ($showPrice) ? $coreHelper->formatPrice($value, true, false) : $itemPriceReplace; ?></div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </td>
+            <td align="right" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+                <?php $total = ($showPrice) ? $coreHelper->formatPrice($item->getData('qty') * $itemPrice, true, false) : $rowTotalReplace; ?>
+                <div style="height:25px; font-weight: bold;" align="right"><?php echo $total; ?></div>
+                <?php if (count($merge_tier) > $min_tie_count): ?>
+                    <?php foreach ($merge_tier as $qty => $price): ?>
+                        <?php $total = ($showPrice) ? $coreHelper->formatPrice($qty * $price, true, false) : $rowTotalReplace; ?>
+                        <?php if ($qty == $item->getData('qty')) {
+                            $color = 333;
+                        } else {
+                            $color = 666;
+                        } ?>
+                        <div style="height:20px; color:#<?php echo $color; ?>; font-style: italic; font-size: 80%;"
+                             align="right"><?php echo $total; ?></div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </td>
+        <?php endif; ?>
+    </tr>
+<?php else: ?>
+    <?php
+        //Downloadable model
+        $qqadvproductdownloadable = Mage::getModel('qquoteadv/qqadvproductdownloadable');
+    ?>
+    <tr>
+    <?php if($qqadvproductdownloadable->isDownloadable($product)): ?>
+        <td align="left" valign="center" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <?php if($item->hasImage($product)):?>
+                <img src="<?php echo $item->getItemPicture($product, 75, false); ?>" alt="<?php echo $item->getName(); ?>"
+                     width="<?php
+                     $maxSize = 200;
+                     $imageWidth = (int)$item->imgSize->getData('width');
+                     if(($imageWidth < $maxSize) && ($imageWidth > 0)) {echo $imageWidth;} else {echo $maxSize;}
+                     ?>"/>
+            <?php endif; ?>
+        </td>
+    <?php endif; ?>
+        <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <a href="<?php echo $product->getProductUrl(); ?>">
+                <?php echo $this->escapeHtml($product->getName()) ?></a>
+
+            <?php $superAttribute = $quoteadvHelper->getSimpleOptions($product, unserialize($item->getAttribute()));
+            if ($superAttribute):
+                echo '<dl style="margin:0; padding:0;">';
+                foreach ($superAttribute as $option => $value): ?>
+                    <dt><strong><em><?php echo $option ?></em></strong></dt>
+                    <dd style="margin:0; padding:0 0 0 9px;">
+                        <?php echo (!empty($value)) ? $value : nl2br($this->escapeHtml($value)) ?>
+                    </dd>
+                <?php endforeach;
+                echo '</dl>';
+            endif; ?>
+            <!-- Downloadable information -->
+            <?php if($qqadvproductdownloadable->isDownloadable($product)): ?>
+                <?php if ($links = $qqadvproductdownloadable->loadProduct($item)->getLinks()): ?>
+                    <dl style="margin:0; padding:0;">
+                        <dt><strong><em><?php echo $qqadvproductdownloadable->getLinksTitle() ?></em></strong></dt>
+                        <?php foreach ($links as $link): ?>
+                            <dd style="margin:0; padding:0 0 0 9px;">
+                                <?php echo $this->escapeHtml($link->getTitle()); ?>
+                            </dd>
+                        <?php endforeach; ?>
+                    </dl>
+                <?php endif; ?>
+            <?php endif; ?>
+            <!-- EOF downloadable -->
+        </td>
+        <td align="left" valign="top"
+            style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $this->escapeHtml($product->getSku($this)) ?></td>
+        <td align="center" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <?php if (count($aQty)): ?>
+                <?php foreach ($aQty as $key => $value): ?>
+                    <div style="height:25px; color:#333;" align="center"><?php echo $value * 1; ?></div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </td>
+        <?php if (!$this->isSetAutoProposal()): ?>
+            <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+        <?php else: ?>
+            <td align="center" valign="top" style="padding:3px 9px;  border-bottom:1px dotted #CCCCCC;">
+                <?php if (count($prices)): ?>
+                    <?php foreach ($prices as $key => $value): ?>
+                        <div
+                            style="height:25px;"><?php echo ($showPrice) ? $checkoutHelper->formatPrice($value) : $itemPriceReplace; ?></div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </td>
+
+            <?php $merge = array_combine($aQty, $prices); ?>
+            <td align="right" valign="top" style="padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+                <?php foreach ($merge as $qty => $price): ?>
+                    <?php $total = ($showPrice) ? $checkoutHelper->formatPrice($qty * $price) : $rowTotalReplace; ?>
+                    <div style="height:25px;"><?php echo $total; ?></div>
+                <?php endforeach; ?>
+            </td>
+        <?php endif; ?>
+    </tr>
+<?php endif; ?>
+
+<?php $clientRequest = $item->getClientRequest(); ?>
+<?php if (is_string($clientRequest) and urlencode($clientRequest) == "%C2%A0") $clientRequest = NULL; //for some reason a space is returned if more then one clientrequest in quote  ?>
+<?php if ($clientRequest): ?>
+    <tr>
+        <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+            <strong style="font-size:11px;"><?php echo $quoteadvHelper->__('Notes with Product:');?></strong>
+        </td>
+        <td colspan="4" align="left" valign="top"
+            style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo nl2br($this->escapeHtml($item->getClientRequest())) ?></td>
+        <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+
+        <?php if (!$this->isSetAutoProposal()): ?>
+            <td style="border-bottom:1px dotted #CCCCCC;">&nbsp;</td>
+        <?php endif; ?>
+    </tr>
+<?php endif; ?>

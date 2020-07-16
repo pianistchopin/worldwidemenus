@@ -1,0 +1,37 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ * @JS          /Apache_Webroot/cart2quote-remote/skin/frontend/base/default/js/crmaddon.js
+ */
+?>
+<input type="file" id="crm_new_file_0" name="crm_new_file_0" style="display: none;" onchange="crmaddon_newAttachment(this, '<?php echo $this->getSkinUrl("images/crmaddon/doc.png") ?>')"/>
+<a type="file" id="attachment" placeholder="Attach file" onclick="crmaddon_browseForAttachment();" class="crm_attach_file_link input_to_link"><?php echo $this->__('Attach file') ?></a>
+
+<div class="clearfix">&nbsp;</div>
+<div id="attachment_new">
+    <ul>
+    </ul>
+</div>
+

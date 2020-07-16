@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <qquoteadv>
+            <label>Cart2Quote</label>
+            <sort_order>310</sort_order>
+        </qquoteadv>
+    </tabs>
+    <sections>
+        <qquoteadv_general>
+            <label>General</label>
+            <tab>qquoteadv</tab>
+            <sort_order>310</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <orderability_and_prices>
+                    <label>Orderability and Prices</label>
+                    <comment><![CDATA[
+                            <div class="box">
+                            <p><b>Not2Order (Version 2.1.2) Provided by <a target="_blank" href="http://www.ophirah.nl">Ophirah | E-commerce Projects</a></b></p>
+                            For documentation and support visit<a target="_blank" href="http://www.cart2quote.com">www.cart2quote.com</a> or contact<a target="_blank" href="mailto:support@cart2quote.com">support@cart2quote.com</a>
+                            </div>
+                    ]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enabled>
+                            <label>Enable Not2Order</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <usetemplates>
+                            <label>Use Built-in Template Files</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If set to 'No', you have to manually adjust your templates to enable the functionality of Not2Order. (If you use Cart2Quote 'Built-in Template Files', set this setting to 'No')</comment>
+                        </usetemplates>
+                        <autohide>
+                            <label>Auto Hide Order Button</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Feature only works in combination with Cart2Quote. Product needs to have 'Quotation Conditions' set.</comment>
+                        </autohide>
+                        <default_not2order_attribute_value>
+                            <label>Default 'Allowed to Order Mode' Value for New Products</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Only affects newly created products.</comment>
+                        </default_not2order_attribute_value>
+                        <exclude_configurable>
+                            <label>Configurable child product inherits parent configuration</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If set to 'Yes', the configurable product will ignore the 'allow to order' setting of the child products.</comment>
+                        </exclude_configurable>
+                        <exclude_bundle>
+                            <label>Bundle child product inherits parent configuration</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>If set to 'Yes', the bundle product will ignore the 'allow to order' setting of the child products.</comment>
+                        </exclude_bundle>
+                    </fields>
+                </orderability_and_prices>
+            </groups>
+        </qquoteadv_general>
+    </sections>
+</config>

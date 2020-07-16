@@ -1,0 +1,29 @@
+<?php
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.2 or later
+ *
+ * @category MageTrend
+ * @package  MT/Exitoffer
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/exit-intent-popup
+ */
+?>
+<?php $options = $this->getData('options');?>
+<?php if (count($options) >= 2):?>
+<?php  foreach ($options as $option): ?>
+    <div class="checkbox-field radio-field">
+        <input
+            name="<?php echo $this->getName();?>"
+            type="radio"
+            value="<?php echo $option;?>"
+            class="mteo-additional-field mteo-additional-field-<?php echo $this->getName();?> <?php echo $this->getIsRequired()?' mt-validator-required':''; ?>"
+            data-field-name="<?php echo $this->getTitle()?>"
+            id="mteo_additional_<?php echo $this->getName();?>"
+            />
+        <label for="mteo_additional_<?php echo $this->getName();?>"><?php echo $option;?></label>
+    </div>
+    <?php endforeach; ?>
+<?php endif; ?>

@@ -1,0 +1,35 @@
+diff -aurBb /home/httpd/htdocs/users/rastorguev/manew131/var/ait_patch_orig/compare84612429729784a16433244fa8 /home/httpd/htdocs/users/rastorguev/manew131/var/ait_patch_modif/compare84612429729784a16433244fa8
+--- gallery.phtml	2011-02-03 15:33:40 +0200
++++ gallery_.phtml	2011-05-18 09:45:37 +0300
+@@ -61,6 +61,7 @@
+             <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
+             <th><?php echo $type['label'] ?></th>
+             <?php endforeach; ?>
++            <th><?php echo Mage::helper('aitcg')->__('Custom Product') ?><br />&nbsp;&nbsp;[STORE VIEW]</th>
+             <th><?php echo Mage::helper('catalog')->__('Exclude') ?></th>
+             <th class="last"><?php echo Mage::helper('catalog')->__('Remove') ?></th>
+         </tr>
+@@ -73,6 +74,7 @@
+                <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
+                <td class="cell-<?php echo $typeId ?> a-center"><input type="radio" name="<?php echo $type['field'] ?>" onclick="<?php echo $_block->getJsObjectName(); ?>.setProductImages('__file__')" value="__file__" /></td>
+                <?php endforeach; ?>
++               <td class="cell-cgimage a-center"><input type="checkbox" onclick="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
+                <td class="cell-disable a-center"><input type="checkbox" onclick="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
+                <td class="cell-remove a-center last"><input type="checkbox" onclick="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
+         </tr>
+@@ -90,6 +92,7 @@
+                 </td>
+                 <?php endforeach; ?>
+                 <td>&nbsp;</td>
++                <td>&nbsp;</td>
+                 <td class="last">&nbsp;</td>
+         </tr>
+     <?php endif ?>
+@@ -100,6 +103,7 @@
+                 <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
+                 <td class="cell-<?php echo $typeId ?> a-center"><input type="radio" name="<?php echo $type['field'] ?>" onclick="<?php echo $_block->getJsObjectName(); ?>.setProductImages('no_selection')" value="no_selection" /></td>
+                 <?php endforeach; ?>
++                <td class="cell-cgimage"><input type="hidden" />&nbsp;</td>
+                 <td class="cell-disable"><input type="hidden" />&nbsp;</td>
+                 <td class="cell-remove last"><input type="hidden" />&nbsp;</td>
+         </tr>

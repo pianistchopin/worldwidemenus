@@ -1,0 +1,136 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<script type="text/javascript" language="javascript">
+    var frm = $$('div.cart form');
+
+    moveAllToQuoteUrl = '<?php echo $this->getUrl('qquoteadv/index/add', array('_secure'=>Mage::app()->getStore()->isCurrentlySecure(), 'cartid'=>0)); ?>';
+    outQqconfirmModeUrl = '<?php echo $this->getUrl('qquoteadv/view/outqqconfirmmode', array('_secure'=>Mage::app()->getStore()->isCurrentlySecure())); ?>';
+
+    function confirmSwitch2Quote() {
+        return confirm('<?php echo $this->__('Change to Quotation mode?') ?>');
+    }
+    function moveAllToQuote() {
+        if (typeof(frm) == 'object' && frm.length > 0) {
+            frm[0].writeAttribute('action', moveAllToQuoteUrl);
+            frm[0].submit();
+        }
+    }
+    function outQqconfirmMode() {
+        if (typeof(frm) == 'object' && frm.length > 0) {
+            frm[0].writeAttribute('action', outQqconfirmModeUrl);
+            frm[0].submit();
+        }
+    }
+</script>
+
+<?php
+$frmAction = Mage::getUrl('qquoteadv/index/switch2Qquote', array('_secure' => Mage::app()->getStore()->isCurrentlySecure()));
+$action = "setLocation('" . $frmAction . "');";
+
+//#not quotable items list
+$productNames = Mage::helper('qquoteadv')->getQuotableItems();
+if (count($productNames) > 0) {
+    $action = 'initMsg();';
+}
+
+$btn = '<button id="c2qBtn" onclick="%s" class="button2 btn-update" style="margin-left:3px;" type="button"><span><span>%s</span></span></button>';
+?>
+<?php if (Mage::helper('qquoteadv')->isActiveConfirmMode()) {
+    echo sprintf($btn, "outQqconfirmMode();", $this->__('Log out from quote confirmation mode'));
+    ?>
+    <script type="text/javascript" language="javascript">
+
+        document.observe('dom:loaded', function () {
+            //in quote confirmation mode  product qty update button is not available
+            var btnUpdate = $$('#shopping-cart-table tfoot td.last button.btn-update');
+            if (typeof(btnUpdate) == 'object' && btnUpdate.length > 0) {
+                btnUpdate[0].hide();
+            }
+
+
+            //in quote confirmation mode discount block is not available
+            discountCouponFrm = $('discount-coupon-form');
+            if (discountCouponFrm) discountCouponFrm.hide();
+
+            //in quote confirmation mode shipping calculation block is not available
+            frmShipping = $$('div.shipping');
+            if (typeof(frmShipping) == 'object' && frmShipping.length > 0) {
+                frmShipping[0].hide();
+            }
+
+        });
+
+    </script>
+<?php
+} else {
+    echo sprintf($btn, $action, $this->__('Copy to Quotation'));
+}
+?>
+
+<script type="text/javascript" language="javascript">
+    var tfoot = $$('#shopping-cart-table tfoot td.last');
+    if (typeof(tfoot) == 'object' && tfoot.length > 0 && $('c2qBtn')) {
+        //tfoot[0].appendChild('&nbsp;');
+        tfoot[0].appendChild($('c2qBtn'));
+    }
+</script>
+
+<div id="lightbox1" class="leightbox">
+    <form method="post" name="switchmode" id="switchmode" action="<?php echo $frmAction; ?>">
+        <input type="hidden" name="redirect" value="qquoteadv">
+        <br/>
+
+        <div align="left" style="padding-left:45px;font-size:13px;">
+            <h3><?php echo $this->__('Copy to Quotation?') ?></h3></div>
+        <?php if (count($productNames)): ?>
+            <div align="left" style="padding-left:45px;font-size:13px;">
+                <p><?php echo $this->__('This order list contains items that cannot quoted.') ?><br/>
+                    <?php echo $this->__('The following item will not be added to the quotation list if you continue:') ?>
+                </p>
+
+                <div align="left" style="padding-left:25px;font-size:12px; font-weight:bold;">
+                    <ul style="list-style: square outside;"><?php foreach ($productNames as $name) {
+                            echo "<li>$name</li>";
+                        } ?></ul>
+                </div>
+            </div>
+        <?php else: ?>
+            <script>$('lightbox1').setStyle({'height': '90px'});</script>
+        <?php endif ?>
+
+        <div style="float:right; padding-right:50px; margin-bottom: 20px; margin-top: 20px;">
+            <button type="button" class="button btn-update" onclick="cancelMsg();$('lightbox1').hide();"
+                    title="<?php echo Mage::helper('sales')->__('Cancel') ?>">
+                <span><span><?php echo Mage::helper('sales')->__('Cancel') ?></span></span></button>
+            <button type="button" class="button btn-update" onclick="$('lightbox1').hide();$('switchmode').submit();"
+                    title="<?php echo Mage::helper('sales')->__('Continue') ?>">
+                <span><span><?php echo Mage::helper('sales')->__('Continue') ?></span></span></button>
+        </div>
+    </form>
+</div>
+

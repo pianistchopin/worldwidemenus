@@ -1,0 +1,8 @@
+<?php
+?>
+<?php $_option = $this->getOption() ?>
+<dt>
+    <label><?php echo  $this->htmlEscape($_option->getTitle()) ?></label>
+    <?php if ($_option->getDescription()): ?><p class="note"><?php echo $_option->getDescription() ?></p><?php endif; ?>
+<input type="hidden" class="option_value" id="value_option_<?php echo $_option->getId() ?>" value="0" />
+</dt>

@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Photo Photogallery & Products Photogallery extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    Photogallery
+ * @copyright  Copyright 2010 © free-magentoextensions.com All right reserved
+ */
+
+/**
+ * @category   Photogallery
+ * @package    Photogallery
+ * @author     Kamran Rafiq Malik <kamran.malik@unitedsol.net>
+ */
+-->
+<config>
+    <modules>
+        <FME_Photogallery>
+            <version>2.5.0</version>
+        </FME_Photogallery>
+		
+    </modules>
+    <frontend>
+        <routers>
+            <photogallery>
+                <use>standard</use>
+                <args>
+                    <module>FME_Photogallery</module>
+                    <frontName>photogallery</frontName>
+                </args>
+            </photogallery>
+        </routers>
+        <layout>
+            <updates>
+                <photogallery>
+                    <file>photogallery.xml</file>
+                </photogallery>				
+            </updates>
+        </layout>
+		<photogallery>
+			<per_page_values>5,10,20,50</per_page_values>
+		</photogallery>
+    </frontend>
+
+
+    <admin>
+		<routers>
+		    <adminhtml>
+				<args>
+				    <modules>
+				    	<fme_photogallery after="Mage_Adminhtml">FME_Photogallery_Adminhtml</fme_photogallery>
+				    	<FME_Photogallery_Override before="Mage_Adminhtml">FME_Photogallery_Override_Admin</FME_Photogallery_Override>
+				    </modules>
+				</args>
+		    </adminhtml>
+		</routers>
+    </admin>
+
+
+    <adminhtml>
+		<menu>
+		    <fme>
+		    	<title>FME Extensions</title>
+				<sort_order>71</sort_order>
+				<children>
+					<basesec translate="title">
+	                    <title>Extensions and Support</title>
+	                    <sort_order>0</sort_order>
+	                    <action>adminhtml/system_config/edit/section/basesec</action>
+                	</basesec>
+				    <photogallery translate="title" module="photogallery">
+					    <title>Photogallery</title>
+					    <sort_order>50</sort_order>
+					    <children>
+					    	<gallery translate="title" module="photogallery">
+							    <title>Manage Albums</title>
+							    <sort_order>0</sort_order>
+							    <action>adminhtml/fme_gallery</action>						
+						    </gallery>
+						    <items translate="title" module="photogallery">
+							    <title>Manage Photo Gallery</title>
+							    <sort_order>0</sort_order>
+							    <action>adminhtml/fme_photogallery</action>						
+						    </items>
+						    <photogalleryblocks module="photogallery">
+							    <title>Manage Gallery Blocks</title>
+							    <sort_order>2</sort_order>
+							    <action>adminhtml/fme_photogalleryblocks</action>
+						    </photogalleryblocks>
+						    <config translate="title">
+							    <title>Configuration</title>
+							    <sort_order>3</sort_order>
+							    <action>adminhtml/system_config/edit/section/photogallery</action>
+						    </config>
+					    </children>				
+				    </photogallery>
+				</children>
+		    </fme>
+		</menu>
+
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<fme>
+							<title>FME Extensions</title>
+							<sort_order>71</sort_order>
+							<children>
+							<basesec translate="title">
+			                    <title>Extensions and Support</title>
+			                    <sort_order>0</sort_order>
+			                    <action>adminhtml/system_config/edit/section/basesec</action>
+		                	</basesec>	
+			    			<photogallery module="photogallery">
+				    			<title>Photogallery</title>
+				    			<sort_order>0</sort_order>
+				                	<children>
+				                		<gallery translate="title" module="photogallery">
+										    <title>Manage Albums</title>
+										    <sort_order>0</sort_order>
+									    </gallery>
+					    				<items module="photogallery">
+						    				<title>Manage Photogallery</title>
+						    				<sort_order>1</sort_order>
+						    			</items>
+					    				<photogalleryblocks module="photogallery">
+						    				<title>Manage Gallery Blocks</title>
+						    				<sort_order>2</sort_order>
+						    			</photogalleryblocks>
+					    				<config translate="title">
+						    				<title>Configuration</title>
+						    				<sort_order>3</sort_order>
+						    			</config>
+				    				</children>				
+				    			</photogallery>
+			 				</children>
+		    			</fme>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                    <basesec translate="title">
+                                            <title>Extensions and Support</title>
+                                            <sort_order>0</sort_order>
+                                            <action>adminhtml/system_config/edit/section/basesec</action>
+                                    </basesec>
+                                        <photogallery module="photogallery">
+                                            <title>Photogallery Section</title>
+                                        </photogallery>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+				</admin>
+
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<photogallery>
+					<file>photogallery.xml</file>
+				</photogallery>				
+			</updates>
+		</layout>
+		<!--<events>
+			<core_block_abstract_prepare_layout_after>
+				<observers>
+					<fme_product_injectTabs>
+						<type>singleton</type>
+						<class>photogallery/observer_product</class>
+						<method>injectTabs</method>
+					</fme_product_injectTabs>
+				</observers>
+			</core_block_abstract_prepare_layout_after>
+			<catalog_product_save_after>
+				<observers>
+					<fme_save_product_data>
+						<type>singleton</type>
+						<class>photogallery/observer_product</class>
+						<method>saveTabData</method>
+					</fme_save_product_data>
+				</observers>
+			</catalog_product_save_after>
+		</events>-->
+    </adminhtml>   
+    <global>
+        <models>
+            <photogallery>
+                <class>FME_Photogallery_Model</class>
+                <resourceModel>photogallery_mysql4</resourceModel>
+            </photogallery>
+	    <!--Start Gallery Images Shahzad -->
+	    <photogallery2>
+		<class>FME_Photogallery_Media</class>
+	    </photogallery2>
+	    <!--End Gallery Images Shahzad -->
+            <photogallery_mysql4>
+                <class>FME_Photogallery_Model_Mysql4</class>
+                <entities>
+                	<gallery>
+                        <table>gallery</table>
+                    </gallery>
+                    <photogallery>
+                        <table>photogallery</table>
+                    </photogallery>
+		    <photogallery_products>
+                        <table>photogallery_products</table>
+                    </photogallery_products>
+		    <photogallery_store>
+                        <table>photogallery_store</table>
+                    </photogallery_store>
+		    <!-- Start Gallery images shahzad -->
+		    <img>
+			<table>photogallery_images</table>
+		    </img>
+		    <!-- End Gallery images shahzad -->
+		    <photogalleryblocks>
+		        <table>photogallery_blocks</table>
+		    </photogalleryblocks>
+		    <photogallery_block_gimages>
+		        <table>photogallery_block_gimages</table>
+		    </photogallery_block_gimages>
+		    <blockimage>
+			<table>photogalleryblocks_images</table>
+		    </blockimage>
+                </entities>
+            </photogallery_mysql4>		
+        </models>
+        <resources>
+            <photogallery_setup>
+                <setup>
+                    <module>FME_Photogallery</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </photogallery_setup>			
+            <photogallery_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </photogallery_write>			 
+			 <photogallery_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </photogallery_read>            
+        </resources>
+        <blocks>
+            <photogallery>
+                <class>FME_Photogallery_Block</class>
+            </photogallery>
+			<gimage>
+                <class>FME_Photogallery_Block</class>
+            </gimage>
+            <fmebase>
+                <class>FME_Photogallery_Block</class>
+            </fmebase>			 
+        </blocks>
+        <helpers>
+            <photogallery>
+                <class>FME_Photogallery_Helper</class>
+            </photogallery>
+			<gimage>
+                <class>FME_Photogallery_Helper</class>
+            </gimage>
+        </helpers>
+		<events>
+            <controller_front_init_routers>
+                <observers>
+                    <photogallery>
+                        <type>singleton</type>
+                        <class>FME_Photogallery_Controller_Router</class>
+                        <method>initPhotogalleryControllerRouters</method>
+                    </photogallery>
+                </observers>
+            </controller_front_init_routers>
+
+	  <page_block_html_topmenu_gethtml_before> <!-- identifier of the event we want to catch -->
+        <observers>
+          <page_block_html_topmenu_gethtml_before_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>FME_Photogallery_Model_Observer</class> <!-- observers class alias -->
+            <method>addToTopmenu</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </page_block_html_topmenu_gethtml_before_handler>
+        </observers>
+      </page_block_html_topmenu_gethtml_before>
+    </events>
+    <template>
+    	<email>
+	        <fme_Support_email module="prodfaqs">
+	            <label>FME Support Email</label>
+	            <file>photogallery_Support_email.html</file>
+	            <type>html</type>
+	        </fme_Support_email>
+    	</email>
+	</template>
+    </global>
+    <default>
+        <catalog>
+            <photogallery>
+				<enabled>1</enabled>
+                <product_photogallery>1</product_photogallery>
+             </photogallery>
+        </catalog>
+    </default>
+</config>

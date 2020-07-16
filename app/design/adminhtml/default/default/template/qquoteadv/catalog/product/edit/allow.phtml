@@ -1,0 +1,170 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+/* @var $this Ophirah_Qquoteadv_Block_Adminhtml_Catalog_Product_Edit_Tab_Qquoteadv_Group_Allow */
+?>
+<?php $_htmlId = $this->getElement()->getHtmlId() ?>
+<?php $_htmlClass = $this->getElement()->getClass() ?>
+<?php $_htmlName = $this->getElement()->getName() ?>
+<?php $_readonly = $this->getElement()->getReadonly() ?>
+<?php $_showWebsite = $this->isShowWebsiteColumn(); ?>
+<?php $_editWebsite = $this->isAllowChangeWebsite(); ?>
+<?php $_priceValueValidation = $this->getPriceValidation('validate-greater-than-zero'); ?>
+
+
+<?php $_showWebsite = $this->isShowWebsiteColumn(); ?>
+<?php $_showWebsite = $this->isMultiWebsites(); ?>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td colspan="10" class="grid tier">
+        <table cellspacing="0" class="data border" id="tiers_table">
+            <col width="300"/>
+            <col/>
+            <col width="95"/>
+            <thead>
+            <tr class="headings">
+                <?php $enterprise = (Mage::getStoreConfig('qquoteadv_general/quotations/edition') == 'Enterprise') ? '' : ' ('.Mage::helper('qquoteadv')->__('Enterprise only').')';?>
+                <th><?php echo Mage::helper('catalog')->__('Customer Group').$enterprise ?></th>
+                <th></th>
+                <th class="last"><?php echo Mage::helper('catalog')->__('Action') ?></th>
+            </tr>
+            </thead>
+            <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+            </tfoot>
+        </table>
+        <p class="note"><?php echo $this->getDefaultAllowedGroupsNote(); ?></p>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            var quoteGroupRowTemplate = '<tr>'
+
+                + '<td><select class="<?php echo $_htmlClass ?> custgroup required-entry" name="<?php echo $_htmlName ?>[{{index}}][cust_group]" id="group_allow_row_{{index}}_cust_group">'
+                <?php foreach ($this->getCustomerGroups() as $_groupId=>$_groupName): ?>
+                + '<option value="<?php echo $_groupId ?>"><?php echo $this->jsQuoteEscape($this->escapeHtml($_groupName)) ?></option>'
+                <?php endforeach ?>
+                + '</select></td>'
+                + '<td><select class="<?php echo $_htmlClass ?> required-entry" type="text" name="<?php echo $_htmlName ?>[{{index}}][value]" value="{{value}}" id="group_allow_row_{{index}}_value" />'
+                + '<option value="0"><?php echo Mage::helper('adminhtml')->__('No'); ?></option>'
+                + '<option value="1"><?php echo Mage::helper('adminhtml')->__('Yes'); ?></option>'
+                + '</select>'
+                + '<input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][website_id]" value="<?php echo $this->getWebsiteId(); ?>" id="group_allow_row_{{index}}_website" /></td>'
+                + '<td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="group_allow_row_{{index}}_delete" />'
+                + '<button title="<?php echo Mage::helper('qquoteadv')->__("Delete Group") ?>" type="button" class="scalable delete icon-btn delete-product-option" id="group_allow_row_{{index}}_delete_button" onclick="return quoteGroupControl.deleteItem(event);">'
+                + '<span><span><span><?php echo Mage::helper('catalog')->__("Delete") ?></span></span></span></button></td>'
+                + '</tr>';
+
+            var quoteGroupControl = {
+                template: new Template(quoteGroupRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                itemsCount: 0,
+                addItem: function () {
+                    <?php if ($_readonly): ?>
+                    if (arguments.length < 5) {
+                        return;
+                    }
+                    <?php endif; ?>
+                    var data = {
+                        group: '<?php echo $this->getDefaultCustomerGroup() ?>',
+                        value: 0,
+                        website: <?php echo $this->getWebsiteId(); ?>,
+                        readOnly: false,
+                        index: this.itemsCount++
+                    };
+
+                    if (arguments.length >= 3) {
+                        //define readonly first
+                        if(arguments[2] == 0 && data.website != 0) {
+                            //if this is a global scope value and the current scope isn't global
+                            data.readOnly = true;
+                        } else {
+                            data.readOnly = arguments[3];
+                        }
+
+                        data.group = arguments[0];
+                        data.value = arguments[1];
+                        data.website = arguments[2];
+                    }
+
+                    Element.insert($('<?php echo $_htmlId ?>_container'), {
+                        bottom: this.template.evaluate(data)
+                    });
+
+                    $('group_allow_row_' + data.index + '_cust_group').value = data.group;
+                    $('group_allow_row_' + data.index + '_value').value = data.value;
+                    $('group_allow_row_' + data.index + '_website').value = data.website;
+
+                    if(data.readOnly){
+                        $('group_allow_row_' + data.index + '_cust_group').disable();
+                        $('group_allow_row_' + data.index + '_value').disable();
+                        $('group_allow_row_' + data.index + '_delete').disable();
+                        $('group_allow_row_' + data.index + '_delete_button').disable();
+                        $('group_allow_row_' + data.index + '_delete_button').addClassName('disabled');
+                    }
+
+                    <?php /*if ($_readonly): ?>
+                    $('<?php echo $_htmlId ?>_container').select('input', 'select').each(this.disableElement);
+                    $('<?php echo $_htmlId ?>_container').up('table').select('button').each(this.disableElement);
+                    <?php else: */ ?>
+
+                    $('<?php echo $_htmlId ?>_container').select('input', 'select').each(function (el) {
+                        Event.observe(el, 'change', el.setHasChanges.bind(el));
+                    });
+                    <?php /* endif; */?>
+                },
+                disableElement: function (el) {
+                    el.disabled = true;
+                    el.addClassName('disabled');
+                },
+                deleteItem: function (event) {
+                    var tr = Event.findElement(event, 'tr');
+                    if (tr) {
+                        Element.select(tr, '.delete').each(function (elem) {
+                            elem.value = '1'
+                        });
+                        Element.select(tr, ['input', 'select']).each(function (elem) {
+                            elem.hide()
+                        });
+                        Element.hide(tr);
+                        Element.addClassName(tr, 'no-display template');
+                    }
+                    return false;
+                }
+            };
+            <?php foreach ($this->getValues() as $_item): ?>
+            quoteGroupControl.addItem('<?php echo $_item['cust_group'] ?>', '<?php echo (int) $_item['value'] ?>', <?php echo (int)!empty($_item['website_id'])?>, <?php echo (int)!empty($_item['readonly'])?>);
+            <?php endforeach; ?>
+            <?php if ($_readonly): ?>
+            $('<?php echo $_htmlId ?>_container').up('table').select('button')
+                .each(quoteGroupControl.disableElement);
+            <?php endif; ?>
+            //]]>
+        </script>
+    </td>
+</tr>

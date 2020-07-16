@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ophirah_Not2Order>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Ophirah_Not2Order>
+    </modules>   
+</config>

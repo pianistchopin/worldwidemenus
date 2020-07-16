@@ -1,0 +1,50 @@
+<?php
+$email = Mage::getStoreConfig('trans_email/ident_general/email');
+?>
+<?php if (Zend_Validate::is($email, 'EmailAddress')) : ?>
+    <div class="box">
+        <?php echo $this->__('These tests will use %s  to send and receive test emails. This address can be set at "System > Configuration > General > Store Email Adresses > General Contact > Sender Email"', $email); ?>
+    </div>
+    <style>
+        .padMe5500 {
+            padding: 5px 5px 0 0 !important;
+        }
+    </style>
+    <tr>
+        <th class="padMe5500"><?php echo $this->__('Module'); ?></th>
+        <th class="padMe5500"><?php echo $this->__('Test'); ?></th>
+        <th class="padMe5500"><?php echo $this->__('Remarks'); ?></th>
+    </tr>
+    <tr>
+        <td class="padMe5500">Magento Mail:</td>
+        <td class="padMe5500">
+            <?php
+            echo $this->getLayout()->
+            createBlock('adminhtml/widget_button')->
+            setType('button')->
+            setStyle('width: 100%;')->
+            setLabel($this->__('Send test email'))->
+            setOnClick("setLocation('{$this->getUrl('*/qquoteadv/testMagentoMail')}')")->
+            toHtml();
+            ?>
+        </td>
+        <td class="padMe5500"><?php echo $this->__('Template used: %s', get_class(Mage::helper('qquoteadv/email')->getEmailTemplateModel())); ?></td>
+    </tr>
+    <tr>
+        <td class="padMe5500"><?php echo $this->__('PHPMail:'); ?></td>
+        <td class="padMe5500">
+            <?php
+            echo $this->getLayout()->
+            createBlock('adminhtml/widget_button')->
+            setType('button')->
+            setStyle('width: 100%;')->
+            setLabel($this->__('Send test email'))->
+            setOnClick("setLocation('{$this->getUrl('*/qquoteadv/testPHPMail')}')")->
+            toHtml();
+            ?>
+        </td>
+        <td class="padMe5500"><?php echo $this->__('Uses plain PHP mailer, no templates will be used this way.'); ?></td>
+    </tr>
+<?php else: ?>
+    <?php echo $this->__('The stores general email address: ("%s") is invalid. please set it at "System > Configuration > General > Store Email Adresses > General Contact > Sender Email"', $email); ?>
+<?php endif; ?>

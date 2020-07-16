@@ -1,0 +1,84 @@
+<?php
+$_block = $this;
+$options = $_block->getConfigurableAttributeValues();
+$deleteUrl = Mage::getUrl("adminhtml/adjicon/deleteImageFile");
+?>
+<?php if(Mage::helper('adjicon')->isCPPEnabled() && count($this->getCPPOptions()) > 1): ?>
+    <ul class="messages"><li class="notice-msg"><span><?php echo Mage::helper('adjicon')->__('For correct work with AITOC Custom Product Preview all different color image files should have the same dimensions (i.e. be created from one original image file).'); ?></span></li></ul>
+<?php endif; ?>
+<?php foreach ($options as $optionId => $optionLabel): ?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $optionLabel ?></h4>
+    </div>
+    <fieldset id="grop_fields_<?php echo $optionId ?>">
+        <div id="<?php echo $_block->getHtmlId() ?>_<?php echo $optionId ?>" >
+            <div class="grid">
+                <table class="data border" id="visualization_grid_<?php echo $optionId ?>" cellspacing="0" width="100%">
+                    <col width="1" />
+                    <col />
+                    <col width="300"/>
+                    <col width="70" />
+                    <thead>
+                    <tr class="headings">
+                        <th><?php echo Mage::helper('catalog')->__('Image') ?></th>
+                        <th><?php echo Mage::helper('catalog')->__('Label') ?></th>
+                        <th><?php echo Mage::helper('catalog')->__('Base Image') ?></th>
+                        <?php if(Mage::helper('adjicon')->isCPPEnabled()): ?>
+                            <th><?php echo Mage::helper('adjicon')->__('CPP Option') ?></th>
+                        <?php endif; ?>
+                        <th class="last"><?php echo Mage::helper('catalog')->__('Remove') ?></th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="<?php echo $_block->getHtmlId() ?>_<?php echo $optionId ?>_list">
+                    <tr id="<?php echo $_block->getHtmlId() ?>_<?php echo $optionId ?>_template" class="template no-display">
+                        <td class="cell-image"><div class="place-holder" onmouseover="<?php echo $_block->getJsObjectName(). $optionId; ?>.loadImage('__file__')"><span><?php echo Mage::helper('catalog')->__('Roll Over for preview') ?></span></div><img src="<?php echo $this->getSkinUrl('images/spacer.gif')?>" width="100" style="display:none;" alt="" /></td>
+                        <td class="cell-label" for="label-name"><input id="label-name-<?php echo $optionId ?>" class="input-text" type="text" onkeyup="<?php echo $_block->getJsObjectName(). $optionId; ?>.updateImage('__file__')" onchange="<?php echo $_block->getJsObjectName(). $optionId; ?>.updateImage('__file__')"></td>
+                        <td class="cell-base_image a-center">
+                            <input type="radio" name="conf-image-<?php echo $optionId ?>" onclick="<?php echo $_block->getJsObjectName(). $optionId; ?>.setProductImages('__file__', '__image_id__')" value="__file__">
+                        </td>
+                        <?php if(Mage::helper('adjicon')->isCPPEnabled()): ?>
+                            <td class="cell-base_image a-center">
+                                <select id="cpp-__imgId__" name="cpp-__imgId__" class="select" onchange="<?php echo $_block->getJsObjectName(). $optionId; ?>.updateCPPOption(this)">
+                                    <?php foreach ($this->getCPPOptions() as $option): ?>
+                                        <option value="<?php echo $option['value'] ?>" ><?php echo $option['label'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <script type="text/javascript">
+                                    var cppValue = '__cppValue__';
+                                    $('cpp-__imgId__').value = cppValue;
+                                </script>
+                            </td>
+                        <?php endif; ?>
+                        <td class="cell-remove a-center last"><a id="adj_remove[__image_id__]" class="adj_remove_image" onclick="<?php echo $_block->getJsObjectName(). $optionId; ?>.removeImageRow('__file__', '__image_id__', '<?php echo $deleteUrl ?>')">&nbsp;</a></td>
+                    </tr>
+
+                    <tr id="<?php echo $_block->getHtmlId() ?>_<?php echo $optionId ?>-image-0">
+                        <td class="cell-image"><?php echo Mage::helper('catalog')->__('No image') ?></td>
+                        <td class="cell-label"><input type="hidden" />&nbsp;</td>
+                        <td class="cell-base_image a-center">
+                            <input type="radio" name="conf-image-<?php echo $optionId ?>" onclick="<?php echo $_block->getJsObjectName(). $optionId; ?>.setProductImages('no_selection')" value="no_selection" checked />
+                        </td>
+                        <td class="cell-remove"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p class="a-right">
+            <input type="file" value="" id="image_<?php echo $optionId ?>" name="image_<?php echo $optionId ?>">
+            <?php echo $this->getButtonHtml(Mage::helper('adjicon')->__('Add Image'), $_block->getJsObjectName() . $optionId.'.uploadImageFile('.$optionId.')'); ?>
+        </p>
+    </fieldset>
+</div>
+<input type="hidden" id="<?php echo $_block->getHtmlId() ?>_<?php echo $optionId ?>_save" name="product[media_gallery][adjicon_images][<?php echo $optionId ?>]" value="<?php echo $_block->escapeHtml($_block->getImagesJson($optionId)) ?>" />
+<input type="hidden" id="<?php echo $_block->getHtmlId() ?>_<?php echo $optionId ?>_save_image" name="product[media_gallery][adjicon_values][<?php echo $optionId ?>]" value="<?php echo $_block->escapeHtml($_block->getImagesValuesJson($optionId)) ?>" />
+    <script type="text/javascript">
+
+        var <?php echo $_block->getJsObjectName() . $optionId; ?> = new Product.AdjGallery('<?php echo $_block->getHtmlId() ?>_<?php echo $optionId ?>', <?php echo $optionId ?>, <?php echo $_block->getImageTypesJson() ?>);
+        <?php echo $_block->getJsObjectName() . $optionId; ?>.addUrl("<?php echo $optionId ?>", "<?php echo $this->getControllerUrl($optionId, $optionLabel) ?>");
+    </script>
+<?php endforeach; ?>
+
+

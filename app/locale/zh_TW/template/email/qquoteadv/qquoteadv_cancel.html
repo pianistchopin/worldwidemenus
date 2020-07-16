@@ -1,0 +1,40 @@
+<!--@subject {{var quote.getStoreGroupName()}}: Quote request # {{var quote.increment_id}} is cancelled @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>你好 {{htmlescape var=$customer.name}}</strong>,<br/><br>
+                                你的詢價請求 {{var quote.getStoreGroupName()}} 編號 # {{var
+                                quote.increment_id}} 已經被取消。<br><br>
+                                你可以檢查取消的請求狀態經由， <a href="{{store url='customer/account/'}}"
+                                style="color:#1E7EC8;">登錄到你的帳戶</a>.<br><br>
+                                如果你有建立新的詢價單請求，請聯繫我們<a
+                                    href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+                                或致電<span class="nobr">{{config path='general/store_information/phone'}}</span> 週一- 週五上午8時 - 下午5時。
+                            </p><br>
+
+                            <p style="font-size:12px; margin:0;">謝謝, <strong>{{var
+                                quote.getStoreGroupName()}}</strong></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>               

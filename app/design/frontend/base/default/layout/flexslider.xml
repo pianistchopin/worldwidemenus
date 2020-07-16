@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+<layout>
+<!--
+/**
+ * @category	Solide Webservices
+ * @package		Flexslider
+ */
+-->
+	<default>
+		<reference name="root">
+			<block type="flexslider/page_html_head" name="flexslider_head" as="flexslider_head" />
+		</reference>
+		<reference name="content">
+			<block type="flexslider/view" name="flexslider_all_content_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>ALL_CONTENT_TOP</position></action>
+				<action method="setScope"><scope>global</scope></action>			
+				<action method="setGlobal"><global>true</global></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_all_content_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>ALL_CONTENT_BOTTOM</position></action>
+				<action method="setScope"><scope>global</scope></action>
+				<action method="setGlobal"><global>true</global></action>
+			</block>
+		</reference>
+		<reference name="left">
+			<block type="flexslider/view" name="flexslider_all_left_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>ALL_LEFT_TOP</position></action>
+				<action method="setScope"><scope>global</scope></action>
+				<action method="setGlobal"><global>true</global></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_all_left_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>ALL_LEFT_BOTTOM</position></action>
+				<action method="setScope"><scope>global</scope></action>
+				<action method="setGlobal"><global>true</global></action>
+			</block>
+		</reference>
+		<reference name="right">
+			<block type="flexslider/view" name="flexslider_all_right_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>ALL_RIGHT_TOP</position></action>
+				<action method="setScope"><scope>global</scope></action>
+				<action method="setGlobal"><global>true</global></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_all_right_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>ALL_RIGHT_BOTTOM</position></action>
+				<action method="setScope"><scope>global</scope></action>
+				<action method="setGlobal"><global>true</global></action>
+			</block>
+		</reference>
+		<reference name="footer">
+			<block type="flexslider/view" name="flexslider_all_footer_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>ALL_FOOTER_TOP</position></action>
+				<action method="setScope"><scope>global</scope></action>
+				<action method="setGlobal"><global>true</global></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_all_footer_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>ALL_FOOTER_BOTTOM</position></action>
+				<action method="setScope"><scope>global</scope></action>
+				<action method="setGlobal"><global>true</global></action>
+			</block>
+		</reference>
+	</default>
+	<!-- as selected -->
+	<cms_page>
+		<reference name="content">
+			<block type="flexslider/view" name="flexslider_content_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>CONTENT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_content_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>CONTENT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="left">
+			<block type="flexslider/view" name="flexslider_left_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>LEFT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_left_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>LEFT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="right">
+			<block type="flexslider/view" name="flexslider_right_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>RIGHT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_right_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>RIGHT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="footer">
+			<block type="flexslider/view" name="flexslider_footer_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>FOOTER_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_footer_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>FOOTER_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+	</cms_page>
+	<catalog_category_default>
+		<reference name="content">
+			<block type="flexslider/view" name="flexslider_content_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>CONTENT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_content_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>CONTENT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="left">
+			<block type="flexslider/view" name="flexslider_left_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>LEFT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_left_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>LEFT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="right">
+			<block type="flexslider/view" name="flexslider_right_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>RIGHT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_right_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>RIGHT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="footer">
+			<block type="flexslider/view" name="flexslider_footer_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>FOOTER_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_footer_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>FOOTER_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+	</catalog_category_default>
+	<catalog_category_layered>
+		<reference name="content">
+			<block type="flexslider/view" name="flexslider_content_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>CONTENT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_content_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>CONTENT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="left">
+			<block type="flexslider/view" name="flexslider_left_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>LEFT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_left_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>LEFT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="right">
+			<block type="flexslider/view" name="flexslider_right_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>RIGHT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_right_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>RIGHT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="footer">
+			<block type="flexslider/view" name="flexslider_footer_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>FOOTER_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_footer_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>FOOTER_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+	</catalog_category_layered>
+	<catalog_product_view>
+		<reference name="content">
+			<block type="flexslider/view" name="flexslider_content_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>CONTENT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_content_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>CONTENT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="left">
+			<block type="flexslider/view" name="flexslider_left_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>LEFT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_left_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>LEFT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="right">
+			<block type="flexslider/view" name="flexslider_right_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>RIGHT_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_right_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>RIGHT_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+		<reference name="footer">
+			<block type="flexslider/view" name="flexslider_footer_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>FOOTER_TOP</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_footer_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>FOOTER_BOTTOM</position></action>
+				<action method="setScope"><scope>selected</scope></action>
+			</block>
+		</reference>
+	</catalog_product_view>
+	<!-- customer -->
+	<customer_account_login>
+		<reference name="content">
+			<block type="flexslider/view" name="flexslider_account_login_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>ACCOUNT_LOGIN_TOP</position></action>
+				<action method="setScope"><scope>customer</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_account_login_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>ACCOUNT_LOGIN_BOTTOM</position></action>
+				<action method="setScope"><scope>customer</scope></action>
+			</block>
+		</reference>
+	</customer_account_login>
+	<customer_account_index>
+		<reference name="content">
+			<block type="flexslider/view" name="flexslider_account_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>ACCOUNT_TOP</position></action>
+				<action method="setScope"><scope>customer</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_account_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>ACCOUNT_BOTTOM</position></action>
+				<action method="setScope"><scope>customer</scope></action>
+			</block>
+		</reference>
+	</customer_account_index>
+	<!-- checkout -->
+	<checkout_cart_index>
+		<reference name="content">
+			<block type="flexslider/view" name="flexslider_checkout_cart_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>CHECKOUT_CART_TOP</position></action>
+				<action method="setScope"><scope>checkout</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_checkout_cart_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>CHECKOUT_CART_BOTTOM</position></action>
+				<action method="setScope"><scope>checkout</scope></action>
+			</block>
+		</reference>
+	</checkout_cart_index>
+	<checkout_onepage_index>
+		<reference name="content">
+			<block type="flexslider/view" name="flexslider_checkout_page_top" template="flexslider/template.phtml" before="-">
+				<action method="setPosition"><position>CHECKOUT_PAGE_TOP</position></action>
+				<action method="setScope"><scope>checkout</scope></action>
+			</block>
+			<block type="flexslider/view" name="flexslider_checkout_page_bottom" template="flexslider/template.phtml" after="-">
+				<action method="setPosition"><position>CHECKOUT_PAGE_BOTTOM</position></action>
+				<action method="setScope"><scope>checkout</scope></action>
+			</block>
+		</reference>
+	</checkout_onepage_index>
+</layout>

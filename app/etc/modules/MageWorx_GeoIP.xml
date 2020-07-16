@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * MageWorx
+ * GeoIP Extension
+ *
+ * @category   MageWorx
+ * @package    MageWorx_GeoIP
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+-->
+<config>
+    <modules>
+        <MageWorx_GeoIP>
+            <active>true</active>
+            <codePool>community</codePool>
+            <extension_name><![CDATA[GeoIP Location]]></extension_name>
+            <depends>
+                <MageWorx_All />
+            </depends>
+        </MageWorx_GeoIP>
+    </modules>
+</config>

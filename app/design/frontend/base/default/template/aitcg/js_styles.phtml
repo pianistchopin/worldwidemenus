@@ -1,0 +1,174 @@
+<?php
+    $_styles = Mage::helper('aitcg/style')->getStyleOptions();
+?>
+<script type="text/javascript">
+//<![CDATA[
+
+Validation.add('aitcg-required', '<?php echo $this->__('This option must be customized.'); ?>', function(v, elm){
+    var isValid = !Validation.get('IsEmpty').test(v),
+        optionId = (/\d+/).exec( elm.id )[0],
+        targetLi = $('preview_container' + optionId).up();
+
+    if (!isValid) {
+        targetLi.addClassName('error')
+                .pulsate({
+                    duration: 1.5,
+                    pulses: 3
+                 });
+    } else {
+        targetLi.removeClassName('error');
+    }
+    return isValid;
+});
+
+//our own window onload events queue to prevent event bubbling in ie8 
+var aitcgWindowOnload = [];
+Event.observe(window, 'load', function(){
+    for (var i = 0; i < aitcgWindowOnload.length; i++) {
+        aitcgWindowOnload[i]();
+    }
+});
+
+var AitPopupHtml = '<div id="loading-mask" style="display:none">'+
+        '<p class="loader" id="loading_mask_loader">'+
+            '<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Please wait...') ?>" title="<?php echo $this->__('Please wait...') ?>" class="v-middle" /> <?php echo $this->__('Please wait...') ?>'+
+        '</p></div>';
+           
+var aitcgTooltipsStyle = '<?php echo $_styles->getTooltipsStyle(); ?>';
+
+var aitcgBaseConfig = {
+    text: {
+        close: "<?php echo $this->__('Close'); ?>",
+        save: "<?php echo $this->__('Save'); ?>",
+        cancel: "<?php echo $this->__('Cancel'); ?>",
+        apply: "<?php echo $this->__('Apply') ?>",
+        reset: "<?php echo $this->__('Reset'); ?>",
+        edit: "<?php echo $this->__('Edit selected object'); ?>",
+        required: "<?php echo $this->__('This is a required field.'); ?>",
+        texttoadd: "<?php echo $this->__('Text:'); ?>",
+        font: "<?php echo $this->__('Style:'); ?>",
+        font_family: "<?php echo $this->__('Font:'); ?>",
+        addtext: "<?php echo $this->__('Add text'); ?>",
+        pickcolor: "<?php echo $this->__('Color:'); ?>",
+        emboss_text: "<?php echo $this->__('Place your logo/text in the position you  would like it in on the menu.if you select blind emboss your logo/text will print with this effect.'); ?>",
+        engraving_text: "<?php echo $this->__('Place your logo/text in the position you  would like it in on the menu.if you select blind emboss your logo/text will print with this effect.'); ?>",
+        library_img_text: "<?php echo $this->__('Our library of images.'); ?>",
+        full_cover_img_text: "<?php echo $this->__('Or upload your own full colour image.'); ?>",
+        outline: "<?php echo $this->__('Outline'); ?>",
+        shadow: "<?php echo $this->__('Shadow'); ?>",
+        shadowalpha: "<?php echo $this->__('Alpha of Shadow (from 0 to 126)'); ?>",
+        shadowoffsetx: "<?php echo $this->__('Offset X of Shadow'); ?>",
+        shadowoffsety: "<?php echo $this->__('Offset Y of Shadow'); ?>",
+        pickcoloroutline: "<?php echo $this->__('Pick outline color'); ?>",
+        pickcolorshadow: "<?php echo $this->__('Pick outline shadow'); ?>",
+        widthoutline: "<?php echo $this->__('Choose outline width'); ?>",
+        addimage: "<?php echo $this->__('Add image'); ?>",
+        addmasks: "<?php echo $this->__('Add mask'); ?>",
+        delmasks: "<?php echo $this->__('Remove mask'); ?>",
+        user_title: "<?php echo $this->__('Upload Image'); ?>",
+        predefined_title: "<?php echo $this->__('Select Material Colour'); ?>",
+        predefined_title_spec_cat: "<?php echo $this->__('Select Material Colour'); ?>",
+        predefined_title_inside: "<?php echo $this->__('Select Material'); ?>",
+        masks_title: "<?php echo $this->__('Hand Printed Metallic Foil printed logo/blind embossing'); ?>",
+        masks_title_spec_cat:"<?php echo $this->__('Hand Printed Metallic Foil printed logo/blind embossing/wood-laser engraved'); ?>",
+        masks_subtitle: "<?php echo $this->__('Please upload your image and tick the size below:'); ?>",
+        masks_shape: "<?php echo $this->__('Select a mask for the shape of you Logo/Custom Font'); ?>",
+        foil_logo_text: "<?php echo $this->__('Upload Logo - Cost: '.Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().'0.25'); ?>",
+        // digital_image_text:"<?php  //echo $this->__('Upload a Digital Image - Cost: '.Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().'1.50'); ?>",
+        digital_image_text:"<?php echo $this->__('Full colour Digital logo cost '.Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().'1.50 per unit'); ?>",
+        digital_image_text_spec_cat:"<?php echo $this->__('Upload a Digital Image (not full cover) - Cost: '.Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().'1.50'); ?>",
+        applycolor_text: "<?php echo $this->__('Apply colour to Logo'); ?>",
+        text_title:"<?php echo $this->__('Hand Printed Metallic Foil Text'); ?>",
+        text_title_spec_cat:"<?php echo $this->__('Add metallic foil text'); ?>",
+        under_template_text: "<?php echo $this->__('Place behind product image'); ?>",
+        save_title: "<?php echo $this->__('Save'); ?>",
+        save_about: "<?php echo $this->__('Please upload the graphics and/or add the text first. This block will show links to images that were uploaded to the server.'); ?>",
+        svg: "<?php echo $this->__('Save as SVG'); ?>",
+        png: "<?php echo $this->__('Save as PNG'); ?>",
+        pdf: "<?php echo $this->__('Save as PDF'); ?>",
+        scale: "<?php echo $this->__('Graphics Scale:'); ?>",
+        print_text: "<?php echo $this->__('Choose graphics layers to save:'); ?>",
+        print_type_top: "<?php echo $this->__('Graphics placed above product image'); ?>",
+        print_type_bottom: "<?php echo $this->__('Graphics placed behind product image'); ?>",
+        print_type_bg: "<?php echo $this->__('Product image'); ?>",
+        print_type_mask: "<?php echo $this->__('Custom shape mask'); ?>",
+        print_type_error: "<?php echo $this->__('Please select at least one layer'); ?>",
+        editorHelp: "<?php echo $this->__('Once you select your image, click Add Image to add it to the product.<br />Next move around or resize the image to suit your desired end state.<br />If you would like to add multiple images or text, you can select another image or text and click add to image.'); ?>", 
+        buttonHelp: "<?php echo $this->__('Save custom image preview to your hard drive (optional)'); ?>",
+        galleryTooltip: "<?php echo $this->__('Click on the image above to edit') ?>",
+        thumbTooltipEdit: "<?php echo $this->__('Click to start editing') ?>",
+        thumbTooltipPreview: "<?php echo $this->__('Click to view full version') ?>",
+        areYouSure: "<?php echo $this->__('Are you sure? Any unsaved changes will be lost!') ?>",
+        moreViews: "<?php echo Mage::helper('catalog')->__('More Views') ?>",
+        confirm: "<?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_fulltext'); ?>",
+        confirm_title: "<?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_title'); ?>",
+        agree: "<?php echo $this->__('Agree'); ?>",
+        disagree: "<?php echo $this->__('Disagree'); ?>",
+        saved_color: '<?php echo $this->__('color:');?>',
+        saved_text: '<?php echo $this->__('text:');?>',
+        save_type_text: '<?php echo $this->__('Text image:');?>',
+        save_type_image: '<?php echo $this->__('Uploaded image:');?>',
+        save_links_title: '<?php echo $this->__('Open original size images in a new window'); ?>',
+        save_new_tab_error: '<?php echo $this->__('To save as PNG please allow popup in the browser settings.');?>',
+
+        click_to_rotate: '<?php echo $this->__('Click and drag to rotate or double click to reset');?>',
+        click_to_del: '<?php echo $this->__('Click to delete');?>',
+        click_to_front: '<?php echo $this->__('Click to bring to front');?>',
+        click_to_back: '<?php echo $this->__('Click to bring to back');?>',
+        click_to_dec_opac: '<?php echo $this->__('Click to decrease opacity');?>',
+        click_to_inc_opac: '<?php echo $this->__('Click to increase opacity');?>',
+        click_to_resize: '<?php echo $this->__('Click and drag to resize<br />Press Shift to lock aspect ratio');?>',
+        must_be_customized: '<?php echo $this->__('This option must be customized.');?>'
+    },
+
+    emptyImgUrl: '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS).'aitoc/aitcg/img/blank.gif' ?>',
+    toolsIconsStyle: '<?php echo $_styles->getIconsStyle(); ?>'
+
+};
+
+//]]>
+</script>
+
+<style type="text/css">
+.aitcg-button {
+    background-color: #<?php echo $_styles->getButtonsBg(); ?>;
+    color: #<?php echo $_styles->getButtonsText(); ?>;
+    border: 1px solid #<?php echo $_styles->getButtonsBorder(); ?>;
+}
+
+.aitcg-button:hover {
+    background-color: #<?php echo $_styles->getButtonsBgHover(); ?>;
+    color: #<?php echo $_styles->getButtonsTextHover(); ?>;
+    border: 1px solid #<?php echo $_styles->getButtonsBorderHover(); ?>;
+}
+
+.aitcg-toolbox-icons .toolTitle .icon {
+    background-color: #<?php echo $_styles->getIconsBg(); ?>;
+    border: 2px solid #<?php echo $_styles->getIconsBorder(); ?>;
+}
+
+.aitcg-toolbox-icons .toolTitle.selected .icon,
+.aitcg-toolbox-icons .toolTitle:hover .icon {
+    background-color: #<?php echo $_styles->getIconsBgHover(); ?>;
+    border: 2px solid #<?php echo $_styles->getIconsBorderHover(); ?>;
+}
+
+.aitcg-toolbox-icons .toolTitle {
+    color: #<?php echo $_styles->getIconsText(); ?>;
+    opacity: <?php echo $_styles->getIconsInactiveOpacity(); ?>;
+    filter: alpha(opacity=<?php echo $_styles->getIconsInactiveOpacity()*100; ?>);
+}
+
+.aitcg-toolbox-icons .toolTitle.selected,
+.aitcg-toolbox-Gallery .toolTitle:hover {
+    color: #<?php echo $_styles->getIconsTextHover(); ?>;
+}
+
+.aitcg-popup {
+    background-color: #<?php echo $_styles->getPopupsBg(); ?>;
+}
+
+.aitcg-popup .text {
+    text-align: <?php echo Mage::getStoreConfig('catalog/aitcg/aitcg_confirm_align'); ?>;
+}
+</style>

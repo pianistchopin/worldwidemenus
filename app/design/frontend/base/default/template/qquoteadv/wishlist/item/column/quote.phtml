@@ -1,0 +1,64 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+/* @var $this Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart */
+/* @var Mage_Wishlist_Model_Item $item */
+$item = $this->getItem();
+$product = Mage::getModel('catalog/product')->setStoreId($item->getStoreId())->load($item->getProductId());
+$hideQuoteButton = Mage::helper('qquoteadv')->hideQuoteButton($product);
+$isQuickQuote = Mage::helper('qquoteadv')->checkQuickQuote();
+if ($product->getTypeId() == 'grouped' || $isQuickQuote) {
+    $url = $product->getProductUrl() . "?c2qredirect=1";
+    $multiAddProductId = '';
+} else {
+    $url = $this->helper('qquoteadv/catalog_product_data')->getUrlAdd2QquoteadvList($product);
+    $multiAddProductId = 'data-productid="' . $product->getId() . '"';
+}
+
+$isAjax = Mage::getStoreConfig('qquoteadv_quote_frontend/catalog/ajax_add');
+if ($isAjax) {
+    $actionQuote = "addQuoteList('$url', $isAjax);";
+} else {
+    $actionQuote = "setLocation('$url');";
+}
+?>
+<div class="cart-cell">
+    <?php if ($product->getData('allowed_to_quotemode') == 1
+        && $hideQuoteButton === false
+        && $product->getStockItem()->getIsInStock()
+    ): ?>
+        <button type="button"
+                title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Quote')) ?>"
+                onclick="<?php echo $actionQuote ?>"
+                class="button btn-cart btn-quote btn-wl-quote"
+                <?php echo $multiAddProductId ?>>
+            <span>
+                <span><?php echo $this->__('Add to Quote') ?></span>
+            </span>
+        </button>
+    <?php endif; ?>
+</div>

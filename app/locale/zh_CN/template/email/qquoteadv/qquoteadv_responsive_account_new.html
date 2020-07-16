@@ -1,0 +1,40 @@
+<!--@subject Welcome, {{htmlescape var=$customer.name}}! @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td class="action-content">
+            <h1>亲爱的 {{htmlescape var=$customer.name}},</h1>
+            <h1>欢迎来到 {{var store.getFrontendName()}}.</h1>
+            <p>要访问我们的网站<a href="{{store url='customer/account/'}}">登录</a> 或 <a href="{{store url='customer/account/'}}">我的账号</a> 在每个页面的顶部，然后输入你的电子邮件地址和密码</p>
+            <p class="highlighted-text">
+                当系统提示你登录使用下列值:<br/>
+                <strong>电子邮箱</strong>: {{var customer.email}}<br/>
+                <strong>密码</strong>: {{htmlescape var=$customer.password}}
+            </p>
+            <p>当你到您的账户登录，您将能够做到以下几点：</p>
+            <ul>
+                <li>要求价格和预计的交货时间报价</li>
+                <li>购买时透过快速结账</li>
+                <li>检查订单状态</li>
+                <li>查看历史订单</li>
+                <li>更改你的账户信息</li>
+                <li>更改你的密码</li>
+                <li>储存替代地址</li>
+            </ul>
+            <p>
+                如果您有任何疑问，请随时联系我们
+                <a href="mailto:{{var store_email}}">{{var store_email}}</a>
+                {{depend store_phone}} 或致电 <a href="tel:{{var phone}}">{{var store_phone}}</a>{{/depend}}.
+            </p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

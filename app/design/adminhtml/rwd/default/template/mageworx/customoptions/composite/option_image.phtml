@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+
+$item   = $this->getItem();
+if ($item) { ?>
+<a href="<?php echo $item->getBigImgUrl() ?>" rel="mageworxLightbox[]" title="">
+    <img src="<?php echo $item->getUrl() ?>" title="" class="small-image-preview v-middle<?php if ($item->getClass()) echo ' '.$item->getClass(); ?>" />
+</a>
+<?php } ?>

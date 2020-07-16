@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<!--
+/**
+*
+* CART2QUOTE CONFIDENTIAL
+* __________________
+*
+*  [2009] - [2020] Cart2Quote B.V.
+*  All Rights Reserved.
+*
+* NOTICE OF LICENSE
+*
+* All information contained herein is, and remains
+* the property of Cart2Quote B.V. and its suppliers,
+* if any.  The intellectual and technical concepts contained
+* herein are proprietary to Cart2Quote B.V.
+* and its suppliers and may be covered by European and Foreign Patents,
+* patents in process, and are protected by trade secret or copyright law.
+* Dissemination of this information or reproduction of this material
+* is strictly forbidden unless prior written permission is obtained
+* from Cart2Quote B.V.
+*
+* @category    Cart2Quote
+* @package     CustomProducts
+* @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+* @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+*/
+-->
+<config>
+    <modules>
+        <Ophirah_CustomProducts>
+            <version>2.0.1</version>
+        </Ophirah_CustomProducts>
+    </modules>
+    <global>
+        <models>
+            <customproducts>
+                <class>Ophirah_CustomProducts_Model</class>
+            </customproducts>
+        </models>
+        <helpers>
+            <customproducts>
+                <class>Ophirah_CustomProducts_Helper</class>
+            </customproducts>
+            <fakepro>
+                <class>Ophirah_CustomProducts_Helper</class>
+            </fakepro>
+        </helpers>
+        <blocks>
+            <customproducts>
+                <class>Ophirah_CustomProducts_Block</class>
+            </customproducts>
+        </blocks>
+        <events>
+            <customproducts_adminhtml_after_add>
+                <observers>
+                    <customproducts_convert_observer>
+                        <type>singleton</type>
+                        <class>customproducts/observer</class>
+                        <method>convertCustomProductOnCreationObserver</method>
+                    </customproducts_convert_observer>
+                </observers>
+            </customproducts_adminhtml_after_add>
+            <qquoteadv_qqadvcustomer_before_convert>
+                <observers>
+                    <customproducts_convert_observer>
+                        <type>singleton</type>
+                        <class>customproducts/observer</class>
+                        <method>convertCustomProductObserver</method>
+                    </customproducts_convert_observer>
+                </observers>
+            </qquoteadv_qqadvcustomer_before_convert>
+            <ophirah_qquoteadv_viewconfirm_before>
+                <observers>
+                    <customproducts_convert_observer>
+                        <type>singleton</type>
+                        <class>customproducts/observer</class>
+                        <method>convertCustomProductFrontendObserver</method>
+                    </customproducts_convert_observer>
+                </observers>
+            </ophirah_qquoteadv_viewconfirm_before>
+            <adminhtml_sales_order_create_process_data_before>
+                <observers>
+                    <customproducts_convert_observer>
+                        <type>singleton</type>
+                        <class>customproducts/observer</class>
+                        <method>createCustomProductObserver</method>
+                    </customproducts_convert_observer>
+                    <customproducts_license_observer>
+                        <type>singleton</type>
+                        <class>customproducts/observer</class>
+                        <method>licensecheckCustomProduct</method>
+                    </customproducts_license_observer>
+                </observers>
+            </adminhtml_sales_order_create_process_data_before>
+        </events>
+        <translate>
+            <modules>
+                <Ophirah_CustomProducts>
+                    <files>
+                        <default>Ophirah_Qquoteadv.csv</default>
+                    </files>
+                </Ophirah_CustomProducts>
+            </modules>
+        </translate>
+            <resources>
+                <customproducts_setup>
+                <setup>
+                    <module>Ophirah_CustomProducts</module>
+                    <class>Ophirah_CustomProducts_Model_Resource_Setup</class>
+                </setup>
+                </customproducts_setup>
+            </resources>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <ophirah_customproducts>
+                    <file>customproducts.xml</file>
+                </ophirah_customproducts>
+            </updates>
+        </layout>
+    </adminhtml>
+    <frontend>
+        <layout>
+            <updates>
+                <ophirah_customproducts>
+                    <file>customproducts.xml</file>
+                </ophirah_customproducts>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <customproducts before="Mage_Adminhtml">Ophirah_CustomProducts_Adminhtml</customproducts>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <frontend>
+        <events>
+            <page_block_html_topmenu_gethtml_before>
+                <observers>
+                    <ophirah_customproducts>
+                        <class>customproducts/observer</class>
+                        <method>addToTopmenu</method>
+                    </ophirah_customproducts>
+                </observers>
+            </page_block_html_topmenu_gethtml_before>
+        </events>
+    </frontend>
+    <adminhtml>
+        <events>
+            <admin_session_user_login_success>
+                <observers>
+                    <ophirah_customproducts>
+                        <class>customproducts/observer</class>
+                        <method>addCustomRequestProduct</method>
+                    </ophirah_customproducts>
+                </observers>
+            </admin_session_user_login_success>
+        </events>
+    </adminhtml>
+</config>

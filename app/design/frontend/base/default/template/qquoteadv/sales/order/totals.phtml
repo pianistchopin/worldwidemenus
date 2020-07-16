@@ -1,0 +1,115 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+/**
+ * @var $this Mage_Sales_Block_Order_Totals
+ * @see Mage_Sales_Block_Order_Totals
+ */
+?>
+
+<?php
+
+$codes = array();
+$defaultOrder = array('subtotal' => 10,
+    'discount' => 20,
+    'shipping' => 30,
+    'tax' => 40,
+    'weee' => 50,
+    'grand_total' => 100
+);
+
+// display shipping before
+$ship_before = "tax";
+$sortOrder = 0;
+
+$totals = $this->getTotals();
+if($totals){
+    foreach ($this->getTotals() as $_code) {
+        if (!Mage::getStoreConfig('sales/totals_sort/' . $_code->getCode())) {
+            if (isset($defaultOrder[$_code->getCode()])) {
+                $sortOrder = $defaultOrder[$_code->getCode()];
+            } else {
+                $sortOrder++;
+            }
+        } else {
+            $sortOrder = Mage::getStoreConfig('sales/totals_sort/' . $_code->getCode());
+        }
+
+        if ($_code->getCode() != "base_grandtotal") {
+            if (!array_key_exists($sortOrder, $codes)) {
+                $codes[$sortOrder] = $_code;
+            } else {
+                $codes[] = $_code;
+            }
+        }
+    }
+}
+
+// Sorting Totals
+ksort($codes);
+
+$_quote = Mage::registry('qquoteadv');
+if ($_quote == null and Mage::registry('current_quote')) $_quote = Mage::registry('current_quote');
+?>
+
+<?php foreach ($codes as $_code => $_total): ?>
+    <?php $current_code = $_total->getCode(); ?>
+    <?php if ($_quote->getShippingType() == "" && !in_array("shipping", $codes) && $current_code == $ship_before): ?>
+        <?php $shippingLabel = Mage::helper('sales')->__('Shipping & Handling'); ?>
+        <tr class="shipping">
+            <td <?php echo $this->getLabelProperties() ?>>
+                <?php echo $this->escapeHtml($shippingLabel); ?>
+            </td>
+            <td <?php echo $this->getValueProperties() ?>>
+                <a href="<?php echo Mage::helper('qquoteadv/licensechecks')->getAutoLoginUrl($_quote); ?>"><?php echo $this->__('Select in Checkout') ?></a>
+            </td>
+        </tr>
+    <?php endif; ?>
+
+    <?php if (($_quote->getShippingType() == "" && $current_code == "shipping") || $current_code == "base_grandtotal") continue; ?>
+
+    <?php if ($_total->getBlockName()): ?>
+        <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
+    <?php else: ?>
+        <tr class="<?php echo $current_code ?>">
+            <td <?php echo $this->getLabelProperties() ?>>
+                <?php if ($_total->getStrong()): ?>
+                    <strong><?php echo $this->escapeHtml($_total->getLabel()); ?></strong>
+                <?php else: ?>
+                    <?php echo $this->escapeHtml($_total->getLabel()); ?>
+                <?php endif ?>
+            </td>
+            <td <?php echo $this->getValueProperties() ?>>
+                <?php if ($_total->getStrong()): ?>
+                    <strong><?php echo $this->formatValue($_total) ?></strong>
+                <?php else: ?>
+                    <?php echo $this->formatValue($_total) ?>
+                <?php endif ?>
+            </td>
+        </tr>
+    <?php endif ?>
+<?php endforeach ?>

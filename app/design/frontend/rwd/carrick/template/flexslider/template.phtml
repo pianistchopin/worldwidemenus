@@ -1,0 +1,493 @@
+<?php
+/**
+ * @category	Solide Webservices
+ * @package		Flexslider
+ */
+?>
+<?php 
+	$curProduct = Mage::registry('current_product');
+	//Check if product is custom layout
+	$flag = 0;
+	if (($curProduct !== null) && ($curProduct->getData('update_layout') !== null)) {
+		$flag = $curProduct->getData('update_layout');
+	}
+?>
+
+<?php if ($flag == 1) : ?>
+	<script>
+		jQuery(document).ready(function($){
+			$('.col-left.sidebar').hide();
+		});
+	</script>
+<?php else : ?>
+	<?php if ($this->hasValidGroup()):
+
+		if(Mage::getStoreConfig('flexslider/general/enable_jquery') && Mage::getStoreConfig('flexslider/general/jquery_noconflictmode')) {
+			$jquerySelector = 'solide';
+		} else {
+			$jquerySelector = 'jQuery';
+		}
+
+		$loggedIn = Mage::getSingleton('customer/session')->isLoggedIn();
+
+		$group_collection = $this->_getCollection();
+
+		foreach ($group_collection as $group):
+			$slides = $this->getSlides($group['group_id']);
+			$youtubeVideos = '';
+			$vimeoVideos = '';
+			$classes = '';
+			$content = '';
+			$loaderDuration = $group['slider_slideduration'] - ($group['slider_aniduration']);
+			$initialLoaderDuration = $group['slider_slideduration'] - ($group['slider_aniduration']/2);
+
+			if ($group['slider_loggedin']==0 || ($group['slider_loggedin']==1 && $loggedIn)):
+
+				if (count($slides) > 0):
+
+					if($group['width']) { ?>
+						<div class="flexslider-width" style="max-width: <?php echo $group['width'] ?>px !important;">
+					<?php } ?>
+							<?php if($group['nav_position']=='outside') { ?>
+								<div id="nav-container">
+							<?php } ?>
+									<div class="sw-flexslider-element <?php echo $group['code'] ?>-container <?php echo $group['theme'] ?>-theme <?php echo $group['nav_style'] ?>-nav-style <?php echo $group['nav_show'] ?>-nav-show <?php echo $group['nav_position'] ?>-nav-position <?php echo $group['pagination_style'] ?>-pagination-style <?php echo $group['pagination_show'] ?>-pagination-show <?php echo $group['pagination_position'] ?>-pagination-position <?php echo $group['loader_position'] ?>-loader-position">
+
+									<?php if($group['type']!='carousel') { ?>
+										<div class="sw-flexslider-container loading">
+											<div id="flexslider-<?php echo $group['code'] ?>" class="sw-flexslider flexslider-<?php echo $group['code'] ?>">
+												<ul class="slides">
+												<?php // overlay navigation ?>
+												<?php if($group['type']=='overlay') { ?>
+													<div class="overlay-nav">
+														<?php $height = 100/count($slides); ?>
+														<?php foreach($slides as $slide): ?>
+															<div id="slideid-<?php echo $slide['slide_id']; ?>" class="overlay-element" style="height:<?php echo $height; ?>%">
+																<h3><?php echo $this->escapeHtml($slide->getTitle())?></h3>
+																<div class="overlay-arrow"></div>
+															</div>
+														<?php endforeach ?>
+													</div>
+												<?php } ?>
+												<?php // slides ?>
+												<?php foreach($slides as $slide): ?>
+													<?php if ($slide['slide_loggedin']==0 || ($slide['slide_loggedin']==1 && $loggedIn)): ?>
+														<?php switch ($slide['slidetype']) {
+															case 'youtube':
+																$youtubeVideos = $youtubeVideos + 1;
+																$classes = 'video youtube-video youtube_'.$youtubeVideos.' slide_'.$slide['slide_id'];
+																$content = '<iframe class="youtube youtube-autoplay-'.$slide['video_autoplay'].'" id="ytplayer'.$youtubeVideos.'" src="//www.youtube.com/embed/'.$slide['video_id'].'?enablejsapi=1&amp;origin='. $this->helper('flexslider')->base_url().'&amp;rel=0&amp;wmode=opaque&amp;playerapiid=ytplayer'.$youtubeVideos.'&amp;showinfo=0&amp;modestbranding=1&amp;fs=0&amp;controls=2" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+																break;
+															case 'vimeo':
+																$vimeoVideos = $vimeoVideos + 1;
+																$classes = 'video vimeo-video vimeo_'.$vimeoVideos.' slide_'.$slide['slide_id'];
+																$content = '<iframe class="vimeo vimeo-autoplay-'.$slide['video_autoplay'].'" id="player_'.$vimeoVideos.'" src="//player.vimeo.com/video/'.$slide['video_id'].'?api=1&amp;player_id=player_'.$vimeoVideos.'" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+																break;
+															default:
+																$classes = 'image slide_'. $slide['slide_id'];
+																if($this->helper('flexslider/image')->getImageUrl($slide['image'])) {
+																	$content = '<img src="'. $this->helper('flexslider/image')->getImageUrl($slide['image']) .'" srcset="'. $this->helper('flexslider/image')->getImageUrl($slide['image']) .' 1200w, '. $this->helper('flexslider/image')->getImageUrl($slide['image'], 'flexslider/large') .' 1024w, '. $this->helper('flexslider/image')->getImageUrl($slide['image'], 'flexslider/medium') .' 640w, '. $this->helper('flexslider/image')->getImageUrl($slide['image'], 'flexslider/small') .' 320w" sizes="100vw" alt="'.$this->escapeHtml($slide->getAltText()).'" />';
+																} elseif ($slide['hosted_image_url']) {
+																	$content = '<img src="'. $slide['hosted_image_url'] .'" alt="'.$this->escapeHtml($slide->getAltText()).'" />';
+																} else {
+																	$content = '<h2>Image appears to be missing</h2>';
+																}
+																if($slide->hasUrl()) {
+																	$content = '<a href="'.$slide->getUrl().'" title="'.$this->escapeHtml($slide->getAltText()).'" target="'.$this->escapeHtml($slide->getUrlTarget()).'">'.$content.'</a>';
+																}
+														} ?>
+														<li class="<?php echo $classes; ?>">
+														<?php // image or video slide
+															echo $content; ?>
+														<?php // caption and loaderbar
+														if($slide->getHtml()) {
+															if($slide['caption_position']=='random'){
+																$input = array("top", "bottom", "top-left", "top-right", "bottom-left", "bottom-right");
+																$caption_position = $input[array_rand($input)];
+															} else {
+																$caption_position = $slide['caption_position'];
+															}
+															if($slide['caption_animation']==0){
+																$caption_position .= '-fixed';
+															} else {
+																$caption_position .= '-animated';
+															} ?>
+															<div class="slider-title <?php echo $caption_position ?>-caption">
+																<div class="caption"><?php echo Mage::helper('cms')->getBlockTemplateProcessor()->filter($slide->getHtml()) ?></div>
+															</div>
+														<?php } ?>
+														<?php if($group['loader_show']==1){ ?>
+															<div class="loader-gutter"><div class="loader"></div></div>
+														<?php }?>
+														</li>
+													<?php endif; ?>
+												<?php endforeach ?>
+												</ul>
+											</div>
+										</div>
+									<?php } ?>
+
+									<?php if($group['type']=='carousel' || $group['type']=='basic-carousel') { ?>
+										<div class="sw-flexslider-container loading">
+											<div id="carousel-<?php echo $group['code'] ?>" class="sw-flexslider carousel flexslider-<?php echo $group['code'] ?>">
+												<ul class="slides">
+												<?php foreach($slides as $slide): ?>
+													<?php if ($slide['slide_loggedin']==0 || ($slide['slide_loggedin']==1 && $loggedIn)): ?>
+														<?php switch ($slide['slidetype']) {
+															case 'youtube':
+																$classes = 'video-thumbnail slide_'.$slide['slide_id'];
+																$content = '<img src="//img.youtube.com/vi/'.$slide['video_id'].'/0.jpg" alt="'.$this->escapeHtml($slide->getAltText()).'" />';
+																if($group['type']=='carousel') {
+																	$content = '<a href="//www.youtube.com/watch?v='.$slide['video_id'].'" title="'.$this->escapeHtml($slide->getAltText()).'" target="_blank">'.$content.'</a>';
+																}
+																break;
+															case 'vimeo':
+																$classes = 'video-thumbnail slide_'.$slide['slide_id'];
+																$img = $slide['video_id'];
+																$vimeo_array = unserialize(file_get_contents('//vimeo.com/api/v2/video/$img.php'));
+																$content = '<img src="'.$vimeo_array[0]['thumbnail_large'].'" alt="'.$this->escapeHtml($slide->getAltText()).'" />';
+																if($group['type']=='carousel') {
+																	$content = '<a href="//vimeo.com/'.$slide['video_id'].'" title="'.$this->escapeHtml($slide->getAltText()).'" target="_blank">'.$content.'</a>';
+																}
+																break;
+															default:
+																$classes = 'image-thumbnail slide_'. $slide['slide_id'];
+																if($this->helper('flexslider/image')->getImageUrl($slide['image'], 'flexslider/thumbnails')) {
+																	$content = '<img src="'. $this->helper('flexslider/image')->getImageUrl($slide['image'], 'flexslider/thumbnails') .'" alt="'.$this->escapeHtml($slide->getAltText()).'" />';
+																} elseif ($slide['hosted_image_thumburl']) {
+																	$content = '<img src="'. $slide['hosted_image_thumburl'] .'" alt="'.$this->escapeHtml($slide->getAltText()).'" />';
+																} else {
+																	$content = '<h2>Thumbnail appears to be missing</h2>';
+																}
+																if($slide->hasUrl() && $group['type']=='carousel') {
+																	$content = '<a href="'.$slide->getUrl().'" title="'.$this->escapeHtml($slide->getAltText()).'" target="'.$this->escapeHtml($slide->getUrlTarget()).'">'.$content.'</a>';
+																}
+														} ?>
+														<?php // thumbnails ?>
+														<li class="<?php echo $classes; ?>"><?php echo $content; ?></li>
+													<?php endif; ?>
+												<?php endforeach ?>
+												</ul>
+											</div>
+										</div>
+									<?php } ?>
+
+									</div> <!-- end flexslider element -->
+							<?php if($group['nav_position']=='outside') { ?>
+								</div>
+							<?php } ?>
+					<?php if($group['width']) { ?>
+						</div>
+					<?php } ?>
+
+					<script type="text/javascript">
+						<?php echo $jquerySelector; ?>(window).load(function() {
+
+							<?php if($group['type']!='basic') { ?>
+								<?php echo $jquerySelector; ?>('#carousel-<?php echo $group['code'] ?>').flexslider({
+									namespace: 				"sw-flexslider-",
+									controlNav: 			<?php if($group['pagination_show']=='no' || $group['type']=='basic-carousel') { echo 'false'; } else { echo 'true'; } ?>,
+									animation: 				"slide",
+									itemWidth: 				<?php echo $group['thumbnail_size'] ?>,
+									itemMargin: 			5,
+									minItems:				<?php echo $group['carousel_minitems'] ?>,
+									maxItems:				<?php echo $group['carousel_maxitems'] ?>,
+									move: 					<?php echo $group['carousel_move'] ?>,
+									<?php if($group['type']=='basic-carousel') { ?>
+										slideshow: 			false,
+										animationLoop: 		false,
+										asNavFor: 			'#flexslider-<?php echo $group["code"] ?>',
+									<?php } else { ?>
+										slideshow: 			<?php echo $group['slider_auto'] ? 'true' : 'false' ?>,
+										animationLoop:		<?php echo $group['slider_animationloop'] ? 'true' : 'false' ?>,
+									<?php } ?>
+									start: function(slider){
+										<?php echo $jquerySelector; ?>('.sw-flexslider-container').removeClass('loading');
+									},
+								});
+							<?php } ?>
+
+							<?php if($group['type']!='carousel') { ?>
+								<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>')<?php if(Mage::helper('flexslider')->videos_enabled()) { ?>.fitVids()<?php } ?>.flexslider({
+									namespace: 				"sw-flexslider-",
+									<?php if(Mage::getStoreConfig('flexslider/general/enable_easing')) { ?>
+									easing:					"<?php echo $group['slider_easing'] ?>",
+									<?php } ?>
+									useCSS:					false,
+									directionNav: 			<?php if($group['nav_show']=='no' || $group['type']=='overlay') { echo 'false'; } else { echo 'true'; } ?>,
+									controlNav:				<?php if($group['pagination_show']=='no' || $group['type']=='basic-carousel') { echo 'false'; } else { echo 'true'; } ?>,
+									keyboard: 				true,
+									multipleKeyboard: 		true,
+									slideshow:				<?php echo $group['slider_auto'] ? 'true' : 'false' ?>,
+									<?php if($this->getStartSlideId()){ ?>
+									startAt: 				<?php $startslide = $this->getStartSlideId() - 1; echo $startslide; ?>,
+									<?php } ?>
+									animationLoop:			<?php echo $group['slider_animationloop'] ? 'true' : 'false' ?>,
+									pauseOnAction: 			<?php echo $group['slider_pauseonaction'] ? 'true' : 'false' ?>,
+									pauseOnHover: 			<?php echo $group['slider_pauseonhover'] ? 'true' : 'false' ?>,
+									animation: 				"<?php echo $group['slider_animation'] ?>",
+									animationSpeed: 		<?php echo $group['slider_aniduration'] ?>,
+									direction: 				"<?php echo $group['slider_direction'] ?>",
+									slideshowSpeed: 		<?php echo $group['slider_slideduration'] ?>,
+									randomize: 				<?php echo $group['slider_random'] ? 'true' : 'false' ?>,
+									smoothHeight: 			<?php echo $group['slider_smoothheight'] ? 'true' : 'false' ?>,
+									controlsContainer: 		".flex-nav-container",
+									<?php if($group['type']=='basic-carousel') { ?>
+										sync: '#carousel-<?php echo $group['code'] ?>',
+									<?php } ?>
+									<?php if($group['type']=='overlay') { ?>
+										manualControls: "#flexslider-<?php echo $group['code'] ?> .overlay-nav .overlay-element",
+									<?php } ?>
+									<?php if($youtubeVideos || $vimeoVideos) { ?>
+										video: 	true,
+									<?php } ?>
+									start: function(slider){
+										<?php if($group['loader_show']==1){ ?>
+											animateLoader_<?php echo $group['code'] ?>(<?php echo $initialLoaderDuration ?>);
+										<?php } ?>
+										<?php echo $jquerySelector; ?>('.sw-flexslider-container').removeClass('loading');
+										animateCaption_<?php echo $group['code'] ?>();
+										if (slider.slides.eq(0).find('iframe.youtube-autoplay-1').length) {
+											<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("pause");
+											setTimeout(function() {
+												playVideo_<?php echo $group['code'] ?>(<?php echo $jquerySelector; ?>('.youtube_1:not(.clone) iframe.youtube').attr('id'));
+											},2000);
+										}
+										if (slider.slides.eq(0).find('iframe.vimeo-autoplay-1').length) {
+											<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("pause");
+											setTimeout(function() {
+												$f(<?php echo $jquerySelector; ?>('.vimeo_1:not(.clone) iframe.vimeo').attr('id')).api('play');
+											},<?php echo $group['slider_aniduration'] ?>);
+										}
+									},
+									before: function(slider) {
+										<?php if($youtubeVideos) { ?>
+											if (slider.slides.eq(slider.currentSlide).find('iframe.youtube').length) {
+												previousVideo = slider.slides.eq(slider.currentSlide).find('iframe.youtube').attr('id');
+												pauseVideo_<?php echo $group['code'] ?>(previousVideo);
+											}
+											if (slider.slides.eq(slider.currentSlide + 1).find('iframe.youtube-autoplay-1').length) {
+												playVideo_<?php echo $group['code'] ?>(slider.slides.eq(slider.currentSlide + 1).find('iframe.youtube').attr('id'));
+											}
+										<?php } ?>
+										<?php if($vimeoVideos) { ?>
+											if (slider.slides.eq(slider.currentSlide).find('iframe.vimeo').length) {
+												$f(slider.slides.eq(slider.currentSlide).find('iframe.vimeo').attr('id') ).api('pause');
+											}
+											if (slider.slides.eq(slider.currentSlide + 1).find('iframe.vimeo-autoplay-1').length) {
+												<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("pause");
+												$f(slider.slides.eq(slider.currentSlide + 1).find('iframe.vimeo').attr('id')).api('play');
+											}
+										<?php } ?>
+										resetCaption_<?php echo $group['code'] ?>();
+									},
+									after: function(slider) {
+										<?php if($group['loader_show']==1){ ?>
+											animateLoader_<?php echo $group['code'] ?>(<?php echo $loaderDuration ?>);
+										<?php } ?>
+										animateCaption_<?php echo $group['code'] ?>();
+									},
+								});
+
+								/* remove loader bar when pause on action is active */
+								<?php echo $jquerySelector; ?>('.sw-flexslider-prev, .sw-flexslider-next, .sw-flexslider-control-nav, .sw-flexslider-control-paging').click(function(){
+									<?php if($group['slider_pauseonaction']==1) { ?>
+										stopAnimateLoader_<?php echo $group['code'] ?>(0);
+									<?php } ?>
+								});
+
+							<?php } ?> // end if not carousel
+
+						}); // end window.load
+
+						/* JAVASCRIPT FUNCTIONS */
+
+						/* change slide on overlay mouseover */
+						<?php if(Mage::helper('flexslider')->overlay_enabled()) { ?>
+							<?php echo $jquerySelector; ?>('.overlay-nav .overlay-element').hoverIntent({
+								over: function(){
+									var activeSlide = 'false';
+									if (<?php echo $jquerySelector; ?>(this).hasClass('sw-flexslider-active')){
+										activeSlide = 'true';
+									}
+									if(activeSlide == 'false'){
+										<?php echo $jquerySelector; ?>(this).trigger("click");
+									}
+								},
+								out: function(){},
+								interval: 250
+							});
+						<?php } ?>
+
+						/* animate the captions or not */
+						function animateCaption_<?php echo $group['code'] ?>(){
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .sw-flexslider-active-slide .slider-title").show();
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .top-animated-caption").delay(200).animate({top:'0'}, 800);
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .bottom-animated-caption").delay(200).animate({bottom:'0'}, 800);
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .top-left-animated-caption, #flexslider-<?php echo $group['code'] ?> .slides .bottom-left-animated-caption").delay(200).animate({left:'0'}, 800);
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .top-right-animated-caption, #flexslider-<?php echo $group['code'] ?> .slides .bottom-right-animated-caption").delay(200).animate({right:'0'}, 800);
+						}
+						function resetCaption_<?php echo $group['code'] ?>(){
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .slider-title").hide();
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .top-animated-caption").css({top: '-100%'});
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .bottom-animated-caption").css({bottom: '-100%'});
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .top-left-animated-caption, #flexslider-<?php echo $group['code'] ?> .slides .bottom-left-animated-caption").css({left: '-50%'});
+							<?php echo $jquerySelector; ?>("#flexslider-<?php echo $group['code'] ?> .slides .top-right-animated-caption, #flexslider-<?php echo $group['code'] ?> .slides .bottom-right-animated-caption").css({right: '-50%'});
+						}
+
+						/* animation functions for the loader bar */
+						function animateLoader_<?php echo $group['code'] ?>(varDuration){
+							<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?> .loader').width('0%').animate({width: '100%'}, {easing: 'linear', duration: varDuration, queue: false, complete: function(){<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?> .loader').width('0%');}});
+						}
+						function stopAnimateLoader_<?php echo $group['code'] ?>(timeDelay){
+							if (typeof(timeDelay) === "undefined") {
+								<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?> .loader-gutter').delay(200).fadeOut();
+							} else {
+								<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?> .loader-gutter').hide();
+							}
+						}
+						function resumeAnimateLoader_<?php echo $group['code'] ?>(){
+							<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?> .loader-gutter, .loader').clearQueue();
+							animateLoader_<?php echo $group['code'] ?>(<?php echo $group['slider_slideduration'] ?>);
+							<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?> .loader-gutter').delay(200).fadeIn();
+						}
+
+						/* pause loaderbar on hover when pauseonhover is true */
+						<?php if($group['slider_pauseonhover']==1) { ?>
+							<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').mouseenter(function(){
+								stopAnimateLoader_<?php echo $group['code'] ?>();
+							}).mouseleave(function(){
+								if(<?php echo $jquerySelector; ?>(this).find('.sw-flexslider-active-slide iframe.youtube').length) {
+									currentVideo = <?php echo $jquerySelector; ?>(this).find('.sw-flexslider-active-slide iframe').attr('id');
+									if(players_<?php echo $group['code'] ?>[currentVideo].getPlayerState()==1) {
+										setTimeout(function() {
+											<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("pause");
+										},2000);
+									} else {
+										resumeAnimateLoader_<?php echo $group['code'] ?>();
+									}
+								} else if(<?php echo $jquerySelector; ?>(this).find('.sw-flexslider-active-slide iframe.vimeo-autoplay-1').length) {
+									setTimeout(function() {
+											<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("pause");
+									},2000);
+								} else {
+									resumeAnimateLoader_<?php echo $group['code'] ?>();
+								}
+							});
+						<?php } ?>
+
+						<?php if($youtubeVideos) { ?>
+
+							// YOUTUBE VIDEO STUFF FOR CONTROL
+							var YT_ready = (function() {
+								var onReady_funcs = [],
+								api_isReady = false;
+								return function(func, b_before) {
+									if (func === true) {
+										api_isReady = true;
+										for (var i = 0; i < onReady_funcs.length; i++) {
+											onReady_funcs.shift()();
+										}
+									}
+									else if (typeof func == "function") {
+										if (api_isReady) func();
+										else onReady_funcs[b_before ? "unshift" : "push"](func);
+									}
+								}
+							})();
+							function onYouTubePlayerAPIReady() {
+								YT_ready(true);
+							}
+
+							var players_<?php echo $group['code'] ?> = {};
+							YT_ready(function() {
+								<?php echo $jquerySelector; ?>("li.video iframe.youtube").each(function(event) {
+									var frameID_<?php echo $group['code'] ?> = <?php echo $jquerySelector; ?>(this).attr('id');
+									if (frameID_<?php echo $group['code'] ?>) {
+										players_<?php echo $group['code'] ?>[frameID_<?php echo $group['code'] ?>] = new YT.Player(frameID_<?php echo $group['code'] ?>, {
+											events: {
+												'onStateChange': onPlayerStateChange_<?php echo $group['code'] ?>
+											}
+										});
+									}
+								});
+							});
+							(function(){
+								var tag = document.createElement('script');
+								tag.src = "//www.youtube.com/iframe_api";
+								var firstScriptTag = document.getElementsByTagName('script')[0];
+								firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+							})();
+
+							function onPlayerStateChange_<?php echo $group['code'] ?>(event) {
+								if (event.data === 0) {
+									<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("next");
+									<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("play");
+									<?php if($group['loader_show']==1){ ?>
+										resumeAnimateLoader_<?php echo $group['code'] ?>();
+									<?php } ?>
+								} else if (event.data === 1) {
+									<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("pause");
+									<?php if($group['loader_show']==1){ ?>
+										stopAnimateLoader_<?php echo $group['code'] ?>();
+									<?php } ?>
+								} else if (event.data === 2) {
+									<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("play");
+									<?php if($group['loader_show']==1 && $group['slider_pauseonhover']!=1){ ?>
+										resumeAnimateLoader_<?php echo $group['code'] ?>();
+									<?php } ?>
+								}
+							}
+
+							function pauseVideo_<?php echo $group['code'] ?>(previousVideo) {
+								players_<?php echo $group['code'] ?>[previousVideo].pauseVideo();
+							}
+							function playVideo_<?php echo $group['code'] ?>(currentVideo) {
+								<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("pause");
+								players_<?php echo $group['code'] ?>[currentVideo].playVideo();
+							}
+
+						<?php } // end YouTube stuff ?>
+
+						<?php if($vimeoVideos) { ?>
+							// VIMEO VIDEO STUFF FOR CONTROL
+							<?php echo $jquerySelector; ?>(document).ready(function() {
+								<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?> li.video iframe.vimeo').each(function(){
+									$f(<?php echo $jquerySelector; ?>(this).attr('id')).addEvent('ready', ready_<?php echo $group['code'] ?>);
+								});
+							});
+
+							function ready_<?php echo $group['code'] ?>(player_id){
+								$f(player_id).addEvent('play', onPlay_<?php echo $group['code'] ?>);
+								$f(player_id).addEvent('pause', onPause_<?php echo $group['code'] ?>);
+								$f(player_id).addEvent('finish', onFinish_<?php echo $group['code'] ?>);
+							}
+
+							function onPlay_<?php echo $group['code'] ?>() {
+								<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("pause");
+								<?php if($group['loader_show']==1){ ?>
+									stopAnimateLoader_<?php echo $group['code'] ?>();
+								<?php } ?>
+							}
+							function onPause_<?php echo $group['code'] ?>() {
+								<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("play");
+								<?php if($group['loader_show']==1){ ?>
+									resumeAnimateLoader_<?php echo $group['code'] ?>();
+								<?php } ?>
+							}
+							function onFinish_<?php echo $group['code'] ?>() {
+								<?php echo $jquerySelector; ?>('#flexslider-<?php echo $group['code'] ?>').flexslider("play");
+								<?php if($group['loader_show']==1){ ?>
+									resumeAnimateLoader_<?php echo $group['code'] ?>();
+								<?php } ?>
+							}
+						<?php } // end Vimeo stuff ?>
+
+					</script>
+			<?php endif; ?>
+		<?php endif;
+		endforeach;
+	endif;
+
+	?>
+<?php endif; ?>

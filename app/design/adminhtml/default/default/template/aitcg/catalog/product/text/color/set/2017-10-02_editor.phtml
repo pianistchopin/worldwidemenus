@@ -1,0 +1,13 @@
+<div id="aitcg_color_set_editor"></div>
+
+<script type="text/javascript">
+    
+    var colorsetEditor = new Aitcg_ColorSet_Editor({
+        source: $('edit_form')['value'],
+        container: $('aitcg_color_set_editor'),
+        initVarName: 'colorsetEditor',
+        colorAddText: '<?php echo Mage::helper('aitcg')->__('Add Color') ?>'
+    });
+    
+    colorsetEditor.renderSet();
+</script>

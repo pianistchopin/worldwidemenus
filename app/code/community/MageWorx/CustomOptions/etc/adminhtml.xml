@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+-->
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <mageworx_customoptions translate="title" module="mageworx_customoptions">
+                    <title>Advanced Custom Options</title>
+                    <sort_order>3</sort_order>
+                    <children> <!-- APO Reports -->
+                        <templates translate="title" module="mageworx_customoptions">
+                            <title>Templates</title>
+                            <sort_order>1</sort_order>
+                            <action>adminhtml/mageworx_customoptions_options/</action>
+                            <depends>
+                                <config>mageworx_customoptions/main/enabled</config>
+                            </depends>
+                        </templates>
+                        <reports translate="title" module="mageworx_customoptions">
+                            <title>Stock Report</title>
+                            <sort_order>2</sort_order>
+                            <action>adminhtml/mageworx_customoptions_reports/</action>
+                            <depends>
+                                <config>mageworx_customoptions/main/enabled</config>
+                                <config>mageworx_customoptions/main/inventory_enabled</config>
+                            </depends>
+                        </reports>
+                    </children>
+                </mageworx_customoptions>
+            </children>
+        </catalog>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <catalog>
+                        <children>
+                            <mageworx_customoptions translate="title" module="mageworx_customoptions">
+                                <title>Advanced Custom Options</title>
+                                <children> <!-- APO Reports -->
+                                    <templates translate="title" module="mageworx_customoptions">
+                                        <title>Templates</title>
+                                    </templates>
+                                    <reports translate="title" module="mageworx_customoptions">
+                                        <title>Stock Reports</title>
+                                    </reports>
+                                </children>
+                            </mageworx_customoptions>
+                        </children>
+                    </catalog>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <mageworx_customoptions translate="title" module="mageworx_customoptions">
+                                        <title>MageWorx &gt; Catalog</title>
+                                        <sort_order>1</sort_order>
+                                        <children>
+                                            <main translate="title" module="mageworx_customoptions">
+                                                <title>Advanced Custom Options</title>
+                                            </main>
+                                        </children>
+                                    </mageworx_customoptions>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

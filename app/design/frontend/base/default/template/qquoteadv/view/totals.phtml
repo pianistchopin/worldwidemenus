@@ -1,0 +1,58 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+/**
+ *  Cart2Quote
+ *
+ *  Template File Totals
+ */
+?>
+<table id="shopping-cart-totals-table">
+    <?php foreach ($this->getTotals() as $_code => $_total): ?>
+        <?php if ($_total->getBlockName()): ?>
+            <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
+        <?php else:?>
+            <tr class="<?php echo $_code?>">
+                <td <?php echo $this->getLabelProperties()?>>
+                    <?php if ($_total->getStrong()):?>
+                        <strong><?php echo $this->escapeHtml($_total->getLabel());?></strong>
+                    <?php else:?>
+                        <?php echo $this->escapeHtml($_total->getLabel());?>
+                    <?php endif?>
+                </td>
+                <td <?php echo $this->getValueProperties()?>>
+                    <?php if ($_total->getStrong()):?>
+                        <strong><?php echo $this->formatValue($_total) ?></strong>
+                    <?php else:?>
+                        <?php echo $this->formatValue($_total) ?>
+                    <?php endif?>
+                </td>
+            </tr>
+        <?php endif?>
+    <?php endforeach?>
+</table>
+

@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <PRODUCT_TYPE_configurable>
+        <reference name="product.info.options.wrapper">
+            <block type="adjicon/product_view_type_configurable_options" name="product.configurable.options" as="adjicon.configurable" before="-" template="adjicon/product/view/type/configurable/options.phtml"/>
+        </reference>
+    </PRODUCT_TYPE_configurable>
+    <catalog_category_default>
+        <reference name="head">
+            <block type="core/template" name="adjicon_styles" template="adjicon/styles.phtml" />
+            <action method="addCss"><stylesheet>css/adjicon.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/adjtexticon.css</stylesheet></action>
+            <action method="addJs"><script>aitoc/adjicon/listswatch.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_list" name="product.list.icons" as="adjicon.product.list" after="category.products" template="adjicon/product/list/icons.phtml"/>
+        </reference>
+    </catalog_category_default>
+    <catalog_category_layered>
+        <reference name="head">
+            <block type="core/template" name="adjicon_styles" template="adjicon/styles.phtml" />
+            <action method="addCss"><stylesheet>css/adjicon.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/adjtexticon.css</stylesheet></action>
+            <action method="addJs"><script>aitoc/adjicon/listswatch.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_list" name="product.list.icons" as="adjicon.product.list" after="category.products" template="adjicon/product/list/icons.phtml"/>
+        </reference>
+    </catalog_category_layered>
+    <catalogsearch_result_index> 
+        <reference name="head">
+            <block type="core/template" name="adjicon_styles" template="adjicon/styles.phtml" />
+            <action method="addCss"><stylesheet>css/adjicon.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/adjtexticon.css</stylesheet></action>
+            <action method="addJs"><script>aitoc/adjicon/listswatch.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_list" name="product.list.icons" as="adjicon.product.list" after="search.result" template="adjicon/product/list/icons.phtml"/>
+        </reference>
+    </catalogsearch_result_index> 
+    <catalogsearch_advanced_result> 
+        <reference name="head">
+            <block type="core/template" name="adjicon_styles" template="adjicon/styles.phtml" />
+            <action method="addCss"><stylesheet>css/adjicon.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/adjtexticon.css</stylesheet></action>
+            <action method="addJs"><script>aitoc/adjicon/listswatch.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_list" name="product.list.icons" as="adjicon.product.list" after="catalogsearch_advanced_result" template="adjicon/product/list/icons.phtml"/>
+        </reference>
+    </catalogsearch_advanced_result> 
+    <catalog_product_view> 
+        <reference name="head">
+            <block type="core/template" name="adjicon_styles" template="adjicon/styles.phtml" />
+            <action method="addCss"><stylesheet>css/adjicon.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/adjtexticon.css</stylesheet></action>
+            <action method="addJs"><script>aitoc/adjicon/configurable.js</script></action>
+			<action method="addJs"><script>aitoc/adjicon/swatchimages.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_view" name="product.view.icons" as="adjicon.product.view" after="product.info" template="adjicon/product/view/icons.phtml"/>
+        </reference>
+    </catalog_product_view> 
+    <tag_product_list>
+        <reference name="head">
+            <block type="core/template" name="adjicon_styles" template="adjicon/styles.phtml" />
+            <action method="addCss"><stylesheet>css/adjicon.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/adjtexticon.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_list" name="product.list.icons" as="adjicon.product.list" after="tag_products" template="adjicon/product/list/icons.phtml"/>
+        </reference>
+    </tag_product_list>
+    <review_product_list>
+        <reference name="head">
+            <block type="core/template" name="adjicon_styles" template="adjicon/styles.phtml" />
+            <action method="addCss"><stylesheet>css/adjicon.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/adjtexticon.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_view" name="product.view.icons" as="adjicon.product.view" after="product.info" template="adjicon/product/view/icons.phtml"/>
+        </reference>
+    </review_product_list>
+    <adjicon_adjicon_gallery translate="label">
+        <label>Catalog Product Image Gallery Popup</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/popup.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="adjicon/product_gallery" name="adjicon_catalog_product_gallery" template="adjicon/product/gallery.phtml"/>
+        </reference>
+    </adjicon_adjicon_gallery>
+    <aitmanufacturers_index_view>
+        <reference name="head">
+            <block type="core/template" name="adjicon_styles" template="adjicon/styles.phtml" />
+            <action method="addCss"><stylesheet>css/adjicon.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/adjtexticon.css</stylesheet></action>
+            <action method="addJs"><script>aitoc/adjicon/rwd/listswatch.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="catalog/product_list" name="product.list.icons" as="adjicon.product.list" after="manufacturer" template="adjicon/product/list/icons.phtml"/>
+        </reference>
+    </aitmanufacturers_index_view>
+</layout>

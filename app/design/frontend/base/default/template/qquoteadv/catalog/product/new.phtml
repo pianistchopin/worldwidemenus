@@ -1,0 +1,74 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
+    <h2 class="subtitle"><?php echo Mage::helper('catalog')->__('New Products') ?></h2>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <?php $i = 0;
+    foreach ($_products->getItems() as $_product): ?>
+        <?php if ($i++ % $_columnCount == 0): ?>
+            <ul class="products-grid">
+        <?php endif ?>
+        <li class="item<?php if (($i - 1) % $_columnCount == 0): ?> first<?php elseif ($i % $_columnCount == 0): ?> last<?php endif; ?>">
+            <a href="<?php echo $_product->getProductUrl() ?>"
+               title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="product-image"><img
+                    src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135) ?>"
+                    width="135" height="135" alt="<?php echo $this->escapeHtml($_product->getName()) ?>"/></a>
+
+            <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"
+                                        title="<?php echo $this->escapeHtml($_product->getName()) ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a>
+            </h3>
+            <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+            <?php // NOT2ORDER ?>
+            <?php if (Mage::helper('qquoteadv/not2order')->getShowPrice($_product)) : ?>
+                <?php echo $this->getPriceHtml($_product, true, '-new') ?>
+            <?php endif; ?>
+            <div class="actions">
+                <?php // CART2QUOTE ?>
+                <?php echo Mage::app()->getLayout()->createBlock('qquoteadv/qquotebtn')
+                    ->setData('product', $_product)
+                    ->setTemplate('qquoteadv/catalog/product/c2qBtnGrid.phtml')
+                    ->toHtml(); ?>
+
+                <ul class="add-to-links">
+                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                        <li><a href="<?php echo $this->getAddToWishlistUrl($_product) ?>"
+                               class="link-wishlist"><?php echo Mage::helper('catalog')->__('Add to Wishlist') ?></a></li>
+                    <?php endif; ?>
+                    <?php if ($_compareUrl = $this->getAddToCompareUrl($_product)): ?>
+                        <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>"
+                                                                class="link-compare"><?php echo Mage::helper('catalog')->__('Add to Compare') ?></a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </li>
+        <?php if ($i % $_columnCount == 0 || $i == count($_products)): ?>
+            </ul>
+        <?php endif ?>
+    <?php endforeach; ?>
+<?php endif; ?>

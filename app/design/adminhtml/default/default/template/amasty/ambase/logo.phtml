@@ -1,0 +1,30 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_Base
+ */
+?>
+<?php
+/** @var Amasty_Base_Block_Adminhtml_Logo $this */
+?>
+
+<script>
+    document.observe("dom:loaded", function() {
+        if ($$('.amasty-info-block').length !== 0
+            && $$('.content-header table tbody tr td h3').length !== 0)
+        {
+            var container = $$('.content-header table tbody tr td h3')[0];
+            var href = '<?php echo $this->getLogoHref() ?>';
+            if($$('.amasty-user-guide a').length !== 0) {
+                href += $$('.amasty-user-guide a')[0].href.split('userguide').last();
+            }
+
+            container.append(' <?php echo $this->__("  by") ?> ');
+            container.insert({
+                after: '<a class="amasty-logo"  target="_blank" title="Amasty" href="' + href + '">'  +
+                '<img src="<?php echo $this->getSkinUrl('images/ambase/amasty_logo.svg') ?>"/></a>'
+            });
+        }
+    });
+</script>

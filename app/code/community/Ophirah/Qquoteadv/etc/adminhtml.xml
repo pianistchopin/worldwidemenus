@@ -1,0 +1,290 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<config>
+    <menu>
+        <sales translate="title" module="sales">
+            <title>Sales</title>
+            <children>
+                <qquoteadv translate="title" module="qquoteadv">
+                    <title>Quotations</title>
+                    <sort_order>70</sort_order>
+                    <action>adminhtml/qquoteadv</action>
+                </qquoteadv>
+            </children>
+        </sales>
+        <report translate="title">
+            <children>
+                <salesrep translate="title" module="qquoteadv">
+                    <title>Salesrep</title>
+                    <sort_order>11</sort_order>
+                    <action>adminhtml/report_salesrep/salesrep</action>
+                </salesrep>
+            </children>
+        </report>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow everything</title>
+            </all>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <qquoteadv translate="title">
+                                <title>Cart2Quote</title>
+                                <children>
+                                    <salesrepview translate="title">
+                                        <title>View Quotes Assigned to Other Sales Representatives</title>
+                                    </salesrepview>
+                                    <salesrep translate="title">
+                                        <title>Manage Sales Representative Assignments</title>
+                                    </salesrep>
+                                    <actions translate="title">
+                                        <title>Actions</title>
+                                        <children>
+                                            <delete translate="title">
+                                                <title>Delete Quote</title>
+                                            </delete>
+                                            <massdelete translate="title">
+                                                <title>Mass Delete Quote</title>
+                                            </massdelete>
+                                        </children>
+                                    </actions>
+                                    <editquote translate="title">
+                                        <title>View</title>
+                                        <children>
+                                            <generalquoteinformation translate="title" module="qquoteadv">
+                                                <title>General Quote Information</title>
+                                                <children>
+                                                    <lastupdate translate="title">
+                                                        <title>Last Update</title>
+                                                    </lastupdate>
+                                                    <status translate="title">
+                                                        <title>Quote Request Status</title>
+                                                    </status>
+                                                    <store translate="title">
+                                                        <title>RFQ From</title>
+                                                    </store>
+                                                    <linktopreviousquote translate="title">
+                                                        <title>Link to Previous Quote</title>
+                                                    </linktopreviousquote>
+                                                    <linktonewquote translate="title">
+                                                        <title>Link to New Quote</title>
+                                                    </linktonewquote>
+                                                </children>
+                                            </generalquoteinformation>
+                                            <buttons translate="title" module="qquoteadv">
+                                                <title>Buttons</title>
+                                                <children>
+                                                    <cancelquote translate="title">
+                                                        <title>Cancel Quote</title>
+                                                    </cancelquote>
+                                                    <hold translate="title">
+                                                        <title>Hold</title>
+                                                    </hold>
+                                                    <editquote translate="title">
+                                                        <title>Edit Quote</title>
+                                                    </editquote>
+                                                    <print translate="title">
+                                                        <title>Print Quote</title>
+                                                    </print>
+                                                    <save translate="title">
+                                                        <title>Save</title>
+                                                    </save>
+                                                    <addcustomproduct translate="title">
+                                                        <title>Add Custom Product</title>
+                                                    </addcustomproduct>
+                                                    <editproducts translate="title">
+                                                        <title>Edit Products</title>
+                                                    </editproducts>
+                                                    <submitproposal translate="title">
+                                                        <title>Submit Proposal</title>
+                                                    </submitproposal>
+                                                    <createorder translate="title">
+                                                        <title>Create Order</title>
+                                                    </createorder>
+                                                    <updatetotals translate="title">
+                                                        <title>Update Totals</title>
+                                                    </updatetotals>
+                                                </children>
+                                            </buttons>
+                                            <accountinformation translate="title" module="qquoteadv">
+                                                <title>Account Information</title>
+                                                <children>
+                                                    <customername translate="title">
+                                                        <title>Customer Name</title>
+                                                    </customername>
+                                                    <company translate="title">
+                                                        <title>Company</title>
+                                                    </company>
+                                                    <email translate="title">
+                                                        <title>Email</title>
+                                                    </email>
+                                                    <telephone translate="title">
+                                                        <title>Telephone</title>
+                                                    </telephone>
+                                                    <customergroup translate="title">
+                                                        <title>Customer Group</title>
+                                                    </customergroup>
+                                                </children>
+                                            </accountinformation>
+                                            <quotationmanagement translate="title">
+                                                <title>Quotation Management</title>
+                                                <children>
+                                                    <alternativecheckout translate="title">
+                                                        <title>Alternative Checkout</title>
+                                                    </alternativecheckout>
+                                                    <expirydata translate="title">
+                                                        <title>Expiry Data</title>
+                                                    </expirydata>
+                                                    <reminderdate translate="title">
+                                                        <title>Reminder Date</title>
+                                                    </reminderdate>
+                                                    <followupdate translate="title">
+                                                        <title>Follow Up Date</title>
+                                                    </followupdate>
+                                                    <assignedto translate="title">
+                                                        <title>Assigned To</title>
+                                                    </assignedto>
+                                                    <generalcomment translate="title">
+                                                        <title>General Comment</title>
+                                                    </generalcomment>
+                                                    <internalcomment translate="title">
+                                                        <title>Internal Comment</title>
+                                                    </internalcomment>
+                                                </children>
+                                            </quotationmanagement>
+                                            <billingaddress translate="title">
+                                                <title>Billing Address</title>
+                                            </billingaddress>
+                                            <shippingaddress translate="title">
+                                                <title>Shipping Address</title>
+                                            </shippingaddress>
+                                            <productinformation translate="title">
+                                                <title>Product Information</title>
+                                                <children>
+                                                    <sku translate="title">
+                                                        <title>Sku</title>
+                                                    </sku>
+                                                    <product translate="title">
+                                                        <title>Product</title>
+                                                    </product>
+                                                    <comment translate="title">
+                                                        <title>Comment</title>
+                                                    </comment>
+                                                    <costprice translate="title">
+                                                        <title>Cost Price</title>
+                                                    </costprice>
+                                                    <originalprice translate="title">
+                                                        <title>Original Price</title>
+                                                    </originalprice>
+                                                    <price translate="title">
+                                                        <title>Price</title>
+                                                    </price>
+                                                    <qty translate="title">
+                                                        <title>Qty</title>
+                                                    </qty>
+                                                    <rowtotal translate="title">
+                                                        <title>Row Total</title>
+                                                    </rowtotal>
+                                                    <margin translate="title">
+                                                        <title>Margin</title>
+                                                    </margin>
+                                                </children>
+                                            </productinformation>
+                                            <attachfiles translate="title">
+                                                <title>Attach Files to Proposal Email</title>
+                                            </attachfiles>
+                                            <shippinginformation translate="title">
+                                                <title>Shipping Information</title>
+                                            </shippinginformation>
+                                            <discount translate="title">
+                                                <title>Discount</title>
+                                            </discount>
+                                            <quotetotals translate="title">
+                                                <title>Quote Totals</title>
+                                            </quotetotals>
+                                            <messagehistory translate="title">
+                                                <title>Message History</title>
+                                            </messagehistory>
+                                            <linkedorders translate="title">
+                                                <title>Linked Orders</title>
+                                            </linkedorders>
+                                            <addqtyallowed translate="title">
+                                                <title>Add Qty Allowed</title>
+                                            </addqtyallowed>
+                                        </children>
+                                    </editquote>
+                                </children>
+                            </qquoteadv>
+                        </children>
+                    </sales>
+                </children>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <qquoteadv_general translate="title">
+                                        <title>Cart2Quote - General</title>
+                                    </qquoteadv_general>
+                                    <qquoteadv_quote_frontend translate="title">
+                                        <title>Cart2Quote - Quote Frontend</title>
+                                    </qquoteadv_quote_frontend>
+                                    <qquoteadv_quote_form_builder translate="title">
+                                        <title>Cart2Quote - Quote Form builder</title>
+                                    </qquoteadv_quote_form_builder>
+                                    <qquoteadv_quote_emails translate="title">
+                                        <title>Cart2Quote - Quote Emails</title>
+                                    </qquoteadv_quote_emails>
+                                    <qquoteadv_quote_configuration translate="title">
+                                        <title>Cart2Quote - Quote Configuration</title>
+                                    </qquoteadv_quote_configuration>
+                                    <qquoteadv_sales_representatives translate="title">
+                                        <title>Cart2Quote - Sales Representatives</title>
+                                    </qquoteadv_sales_representatives>
+                                    <qquoteadv_advanced_settings translate="title">
+                                        <title>Cart2Quote - Advanced settings</title>
+                                    </qquoteadv_advanced_settings>
+                                    <supplierbiddingtool translate="title">
+                                        <title>Cart2Quote - Supplier Bidding Tool</title>
+                                    </supplierbiddingtool>
+                                    <qquoteadv_support translate="title">
+                                        <title>Cart2Quote - Support</title>
+                                    </qquoteadv_support>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.2 or later
+ *
+ * @category MageTrend
+ * @package  MT/Exitoffer
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/exit-intent-popup
+ */
+-->
+<config>
+    <menu>
+        <exitoffer translate="title" module="exitoffer">
+            <title>Exit Intent</title>
+            <sort_order>51</sort_order>
+            <children>
+                <popup>
+                    <title>Manage Popups</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/exitoffer_popup/index</action>
+                </popup>
+
+                <campaign>
+                    <title>Manage Campaigns</title>
+                    <sort_order>2</sort_order>
+                    <action>adminhtml/exitoffer_campaign/index</action>
+                </campaign>
+
+                <settings>
+                    <title>Settings</title>
+                    <sort_order>5</sort_order>
+                    <action>adminhtml/system_config/edit/section/exitoffer</action>
+                </settings>
+            </children>
+        </exitoffer>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <exitoffer translate="title" module="exitoffer">
+                                        <title>Exit Intent Popup</title>
+                                        <sort_order>60</sort_order>
+                                    </exitoffer>
+                                    <mtlicense translate="title" module="exitoffer">
+                                        <title>MT Licenses</title>
+                                        <sort_order>60</sort_order>
+                                    </mtlicense>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <exitoffer translate="title" module="exitoffer">
+                        <title>Exit Intent Popup</title>
+                        <sort_order>60</sort_order>
+                        <children>
+                            <popup>
+                                <title>Manage Popups</title>
+                            </popup>
+                            <campaign>
+                                <title>Manage Campaigns</title>
+                            </campaign>
+                            <settings>
+                                <title>Settings</title>
+                            </settings>
+                        </children>
+                    </exitoffer>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

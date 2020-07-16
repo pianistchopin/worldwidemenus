@@ -1,0 +1,41 @@
+<!--@subject {{var quote.getStoreGroupName()}}: Offerte # {{var quote.increment_id}} is geaccepteerd @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>Beste {{var adminname}}</strong>,<br/><br>
+                            </p>
+
+                            <h3 style="font-size: 1.05em; padding-bottom: 1px;">
+                                Uw aanbod #{{var quote.increment_id}}
+                                <small>(dat geplaatst is op {{var quote.getCreatedAtFormated('long')}})</small>
+                                is geaccepteerd door de klant.
+                            </h3>
+                            <p>
+                                Deze notificatie wordt naar u gestuurd, omdat de klant op de knop "accepteren" heeft gedrukt in het klantendashboard.
+                                De klant moet de bestelprocedure nog voltooien, zodat het aanbod omgezet kan worden naar een bestelling.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,75 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+$_item = $this->getItem();
+$isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
+?>
+<li class="item">
+    <?php if ($this->hasProductUrl()): ?>
+        <a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>"
+           class="product-image"><img
+                src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50"
+                height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>"/></a>
+    <?php else: ?>
+        <span class="product-image"><img
+                src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50"
+                height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>"/></span>
+    <?php endif; ?>
+    <div class="product-details">
+        <a href="<?php echo $this->getDeleteUrl() ?>" title="<?php echo Mage::helper('catalog')->__('Remove This Item') ?>"
+           onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the quote?') ?>');"
+           class="btn-remove"><?php echo Mage::helper('catalog')->__('Remove This Item') ?></a>
+        <?php if ($isVisibleProduct): ?>
+            <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo Mage::helper('checkout')->__('Edit item') ?>"
+               class="btn-edit"><?php echo Mage::helper('checkout')->__('Edit item') ?></a>
+        <?php endif ?>
+        <p class="product-name"><?php if ($this->hasProductUrl()): ?><a
+                href="<?php echo $this->getProductUrl() ?>"><?php endif; ?><?php echo $this->escapeHtml($this->getProductName()) ?><?php if ($this->hasProductUrl()): ?></a><?php endif; ?>
+        </p>
+
+        <?php if ($_options = $this->getOptionList()): ?>
+            <div class="truncated">
+                <div class="truncated_full_value">
+                    <dl class="item-options">
+                        <?php foreach ($_options as $_option) : ?>
+                            <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+                            <dd>
+                                <?php if (is_array($_option['value'])): ?>
+                                    <?php echo nl2br(implode("\n", $_option['value'])) ?>
+                                <?php else: ?>
+                                    <?php echo $_option['value'] ?>
+                                <?php endif; ?>
+                            </dd>
+                        <?php endforeach; ?>
+                    </dl>
+                </div>
+                <a href="#" onclick="return false;" class="details"><?php echo Mage::helper('catalog')->__('Details') ?></a>
+            </div>
+        <?php endif; ?>
+    </div>
+</li>

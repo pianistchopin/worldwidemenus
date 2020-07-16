@@ -1,0 +1,408 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+//list the HTML tags that don't need escaping
+/** @var \Ophirah_Crmaddon_Helper_Data $helper */
+$helper = Mage::helper('crmaddon');
+$allowedTags = $helper->getAllowedHtmlTags();
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account"><?php echo $this->__('Message History') ?></h4>
+    </div>
+    <div class="fieldset-wrapper">
+        <fieldset>
+
+            <table class="form-list" cellspacing="0">
+                <tbody>
+
+                <?php
+                // Preparing variables
+                $crmaddon_templates = $helper->getTemplates();
+                $crmaddon_messages = $helper->getMessages($quoteModel->getData('quote_id'));
+
+                // Create empty message if DB is empty
+                $crm_messages = $crmaddon_messages;
+                if (empty($crm_messages)) {
+                    $crm_messages[] = array('message' => '',
+                        'subject' => '',
+                        'created_at' => now()
+                    );
+                }
+
+                // Set default template
+                if ($this->getRequest()->getParam('crmtmpl')) {
+                    $crmtpl = Mage::app()->getRequest()->getParam('crmtmpl');
+                    if (array_key_exists($crmtpl, $crmaddon_templates)) {
+                        $crmaddon_templates[] = $crmaddon_templates['default'];
+                        $crmaddon_templates['default'] = $crmaddon_templates[$crmtpl];
+                    }
+                }
+
+                if (isset($crmaddon_templates['default']['template_id'])) {
+                    $default_tmplId = $crmaddon_templates['default']['template_id'];
+                } else {
+                    $default_tmplId = 0;
+                }
+
+                // getting template options
+                $options = array();
+                foreach ($crmaddon_templates as $key => $template):
+                    if ($template['template_id'] != $default_tmplId || $key == 'default'):
+                        $options[$template['template_id']] = $template['name'];
+                    endif;
+                endforeach;
+
+
+                $crm_customer = array('firstname' => $quoteModel->getFirstname(),
+                    'middlename' => $quoteModel->getMiddlename(),
+                    'lastname' => $quoteModel->getLastname(),
+                    'name' => $this->getCustomerName($quoteModel->getData('customer_id')),
+                    'email' => $quoteModel->getEmail()
+                );
+
+                // Filling templates variables with data
+                $vars['customer'] = $crm_customer;
+                $vars['template'] = (isset($crmaddon_templates['default']['template'])) ? $crmaddon_templates['default']['template'] : '';
+                $vars['sender'] = Mage::getModel('qquoteadv/qqadvcustomer')->load($quoteModel->getData('quote_id'))->getEmailSenderInfo();
+                $vars['qquote'] = $quoteModel;
+
+                $crmaddon_templates['default']['template'] = Mage::getModel('crmaddon/crmaddontemplates')->getBodyTemplate($vars);
+
+                // Getting URL's for the widget buttons
+                $widgetToolsUrl = $this->getUrl('*/widget/index') . 'widget_target_id/crmaddon_template';
+                $mediaBrowserUrl = $this->getUrl('*/cms_wysiwyg_images/index') . 'target_element_id/crmaddon_template/';
+                $magentoVariableUrl = $this->getUrl('*/system_variable/wysiwygPlugin');
+
+                // Generate Url's for WYSIWYG editor script
+                $baseUrlJs = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);
+                $baseUrlSkin = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);
+                $baseUrlMedia = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+
+                $directivesUrl = str_replace("/", "\/", $this->getUrl('*/cms_wysiwyg/directive'));
+                $loadChooser = str_replace("/", "\/", $this->getUrl('*/system_variable/wysiwygPlugin'));
+                $insertVariable = str_replace("/", "\/", $this->getUrl('*/system_variable/wysiwygPlugin'));
+                $widgetWindowUrl = str_replace("/", "\/", $this->getUrl('*/widget/index'));
+                $filesBrowserWindowUrl = str_replace("/", "\/", $this->getUrl('*/cms_wysiwyg_images/index'));
+                $popupCss = str_replace("/", "\/", $baseUrlJs . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/dialog.css');
+                $contentCss = str_replace("/", "\/", $baseUrlJs . 'mage/adminhtml/wysiwyg/tiny_mce/themes/advanced/skins/default/content.css');
+                $widgetImagesUrl = str_replace("/", "\/", $baseUrlSkin . 'adminhtml/default/default/images/widget/');
+                $widgetPluginUrl = str_replace("/", "\/", $baseUrlJs . 'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentowidget/editor_plugin.js');
+                $magentoVariable = str_replace("/", "\/", $baseUrlJs . 'mage/adminhtml/wysiwyg/tiny_mce/plugins/magentovariable/editor_plugin.js');
+
+                $directivesUrlQuoted = str_replace(".", "\\\.", $this->getUrl('*/cms_wysiwyg\/directive'));
+                $directivesUrlQuoted = str_replace("/", "\/", $directivesUrlQuoted);
+
+                ?>
+
+                <tr>
+                    <td>
+                        <table style="width: 100%;">
+                            <tbody>
+                            <tr>
+                                <td class="label" colspan="2"><label
+                                        class="crm_left"><?php echo $this->__('Subject') ?></label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input class="crm_left" style="width:90%;" type="text"
+                                           value="<?php echo (isset($crmaddon_templates['default']['subject'])) ? $crmaddon_templates['default']['subject'] : ''; ?>"
+                                           name="crm_subject" maxlength="150">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label" colspan="2"><label
+                                        class="crm_left"><?php echo $this->__('Message template') ?></label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="crm_message_template" class="crm_right">
+                                        <?php foreach ($options as $key => $value): ?>
+                                            <option value="<?php echo $key; ?>">
+                                                <?php echo $value; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <?php
+                                    $buttonTmpl = $this->getLayout()->createBlock('adminhtml/widget_button');
+                                    $buttonTmpl->setLabel($this->__('Load Template'));
+                                    $buttonTmpl->setClass('save');
+
+                                    $onclick = "loadTemplate();";
+                                    $buttonTmpl->setOnclick($onclick);
+                                    ?>
+
+                                    <fieldset class="crm_right">
+                                        <?php echo $buttonTmpl->_toHtml(); ?>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="value">
+                        <div id="buttonscrmaddon_template" class="buttons-set">
+                            <button type="button" class="scalable show-hide" style="" id="togglecrmaddon_template">
+                                <span><span><span><?php echo $this->__('Show / Hide Editor') ?></span></span></span></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="value">
+                        <textarea name="crm_message"
+                                  title="crm_message"
+                                  id="crmaddon_template"
+                                  title="Messsage"
+                                  style="height:8em;"
+                                  rows="2"
+                                  cols="1"><?php
+                            echo html_entity_decode($crmaddon_templates['default']['template']);
+                            ?></textarea>
+
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            openEditorPopup = function (url, name, specs, parent) {
+                                if ((typeof popups == "undefined") || popups[name] == undefined || popups[name].closed) {
+                                    if (typeof popups == "undefined") {
+                                        popups = [];
+                                    }
+                                    var opener = (parent != undefined ? parent : window);
+                                    popups[name] = opener.open(url, name, specs);
+                                } else {
+                                    popups[name].focus();
+                                }
+                                return popups[name];
+                            };
+
+                            closeEditorPopup = function (name) {
+                                if ((typeof popups != "undefined") && popups[name] != undefined && !popups[name].closed) {
+                                    popups[name].close();
+                                }
+                            };
+                            //]]>
+                        </script>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            if ("undefined" != typeof(Translator)) {
+                                Translator.add({"Insert Image...": "Insert Image...", "Insert Media...": "Insert Media...", "Insert File...": "Insert File..."});
+                            }
+                            wysiwygcrmaddon_template = new tinyMceWysiwygSetup("crmaddon_template",
+                                {
+                                    "enabled": true,
+                                    "hidden": false,
+                                    "use_container": false,
+                                    "add_variables": true,
+                                    "add_widgets": true,
+                                    "no_display": false,
+                                    "translator": {},
+                                    "encode_directives": true,
+                                    "directives_url": "<?php echo $directivesUrl ?>",
+                                    "popup_css": "<?php echo $popupCss ?>",
+                                    "content_css": "<?php echo $contentCss; ?>",
+                                    "width": "50",
+                                    "plugins": [
+                                        {
+                                            "name": "magentovariable",
+                                            "src": "<?php echo $magentoVariable;?>",
+                                            "options":
+                                            {
+                                                "title": "Insert Variable...",
+                                                "url": "<?php echo $insertVariable;?>",
+                                                "onclick":
+                                                {
+                                                    "search": ["html_id"],
+                                                    "subject": "MagentovariablePlugin.loadChooser('<?php echo $loadChooser; ?>', '{{html_id}}');"
+                                                },
+                                                "class": "add-variable plugin"
+                                            }
+                                        }
+                                    ],
+                                    "directives_url_quoted": "<?php echo $directivesUrlQuoted; ?>",
+                                    "add_images": true,
+                                    "files_browser_window_url": "<?php echo $filesBrowserWindowUrl; ?>",
+                                    "files_browser_window_width": 1000,
+                                    "files_browser_window_height": 600,
+                                    "widget_plugin_src": "<?php echo $widgetPluginUrl; ?>",
+                                    "widget_images_url": "<?php echo $widgetImagesUrl;?>",
+                                    "widget_placeholders": [
+                                        "catalog__category_widget_link.gif",
+                                        "catalog__product_widget_link.gif",
+                                        "catalog__product_widget_new.gif",
+                                        "cms__widget_block.gif",
+                                        "cms__widget_page_link.gif",
+                                        "default.gif",
+                                        "reports__product_widget_compared.gif",
+                                        "reports__product_widget_viewed.gif"
+                                    ],
+                                    "widget_window_url": "<?php echo $widgetWindowUrl;?>",
+                                    "firebug_warning_title": "Warning",
+                                    "firebug_warning_text": "Firebug is known to make the WYSIWYG editor slow unless it is turned off or configured properly.",
+                                    "firebug_warning_anchor": "Hide"
+                                }
+                            );
+
+                            Event.observe(window, "load", wysiwygcrmaddon_template.setup.bind(wysiwygcrmaddon_template, "exact"));
+                            editorFormValidationHandler = wysiwygcrmaddon_template.onFormValidation.bind(wysiwygcrmaddon_template);
+                            Event.observe("togglecrmaddon_template", "click", wysiwygcrmaddon_template.toggle.bind(wysiwygcrmaddon_template));
+                            varienGlobalEvents.attachEventHandler("formSubmit", editorFormValidationHandler);
+                            varienGlobalEvents.attachEventHandler("tinymceBeforeSetContent", wysiwygcrmaddon_template.beforeSetContent.bind(wysiwygcrmaddon_template));
+                            varienGlobalEvents.attachEventHandler("tinymceSaveContent", wysiwygcrmaddon_template.saveContent.bind(wysiwygcrmaddon_template));
+                            varienGlobalEvents.clearEventHandlers("open_browser_callback");
+                            varienGlobalEvents.attachEventHandler("open_browser_callback", wysiwygcrmaddon_template.openFileBrowser.bind(wysiwygcrmaddon_template));
+                            //]]>
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <table id="tbl_crmMsgBottom" style="width: 60%;">
+                        <tbody>
+                        <tr>
+                            <td class="crm_notify">
+                                <input type="checkbox" name="crm_notifyCustomer" id="crm_notifyCustomer">
+                                <?php echo $helper->__("Notify Customer by Email"); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="crm_send">
+                                <?php include('button.phtml'); ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <?php echo $this->getChildHtml('crmaddon.attachment.new'); ?>
+                </tr>
+                <tbody>
+            </table>
+
+            <input type="hidden" value="<?php echo $quoteModel->getData('quote_id'); ?>" name="crm_id" id="crm_id">
+            <input type="hidden" value="<?php echo $quoteModel->getStoreId(); ?>" name="crm_storeId" id="crm_storeId">
+            <input type="hidden" value="<?php echo $crm_customer['name']; ?>" name="crm_customerName" id="crm_customerName">
+            <input type="hidden" value="<?php echo $crm_customer['email']; ?>" name="crm_customerEmail" id="crm_customerEmail">
+            <input type="hidden" value="<?php echo $this->getRequest()->getModuleName(); ?>" name="crm_moduleName"
+                   id="crm_moduleName">
+            <input type="hidden" value="<?php echo $this->getRequest()->getControllerName(); ?>" name="crm_controllerName"
+                   id="crm_controllerName">
+            <input type="hidden" value="<?php echo $this->getRequest()->getActionName(); ?>" name="crm_actionName"
+                   id="crm_actionName">
+
+            <div id="crm_msgContainer">
+                <div class="crm_msgWrapper">
+                    <ul>
+                        <?php foreach ($crm_messages as $crm_message):
+                            $this->setActiveCrmMessage($crm_message);
+                            if(isset($crm_message['send_from_frontend'])) {
+                                $odd = $crm_message['send_from_frontend'];
+                            } else {
+                                $odd = false;
+                                $crm_message['send_from_frontend'] = 0;
+                            }
+                        ?>
+
+                            <li>
+                                <div class="divider"></div>
+                            </li>
+                            <li class="crm_msgicon" <?php if($odd) echo 'style="background: #ffffff;"'; ?>>
+                                <ul class="crm_msghead">
+                                    <li class="crm_date"><?php echo "<strong>" . $this->helper('core')->formatDate($crm_message['created_at'], 'medium') . "</strong>&nbsp;" . $this->helper('core')->formatTime($crm_message['created_at'], 'medium'); ?></li>
+                                    <li> |</li>
+                                    <li class="crm_subj" style="font-weight: normal !important;"><?php echo $this->escapeHtml($crm_message['subject']); ?></li>
+                                    <?php
+                                    if ($crm_message['send_from_frontend']) {
+                                        $customer = Mage::getModel('customer/customer')->load($crm_message['customer_id']);
+                                        $customerName = $customer->getFirstname() . ' ' . $customer->getLastname();
+                                        echo '<li>| &nbsp;by '.$this->escapeHtml($customerName).'</li>';
+                                    } else {
+                                        if(isset($crm_message['user_id']) && !empty($crm_message['user_id'])){
+                                            $admin = Mage::getModel('admin/user')->load($crm_message['user_id']);
+                                            $adminName = $admin->getFirstname() . ' ' . $admin->getLastname();
+                                            echo '<li>| &nbsp;by '.$this->escapeHtml($adminName).'</li>';
+                                        }
+                                    }
+                                    ?>
+                                </ul>
+                                <ul class="crm_msgfooter">
+                                    <?php if (isset($crm_message['customer_notified']) && !empty($crm_message['email_address'])): ?>
+                                        <small>
+                                            <li><?php echo Mage::helper('checkout')->__('Sent to'); ?></li>
+                                            <li class="crm_email"><?php echo "&nbsp;" . $this->escapeHtml($crm_message['email_address']); ?></li>
+                                            <li class="crm_msgsend">&nbsp;</li>
+                                        </small>
+                                    <?php else: ?>
+                                        <?php if (!$crm_message['send_from_frontend']) { ?>
+                                            <small>
+                                                <li><?php echo Mage::helper('customer')->__('Customer'); ?></li>
+                                                <li class="crm_email"><?php echo "&nbsp;" . Mage::helper('sales')->__('Not Notified'); ?></li>
+                                                <li class="crm_msgsend">&nbsp;</li>
+                                            </small>
+                                        <?php } ?>
+                                    <?php endif; ?>
+                                </ul>
+                                <div id="crm_message_content">
+                                    <ul class="crm_msgmessage">
+                                        <?php if (isset($crm_message['message_2'])): ?>
+                                            <li>
+                                                <div
+                                                    id="dots_crm<?php echo $crm_message['message_id']; ?>"><?php echo $helper->escapeHtml($crm_message['message_1'], $allowedTags, true) . " ..."; ?></div>
+                                                <div
+                                                    id="msg2_crm<?php echo $crm_message['message_id']; ?>"><?php echo $helper->escapeHtml(html_entity_decode($crm_message['message']), $allowedTags, true); ?></div>
+                                                <script type="text/javascript">
+                                                    $('msg2_crm<?php echo $crm_message['message_id'];?>').hide();
+                                                    $('msg2_crm<?php echo $crm_message['message_id'];?>').up().observe('mouseover', function () {
+                                                        $('msg2_crm<?php echo $crm_message['message_id'];?>').show();
+                                                    });
+                                                    $('msg2_crm<?php echo $crm_message['message_id'];?>').up().observe('mouseover', function () {
+                                                        $('dots_crm<?php echo $crm_message['message_id'];?>').hide();
+                                                    });
+                                                    $('msg2_crm<?php echo $crm_message['message_id'];?>').up().observe('mouseout', function () {
+                                                        $('msg2_crm<?php echo $crm_message['message_id'];?>').hide();
+                                                    });
+                                                    $('msg2_crm<?php echo $crm_message['message_id'];?>').up().observe('mouseout', function () {
+                                                        $('dots_crm<?php echo $crm_message['message_id'];?>').show();
+                                                    });
+                                                </script>
+                                            </li>
+                                        <?php else: ?>
+                                            <li><?php echo $helper->escapeHtml(html_entity_decode($crm_message['message']), $allowedTags, true) ?></li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                                <?php echo $this->getChildHtml('crmaddon.attachment', false); ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+
+        </fieldset>
+    </div> <?php // end  "fieldset-wrapper" ?>
+
+</div>

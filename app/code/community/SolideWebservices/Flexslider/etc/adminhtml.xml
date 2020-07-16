@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Solide Webservices
+ * @package     Flexslider
+ */
+-->
+<config>
+	<menu>
+		<cms>
+			<children>
+				<flexslider translate="title" module="flexslider">
+					<title>Flexslider</title>
+					<sort_order>100</sort_order>
+					<children>
+						<group>
+							<title>Manage Groups</title>
+							<sort_order>101</sort_order>
+							<action>adminhtml/flexslidergroup</action>
+						</group>
+						<slide>
+							<title>Manage Slides</title>
+							<sort_order>102</sort_order>
+							<action>adminhtml/flexsliderslide</action>
+						</slide>
+						<settings>
+							<title>Settings</title>
+							<sort_order>103</sort_order>
+							<action>adminhtml/system_config/edit/section/flexslider</action>
+						</settings>
+					</children>
+				</flexslider>
+			</children>
+		</cms>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<cms>
+						<children>
+							<flexslider translate="title" module="flexslider">
+								<title>Flexslider</title>
+								<sort_order>100</sort_order>
+								<children>
+									<group translate="title">
+										<title>Manage Groups</title>
+										<sort_order>101</sort_order>
+									</group>
+									<slide translate="title">
+										<title>Manage Slides</title>
+										<sort_order>102</sort_order>
+									</slide>
+									<settings translate="title">
+										<title>Settings</title>
+										<sort_order>103</sort_order>
+									</settings>
+								</children>
+							</flexslider>
+						</children>
+					</cms>
+					<system>
+						<children>
+							<config>
+								<children>
+									<flexslider translate="title" module="flexslider">
+										<title>Flexslider</title>
+										<sort_order>999</sort_order>
+									</flexslider>
+								</children>
+							</config>
+						</children>
+					</system>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

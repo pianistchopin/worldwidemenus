@@ -1,0 +1,118 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ *
+ * @block Ophirah_Qquoteadv_Block_Adminhtml_Qquoteadv_Quotedetails_Costprice
+ * @description Makes possible to edit Cost Price.
+ *
+ */
+?>
+<div class="cost_price_change_btn_div">
+    <a href="#" id="change-button_<?php echo $this->getRequestId();?>" onclick="event.preventDefault();changeCostPrice(<?php echo $this->getRequestId();?>)">
+        <?php echo Mage::helper('catalog')->__('Change')?>
+    </a>
+</div>
+
+<form action="<?php echo Mage::helper("adminhtml")->getUrl('*/*/addCostPrice') ?>" class="cost_price_form">
+    <input class="cost_price_form_hidden" type="hidden" name="quoteadv_id" id="quoteadv_id" value="<?php echo $this->getRequest()->getParam('id'); ?>"/>
+    <input class="cost_price_form_hidden" type="hidden" name="request_id" id="add_cost_price_request_id" value="<?php echo $this->getRequestId();?>"/>
+
+    <div style="display: none;" id="cost-price_<?php echo $this->getRequestId();?>">
+        <input type="text" class="cost_price_input" name="new_cost_price" value="<?php echo $this->getCostPrice();?>"/>
+    </div>
+    <div class="cost_price_btn_div">
+        <button style="display:none;" id="submit-button_<?php echo $this->getRequestId();?>" type="submit" onclick="submitCostPrice()">
+            <?php echo Mage::helper('catalog')->__('Save')?>
+        </button>
+    </div>
+   <div class="cost_price_btn_div">
+       <button style="display:none;" id="reset-button_<?php echo $this->getRequestId();?>" type="reset" onclick="clearCostPrice(<?php echo $this->getRequestId();?>)">
+           <?php echo Mage::helper('catalog')->__('Cancel')?>
+       </button>
+   </div>
+</form>
+
+<script>
+    /**
+     * @description Shows Save, Cancel buttons and Cost Price text field. Hides Cost Price label.
+     * @param requestId
+     */
+    function changeCostPrice(requestId) {
+        hideAllCostPrice();
+        $('cost-price_'+requestId).show();
+        $('submit-button_'+requestId).show();
+        $('change-button_'+requestId).hide();
+        $('reset-button_'+requestId).show();
+        if($$('.cost-price-' + requestId + ' .price').length) {
+            $$('.cost-price-' + requestId + ' .price').first().hide();
+        }else{
+            $$('#price-cost-' + requestId + ' .cost-price-na').first().hide();
+        }
+    }
+
+    /**
+     * @description Shows the loading popup.
+     */
+    function submitCostPrice(){
+        <?php
+            $message = Mage::helper('qquoteadv')->__('Are you sure you want to change this cost price?');
+            $message .= ' ';
+            $message .= Mage::helper('qquoteadv')->__('(unsaved changes to the quote will be lost)');
+        ?>
+        var message = "<?php echo $message; ?>";
+
+        if($$('.tab-item-link').first().hasClassName('changed')){
+            if (!confirm(message)) {
+                event.preventDefault();
+            }
+        }
+
+        $('loading-mask').show();
+    }
+
+    /**
+     * @description Shows the Cost Price label and change button. Hides Cancel and Save buttons.
+     * @param requestId
+     */
+    function clearCostPrice(requestId){
+        if($('cost-price_' + requestId) != undefined) {
+            $('change-button_' + requestId).show();
+            $('reset-button_' + requestId).hide();
+            $('cost-price_' + requestId).hide();
+            $('submit-button_' + requestId).hide();
+            if($$('.cost-price-' + requestId + ' .price').length){
+                $$('.cost-price-' + requestId + ' .price').first().show();
+            }else{
+                $$('#price-cost-' + requestId + ' .cost-price-na').first().show();
+            }
+        }
+    }
+
+    function hideAllCostPrice(){
+        $$('.price-cost > div').each(function(s){
+            clearCostPrice( s.id.match(/\d/g).join("") )
+        });
+    }
+</script>

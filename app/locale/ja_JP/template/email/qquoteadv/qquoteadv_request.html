@@ -1,0 +1,40 @@
+<!--@subject {{var quote.getStoreGroupName()}}: お見積依頼 # {{var quote.increment_id}} 受付のお知らせ @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>こんにちは {{htmlescape var=$customer.name}}様</strong><br/><br>
+                                {{var quote.getStoreGroupName()}} でのお見積依頼のご用命ありがとうございます。<br><br>
+                                48時間以内に担当者よりご連絡を致します。<br>
+                                <a href="{{store url='customer/account/'}}" style="color:#1E7EC8;">マイページにログイン</a>することでお見積依頼の状況をご確認いただけます。<br><br>
+                                お見積内容に関するご質問は <a
+                                    href="mailto:{{config path='trans_email/ident_support/email'}}"
+                                    style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> までメールにてお問い合せいただくか、
+                                <span class="nobr">{{config path='general/store_information/phone'}}</span> までお電話ください。
+                                月曜 - 金曜 午前8時 ~ 午後5時まで受付しております。
+                            </p><br>
+
+                            <p>ありがとうございました、ご注文お待ちしております。</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>               

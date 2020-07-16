@@ -1,0 +1,435 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php /** @var $this Ophirah_Qquoteadv_Block_Qquoteadv_View */ ?>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+
+<?php $_quoteadv = $this->getQuoteData() ?>
+<?php $_quotes = $this->getQquotesadv(); ?>
+<?php $status = $_quoteadv->getStatus(); ?>
+<?php $mergedCells = ($status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL) ? 1 : 0; ?>
+<?php $this->setMergedCells($mergedCells); ?>
+<?php $collection = $this->getQuoteProducts(); ?>
+
+<?php if ($_quoteadv && count($collection) > 0): ?>
+
+    <?php // Show Item Price
+    $itemPriceReplace = '';
+    $rowTotalReplace = '---';
+    ?>
+
+
+    <div id="main" class="my-account my-quote">
+    <div class="page-title title-buttons">
+        <h1><?php echo $this->__('Quotation #%s - Proposal', $_quoteadv->getIncrementId() ? $_quoteadv->getIncrementId() : $_quoteadv->getId()) ?></h1>
+        <?php if (($status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL ||
+                $status == Ophirah_Qquoteadv_Model_Status::STATUS_AUTO_PROPOSAL ||
+                $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_ACTION_OWNER ||
+                $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_ACTION_CUSTOMER) ||
+            (($status == Mage::getModel('qquoteadv/status')->getStatusConfirmed() || $status == Ophirah_Qquoteadv_Model_Status::STATUS_ORDERED) && !Mage::helper('qquoteadv')->isActiveConfirmMode())
+        ):
+            ?>
+            <a href="#" onclick="moveAllToEdit()"
+               class="link-cart"><span><?php echo $this->__('Resubmit Quote') ?></span></a>
+
+            <span class="pipe">|</span>
+            <a href="<?php echo $this->getPrintUrl($_quoteadv) ?>" class="link-cart"
+               onclick="this.target='_blank';"><?php echo $this->__('Print Quote') ?></a>
+        <?php endif; ?>
+    </div>
+
+    <p class="order-date"><?php echo $this->__('Quotation Date: %s', $this->formatDate($_quoteadv->getCreatedAt(), 'long')) ?></p>
+
+    <?php $expDays = Mage::getStoreConfig('qquoteadv_quote_configuration/expiration_times_and_notices/expirtime_proposal'); ?>
+    <?php if (($status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL ||
+            $status == Ophirah_Qquoteadv_Model_Status::STATUS_AUTO_PROPOSAL ||
+            $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_ACTION_OWNER ||
+            $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_ACTION_CUSTOMER) && (int)$expDays): ?>
+        <?php
+        $updDate = strtotime($_quoteadv->getExpiry());
+        $dat = mktime(0, 0, 0, date("m", $updDate), date('d', $updDate), date("Y", $updDate));
+        $text = Mage::helper('core')->formatDate(date('D M j Y', $dat), 'medium', false);
+        ?>
+
+        <p class="order-date"><?php echo $this->__('Proposal Valid Until: %s', $text) ?></p>
+
+    <?php endif; ?>
+
+    <div class="col2-set order-info-box">
+        <div class="col-1">
+            <h4><?php echo Mage::helper('sales')->__('Shipping Address') ?></h4>
+
+            <address><?php echo $_quoteadv->getShippingAddress()->format('html') ?></address>
+        </div>
+        <div class="col-2">
+            <h4><?php echo Mage::helper('sales')->__('Shipping Method') ?></h4>
+
+            <?php
+            $price = $_quoteadv->getShippingPrice();
+            $shippingType = $_quoteadv->getShippingType();
+
+            if ($shippingType == 'I') {
+                $sPrice = $this->__('Shipping & Handling price per Item') . ' ' . Mage::helper('checkout')->formatPrice($price);
+            } elseif ($shippingType == 'O') {
+                $sPrice = $this->__('Fixed Shipping & Handling price') . ' ' . Mage::helper('checkout')->formatPrice($price);
+            } else {
+                $sPrice = $this->__("Shipping & Handling price varies.") . ' ' . $this->__("Please select required qty and check out online to see applicable price.");
+            }
+            ?>
+            <u><?php echo $sPrice; ?></u>
+        </div>
+
+    </div>
+    <div class="col2-set order-info-box">
+        <div class="client-data box"><h4><?php echo $this->__('Remark with Proposal') ?> </h4>
+            <?php echo nl2br($this->escapeHtml($_quoteadv->getClientRequest())) ?>
+        </div>
+        <div class="box-attachment">
+            <?php echo $this->getChildHtml('attachments'); ?>
+        </div>
+    </div>
+
+    <!--
+    <h4><?php echo $this->__('Quotation #%s', $_quoteadv->getIncrementId() ? $_quoteadv->getIncrementId() : $_quoteadv->getId()) ?></h4>
+    -->
+
+    <h4><?php echo $this->__('Items Quoted'); ?></h4>
+
+        <div class="installed-package-<?php echo Mage::getSingleton('core/design_package')->getPackageName() ?>">
+    <form method='post' id='quotelist' name='quotelist'
+          action='<?php echo $this->getUrl('qquoteadv/view/confirm', array('_secure' => Mage::app()->getStore()->isCurrentlySecure())) ?>'>
+    <input type="hidden" name="id" id="id" value="<?php echo $_quoteadv->getId(); ?>">
+
+    <table cellpadding="4px" class="data-table cart-table">
+        <?php if ($mergedCells): ?>
+            <col width="30"/>
+        <?php endif ?>
+        <col width="75"/>
+        <col width="160"/>
+        <col/>
+        <col/>
+        <col width="1"/>
+        <col width="110"/>
+        <thead>
+        <tr class="headings">
+            <?php if ($mergedCells): ?>
+                <th class="a-center"><?php echo Mage::helper('sales')->__('Remove') ?></th>
+            <?php endif ?>
+            <th>&nbsp;</th>
+            <th><?php echo Mage::helper('sales')->__('Product Name') ?></th>
+            <th><?php echo $this->__('Requested information') ?></th>
+            <th><?php if($this->showOriginalPrice($status)) { echo Mage::helper('sales')->__('Original Price'); } ?></th>
+            <th><?php echo Mage::helper('sales')->__('Qty') ?></th>
+            <th><?php echo ($_quoteadv->getData('itemprice') == 1) ? $this->__('Price Proposal') : $this->__('Select Qty'); ?></th>
+        </tr>
+        </thead>
+
+        <tbody class="even">
+        <?php
+        foreach ($collection as $item):
+
+            $product = $this->getProduct($item->getProductId());
+
+            if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+                $childProduct = Mage::getModel('qquoteadv/qqadvproduct')->getConfChildProduct($item->getId());
+            } else {
+                $childProduct = $product;
+            }
+
+            $message = $this->__("By deleting an item, you will create a new quote request. Do you want to do this?");
+            ?>
+            <tr class="border">
+                <?php
+                $customProduct = Mage::getModel('customproducts/customproduct')->getCustomProduct();
+                if($customProduct && $customProduct->getId() == $item->getProductId()):
+                    echo $this->getChild('customproducts.quote.product')->setItem($item)->setProduct($product)->toHtml();
+                else:
+                ?>
+                <?php if ($mergedCells): ?>
+                    <td class="a-center">
+                        <a onclick="var r=confirm('<?php echo $message ?>'); if(r==true)itemDelete('<?php echo $item->getId() ?>');"
+                           href="#"><img src="<?php echo $this->getSkinUrl('images/btn_trash.gif') ?>" width="16"
+                                         height="16" alt="<?php Mage::helper('checkout')->__('Remove item') ?>"/></a>
+                    </td>
+                <?php endif ?>
+                <td>
+                    <a class="product-image" href="<?php echo $product->getProductUrl(); ?>"><img
+                            src="<?php echo $this->helper('catalog/image')->init($childProduct, 'thumbnail', $item->getSmallImage())->resize(75); ?>"
+                            alt="<?php echo $item->getName(); ?>"/></a>
+                </td>
+                <td>
+                    <h5 class="title"><a
+                            href="<?php echo $product->getProductUrl(); ?>"><?php echo $product->getName(); ?></a>
+                        <?php if (!$product->getStockItem()->getIsInStock()): ?>
+                            <div class="error">
+                                <div style="font-size:95%;">
+                                    <?php echo Mage::helper('cataloginventory')->__('This product is currently out of stock.') ?>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                    </h5>
+                    <!-- Downloadable information -->
+                    <?php $qqadvproductdownloadable =  Mage::getModel('qquoteadv/qqadvproductdownloadable')->loadProduct($item);
+                    if($qqadvproductdownloadable->isDownloadable($product)): ?>
+                        <?php if ($links = $qqadvproductdownloadable->getLinks()): ?>
+                            <dl class="item-options">
+                                <dt><?php echo $qqadvproductdownloadable->getLinksTitle() ?></dt>
+                                <?php foreach ($links as $link): ?>
+                                    <dd style="min-width: 150px;"><?php echo $this->escapeHtml($link->getTitle()); ?></dd>
+                                <?php endforeach; ?>
+                            </dl>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <!-- EOF downloadable -->
+
+                    <!-- Item HTML -->
+                    <?php $optionPrice = 0;
+                    $quoteByProduct = Mage::helper('qquoteadv')->getQuoteItem($product, $item->getAttribute(), null, $item);
+
+                    if($qqadvproductdownloadable->isDownloadable($product) == false):
+                        foreach ($quoteByProduct->getAllItems() as $_item) {
+                            if ($_item->getProductId() == $product->getId()) {
+                                echo $this->getItemHtml($_item);
+                            }
+                        }
+                    endif;
+                    ?>
+                    <!-- /Item HTML -->
+                </td>
+                <?php endif; ?>
+                <td><?php echo nl2br($this->escapeHtml($item->getClientRequest())) ?>&nbsp;</td>
+                <?php
+                $collection = Mage::getModel('qquoteadv/requestitem')->getCollection()->setQuote($_quoteadv);
+                $collection->getSelect()->where('quoteadv_product_id = ?', $item->getId());
+
+                $originalPrice = 0;
+                foreach ($collection as $requestItem) {
+                    $originalPrice = $requestItem['original_price'];
+                    $originalCurPrice = $requestItem['original_cur_price'];
+                    break;
+                }
+
+                ?>
+                <td>
+                    <?php if (Mage::helper('qquoteadv/not2order')->getShowPrice($product) && $this->showOriginalPrice($status)): ?>
+                        <?php //echo Mage::helper('core')->currency($originalPrice); ?>
+                        <?php echo Mage::helper('checkout')->formatPrice($originalCurPrice) ?>
+                    <?php endif; ?>
+                </td>
+
+
+                <?php $collection = $this->getRequestedProductData($item->getId(), $_quoteadv);
+
+                $prices = array();
+                $aQty = array();
+                $allowedPrice = ($_quoteadv->getData('itemprice') == 1);
+                $allowedPrice = Mage::helper('qquoteadv')->isPriceByDefaultAllowed();
+
+                $n = count($collection);
+                if ($n > 0) {
+                    $i = 0;
+                    foreach ($collection as $requested_item) {
+                        $checked = '';
+                        $disabled = '';
+
+                        if (($requested_item->getRequestQty() == $product->getData('qty')) || ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL && $requested_item->getRequestQty() == $item->getData('qty'))) {
+                            $checked = "checked";
+                        }
+
+                        if ($status == Mage::getModel('qquoteadv/status')->getStatusConfirmed()){
+                            $disabled = "disabled";
+                        }
+
+                        if ($status == Ophirah_Qquoteadv_Model_Status::STATUS_REQUEST):
+                            $aQty[] = $requested_item->getRequestQty()*1;
+                            $prices[] = $this->__('in process...');
+                        elseif($status < Mage::getModel('qquoteadv/status')->getStatusConfirmed() || $checked == "checked" ): // Disable tier options once quote is confirmed
+                            $aQty[] = $requested_item->getRequestQty()*1;
+                            if($allowedPrice){
+                                $_price = Mage::helper('checkout')->formatPrice($requested_item->getOwnerCurPrice());
+                                $onclick = 'onclick="updateTotals(' . $requested_item->getQuoteadvProductId() . ', ' . $requested_item->getRequestQty() . ', \'tier_price_loading_' . $item->getId() . '_' . $i . '\');"';
+                                $prices[] = "<input $checked $disabled $onclick type='radio' name='requestQtyLine[" . $requested_item->getQuoteadvProductId() . "]' value='" . $requested_item->getRequestId() . "'>&nbsp;" . $_price;
+                            }else{
+                                $prices[] = $rowTotalReplace;
+                            }
+                        endif;
+
+                        $i++;
+                    }
+                }
+                ?>
+                <td>
+                    <?php if (count($aQty)): ?>
+                        <?php foreach ($aQty as $key => $value): ?>
+                            <div style="height:25px;"><?php echo $value; ?></div>
+                        <?php endforeach; ?>
+                    <?php endif ?>
+                </td>
+                <td>
+                    <?php if (count($prices)): ?>
+                        <?php $i = 0;
+                        foreach ($prices as $key => $value): ?>
+                            <div style="height:25px;"><?php echo $value; ?>
+                                <span id="tier_price_loading_<?php echo $item->getId() . '_' . $i; ?>"
+                                      class="please-wait" style="display:none;">
+                                            <img class="v-middle" title="<?php echo $this->__('Loading') ?>"
+                                                 alt="<?php echo $this->__('Loading') ?>"
+                                                 src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>">
+                                        </span>
+                            </div>
+                            <?php $i++; endforeach; ?>
+                    <?php endif ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        <tr>
+            <td colspan="7" align="left">
+                <strong><?php echo $this->__('Quote status') ?>:</strong>
+                <?php if ($status == Ophirah_Qquoteadv_Model_Status::STATUS_REQUEST_EXPIRED
+                    || $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_EXPIRED
+                    || $status == Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL_SAVED
+                ):?>
+                    <font color="Red"> <?php echo Mage::helper('qquoteadv')->getStatus($status); ?></font>
+                <?php else: ?>
+                    <?php echo Mage::helper('qquoteadv')->getStatus($status); ?>
+                <?php endif; ?>
+            </td>
+        </tr>
+        </tbody>
+
+        <?php $btnCssClass = $this->isHideButtons($status) ? "" : 'button btn-update'; ?>
+        <?php $btnStyle = ""; ?>
+        <?php $btnAllow = $this->isHideButtons($status) ? '' : 'class="button btn-update"'; ?>
+
+        <tfoot>
+        <tr class="first last">
+            <td colspan="7" align="right" class="a-right actions last" style="height:20px;padding:5px;">
+                <?php if ($this->allowToEdit($status)): ?>
+                    <button <?php echo $btnAllow ?> style="float:left;" type="button" onclick="moveAllToEdit()">
+                        <span>
+                            <span><?php echo $this->__('Edit Request') ?></span>
+                        </span>
+                    </button>
+                    <button <?php echo $btnAllow ?> style="float:left;" type="button" onclick="moveAllToReject()">
+                        <span>
+                            <span><?php echo $this->__('Reject Proposal') ?></span>
+                        </span>
+                    </button>
+                <?php elseif ($status == Ophirah_Qquoteadv_Model_Status::STATUS_REQUEST): ?>
+                    <div
+                        style="font-weight:bold;"><?php echo $this->helper('qquoteadv')->__("Quote Request in Process, wait for price proposal Shop owner"); ?></div>
+                <?php endif; ?>
+
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <input type="hidden" id="remove_item_id" name="remove_item_id" value=""/>
+    <input type="hidden" id="update_item_id" name="update_item[itemId]" value=""/>
+    <input type="hidden" id="update_item_qty" name="update_item[itemQty]" value=""/>
+
+    <div class="cart">
+        <div class="cart-collaterals">
+            <div class="totals">
+                <?php // TOTALS
+                if($status >= Ophirah_Qquoteadv_Model_Status::STATUS_PROPOSAL){
+                    $_quoteadv->getAddress()->setQuote($_quoteadv);
+                    $_quoteadv->collectTotals();
+                    if (!Mage::registry('current_quote')){
+                        Mage::register('current_quote', $_quoteadv);
+                    }
+                    echo $this->getChildHtml('totals');
+                    if (!$this->isHideButtons($status)){
+                        ?>
+                        <ul class="checkout-types">
+                            <li>
+                                <button type="button" title="Proceed to Checkout"
+                                        class="button btn-proceed-checkout btn-checkout"
+                                        onclick="document.quotelist.submit();">
+                                    <span><span><?php echo $this->__('Confirm and CheckOut') ?></span></span>
+                                </button>
+                            </li>
+                        </ul>
+                    <?php }?>
+                <?php }?>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        //var billingForm = new VarienForm('co-customer-form');
+
+        //]]>
+        function moveAllToReject() {
+            document.quotelist.action = '<?php echo $this->getUrl('qquoteadv/view/reject' , array('_secure' => Mage::app()->getStore()->isCurrentlySecure())) ?>';
+            document.quotelist.submit();
+        }
+
+        function moveAllToEdit() {
+            document.quotelist.action = '<?php echo $this->getUrl('qquoteadv/view/edit', array('_secure' => Mage::app()->getStore()->isCurrentlySecure())) ?>';
+            document.quotelist.submit();
+        }
+
+        function itemDelete(itemId) {
+            $('remove_item_id').value = itemId;
+            document.quotelist.action = '<?php echo $this->getUrl('qquoteadv/view/itemDelete', array('_secure' => Mage::app()->getStore()->isCurrentlySecure())) ?>';
+            document.quotelist.submit();
+        }
+
+        function moveToCart(quoteId) {
+            document.quotelist.action = '<?php echo $this->getUrl('qquoteadv/index/move', array('_secure' => Mage::app()->getStore()->isCurrentlySecure()))."quoteid/" ?>' + quoteId;
+            document.quotelist.submit();
+        }
+
+        function updateTotals(itemId, itemQty, loading) {
+            $('update_item_id').value = itemId;
+            $('update_item_qty').value = itemQty;
+            $(loading).show();
+            document.quotelist.action = '<?php echo $this->getUrl('qquoteadv/view/updateTotals', array('_secure' => Mage::app()->getStore()->isCurrentlySecure())) ?>';
+            document.quotelist.submit();
+        }
+    </script>
+    </form>
+            </div>
+
+    <?php echo $this->getChildHtml('crmaddon.messages'); ?>
+
+    <div class="buttons-set">
+        <p class="back-link">
+            <a href="<?php echo $this->getBackUrl() ?>"
+               class="left">&laquo; <?php echo $this->__('Back to My Quotes') ?></a>
+        </p>
+    </div>
+    </div>
+
+<?php
+else:
+    echo $this->__('No Items to display.');
+endif;
+?>

@@ -1,0 +1,110 @@
+<?php
+/**
+ * Photo Photogallery & Products Photogallery extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   FME
+ * @package    Photogallery
+ * @copyright  Copyright 2010 © free-magentoextensions.com All right reserved
+ */
+
+/**
+ * @category   Photogallery
+ * @package    Photogallery
+ * @author     Kamran Rafiq Malik <kamran.malik@unitedsol.net>
+ */
+?>
+<?php $galleryId= $this->getRequest()->getParam('id'); ?>
+<?php $mainGallery= $this->getMainGallery($galleryId);?>
+<?php $gallery_labels = Mage::helper('photogallery')->getGalleryHeadings($galleryId);?>
+<?php $gallery_images = $this->getNewsList(); ?>
+<?php $imagePath = Mage::getBaseUrl('media')."gallery/galleryimages"; ?>
+<div class="std">
+    <p><?php echo Mage::helper('photogallery')->__($mainGallery->getGalleryDescription()) ?></p>
+</div>
+
+<div class="wrapper" style="min-width: 100%;">
+
+            <div id="filters-container" class="cbp-l-filters-button">
+                <div data-filter="*" class="cbp-filter-item-active cbp-filter-item"><?php echo $this->__('All');?><div class="cbp-filter-counter"></div></div>
+                <?php foreach ($gallery_labels as $gallery_label ): ?>
+                    
+                <div data-filter=".<?php echo $gallery_label['photogallery_id']?>" class="cbp-filter-item"><?php echo $gallery_label['gal_name']?><div class="cbp-filter-counter" id="counter_.<?php echo $gallery_label['photogallery_id']?>"></div></div>
+                <input type="hidden" id="total_counter.<?php  echo $gallery_label['photogallery_id']?>" value="<?php echo $this->counterPictures($gallery_label['photogallery_id'])?>" />
+                <?php endforeach; ?>
+            </div>
+
+            <div id="grid-container" class="cbp-l-grid-projects">
+                <ul>
+               
+                <?php foreach ($gallery_images as $_gimage):?> 
+                
+                    <?php 
+
+                        $targetPath = $imagePath.$_gimage["img_name"];
+                        $thumbPath = Mage::helper('photogallery')->getThumbsDirPath($targetPath);
+                
+                        $arrayName = explode('/',$_gimage["img_name"]);
+                        $gallery_name = $_gimage['gal_name'];
+                        $thumbnail_path =  $thumbPath . DS . $arrayName[3];
+                        $image_path = $imagePath . $_gimage["img_name"];
+                        $description = $_gimage["img_description"];
+
+
+
+                    ?>
+                <li class="<?php echo 'cbp-item '. $_gimage['photogallery_id'];?>">
+                        <div class="cbp-caption"> 
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="<?php echo $thumbnail_path ?>" alt="<?php echo $_gimage['alt_text'];?>" width="100%" height="100%"></div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignCenter">
+                                    <div class="cbp-l-caption-body">
+                                        <a href="<?php echo $image_path ?>" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="<?php echo $_gimage['img_label'];?>"><?php echo $this->__('View larger') ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cbp-l-grid-projects-title"><?php echo $_gimage['img_label'];?></div>
+                        <div class="cbp-l-grid-projects-desc"><?php echo $description ?></div>
+                    </li>
+               
+                    <?php endforeach; ?>
+                    
+                </ul>
+                </div>
+                <?php if($this->getLastPageNum()>1): ?>
+                    <?php  $_pages = count($this->getPages());?>
+                        <?php  foreach ($this->getPages() as $_page): ?>
+                                <?php if ($this->isPageCurrent($_page)): ?>
+                                    <?php $_page++;?>
+                                <div class="cbp-l-loadMore-button">
+                                    <a href="<?php echo Mage::getUrl('photogallery/index/ajaxPagination', array('page' => $_page,'pages' =>$_pages,'galleryId'=>$galleryId))?>" class="cbp-l-loadMore-button-link"><?php echo Mage::getStoreConfig('photogallery/photogallery/pagertext')?></a>
+                                </div>
+                                <?php else: ?>
+                                <?php endif;?>
+                        <?php endforeach; ?>
+                <?php endif;?>
+</div><br><br><br>
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/jquery-1.9.1.min.js') ?>" type="text/javascript"></script>
+
+
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/cubeportfoliojs.js') ?>" type="text/javascript"></script>
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/main.js') ?>" type="text/javascript"></script>
+<script src="<?php echo $this->helper('core/js')->getJsUrl('fmegallery/script/jquery.confy.js') ?>" type="text/javascript"></script>
+
+<script>
+jQuery.noConflict();
+
+(function(e,t,n,r,i,s,o){e["GoogleAnalyticsObject"]=i;e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},e[i].l=1*new Date;s=t.createElement(n),o=t.getElementsByTagName(n)[0];s.async=1;s.src=r;o.parentNode.insertBefore(s,o)})
+
+</script>
+
+
+    

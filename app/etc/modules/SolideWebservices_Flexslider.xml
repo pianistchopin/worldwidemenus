@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category	Solide Webservices
+ * @package		Flexslider
+ */
+-->
+
+<config>
+	<modules>
+		<SolideWebservices_Flexslider>
+			<active>true</active>
+			<codePool>community</codePool>
+		</SolideWebservices_Flexslider>
+	</modules>
+</config>

@@ -1,0 +1,70 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ *
+ * This is the main template file for the form fields
+ * @block Ophirah_Qquoteadv_Block_Qquoteaddress
+ */
+?>
+<div class="qquote-client-collaterals">
+    <div class="quote-forms">
+        <?php echo $this->getChildHtml('qquote.attachment'); ?>
+        <div class="client-data box">
+            <?php echo $this->getChildHtml('qquote.customer'); ?>
+            <?php echo $this->getChildHtml('qquote.checkbox.shipping.requireshippingquote'); ?>
+        </div>
+        <div class="input-box">
+            <div class="qquote-cart-collaterals" <?php echo $this->getShippingBoxSettings(); ?> >
+                <div id="addressContainer" class="shipping-adress box">
+                    <?php if (Mage::helper('qquoteadv/address')->getBoxesStatus() == 'billing') {
+                        echo $this->getChildHtml('qquote.address.billing');
+                        echo $this->getChildHtml('qquote.address.shipping');
+                    } else {
+                        echo $this->getChildHtml('qquote.address.shipping');
+                        echo '<br>';
+                        echo $this->getChildHtml('qquote.address.billing');
+                    } ?>
+                    <?php echo $this->getChildHtml('qquote.checkbox.address'); ?>
+                    <p class="required"><?php echo Mage::helper('sales')->__('* Required Fields') ?></p>
+                </div>
+            </div>
+        </div>
+        <div id="submit-quote-request">
+            <label for="submitOrder"><?php echo $this->__('You may request a quote without any obligations') ?></label>
+            <?php
+            echo $this->getChildHtml('qquote.submit.button');
+            echo $this->getChildHtml('qquote.print.button');
+            ?>
+        </div>
+    </div>
+</div>
+
+<?php if (!$this->getDisableEmailCheck()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        checkEmail('<?php echo $this->getEmailErrorUrl(); ?>', '<?php echo $this->getEmailErrorMessage(); ?>');
+        //]]>
+    </script>
+<?php endif; ?>

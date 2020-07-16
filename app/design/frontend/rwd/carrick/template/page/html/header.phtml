@@ -1,0 +1,164 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<?php
+	$baseUrl = Mage::getBaseUrl();
+	$mediaUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+?>
+<?php $locale = Mage::app()->getLocale()->getLocaleCode(); ?>
+<?php $store = Mage::app()->getStore(); ?>
+<?php $sname = $store->getName(); ?>
+<?php
+/*switch($locale){
+	case 'es_ES':
+		$swatch = 'Pedir muestra';
+		break;
+	case 'en_GB':
+		$swatch = 'Request Swatch';
+		break;
+	default:
+		$swatch = 'Request Swatch';
+}*/
+?>
+<div class="topmessagemobile"><p><?php echo $this->__('Please turn your mobile phone to landscape layout to use the menu configurator.'); ?></p></div>
+<div class="header-language-background">
+<div class="inner-header-background">
+<div class="col-md-4 col-sm-2">
+<div id="header-search" class="skip-content">
+            <?php echo $this->getChildHtml('topSearch') ?>
+        </div>
+</div>
+<div class="col-md-2 col-sm-3">
+<p class="toplink"><a href="<?php echo $baseUrl ?>swatches.html"><img src="<?php echo $mediaUrl; ?>images/swatch.png" title="<?php echo $this->__('Request Swatch'); ?>" alt="<?php echo $this->__('Request Swatch'); ?>" class="img-responsive" /><?php echo $this->__('Request Swatch'); ?></a></p>
+</div>
+<div class="col-md-6 col-sm-7 text-right">
+<div class="store-account-container">
+			<p class="toplink"><a href="<?php echo $baseUrl ?>contacts" title="<?php echo $this->__('Contact Us'); ?>"><?php echo $this->__('Contact Us'); ?></a></p>
+			<p class="toplink"><a href="<?php echo $baseUrl ?>customer/account/login/" title="<?php echo $this->__('Login'); ?>"><img src="<?php echo $mediaUrl; ?>images/login.png" alt="<?php echo $this->__('Request Swatch'); ?>" class="img-responsive" /><?php echo $this->__('Login'); ?></a></p>
+			<p class="toplink"><a href="<?php echo $baseUrl ?>customer/account/" title="<?php echo $this->__('My Account'); ?>"><img src="<?php echo $mediaUrl; ?>images/account.png" alt="<?php echo $this->__('Request Swatch'); ?>" class="img-responsive" /><?php echo $this->__('My Account'); ?></a></p>
+			<?php if($sname != 'UK'): ?>
+			<p class="toplink"><a href="<?php echo $baseUrl ?>checkout/" title="<?php echo $this->__('Checkout'); ?>"><img src="<?php echo $mediaUrl; ?>images/checkout.png" alt="<?php echo $this->__('Request Swatch'); ?>" class="img-responsive" /><?php echo $this->__('Checkout'); ?></a></p>
+			<?php endif; ?>
+			<!--<div id="header-account" class="skip-content">
+            <?php //echo $this->getChildHtml('topLinks') ?>
+        </div>-->
+		<div class="header-language-container">
+		<div class="store-language-container">
+            <?php echo $this->getChildHtml('store_language') ?>
+            <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('page/switch/website_collections.phtml')->toHtml(); ?>
+			<?php echo $this->getChildHtml('currency'); ?>
+        </div>
+		
+    </div>
+		</div>
+    
+	<!--<div class="header-currency-container">
+		<div class="store-currency-container">
+			<?php //echo $this->getChildHtml('currency'); ?>
+        </div>
+		
+    </div>-->
+		
+        
+		
+		</div>
+</div>
+</div>
+
+<header id="header" class="page-header">
+    <div class="page-header-container">
+        
+
+        <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
+              // See app.js for details ?>
+        
+
+        <!-- Skip Links -->
+
+        
+
+        <!-- Navigation -->
+		
+		<div class="col-md-5 col-sm-5 nopadleft">
+			<div class="skip-links">
+				<a href="#header-nav" class="skip-link skip-nav">
+					<span class="icon"></span>
+					<span class="label"><?php echo $this->__('Menu'); ?></span>
+				</a>
+			</div>
+			<div id="header-nav" class="skip-content">
+				<?php echo $this->getChildHtml('topMenu') ?>
+			</div>
+			<div class="store-language-container"></div>
+        </div>
+		<div class="col-md-3 col-sm-3">
+			<a class="logo" href="<?php echo $this->getUrl('') ?>">
+				<img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" />
+				<img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" />
+			</a>
+		</div>
+		<div class="col-md-5 col-sm-5 nopadright">
+
+			<?php if($locale == 'es_ES') {
+				//echo $this->getLayout()->createBlock('core/template')->setTemplate('page/html/google_translate.phtml')->toHtml();
+				} 
+			?>
+
+			<div class="socials">
+				<div class="social"><a class="social" href="https://www.facebook.com/WorldwideMenus" target="_blank"><i class="fa fa-facebook"></i></a></div>
+				<div class="social"><a class="social" href="https://twitter.com/WorldwideMenus" target="_blank"><i class="fa fa-twitter"></i></a></div>
+				<div class="social"><a class="social" href="https://www.instagram.com/worldwidemenus/" target="_blank"><i class="fa fa-instagram"></i></a></div>
+				<div class="social"><a class="social" href="https://www.pinterest.co.uk/WorldwideMenusLtd/pins/" target="_blank"><i class="fa fa-pinterest-p"></i></a></div>
+			</div>
+			<?php if($sname != 'UK'): ?>
+			<div class="skip-links">
+				<div class="account-cart-wrapper">
+					<!-- Cart -->
+					
+					<div class="header-minicart">
+						<?php echo $this->getChildHtml('minicart_head'); ?>
+					</div>
+				</div>
+			</div>
+			<?php endif; ?>
+		</div>
+
+        <!-- Search -->
+
+        
+
+        <!-- Account -->
+
+    </div>
+</header>
+
+<div id="fullslider">
+	<?php echo $this->getChildHtml('fullslider') ?>
+</div>
+<?php echo $this->getChildHtml('topContainer'); ?>

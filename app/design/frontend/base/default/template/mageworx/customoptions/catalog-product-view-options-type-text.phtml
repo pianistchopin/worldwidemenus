@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+$_option = $this->getOption();
+$disabled = '';
+$helper = Mage::helper('mageworx_customoptions');
+if ($helper->isDefaultTextEnabled() && !$this->getDefaultValue() && $_option->getDefaultText()) $defaultValue = $_option->getDefaultText(); else $defaultValue = $this->getDefaultValue();
+if ($helper->isDependentEnabled() && $_option->getIsDependent()) {
+    $disabled = 'disabled="disabled"';
+}
+$optionJs = 'opConfig.reloadPrice(); optionSetQtyProduct.checkLimitQty('. $_option->getId() .', this)';
+?>
+<div <?php if ($helper->hideDependentOption() && $_option->getIsDependent() || $_option->getViewMode()==2) { ?>style="display: none;"<?php } ?> class="option<?php if ($helper->isSpecifyingCssClassEnabled() && $_option->getDivClass()) echo ' '.$_option->getDivClass() ?>">
+<dl>
+<?php if ($helper->isImagesAboveOptions()) echo $helper->getImgHtml($helper->getImgData($_option->getImagePath(), $_option->getId())); ?>
+<dt><label><?php echo  $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getIsRequire(true)): ?><span class="required">&nbsp;*</span><?php endif; ?></label>
+    <?php echo $helper->getFormatedOptionPrice($this->getProduct(), $_option) ?>
+    <?php echo $helper->getOptionDescription($_option); ?>
+</dt>
+<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+    <?php if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_FIELD): ?>
+        <input type="text" onchange="<?php echo $optionJs ?>" onkeyup="<?php echo $optionJs ?>" <?php echo $disabled; ?> id="options_<?php echo $_option->getId() ?>_text" class="input-text<?php echo $_option->getIsRequire(true) ?($_option->getIsDependent()?' required-dependent':' required-entry') : '' ?> <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-'.$_option->getMaxCharacters() : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" value="<?php echo $this->htmlEscape($defaultValue) ?>" />
+    <?php elseif ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_AREA): ?>
+        <textarea id="options_<?php echo $_option->getId() ?>_text" onchange="<?php echo $optionJs ?>" onkeyup="<?php echo $optionJs ?>" <?php echo $disabled; ?> class="text-area<?php echo $_option->getIsRequire(true) ?($_option->getIsDependent()?' required-dependent':' required-entry') : '' ?> <?php echo $_option->getMaxCharacters() ? ' validate-length maximum-length-'.$_option->getMaxCharacters() : '' ?> product-custom-option" name="options[<?php echo $_option->getId() ?>]" rows="5" cols="25"><?php echo $this->htmlEscape($defaultValue) ?></textarea>
+    <?php endif; ?>
+    <?php if ($_option->getIsDependentLQty()) { ?>
+        <p class="note"><?php echo $this->__('Characters left:') ?> <strong id="total_limit_<?php echo $_option->getId() ?>"><?php echo $_option->getMaxCharacters() ?></strong></p>
+    <?php } ?>
+    <input type="hidden" class="option_value" id="value_option_<?php echo $_option->getId() ?>" value="0" />
+    <?php if ($_option->isContainFixedPerCharPriceType()) : ?>
+        <p class="note"><?php echo $this->__('Total price for characters:') ?> <strong name="<?php echo $_option->getId() ?>" class="total_characters_price" id="total_characters_price_option_<?php echo $_option->getId() ?>">0</strong></p>
+    <?php endif; ?>
+</dd>
+<?php if (!$helper->isImagesAboveOptions()) echo $helper->getImgHtml($helper->getImgData($_option->getImagePath(), $_option->getId())); ?>
+</dl>
+</div>

@@ -1,0 +1,40 @@
+﻿<!--@subject {{var quote.getStoreGroupName()}}: New Quote request # {{var quote.increment_id}} @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>Olá {{htmlescape var=$customer.name}}</strong>,<br/><br>
+                                Obrigado pelo seu pedido de cotação - {{var quote.getStoreGroupName()}}.<br><br>
+                                Dentro de 48 horas você receberá nossa proposta.<br>
+                                Você pode verificar o andamento do seu pedido <a href="{{store url='customer/account/'}}"
+                                style="color:#1E7EC8;">acessando sua conta.</a><br><br>
+                                Se você tem alguma dúvida sobre seu pedido de cotação entre em contato conosco pelo
+                                email <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+                                ou por telefone <span class="nobr">{{config path='general/store_information/phone'}}</span> Segunda - Sexta, 8:00 - 17:00
+                                (Horário de Brasí­lia).
+                            </p><br>
+
+                            <p>Obrigado novamente por sua confiança.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>               

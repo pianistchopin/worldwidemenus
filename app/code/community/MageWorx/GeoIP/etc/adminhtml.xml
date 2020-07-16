@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MageWorx
+ * GeoIP Extension
+ *
+ * @category   MageWorx
+ * @package    MageWorx_GeoIP
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+-->
+
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <mageworx_geoip translate="title" module="mageworx_geoip">
+                                        <title>MageWorx &gt; GeoIP Extensions</title>
+                                        <sort_order>600</sort_order>
+                                        <children>
+                                            <geoip translate="title">
+                                                <title>GeoIP Database</title>
+                                            </geoip>
+                                        </children>
+                                    </mageworx_geoip>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

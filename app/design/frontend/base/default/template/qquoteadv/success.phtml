@@ -1,0 +1,82 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+
+<?php
+$quote = $this->getData('quote');
+$header = '';
+$message = '';
+$footnote = '';
+$boldMessage = '';
+$statusPrintOnlyMatch = ($quote->getStatus() == Ophirah_Qquoteadv_Model_Status::STATUS_PRINT_ONLY);
+
+if ($statusPrintOnlyMatch) {
+    $header = $this->__('Thank you for your interest!');
+    $boldMessage = $this->__('Your Quote Request download should automatically begin in a few seconds.');
+    if ($this->Helper('customer')->isLoggedIn()) {
+        $message = $this->__('Your quote print # is: %s.',
+            sprintf('<a href="%s">%s</a>', Mage::getUrl('qquoteadv/view/view', array('id' => $quote->quote_id)),
+                $this->escapeHtml($quote->increment_id)));
+    } else {
+        $message = $this->__('Your quote print # is: %s.', $this->escapeHtml($quote->increment_id));
+    }
+} else {
+    $header = $this->__('Your quote request has been received');
+    $boldMessage = $this->__('Thank you for your interest!');
+    $footnote = $this->__('You will receive a quote confirmation email with a link to track progress.');
+    if ($this->Helper('customer')->isLoggedIn()) {
+        $message = $this->__('Your quote request # is: %s.',
+            sprintf('<a href="%s">%s</a>', Mage::getUrl('qquoteadv/view/view', array('id' => $quote->quote_id)),
+                $this->escapeHtml($quote->increment_id)));
+    } else {
+        $message = $this->__('Your quote request # is: %s.', $this->escapeHtml($quote->increment_id));
+    }
+}
+?>
+
+<div class="page-title">
+    <?php echo '<h1>' . $header . '</h1>'; ?>
+</div>
+<div>
+    <?php
+    echo '<p><strong>' . $boldMessage . '</strong></p>';
+    echo $message . ' ' . $footnote;
+    ?>
+</div> <br/>
+<div class="buttons-set">
+    <button class="button" type="button" onclick="window.location='<?php echo $this->getContinueShoppingUrl() ?>'">
+        <span><span><?php echo Mage::helper('customer')->__('Continue Shopping') ?></span></span></button>
+</div>
+<form action="<?php echo $this->getUrl('*/index/downloadQuotePdf') ?>" method="post" id="downloadQuotePdf">
+    <input type="hidden" name="quoteID" value="<?php echo $quote->quote_id; ?>"/>
+</form>
+<script>
+    var printOnly = "<?php echo $statusPrintOnlyMatch; ?>";
+    if (printOnly) {
+        $('downloadQuotePdf').submit();
+    }
+</script>

@@ -1,0 +1,632 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<layout version="0.1.0">
+    <qquoteadv_index_index>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="head">
+            <remove name="ajaxpro.head"/>
+            <action method="setTitle">
+                <title>Quote List</title>
+            </action>
+            <action method="addCss">
+                <link>css/qquoteadv.css</link>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv_createquote.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv_multipleupload.js</name>
+            </action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="top.links">
+            <block type="qquoteadv/links" name="qquoteadv_links">
+                <action ifconfig="qquoteadv_quote_frontend/shoppingcart_quotelist/show_admin_login" method="addAdminLink"/>
+            </block>
+        </reference>
+        <reference name="content">
+            <block before="-" type="qquoteadv/toolbar" name="qquoteadv.toolbar" as="qquoteadv.toolbar" template="qquoteadv/toolbar.phtml"/>
+            <block type="qquoteadv/qquote" name="qquote" template="qquoteadv/quote.phtml">
+                <action method="addItemRender">
+                    <type>bundle</type>
+                    <block>qquoteadv/item_renderer_bundle</block>
+                    <template>qquoteadv/item/bundle.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>configurable</type>
+                    <block>qquoteadv/item_renderer_configurable</block>
+                    <template>qquoteadv/item/configurable.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>simple</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/item/default.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>grouped</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/item/default.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>virtual</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/item/default.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>downloadable</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/item/default.phtml</template>
+                </action>
+                <block type="qquoteadv/qquoteaddress" name="qquote.print.button" template="qquoteadv/form/print_only_button.phtml"/>
+                <block type="qquoteadv/qquoteaddress" name="qquote.address" as="qquote.address" template="qquoteadv/quote_address.phtml">
+                    <block type="qquoteadv/form_extrafields" name="qquote.extrafields" as="qquote.extrafields" template="qquoteadv/form/extra_fields.phtml"/>
+                    <block type="qquoteadv/form_address" name="qquote.address.billing" as="qquote.address.billing" template="qquoteadv/form/address.phtml">
+                        <action method="setData">
+                            <name>address_type</name>
+                            <value>billing</value>
+                        </action>
+                    </block>
+                    <block type="qquoteadv/form_address" name="qquote.address.shipping" as="qquote.address.shipping" template="qquoteadv/form/address.phtml">
+                        <action method="setData">
+                            <name>address_type</name>
+                            <value>shipping</value>
+                        </action>
+                        <block type="qquoteadv/qquoteaddress" name="qquote.shipping.list" as="qquote.shipping.list" template="qquoteadv/form/shipping/list.phtml"/>
+                        <block type="qquoteadv/qquoteaddress" name="qquote.shipping.request" as="qquote.shipping.request" template="qquoteadv/form/shipping/request.phtml"/>
+                    </block>
+                    <block type="qquoteadv/form_checkbox_address" name="qquote.checkbox.address" as="qquote.checkbox.address" template="qquoteadv/form/checkbox/copy_when_logged_in.phtml"/>
+                    <block type="qquoteadv/form_checkbox_address" name="qquote.checkbox.shipping.requireshippingquote" as="qquote.checkbox.shipping.requireshippingquote" template="qquoteadv/form/checkbox/request_shipping_quote.phtml"/>
+                    <block type="qquoteadv/form_checkbox_address" name="qquote.checkbox.billing.address" as="qquote.checkbox.billing.address" template="qquoteadv/form/checkbox/use_default_address.phtml"/>
+                    <block type="qquoteadv/form_customer" name="qquote.customer" as="qquote.customer" template="qquoteadv/form/customer.phtml"/>
+                    <block type="qquoteadv/form_attachment" name="qquote.attachment" as="qquote.attachment" template="qquoteadv/form/attachment.phtml"/>
+                    <block type="qquoteadv/qquoteaddress" name="qquote.print.button" template="qquoteadv/form/print_only_button.phtml"/>
+                    <block type="qquoteadv/qquoteaddress" name="qquote.submit.button" template="qquoteadv/form/submit_button.phtml"/>
+                </block>
+            </block>
+        </reference>
+        <reference name="before_body_end">
+            <remove name="ajaxpro.before_body_end"/>
+        </reference>
+    </qquoteadv_index_index>
+    <catalog_product_view>
+        <reference name="head">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addCss">
+                <link helper="qquoteadv/licensechecks/isFrontEnabled"><arg>css/qquoteadv.css</arg></link>
+            </action>
+            <action ifconfig="qquoteadv_quote_frontend/catalog/quick_quote_mode" method="addCss">
+                <link helper="qquoteadv/canUseQuickQuoteAssets"><arg>css/cart2quote-quickquote.css</arg></link>
+            </action>
+            <action ifconfig="qquoteadv_quote_frontend/catalog/quick_quote_mode" method="addItem">
+                <type>skin_js</type>
+                <name helper="qquoteadv/canUseQuickQuoteAssets"><arg>js/qquoteadv_createquote.js</arg></name>
+            </action>
+        </reference>
+        <reference name="product.info">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="setTemplate">
+                <template helper="qquoteadv/setQuoteTemplate">
+                    <path>qquoteadv/catalog/product/view.phtml</path>
+                    <name>product.info</name>
+                </template>
+            </action>
+            <remove name="product.info.addtoquoteadv"/>
+            <block type="qquoteadv/qquoteaddress" after="" name="product.info.other" as="other" template="qquoteadv/quick_quote.phtml">
+                <block type="page/html" name="quick.quote.product" template="qquoteadv/container/quickquote.phtml">
+                    <block type="qquoteadv/renderer" name="quick.quote.product.render" template="qquoteadv/renderer/quickquote.phtml">
+                        <action method="addItemRender"><type>default</type><block>qquoteadv/renderers_default</block><template>qquoteadv/renderers/default.phtml</template></action>
+                        <action method="addItemRender"><type>simple</type><block>qquoteadv/renderers_default</block><template>qquoteadv/renderers/default.phtml</template></action>
+                        <action method="addItemRender"><type>grouped</type><block>qquoteadv/renderers_grouped</block><template>qquoteadv/renderers/grouped.phtml</template></action>
+                        <action method="addItemRender"><type>configurable</type><block>qquoteadv/renderers_configurable</block><template>qquoteadv/renderers/configurable.phtml</template></action>
+                        <action method="addItemRender"><type>bundle</type><block>qquoteadv/renderers_bundle</block><template>qquoteadv/renderers/bundle.phtml</template></action>
+                        <action method="addItemRender"><type>downloadable</type><block>qquoteadv/renderers_downloadable</block><template>qquoteadv/renderers/downloadable.phtml</template></action>
+                    </block>
+                </block>
+                <block type="qquoteadv/form_extrafields" name="qquote.extrafields" as="qquote.extrafields" template="qquoteadv/form/extra_fields.phtml"/>
+                <block type="qquoteadv/form_address" name="qquote.address.billing" as="qquote.address.billing" template="qquoteadv/form/address.phtml">
+                    <action method="setData">
+                        <name>address_type</name>
+                        <value>billing</value>
+                    </action>
+                </block>
+                <block type="qquoteadv/form_address" name="qquote.address.shipping" as="qquote.address.shipping" template="qquoteadv/form/address.phtml">
+                    <action method="setData">
+                        <name>address_type</name>
+                        <value>shipping</value>
+                    </action>
+                    <!-- Quick Quote does not allow shipping request -->
+                    <!--<block type="qquoteadv/qquoteaddress" name="qquote.shipping.list" as="qquote.shipping.list" template="qquoteadv/form/shipping/list.phtml"/>-->
+                    <!--<block type="qquoteadv/qquoteaddress" name="qquote.shipping.request" as="qquote.shipping.request" template="qquoteadv/form/shipping/request.phtml"/>-->
+                </block>
+                <block type="qquoteadv/form_checkbox_address" name="qquote.checkbox.address" as="qquote.checkbox.address" template="qquoteadv/form/checkbox/copy_when_logged_in.phtml"/>
+                <block type="qquoteadv/form_checkbox_address" name="qquote.checkbox.shipping.requireshippingquote" as="qquote.checkbox.shipping.requireshippingquote" template="qquoteadv/form/checkbox/request_shipping_quote.phtml"/>
+                <block type="qquoteadv/form_checkbox_address" name="qquote.checkbox.billing.address" as="qquote.checkbox.billing.address" template="qquoteadv/form/checkbox/use_default_address.phtml"/>
+                <block type="qquoteadv/form_customer" name="qquote.customer" as="qquote.customer" template="qquoteadv/form/customer.phtml"/>
+                <block type="qquoteadv/qquoteaddress" name="qquote.submit.button" template="qquoteadv/form/submit_button_ajax.phtml"/>
+            </block>
+        </reference>
+        <reference name="product.info.addtocart">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="setTemplate" >
+                <template helper="qquoteadv/setQuoteTemplate">
+                    <path>qquoteadv/catalog/product/view/addtocart.phtml</path>
+                    <name>product.info.addtocart</name>
+                </template>
+            </action>
+            <block type="qquoteadv/catalog_product_view_addtoquotebutton" after="" name="product.info.addtocart.addtoquotebtn" as="addtoquotebtn">
+                <action ifconfig="qquoteadv_general/quotations/enabled" method="setTemplate" >
+                    <template helper="qquoteadv/setQuoteTemplate">
+                        <path>qquoteadv/catalog/product/view/addtoquotebtn.phtml</path>
+                        <name>product.info.addtocart.addtoquotebtn</name>
+                    </template>
+                </action>
+            </block>
+        </reference>
+    </catalog_product_view>
+    <catalog_category_layered>
+        <reference name="head">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addCss">
+                <link helper="qquoteadv/licensechecks/isFrontEnabled"><arg>css/qquoteadv.css</arg></link>
+            </action>
+        </reference>
+        <reference name="product_list">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="setTemplate">
+                <template helper="qquoteadv/setQuoteTemplate">
+                    <path>qquoteadv/catalog/product/list.phtml</path>
+                    <name>product_list</name>
+                </template>
+            </action>
+        </reference>
+    </catalog_category_layered>
+    <catalog_category_default>
+        <reference name="head">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addCss">
+                <link helper="qquoteadv/licensechecks/isFrontEnabled"><arg>css/qquoteadv.css</arg></link>
+            </action>
+        </reference>
+        <reference name="product_list">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="setTemplate">
+                <template helper="qquoteadv/setQuoteTemplate">
+                    <path>qquoteadv/catalog/product/list.phtml</path>
+                    <name>product_list</name>
+                </template>
+            </action>
+        </reference>
+    </catalog_category_default>
+    <catalogsearch_result_index>
+        <reference name="head">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addCss">
+                <link helper="qquoteadv/licensechecks/isFrontEnabled"><arg>css/qquoteadv.css</arg></link>
+            </action>
+        </reference>
+        <reference name="search_result_list">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="setTemplate">
+                <template helper="qquoteadv/setQuoteTemplate">
+                    <path>qquoteadv/catalog/product/list.phtml</path>
+                    <name>search_result_list</name>
+                </template>
+            </action>
+        </reference>
+    </catalogsearch_result_index>
+    <catalogsearch_advanced_result>
+        <reference name="head">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addCss">
+                <link helper="qquoteadv/licensechecks/isFrontEnabled"><arg>css/qquoteadv.css</arg></link>
+            </action>
+        </reference>
+        <reference name="search_result_list">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="setTemplate">
+                <template helper="qquoteadv/setQuoteTemplate">
+                    <path>qquoteadv/catalog/product/list.phtml</path>
+                    <name>search_result_list</name>
+                </template>
+            </action>
+        </reference>
+    </catalogsearch_advanced_result>
+    <checkout_cart_index>
+        <reference name="head">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addCss">
+                <link helper="qquoteadv/licensechecks/isFrontEnabled"><arg>css/qquoteadv.css</arg></link>
+            </action>
+        </reference>
+        <reference name="content">
+            <block before="-" type="qquoteadv/toolbar" name="qquoteadv.toolbar" as="qquoteadv.toolbar" template="qquoteadv/toolbar.phtml"/>
+            <block type="qquoteadv/checkoutquotebtn" name="qquoteadv.checkoutquotebtn" as="qquoteadv.checkoutquotebtn" template="qquoteadv/checkout_quotebtn.phtml"/>
+        </reference>
+    </checkout_cart_index>
+    <qquoteadv_index_success>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="qquoteadv/qquote" name="qquote.success" template="qquoteadv/success.phtml"/>
+        </reference>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Quote List</title>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action method="addCss">
+                <link>css/qquoteadv.css</link>
+            </action>
+        </reference>
+    </qquoteadv_index_success>
+    <!-- Alternative Success Page -->
+    <qquoteadv_index_quotesuccess>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="qquoteadv/qquote" name="qquote.quotesuccess" template="qquoteadv/quote_success.phtml"/>
+        </reference>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Quote List</title>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action method="addCss">
+                <link>css/qquoteadv.css</link>
+            </action>
+        </reference>
+    </qquoteadv_index_quotesuccess>
+    <!-- END - Alternative Success Page -->
+    <qquoteadv_proposal_view>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="qquoteadv/proposal" name="qquote" template="qquoteadv/proposal.phtml"/>
+        </reference>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Quote List</title>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action method="addCss">
+                <link>css/qquoteadv.css</link>
+            </action>
+        </reference>
+    </qquoteadv_proposal_view>
+    <qquoteadv_view_view>
+        <update handle="customer_account"/>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action method="addCss">
+                <link>css/qquoteadv.css</link>
+            </action>
+        </reference>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="customer">
+                <name>qquoteadv</name>
+                <path>qquoteadv/view/view/</path>
+                <label>My Quotes</label>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="qquoteadv/qquoteadv_view" name="qquoteadv.view">
+                <action method="addItemRender">
+                    <type>bundle</type>
+                    <block>qquoteadv/item_renderer_bundle</block>
+                    <template>qquoteadv/item/bundle.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>configurable</type>
+                    <block>qquoteadv/item_renderer_configurable</block>
+                    <template>qquoteadv/item/configurable.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>default</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/item/default.phtml</template>
+                </action>
+            </block>
+        </reference>
+        <reference name="qquoteadv.view">
+            <block type="qquoteadv/totals" name="totals" template="qquoteadv/view/totals.phtml">
+                <action method="setLabelProperties"><value>colspan="6" class="a-right"</value></action>
+                <action method="setValueProperties"><value>class="last a-right"</value></action>
+                <block type="qquoteadv/totals_tax" name="tax" template="qquoteadv/sales/order/tax.phtml" />
+            </block>
+            <block type="qquoteadv/qquoteadv_view_attachments" name="attachments" template="qquoteadv/view/attachments.phtml"/>
+        </reference>
+    </qquoteadv_view_view>
+    <qquoteadv_proposal_cancel>
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="qquoteadv/proposal" name="qquote" template="qquoteadv/cancel.phtml"/>
+        </reference>
+        <reference name="head">
+            <action method="setTitle">
+                <title>Quote List</title>
+            </action>
+            <reference name="head">
+                <action method="addItem">
+                    <type>skin_js</type>
+                    <name>js/qquoteadv.js</name>
+                </action>
+                <action method="addCss">
+                    <link>css/qquoteadv.css</link>
+                </action>
+            </reference>
+        </reference>
+    </qquoteadv_proposal_cancel>
+    <qquoteadv_view_history>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+        </reference>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="qquoteadv/qquoteadv_history" name="qquoteadv.history"/>
+            <block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
+        </reference>
+    </qquoteadv_view_history>
+    <qquoteadv_view_print>
+        <reference name="content">
+            <block type="qquoteadv/print" name="qquoteadv.view.print" template="qquoteadv/view/print.phtml"/>
+        </reference>
+    </qquoteadv_view_print>
+    <qquoteadv_email_qquoteadv_items>
+        <block type="qquoteadv/qquoteadv_email_items" name="qquoteadv_items" template="qquoteadv/email/items.phtml">
+            <block type="qquoteadv/qquoteadv_email_item" name="qquoteadv_item" as="qquoteadv_item" template="qquoteadv/email/item.phtml">
+                <action method="addItemRender">
+                    <type>bundle</type>
+                    <block>qquoteadv/item_renderer_bundle</block>
+                    <template>qquoteadv/email/items/bundle.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>configurable</type>
+                    <block>qquoteadv/item_renderer_configurable</block>
+                    <template>qquoteadv/email/items/configurable.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>simple</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/email/items/default.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>grouped</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/email/items/default.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>virtual</type>
+                    <block>qquoteadv/item_renderer</block>
+                    <template>qquoteadv/email/items/default.phtml</template>
+                </action>
+            </block>
+            <block type="qquoteadv/totals" name="quote_totals" template="qquoteadv/sales/order/totals.phtml">
+                <action method="setLabelProperties">
+                    <value>colspan="3" align="right" style="padding:3px 9px"</value>
+                </action>
+                <action method="setValueProperties">
+                    <value>align="right" style="padding:3px 9px"</value>
+                </action>
+                <block type="qquoteadv/tax" name="tax" template="tax/order/tax.phtml">
+                    <action method="setIsPlaneMode">
+                        <value>1</value>
+                    </action>
+                </block>
+            </block>
+        </block>
+    </qquoteadv_email_qquoteadv_items>
+
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addLink" translate="label" module="qquoteadv">
+                <name helper="qquoteadv/licensechecks/isFrontEnabled"><arg>qquoteadv</arg></name>
+                <path helper="qquoteadv/licensechecks/isFrontEnabled"><arg>qquoteadv/view/history</arg></path>
+                <label helper="qquoteadv/licensechecks/isFrontEnabled"><arg>My Quotes</arg></label>
+            </action>
+        </reference>
+    </customer_account>
+    <customer_account_index>
+        <reference name="right">
+            <action method="unsetChild">
+                <name>catalog_compare_sidebar</name>
+            </action>
+        </reference>
+    </customer_account_index>
+
+
+    <!-- LAYOUT UPDATE -->
+    <default>
+        <reference name="header">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="setTemplate">
+                <template helper="qquoteadv/setQuoteTemplate">
+                    <path>qquoteadv/page/html/header.phtml</path>
+                    <name>header</name>
+                </template>
+            </action>
+            <block type="qquoteadv/checkout_miniquote_miniquote" name="miniquote_head" template="qquoteadv/checkout/quote/miniquotehead.phtml" before="minicart_head" />
+            <block type="qquoteadv/checkout_miniquote_miniquote" name="miniquote_content" template="qquoteadv/checkout/quote/miniquote/miniquoteitems.phtml"  after="minicart_head">
+                <action method="addItemRender"><type>default</type><block>qquoteadv/checkout_miniquote_item_miniquoterenderer</block><template>qquoteadv/checkout/quote/miniquoteitem.phtml</template></action>
+                <action method="addItemRender"><type>simple</type><block>qquoteadv/checkout_miniquote_item_miniquoterenderer</block><template>qquoteadv/checkout/quote/miniquoteitem.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>qquoteadv/checkout_miniquote_item_miniquoterenderer</block><template>qquoteadv/checkout/quote/miniquoteitem.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>qquoteadv/checkout_miniquote_item_miniquoterenderer</block><template>qquoteadv/checkout/quote/miniquoteitem.phtml</template></action>
+            </block>
+        </reference>
+        <reference name="top.links">
+            <block type="qquoteadv/links" name="qquoteadv_links">
+                <action ifconfig="qquoteadv_general/quotations/enabled" method="addQuoteLink"></action>
+            </block>
+        </reference>
+        <reference name="right">
+            <block type="qquoteadv/sidebar" name="quote_sidebar" template="qquoteadv/sidebar.phtml" after="cart_sidebar">
+                <action method="addItemRender">
+                    <type>simple</type>
+                    <block>qquoteadv/sidebar_renderer</block>
+                    <template>qquoteadv/sidebar/default.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>bundle</type>
+                    <block>qquoteadv/sidebar_renderer</block>
+                    <template>qquoteadv/sidebar/default.phtml</template>
+                </action>
+                <action method="addItemRender">
+                    <type>configurable</type>
+                    <block>qquoteadv/sidebar_renderer</block>
+                    <template>qquoteadv/sidebar/default.phtml</template>
+                </action>
+            </block>
+        </reference>
+        <reference name="head">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addCss">
+                <link helper="qquoteadv/licensechecks/isFrontEnabled"><arg>css/qquoteadv.css</arg></link>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/miniquote.js</name>
+            </action>
+        </reference>
+    </default>
+    <qquoteadv_index_configure translate="label">
+        <label>Configure Item</label>
+        <update handle="catalog_product_view"/>
+        <reference name="product.info">
+            <block type="qquoteadv/item_configure" name="qquoteadv.item.configure.block"/>
+        </reference>
+    </qquoteadv_index_configure>
+    <qquoteadv_index_additemajax>
+        <block type="page/html" name="root" output="toHtml" template="qquoteadv/container/ajaxadd.phtml">
+            <block type="core/messages" name="global_messages" as="global_messages"/>
+            <block type="core/messages" name="messages" as="messages"/>
+            <block type="qquoteadv/renderer" name="ajaxadd" template="qquoteadv/renderer/ajaxadd.phtml">
+                <action method="addItemRender"><type>default</type><block>qquoteadv/renderers_default</block><template>qquoteadv/renderers/default.phtml</template></action>
+                <action method="addItemRender"><type>simple</type><block>qquoteadv/renderers_default</block><template>qquoteadv/renderers/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>qquoteadv/renderers_grouped</block><template>qquoteadv/renderers/grouped.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>qquoteadv/renderers_configurable</block><template>qquoteadv/renderers/configurable.phtml</template></action>
+                <action method="addItemRender"><type>bundle</type><block>qquoteadv/renderers_bundle</block><template>qquoteadv/renderers/bundle.phtml</template></action>
+                <action method="addItemRender"><type>downloadable</type><block>qquoteadv/renderers_downloadable</block><template>qquoteadv/renderers/downloadable.phtml</template></action>
+            </block>
+        </block>
+    </qquoteadv_index_additemajax>
+    <qquoteadv_index_miniquote>
+        <block type="qquoteadv/checkout_miniquote_miniquote" name="miniquote_head" template="qquoteadv/checkout/quote/miniquotehead.phtml" before="minicart_head" />
+        <block type="qquoteadv/checkout_miniquote_miniquote" name="miniquote_content" template="qquoteadv/checkout/quote/miniquote/miniquoteitems.phtml"  after="minicart_head">
+            <action method="addItemRender"><type>default</type><block>qquoteadv/checkout_miniquote_item_miniquoterenderer</block><template>qquoteadv/checkout/quote/miniquoteitem.phtml</template></action>
+            <action method="addItemRender"><type>simple</type><block>qquoteadv/checkout_miniquote_item_miniquoterenderer</block><template>qquoteadv/checkout/quote/miniquoteitem.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>qquoteadv/checkout_miniquote_item_miniquoterenderer</block><template>qquoteadv/checkout/quote/miniquoteitem.phtml</template></action>
+            <action method="addItemRender"><type>configurable</type><block>qquoteadv/checkout_miniquote_item_miniquoterenderer</block><template>qquoteadv/checkout/quote/miniquoteitem.phtml</template></action>
+        </block>
+    </qquoteadv_index_miniquote>
+    <qquoteadv_index_quickquoteview>
+        <block type="page/html" name="root" output="toHtml" template="qquoteadv/container/quickquote.phtml">
+            <block type="qquoteadv/renderer" name="quick.quote.product.render" template="qquoteadv/renderer/quickquote.phtml">
+                <action method="addItemRender"><type>default</type><block>qquoteadv/renderers_default</block><template>qquoteadv/renderers/default.phtml</template></action>
+                <action method="addItemRender"><type>simple</type><block>qquoteadv/renderers_default</block><template>qquoteadv/renderers/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>qquoteadv/renderers_grouped</block><template>qquoteadv/renderers/grouped.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>qquoteadv/renderers_configurable</block><template>qquoteadv/renderers/configurable.phtml</template></action>
+                <action method="addItemRender"><type>bundle</type><block>qquoteadv/renderers_bundle</block><template>qquoteadv/renderers/bundle.phtml</template></action>
+                <action method="addItemRender"><type>downloadable</type><block>qquoteadv/renderers_downloadable</block><template>qquoteadv/renderers/downloadable.phtml</template></action>
+            </block>
+        </block>
+    </qquoteadv_index_quickquoteview>
+    <wishlist_index_index translate="label">
+        <reference name="head">
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv.js</name>
+            </action>
+            <action ifconfig="qquoteadv_general/quotations/enabled" method="addCss">
+                <link helper="qquoteadv/licensechecks/isFrontEnabled"><arg>css/qquoteadv.css</arg></link>
+            </action>
+        </reference>
+        <reference name="customer.wishlist.item.cart">
+            <block type="wishlist/customer_wishlist_item_column_cart" name="customer.wishlist.item.quote" after="customer.wishlist.item.options" template="qquoteadv/wishlist/item/column/quote.phtml" />
+        </reference>
+        <reference name="customer.wishlist.buttons">
+            <block type="qquoteadv/customer_wishlist_button" name="customer.wishlist.button.toQuote" template="qquoteadv/wishlist/button/toquote.phtml" after="customer.wishlist.button.share"/>
+        </reference>
+    </wishlist_index_index>
+</layout>

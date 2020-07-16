@@ -1,0 +1,107 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+    /** @var Ophirah_Qquoteadv_Block_Checkout_Miniquote_Item_Miniquoterenderer $this */
+    $_item = $this->getItem();
+    $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
+    $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
+?>
+<li class="item" xmlns="https://www.w3.org/1999/html">
+    <?php if ($this->hasProductUrl()): ?>
+        <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></a>
+    <?php else: ?>
+        <span class="product-image"><img src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
+    <?php endif; ?>
+    <div class="product-details">
+        <p class="product-name"><?php if ($this->hasProductUrl()): ?><a href="<?php echo $this->getProductUrl() ?>"><?php endif; ?><?php echo $this->escapeHtml($this->getProductName()) ?><?php if ($this->hasProductUrl()): ?></a><?php endif; ?></p>
+
+        <table class="info-wrapper">
+            <tbody>
+                <tr class="qty-wrapper">
+                    <th><?php echo $this->__('Qty'); ?></th>
+                    <td>
+                        <input
+                            id="qinput-<?php echo $_item->getId(); ?>"
+                            data-link="<?php echo $this->getAjaxUpdateUrl() ?>"
+                            data-item-id="<?php echo $_item->getId(); ?>"
+                            data-cart-item-id="<?php echo $_item->getSku(); ?>"
+                            class="qty quote-item-quantity input-text" name=""
+                            value="<?php echo $this->getQty()?>"
+                            <?php if ($this->isOnQuoteRequestPage()) echo 'disabled'; ?>
+                            />
+
+                        <button id="qbutton-<?php echo $_item->getId(); ?>"
+                                data-item-id="<?php echo $_item->getId(); ?>"
+                                disabled="disabled"
+                                data-update
+                                data-cart-item-update
+                                class="button qquantity-button">
+                            <?php echo $this->__('ok'); ?>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <?php if ($isVisibleProduct): ?>
+        <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Edit item')) ?>" class="btn-edit">
+            <?php echo $this->__('Edit item')?>
+        </a>
+            |
+            <?php if (!$this->isOnQuoteRequestPage()): ?>
+                <a href="<?php echo $this->getAjaxDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove This Item')) ?>"
+                   data-confirm="<?php echo $this->__('Are you sure you would like to remove this item from the quote?') ?>"
+                   class="remove">
+                    <?php echo $this->__('Remove Item') ?>
+                </a>
+            <?php else: ?>
+                <span><?php echo $this->__('Remove Item') ?></span>
+            <?php endif; ?>
+        <?php endif ?>
+
+        <?php if ($_options = $this->getOptionList()):?>
+        <div class="truncated">
+          <div class="truncated_full_value">
+            <dl class="item-options">
+                <?php foreach ($_options as $_option) : ?>
+                <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+                <dd>
+                    <?php if (is_array($_option['value'])): ?>
+                    <?php echo nl2br(implode("\n", $this->escapeHtml($_option['value']))) ?>
+                    <?php else: ?>
+                        <?php echo Mage::helper('qquoteadv')->escapeHtml($_option['value'], array('a[a-zA-Z="-_:\s\;\“\"\”\.\']*?'), true) ?>
+                    <?php endif; ?>
+                </dd>
+                <?php endforeach; ?>
+            </dl>
+          </div>
+        <a href="#" onclick="return false;" class="details"><?php echo $this->__('Details') ?></a>
+        </div>
+        <?php endif; ?>
+    </div>
+</li>

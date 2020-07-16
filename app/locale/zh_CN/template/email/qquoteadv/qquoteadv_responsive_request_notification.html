@@ -1,0 +1,31 @@
+<!--@subject {{var quote.getStoreGroupName()}}: New Quote request # {{var quote.increment_id}} @-->
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="email-heading">
+                        <h1>Hello,</h1>
+
+                        <p>从 {{var store.getFrontendName()}}网站中, 你已经收到来自客户{{htmlescape var=$customer.name}}的询价请求.<br/>
+
+                            <a href="{{var quoteUrl}}" style="color:#1E7EC8;">观看询价请求</a></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="quote-details">
+            <h3>询价请求<span class="no-link">#{{var
+                                quote.increment_id}}</span></h3>
+
+            <p>放在 {{var quote.getCreatedAtFormated('long')}}</p>
+        </td>
+    </tr>
+</table>
+
+

@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Crmaddon
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<config>
+    <tabs>
+        <qquoteadv>
+            <label>Cart2Quote</label>
+            <sort_order>310</sort_order>
+        </qquoteadv>
+    </tabs>
+    <sections>
+        <qquoteadv_sales_representatives>
+            <label>Sales Representatives</label>
+            <tab>qquoteadv</tab>
+            <sort_order>360</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <messaging>
+                    <label>Messaging</label>
+                    <comment><![CDATA[
+                        <div class="box">
+                        <p><b>CRM Add-on for Cart2Quote (Version 1.0.4) Provided by <a target="_blank" href="https://www.ophirah.nl">Ophirah | E-commerce Projects</a></b></p>
+                        Check out the<a target="_blank" href="https://www.youtube.com/watch?v=nxHaNu8MKUU">Explainer Video</a><br>
+                        For documentation and support visit<a target="_blank" href="https://cart2quote.zendesk.com">cart2quote.zendesk.com</a> or contact<a target="_blank" href="mailto:support@cart2quote.com">support@cart2quote.com</a><br><br>
+                        Cart2Quote Enterprise license and higher required. (<a target='_blank' href='https://www.cart2quote.com/cart2quote-update-upgrade.html?utm_source=Client_Website&utm_medium=ConfigurationPanel&utm_campaign=Messaging'>Upgrade</a>)
+                        </div>
+                    ]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enabled>
+                            <label>Enable CRM</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enable / disable Cart2Quote CRM add-on extension.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="204202909" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </enabled>
+                        <enabled_customer>
+                            <label>Allow the customer to respond in the frontend</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled_customer>
+                        <crmaddon_container>
+                            <label>CRM Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>crmaddon/system_config_source_email_templatedisable</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email container for CRM.</comment>
+                            <tooltip><![CDATA[<input type="hidden" value="204878525" class="article_id"/>]]></tooltip>
+                            <frontend_model>qquoteadv/adminhtml_system_config_form_tooltipfield</frontend_model>
+                        </crmaddon_container>
+                        <crmaddon_container_admin>
+                            <label>CRM Email Template for admin notice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>crmaddon/system_config_source_email_templatedisable</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select email container for CRM admin notice.</comment>
+                        </crmaddon_container_admin>
+                        <!--<crmaddon_shortmsg>
+                            <label>Number of Short Message Characters</label>
+                            <frontend_type>text</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select the number of characters to show in short message view.</comment>
+                        </crmaddon_shortmsg>-->
+                    </fields>
+                </messaging>
+            </groups>
+        </qquoteadv_sales_representatives>
+    </sections>
+</config>

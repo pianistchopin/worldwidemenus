@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Blackbird AjaxVatChecker Module
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to contact@bird.eu so we can send you a copy immediately.
+ *
+ * @category            Blackbird
+ * @package		Blackbird_AjaxVatChecker
+ * @copyright           Copyright (c) 2015 Blackbird (http://black.bird.eu)
+ * @author		Blackbird Team
+ * @license		http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+ 
+<config>
+   <tabs>
+        <blackbird translate="label">
+            <label><![CDATA[<span class="blackbird-menu-admin">Blackbird Extensions</span>]]></label>
+            <sort_order>200</sort_order>
+        </blackbird>
+    </tabs>
+    <sections>
+    	<blackbird_ajaxvatchecker translate="label">
+            <label>Ajax VAT Checker</label>
+            <tab>blackbird</tab>
+            <sort_order>99</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general_settings translate="label">
+                    <label>General settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>                            
+                    <fields>
+                        <framework translate="label">
+                            <label>Defined Framework</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ajaxvatchecker/system_config_source_framework</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                             <comment><![CDATA[Choose your configuration]]></comment>
+                        </framework>
+                        <cssselectors translate="label">
+                            <label>VAT fields selectors</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Default values:#billing:vat_id, #billing:taxvat, #taxvat, #vat_id]]></comment>
+                        </cssselectors>           
+                        <country translate="label">
+                            <label>Country fields selectors</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Default values:#billing:country_id, #country_id]]></comment>
+                        </country>           
+                    </fields>
+                </general_settings>
+            </groups>
+    	</blackbird_ajaxvatchecker>
+    </sections>
+</config>

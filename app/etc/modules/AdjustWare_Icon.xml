@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <AdjustWare_Icon>
+            <active>true</active>
+            <codePool>local</codePool>
+            <self_name>Visualize Your Attributes</self_name>
+            <priority>10080</priority>
+        </AdjustWare_Icon>
+    </modules>
+</config>

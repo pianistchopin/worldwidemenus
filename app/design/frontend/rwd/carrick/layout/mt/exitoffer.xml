@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.2 or later
+ *
+ * @category MageTrend
+ * @package  MT/Exitoffer
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/exit-intent-popup
+ */
+-->
+<layout version="0.1.0">
+    <default>
+	<reference name="head">
+        <action method="addItem"><type>skin_css</type><name>css/mt/exitoffer.css</name><params/></action>
+        <action method="addJs" ifconfig="exitoffer/general/jquery"><script>mt/exitoffer/jquery-2.1.1.min.js</script></action>
+        <action method="addJs" ifconfig="exitoffer/general/jquery"><script>mt/exitoffer/jquery_no_conflict.js</script></action>
+        <action method="addItem"><type>skin_js</type><name>js/mt/exitoffer/exitoffer.js</name><params/></action>
+    </reference>
+    <reference name="before_body_end">
+        <block type="exitoffer/popup" name="popup" template="mt/exitoffer/popup.phtml">
+            <block type="exitoffer/popup_theme_default" name="popup_theme_default">
+                <block type="exitoffer/popup_content_subscription" name="newsletter_subscription_form">
+                    <block type="captcha/captcha_zend" name="eop_captcha"  template="mt/exitoffer/popup/captcha/zend.phtml">
+                        <reference name="head">
+                            <action method="addJs"><file>mage/captcha.js</file></action>
+                        </reference>
+                        <action method="setFormId"><formId>exit_offer_popup</formId></action>
+                        <action method="setImgWidth"><width>400</width></action>
+                        <action method="setImgHeight"><width>50</width></action>
+                    </block>
+                </block>
+
+                <block type="exitoffer/popup_content_yesno" name="yes_no"/>
+                <block type="exitoffer/popup_content_contact" name="contact_form"/>
+            </block>
+        </block>
+    </reference>
+  </default>
+</layout> 

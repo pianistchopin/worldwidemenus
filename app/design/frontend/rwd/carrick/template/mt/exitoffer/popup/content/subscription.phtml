@@ -1,0 +1,80 @@
+<?php
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.2 or later
+ *
+ * @category MageTrend
+ * @package  MT/Exitoffer
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/exit-intent-popup
+ */
+?>
+<?php $additionalFields = $this->getAdditionalFields(); ?>
+<?php $isOnlyOneVisibleCheckbox = $this->isOnlyOneVisibleCheckbox(); ?>
+<?php $helper = Mage::helper('exitoffer'); ?>
+<div  id="mteo_subcription_form" class="<?php if ($isOnlyOneVisibleCheckbox): ?> mteo-checkbox-after-form<?php endif;?><?php if ($this->getPopup()->getUseCaptcha() || ($additionalFields->count() > 0 && !$isOnlyOneVisibleCheckbox)): ?> mteo-form-with-additional <?php endif;?>">
+    <?php if ($this->getText(1)): ?>
+    <div class="mteo-text-row-1" style="color: <?php echo $this->getColor(2); ?>">
+        <?php echo $this->getText(1) ?>
+    </div>
+    <?php endif; ?>
+
+    <?php if ($this->getText(2)): ?>
+    <div class="mteo-text-row-2" style="color: #000000;">
+        <?php echo $this->getText(2) ?>
+    </div>
+    <?php endif; ?>
+
+    <?php if ($this->getText(3)): ?>
+    <div class="mteo-text-row-3" style="color: #000000;">
+        <?php echo $this->getText(3) ?>
+    </div>
+    <?php endif; ?>
+    <div class="mteo-subscribe">
+        <?php if ($this->getText(4)): ?>
+            <div class="mteo-text-row-4" style="color: <?php echo $this->getColor(2); ?>"><?php echo $this->getText(4);?></div>
+        <?php endif; ?>
+        <div class="mteo-form-fields">
+        <?php if ($additionalFields): ?>
+                <?php foreach ($additionalFields as $field): ?>
+                    <?php if($field->getPosition() >= 0):?>
+                        <?php echo $field->getHtml();?>
+                    <?php endif?>
+                <?php endforeach;?>
+            <?php endif;?>
+
+            <input class="mt-validator-required mt-validator-email" data-field-name="<?php echo $helper->translate('email'); ?>" onclick="if(this.value=='<?php echo $helper->translate('email'); ?>') this.value=''" onblur="if(this.value=='') this.value='<?php echo $helper->translate('email'); ?>'" id="mteo_email" name="subscribe_email" value="<?php echo $helper->translate('email'); ?>" type="text">
+            
+
+            <?php if ($this->getPopup()->getUseCaptcha()) : ?>
+                <?php echo $this->getChildHtml('eop_captcha'); ?>
+            <?php endif; ?>
+
+            <?php if ($additionalFields): ?>
+                <?php foreach ($additionalFields as $field): ?>
+                    <?php if($field->getPosition() < 0):?>
+                        <?php echo $field->getHtml();?>
+                    <?php endif?>
+                <?php endforeach;?>
+            <?php endif;?>
+
+
+            <a style="background-color: <?php echo $this->getColor(3);  ?>; color: <?php echo $this->getColor(2); ?>; border: 1px solid <?php echo $this->getColor(2); ?>;" href="javascript:void(0)" id="mteo_submit" ><?php echo $helper->translate('subscribe'); ?></a>
+        </div>
+    </div>
+    <div id="mteo_msg_error" style="color: <?php echo $this->getColor(2); ?>"></div>
+</div>
+
+<div id="mteo_subscription_success_with_coupon">
+    <div id="mteo_msg_success" style="color: <?php echo $this->getColor(2); ?>"></div>
+    <div id="mteo_coupon">
+        <div id="mteo_coupon_code" style="background-color: <?php echo $this->getColor(2);?>; border-color: <?php echo $this->getColor(3);?>"><?php echo $helper->translate('coupon');?> <span>df56s5d8</span></div>
+        <div class="mteo-box-shop-now-button"><a style="color: <?php echo $this->getColor(2); ?>; background-color: <?php echo $this->getColor(3); ?>" class="mteo-close" href="#" style=""><?php echo $helper->translate('shop_now'); ?></a> </div>
+    </div>
+</div>
+
+<div id="mteo_subscription_success">
+    <div class="mteo-success-msg" style="color: <?php echo $this->getColor(2); ?>"></div>
+</div>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <aitcg translate="title" module="aitcg">
+                    <title>Aitoc Custom Product Preview</title>
+                    <sort_order>300</sort_order>
+                    <children>
+                        <categories translate="title" module="aitcg">
+                            <title>Clipart</title>
+                            <action>adminhtml/aitcg_category</action>
+                            <sort_order>1</sort_order>
+                        </categories>
+                        <fonts translate="title" module="aitcg">
+                            <title>Fonts</title>
+                            <action>adminhtml/aitcg_font</action>
+                            <sort_order>2</sort_order>
+                        </fonts>
+                        <font_families translate="title" module="aitcg">
+                            <title>Font Families</title>
+                            <action>adminhtml/aitcg_font_family</action>
+                            <sort_order>3</sort_order>
+                        </font_families>
+                        <font_color translate="title" module="aitcg">
+                            <title>Font Colors</title>
+                            <action>adminhtml/aitcg_font_color_set</action>
+                            <sort_order>4</sort_order>
+                        </font_color>
+                        <mask_categories translate="title" module="aitcg">
+                            <title>Shape Masks</title>
+                            <action>adminhtml/aitcg_mask_category</action>
+                            <sort_order>5</sort_order>
+                        </mask_categories>
+                    </children>
+                </aitcg>
+            </children>
+        </catalog>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <catalog>
+                        <children>
+                            <aitcg translate="title" module="aitcg">
+                                <title>Aitoc Custom Product Preview</title>
+                                <children>
+                                    <fonts translate="title">
+                                        <title>Fonts</title>
+                                        <sort_order>0</sort_order>
+                                    </fonts>
+                                    <categories translate="title">
+                                        <title>Predefined Image Categories</title>
+                                        <sort_order>1</sort_order>
+                                    </categories>
+                                    <font_color translate="title">
+                                        <title>Predefined Font Colors</title>
+                                        <sort_order>2</sort_order>
+                                    </font_color>
+                                    <easy_tips translate="title">
+                                        <title>Easy Tips</title>
+                                        <sort_order>3</sort_order>
+                                    </easy_tips>
+                                    <mask_categories translate="title">
+                                        <title>Predefined Shape Categories</title>
+                                        <sort_order>4</sort_order>
+                                    </mask_categories>
+                                </children>
+                                <sort_order>200</sort_order>
+                            </aitcg>
+                        </children>
+                    </catalog>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

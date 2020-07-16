@@ -1,0 +1,221 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+    //get a list of store id's that have Cart2Quote enabled
+    $c2qEnabledStoreIds = '';
+    foreach (Mage::app()->getWebsites() as $website) {
+        foreach ($website->getGroups() as $group) {
+            $stores = $group->getStores();
+            foreach ($stores as $store) {
+                //check if Cart2Quote is enabled for this store
+                $storeId = $store->getId();
+                $c2qEnabled = Mage::getStoreConfig('qquoteadv_general/quotations/enabled', $storeId);
+                if ($c2qEnabled) {
+                    $c2qEnabledStoreIds .= $storeId.',';
+                }
+            }
+        }
+    }
+
+
+?>
+<table cellspacing="0" cellpadding="8" width="100%">
+    <tbody>
+    <?php echo $this->renderTotals(); ?>
+    <?php echo $this->renderTotals('footer'); ?>
+    </tbody>
+</table>
+<div class="divider"></div>
+<div class="order-totals-bottom">
+    <p>
+        <label for="notify_customer" class="normal"><?php echo Mage::helper('sales')->__('Append Comments') ?></label>
+        <input type="checkbox" id="notify_customer" name="order[comment][customer_note_notify]" value="1"
+               <?php if ($this->getNoteNotify()): ?>checked="true"<?php endif; ?>/>
+    </p>
+    <?php if ($this->canSendNewOrderConfirmationEmail()): ?>
+        <p>
+            <label for="send_confirmation"
+                   class="normal"><?php echo Mage::helper('sales')->__('Email Order Confirmation') ?></label>
+            <input type="checkbox" id="send_confirmation" name="order[send_confirmation]" value="1" checked="checked"/>
+        </p>
+    <?php endif; ?>
+    <p>
+        <?php
+        try {
+            $resourceId = Mage::getSingleton('admin/session')->getData('acl')->get('admin/sales/qquoteadv')->getResourceId();
+            if (Mage::getSingleton('admin/session')->isAllowed($resourceId)):
+                // Checking for old session data
+                if (Mage::getSingleton('adminhtml/session_quote')->getData('update_quote_key') == NULL) {
+                    Mage::getSingleton('adminhtml/session')->setData('update_quote_id', NULL);
+                } ?>
+                <?php if (!Mage::helper('qquoteadv/licensechecks')->showFreeUserOptions()): ?>
+                    <?php if (Mage::getSingleton('adminhtml/session')->getUpdateQuoteId()): ?>
+                        <?php echo $this->getButtonHtml(Mage::helper('sales')->__('Update Quotation'), 'switch2quote()', 'c2qsave', 'c2q'); ?>
+                    <?php else: ?>
+                        <?php echo $this->getButtonHtml(Mage::helper('sales')->__('Create Quotation'), 'switch2quote()', 'c2qsave', 'c2q'); ?>
+                    <?php endif; ?>
+                    <?php endif ?>
+                <?php endif ?>
+        <?php } catch (Exception $e) {
+            Mage::log('Exception: ' .$e->getMessage(), null, 'c2q_exception.log', true);
+        } ?>
+        <?php echo $this->getButtonHtml(Mage::helper('sales')->__('Submit Order'), 'ordersubmit()', 'save'); ?>
+    </p>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    function ordersubmit() {
+        var has_shippingobj = document.getElementsByName("order[has_shipping]");
+        var has_paymentobj = document.getElementsByName("payment[method]");
+
+        if (has_shippingobj[0]) {
+            if (!has_shippingobj[0].hasClassName('required-entry')) {
+                $(has_shippingobj[0]).addClassName('required-entry');
+            }
+        }
+        if (has_paymentobj[0]) {
+            n = has_paymentobj.length;
+            if (n > 0) {
+                if (!$(has_paymentobj[n - 1]).hasClassName('validate-one-required-by-name')) {
+                    $(has_paymentobj[n - 1]).addClassName('validate-one-required-by-name');
+                }
+            }
+        }
+
+        //support for SagePay
+        if(typeof SageSuiteCreateOrder == 'object') {
+            SageSuiteCreateOrder.orderSave();
+        } else {
+            order.submit();
+        }
+        //order.submit();
+    }
+
+    function switch2quote() {
+        error = 0;
+        xForm = new varienForm('edit_form', '');
+        xEmail = $('email');
+
+        if (($('email').value).length <= 1) {
+            alert("<?php echo Mage::helper('customer')->__('Customer email is required')?>");
+            xEmail.focus();
+            error = 1;
+        }
+
+        var enabledStores = [<?php echo $c2qEnabledStoreIds; ?>];
+        if(enabledStores.indexOf(parseInt(order.storeId)) == -1){
+            if (confirm("<?php echo Mage::helper('qquoteadv')->__('Cart2Quote is not enabled for the selected store, please enable Cart2Quote first in: System > Configuration > Cart2Quote > General, and click OK after that.')?>")) {
+                //save it
+            } else {
+                error = 1;
+            }
+        }
+
+        if (xForm) {
+            var has_shippingobj = document.getElementsByName("order[has_shipping]");
+            var has_paymentobj = document.getElementsByName("payment[method]");
+            if (has_shippingobj[0]) {
+                if ($(has_shippingobj[0]).hasClassName('required-entry')) {
+                    $(has_shippingobj[0]).removeClassName('required-entry');
+                }
+            }
+
+            //remove cc-validation when quoting
+            $$('.payment-methods input, .payment-methods select').each(function (name, index) {
+                var paymentinput = $$('.payment-methods input, .payment-methods select')[index];
+                if ($(paymentinput).hasClassName('required-entry')) {
+                    $(paymentinput).removeClassName('required-entry');
+                }
+                if ($(paymentinput).hasClassName('validate-cc-cvn')) {
+                    $(paymentinput).removeClassName('validate-cc-cvn');
+                }
+                if ($(paymentinput).hasClassName('validate-cc-type-select')) {
+                    $(paymentinput).removeClassName('validate-cc-type-select');
+                }
+            });
+
+            //remove address validation
+            $$('#order-addresses input, #order-addresses select').each(function (obj, index) {
+                var addressinput = $(obj);
+                if ($(addressinput).hasClassName('required-entry')) {
+                    //for some reason it has this classname twice so remove it twice
+                    $(addressinput).removeClassName('required-entry');
+                    $(addressinput).removeClassName('required-entry');
+
+                }
+            });
+
+            if (has_paymentobj) {
+                n = has_paymentobj.length;
+                for (i = 0; i < n; i++) {
+                    if ($(has_paymentobj[i]).hasClassName('validate-one-required-by-name')) {
+                        $(has_paymentobj[i]).removeClassName('validate-one-required-by-name');
+                    }
+                }
+            }
+            if (xForm.validator && !xForm.validator.validate()) {
+                error = 1;
+            }
+        }
+
+        if (error == 1) {
+            return false;
+        }
+        $('loading-mask').show();
+
+        //re-send address data using ajax to make sure it is saved
+        order.saveData(order.serializeData(order.billingAddressContainer).toObject());
+        if(!order.shippingAsBilling) {
+            order.saveData(order.serializeData(order.shippingAddressContainer).toObject());
+        }
+
+        // Also send order post data to quote
+        var quoteForm = document.getElementById('edit_form');
+        quoteForm.action = '<?php echo $this->getUrl('*/qquoteadv/swith2Quote/'); ?>';
+        quoteForm.submit();
+
+    }
+    //]]>
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    var sendEmailCheckbox = $('send_confirmation');
+    if (sendEmailCheckbox) {
+        Event.observe(sendEmailCheckbox, 'change', notifyCustomerUpdate);
+        notifyCustomerUpdate();
+    }
+
+    function notifyCustomerUpdate() {
+        var sendEmailCheckbox = $('send_confirmation');
+        var notifyCustomerCheckbox = $('notify_customer');
+        if (!sendEmailCheckbox || !notifyCustomerCheckbox)
+            return;
+        notifyCustomerCheckbox.disabled = !sendEmailCheckbox.checked;
+    }
+    //]]>
+</script>

@@ -1,0 +1,43 @@
+Attribute,Attribute
+"Sorting Order","Sorting Order"
+No,No
+Yes,Yes
+"Layered Navigation","Layered Navigation"
+"Show Icons","Show Icons"
+"Hide Quantities ","Hide Quantities "
+Display,Display
+"Labels and Icons, One Column","Labels and Icons, One Column"
+"Labels and Icons, Two Columns","Labels and Icons, Two Columns"
+"Icons Only","Icons Only"
+Icons,Icons
+"Are you sure?","Are you sure?"
+Delete,Delete
+"Save and Continue Edit","Save and Continue Edit"
+"You are trying to upload more files than allowed by your server's configuration.\\nYou can upload only %d file(s) at a time.\\nThe following file(s) will not be uploaded:\\n%s","You are trying to upload more files than allowed by your server's configuration.\\nYou can upload only %d file(s) at a time.\\nThe following file(s) will not be uploaded:\\n%s"
+"Attribute Icons","Attribute Icons"
+ID,ID
+Hidden,Hidden
+Position,Position
+"Manage Attribute Icons","Manage Attribute Icons"
+"Fill Out","Fill Out"
+"Attribute does not exist","Attribute does not exist"
+"Attribute icons have been successfully saved","Attribute icons have been successfully saved"
+"Attribute has been successfully saved, feel free to upload icons","Attribute has been successfully saved, feel free to upload icons"
+"Unable to find an item to save","Unable to find an item to save"
+"Unable to find an item to delete","Unable to find an item to delete"
+"All attribute icons have been deleted","All attribute icons have been deleted"
+"Attribute icon has been deleted","Attribute icon has been deleted"
+"There are no products matching the selection.","There are no products matching the selection."
+"Out of stock","Out of stock"
+"Learn More","Learn More"
+"Email to a Friend","Email to a Friend"
+Resize,Resize
+"Resize icons for product list page","Resize icons for product list page"
+Width,Width
+Height,Height
+"Keep Frame","Keep Frame"
+"Keep Aspect Ratio","Keep Aspect Ratio"
+"Please insert initialization code in the page template","Please insert initialization code in the page template"
+"Additional images for attributes and corresponding CPP custom options should have identical dimensions","Additional images for attributes and corresponding CPP custom options should have identical dimensions"
+". Image for \'%s\' value is different from \'%s\' CPP custom option image",". Image for \'%s\' value is different from \'%s\' CPP custom option image"
+"For correct work with AITOC Custom Product Preview all different color image files should have the same dimensions (i.e. be created from one original image file).","For correct work with AITOC Custom Product Preview all different color image files should have the same dimensions (i.e. be created from one original image file)."

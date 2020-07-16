@@ -1,0 +1,95 @@
+<?php
+$installer = $this;
+$installer->startSetup();
+
+$installer->run("
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Abel Regular', 'abelregular.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('AdventPro Bold', 'adventprobold.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('AdventPro Regular', 'adventproregular.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('JosefinSans Bold', 'josefinsansbold.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('JosefinSans Italic', 'josefinsansitalic.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('JosefinSans Regular', 'josefinsansregular.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Lato Bold', 'latobold.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Lato Hairline', 'latohairline.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Lato Italic', 'latoitalic.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Lato Regular', 'latoregular.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Montserrat Bold', 'montserratbold.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Montserrat Regular', 'montserratregular.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('MontserratAlternates Bold', 'montserratalternatesbold.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('MontserratAlternates Regular', 'montserratalternatesregular.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Raleway Bold', 'ralewaybold.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Raleway Heavy', 'ralewayheavy.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Raleway Light', 'ralewaylight.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Raleway Regular', 'ralewayregular.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('RawengulkSans-094', 'rawengulksans094.ttf', '1');
+    INSERT INTO `{$this->getTable('aitcg/font')}` (`name`, `filename`, `status`) VALUES ('Arial Regular', 'arial.ttf', '1');
+");
+
+if (!$installer->getConnection()->fetchOne("select * from {$this->getTable('aitcg/category')}")) {
+    $installer->run("
+        INSERT INTO `{$this->getTable('aitcg/category')}` (`category_id`, `name`) VALUES ('1', 'Animals');
+        INSERT INTO `{$this->getTable('aitcg/category')}` (`category_id`, `name`) VALUES ('2', 'Anime');
+        INSERT INTO `{$this->getTable('aitcg/category')}` (`category_id`, `name`) VALUES ('3', 'Baby');
+        INSERT INTO `{$this->getTable('aitcg/category')}` (`category_id`, `name`) VALUES ('4', 'Holidays');
+        INSERT INTO `{$this->getTable('aitcg/category')}` (`category_id`, `name`) VALUES ('5', 'Sport');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Bat', 'bat.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Bunny', 'bunny.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Crab', 'crab.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Fox', 'fox.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Hippo', 'hippo.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Moose', 'moose.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Mouse', 'mouse.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Owl', 'owl.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Polarbear', 'polarbear.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Walrus', 'walrus.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'yak', 'yak.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('1', 'Zebra', 'zebra.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Blonde girl', 'blondegirl.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Blonde with bow', 'blondewithbow.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Boy with glasses', 'boywithglasses.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Boy with headphones', 'boywithheadphone.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Boy with scarf', 'boywithscarf.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Boy with bunny ears', 'bunnyhair.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Girl head', 'girlhead.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Mana face', 'mangaface.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Mermaid', 'mermaid.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Paratrooper', 'paratrooper.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('2', 'Girl with pink hair', 'pinkhair.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('3', 'Baby boy1', 'babyboy1.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('3', 'Baby boy2', 'babyboy2.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('3', 'Baby boy smiling', 'babyboysmiling.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('3', 'Baby girl', 'babygirl.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('3', 'Bird stroller', 'birdstroller.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('3', 'Boy feet', 'boy feet.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('3', 'girl feet', 'girlfeet.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('3', 'milk bottle', 'milkbottle.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('3', 'twins', 'twins.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Beer', 'beer.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Birthday cake', 'birthdaycake.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Cake', 'cake.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Chinese New Year', 'chinesenewyear.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Cinco de Mayo', 'cincodemayo.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Graduation', 'graduation.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Hanukkah', 'hanukkah.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Happy Holidays', 'happyholidays.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Heart', 'heart.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'New Year', 'newyear.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'St. Patrick', 'stpatrick.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('4', 'Wedding', 'wedding.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'basketball.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'baseball.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'baseball2.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'football.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'baseballbat.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'weights.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'hockeypuck.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'womanjogging.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'runnershoes.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'yoga.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'suarez.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'manjogging.png');
+        INSERT INTO `{$this->getTable('aitcg/category_image')}` (`category_id`, `name`, `filename`) VALUES ('5', 'Wedding', 'soccerball.png');
+    ");
+}
+
+$installer->endSetup();

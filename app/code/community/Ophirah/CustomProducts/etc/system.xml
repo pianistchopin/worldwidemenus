@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <qquoteadv>
+            <label>Cart2Quote</label>
+            <sort_order>310</sort_order>
+        </qquoteadv>
+    </tabs>
+    <sections>
+        <custom_products>
+            <label>Custom Products</label>
+            <tab>qquoteadv</tab>
+            <sort_order>375</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general>
+                    <label>General</label>
+                    <comment><![CDATA[
+                            <div class="box">
+                            <p><b>Custom Products (Version 2.0.1) Provided by
+                            <a target="_blank" href="https://www.ophirah.nl">Ophirah | E-commerce Projects</a></b></p>
+                            For documentation and support visit<a target="_blank" href="https://www.cart2quote.com">
+                            www.cart2quote.com</a> or contact<a target="_blank" href="mailto:support@cart2quote.com">
+                            support@cart2quote.com</a>
+                            </div>
+                    ]]></comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <expanded>1</expanded>
+                </general>
+                <custom-products>
+                    <label>Custom Products</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>15</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <expanded>1</expanded>
+                    <fields>
+                        <convert>
+                            <label>Convert Custom Products</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Ophirah_CustomProducts_Model_System_Config_Source_Convert</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enable conversion to save products to your catalog.</comment>
+                        </convert>
+                    </fields>
+                </custom-products>
+                <custom-request>
+                    <label>Custom Requests</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <expanded>1</expanded>
+                    <fields>
+                        <topmenu>
+                            <label>Show in Top Menu</label>
+                            <frontend_type>select</frontend_type>
+                            <default>0</default>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                Customers can request custom products from the frontend.
+                                <![CDATA[To hide the price and order button
+                                <a href="https://www.cart2quote.com/magento-not2order-hiding-prices.html"
+                                target="_blank">Not2Order</a>]]> must be enabled.
+                            </comment>
+                            <tooltip>You can add/remove and edit the custom options for Custom Request in "Catalog ->
+                                Manage Products" to suit your needs.
+                            </tooltip>
+                        </topmenu>
+                    </fields>
+                </custom-request>
+            </groups>
+        </custom_products>
+    </sections>
+</config>

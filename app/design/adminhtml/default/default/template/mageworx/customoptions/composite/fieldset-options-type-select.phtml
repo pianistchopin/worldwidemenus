@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+
+/* @var $this Mage_Catalog_Block_Product_View_Options_Type_Select */
+$helper = Mage::helper('mageworx_customoptions');
+$_option = $this->getOption();
+$valuesHtml = $this->getValuesHtml(); 
+if ($valuesHtml) { ?>
+<div <?php if (Mage::helper('mageworx_customoptions')->hideDependentOption() && $_option->getIsDependent()) { ?>style="display: none;"<?php } ?> class="option<?php if ($_option->getType()==MageWorx_CustomOptions_Model_Catalog_Product_Option::OPTION_TYPE_HIDDEN) echo ' hidden'; ?>">
+    <?php if ($_option->getType()==MageWorx_CustomOptions_Model_Catalog_Product_Option::OPTION_TYPE_HIDDEN) {
+        echo $valuesHtml;
+    } else { ?>
+    <dl>
+    <dt>
+        <label><?php echo $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getIsRequire(true)): ?><span class="required">&nbsp;*</span><?php endif; ?></label>
+        <?php echo $helper->getOptionDescription($_option); ?>
+    </dt>
+    <dd<?php if ($_option->decoratedIsLast) { ?> class="last"<?php } ?>>
+        <?php echo $valuesHtml ?>
+        <?php if ($_option->getIsRequire(true)): ?>
+        <?php if ($_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_RADIO || $_option->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX): ?>
+                    <span id="options-<?php echo $_option->getId() ?>-container"></span>
+        <?php endif; ?>
+        <?php endif; ?>
+        <?php if (Mage::helper('mageworx_customoptions')->isQntyInputEnabled() && $_option->getQntyInput() && $_option->getType()!=Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX && $_option->getType()!=MageWorx_CustomOptions_Model_Catalog_Product_Option::OPTION_TYPE_MULTISWATCH): ?>
+            <span class="qty-holder">
+                <label class="label-qty"><?php echo $helper->getDefaultOptionQtyLabel() ?>
+                    <input type="text" class="input-text qty <?php if ($_option->getIsRequire(true)) echo 'validate-greater-than-zero'; else echo 'validate-zero-or-greater'; ?>" 
+                           value="<?php echo ($_option->getOptionQty()?$_option->getOptionQty():1) ?>" maxlength="12" 
+                           id="options_<?php echo $_option->getId() ?>_qty" name="options_<?php echo $_option->getId() ?>_qty" 
+                           onchange="<?php if ($_option->getIsXQtyEnabled()) { ?>optionSetQtyProduct.setQty();<?php } if ($_option->getIsDependentLQty()) { ?>optionSetQtyProduct.checkLimitQty(<?php echo $_option->getId() ?>, this);<?php } ?>" 
+                           onKeyPress="if(event.keyCode==13){<?php if ($_option->getIsXQtyEnabled()) { ?>optionSetQtyProduct.setQty();<?php } if ($_option->getIsDependentLQty()) { ?>optionSetQtyProduct.checkLimitQty(<?php echo $_option->getId() ?>, this);<?php } ?>}">
+                </label>
+            </span>
+        <?php endif; ?>
+        <?php if ($_option->getIsDependentLQty()) { ?>
+            <span class="limit-holder"><?php echo $this->__('Items left:') ?> <strong id="total_limit_<?php echo $_option->getId() ?>">0</strong></span>
+        <?php } ?>
+    </dd></dl>
+    <?php } ?>
+</div>
+<?php } ?>

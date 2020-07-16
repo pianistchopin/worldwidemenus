@@ -1,0 +1,32 @@
+<?php $_categories = $this->getCurrentChildCategories() ?>
+
+<?php if (is_array($_categories) ? count($_categories) : $_categories->count()): ?>
+    <div class="categories-container">    
+        <div class="row">
+            <?php $count = 0; ?>
+            <?php foreach ($_categories as $_category): ?>
+                <?php if ($_category->getIsActive()): ?>
+                    <div class="grid grid_3">
+                        <a class="overlay" href="<?php echo $this->getCategoryUrl($_category) ?>">
+                            <?php echo $this->escapeHtml($_category->getName()) ?>
+                        </a>                   
+                        <?php if ($url = Mage::getModel('catalog/category')->load($_category->getId())->getImage()): ?>
+                            <div class="top">
+                                <img src="<?php echo Mage::getBaseUrl('media'); ?>catalog/category/<?php echo $url; ?>" alt="<?php echo $this->escapeHtml($_category->getName()); ?>" />
+                            </div>
+                        <?php endif; ?>
+                        <div class="bottom">
+                            <h3><?php echo $this->escapeHtml($_category->getName()); ?></h3>
+                        </div>
+                    </div>           
+                    <?php $count++; ?>
+                    <?php if ($count % 3 == 0): ?>
+                        <div class="clear"></div>
+                    <?php endif; ?>                   
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>    
+    </div>
+<?php else: ?>
+    <p>There are no Sub categories belonging to this category.</p>
+<?php endif; ?>

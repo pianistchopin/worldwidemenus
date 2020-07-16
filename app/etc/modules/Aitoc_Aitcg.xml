@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Aitoc_Aitcg>
+            <active>true</active>
+            <codePool>local</codePool>
+            <self_name>Custom Product Preview</self_name>            
+            <priority>4200</priority>
+            <!-- <depends>
+                <Magecomp_AbsolutePricing/>
+            </depends> -->
+            <aitdepends>
+                <Aitoc_Common/>
+            </aitdepends>
+        </Aitoc_Aitcg>
+    </modules>
+</config>

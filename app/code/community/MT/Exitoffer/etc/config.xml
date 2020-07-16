@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.2 or later
+ *
+ * @category MageTrend
+ * @package  MT/Exitoffer
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/exit-intent-popup
+ */
+-->
+<config>
+    <modules>
+        <MT_Exitoffer>
+            <version>1.3.7</version>
+        </MT_Exitoffer>
+    </modules>
+
+    <frontend>
+        <routers>
+            <exitoffer>
+                <use>standard</use>
+                <args>
+                    <module>MT_Exitoffer</module>
+                    <frontName>exitoffer</frontName>
+                </args>
+            </exitoffer>
+        </routers>
+
+        <layout>
+            <updates>
+                <exitoffer>
+                    <file>mt/exitoffer.xml</file>
+                </exitoffer>
+            </updates>
+        </layout>
+
+    </frontend>
+
+    <global>
+        <blocks>
+            <exitoffer>
+                <class>MT_Exitoffer_Block</class>
+            </exitoffer>
+            <adminhtml>
+                <rewrite>
+                    <newsletter_subscriber_grid>MT_Exitoffer_Block_Adminhtml_Newsletter_Subscriber_Grid</newsletter_subscriber_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+
+        <helpers>
+            <exitoffer>
+                <class>MT_Exitoffer_Helper</class>
+            </exitoffer>
+        </helpers>
+
+        <models>
+            <exitoffer>
+                <class>MT_Exitoffer_Model</class>
+                <resourceModel>exitoffer_resource</resourceModel>
+            </exitoffer>
+
+            <exitoffer_resource>
+                <class>MT_Exitoffer_Model_Resource</class>
+                <entities>
+                    <popup>
+                        <table>mt_eo_popup</table>
+                    </popup>
+
+                    <field>
+                        <table>mt_eo_field</table>
+                    </field>
+
+                    <campaign>
+                        <table>mt_eo_campaign</table>
+                    </campaign>
+
+                    <campaign_store>
+                        <table>mt_eo_campaign_store</table>
+                    </campaign_store>
+
+                    <campaign_page>
+                        <table>mt_eo_campaign_page</table>
+                    </campaign_page>
+
+                </entities>
+            </exitoffer_resource>
+            <!-- Enable it if you want to add attachment to the success email -->
+            <!--core>
+                <rewrite>
+                    <email_template>MT_Exitoffer_Model_Core_Email_Template</email_template>
+                </rewrite>
+            </core-->
+
+            <mailchimp>
+                <rewrite>
+                    <api_subscribers>MT_Exitoffer_Model_Mailchimp_Api_Subscriber</api_subscribers>
+                    <api_customers>MT_Exitoffer_Model_Mailchimp_Api_Customers</api_customers>
+                    <observer>MT_Exitoffer_Model_Mailchimp_Observer</observer>
+                </rewrite>
+            </mailchimp>
+
+        </models>
+
+        <resources>
+            <exitoffer_setup>
+                <setup>
+                    <module>MT_Exitoffer</module>
+                    <class>MT_Exitoffer_Model_Resource_Setup</class>
+                </setup>
+            </exitoffer_setup>
+        </resources>
+        <template>
+            <email>
+                <exitoffer_contacts_template module="exitoffer">
+                    <label>Exit Offer Contacts</label>
+                    <file>mt/exitoffer/contact_form.html</file>
+                    <type>html</type>
+                </exitoffer_contacts_template>
+            </email>
+        </template>
+        <events>
+            <newsletter_subscriber_save_before>
+                <observers>
+                    <exitoffer_newsletter_subscriber_save_before>
+                        <class>MT_Exitoffer_Model_Observer</class>
+                        <method>beforeSaveSubscriber</method>
+                    </exitoffer_newsletter_subscriber_save_before>
+                </observers>
+            </newsletter_subscriber_save_before>
+
+            <admin_system_config_changed_section_exitoffer>
+                <observers>
+
+                    <newsletterpopup_license>
+                        <type>singleton</type>
+                        <class>exitoffer/module_license</class>
+                        <method>check</method>
+                    </newsletterpopup_license>
+                </observers>
+            </admin_system_config_changed_section_exitoffer>
+
+            <admin_system_config_changed_section_mtlicense>
+                <observers>
+                    <exitoffer>
+                        <type>singleton</type>
+                        <class>exitoffer/module_license</class>
+                        <method>update</method>
+                    </exitoffer>
+                </observers>
+            </admin_system_config_changed_section_mtlicense>
+
+        </events>
+
+    </global>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <exitoffer>
+                    <file>mt/exitoffer.xml</file>
+                </exitoffer>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <exitoffer before="Mage_Adminhtml">MT_Exitoffer_Adminhtml</exitoffer>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+
+    <default>
+        <exitoffer>
+            <!-- Systems settings defaulst -->
+            <general>
+                <jquery>0</jquery>
+                <dev>0</dev>
+                <cookiename>mt_exit_offer</cookiename>
+            </general>
+
+            <translate>
+                <subscribe>Subscribe</subscribe>
+                <send>Send</send>
+                <email>Email</email>
+                <error_email_not_valid>Please enter a valid email address.</error_email_not_valid>
+                <email_is_assigned_to_another_user>This email address is already assigned to another user.</email_is_assigned_to_another_user>
+                <success_message><![CDATA[Thank you for your subscription. <span>Check your email, we have sent voucher for you!</span>]]></success_message>
+                <error_with_subscription>There was a problem with the subscription.</error_with_subscription>
+                <success_message_need_to_confirm>Confirmation request has been sent.</success_message_need_to_confirm>
+                <error_with_coupon_generation>There was a problem with coupon generation.</error_with_coupon_generation>
+                <wait>Wait...</wait>
+                <coupon_is_generating>Getting coupon...</coupon_is_generating>
+                <coupon_getting_success_message>Your coupon is below!</coupon_getting_success_message>
+
+                <email_already_exist>This email address already exists</email_already_exist>
+                <choose>Choose</choose>
+                <shop_now>Shop Now</shop_now>
+                <coupon>Coupon:</coupon>
+                <field>Field</field>
+                <is_required>is required!</is_required>
+                <must_be_checked>must be checked</must_be_checked>
+                <must_be_selected>must be selected</must_be_selected>
+
+
+                <contact_form_success_message><![CDATA[Thank you for your time. <span>We will replay your request as soon as possible.</span>]]></contact_form_success_message>
+                <contact_form_error_general>Unable to process request</contact_form_error_general>
+            </translate>
+
+            <!-- Custom defaults -->
+            <popup>
+                <color_1>4a5ec1</color_1>
+                <color_2>ffffff</color_2>
+                <color_3>384db4</color_3>
+                <text_1>DO YOU WANT</text_1>
+                <text_2>20% OFF</text_2>
+                <text_3>from your order?</text_3>
+                <text_4>Subscribe our newsletter and get free voucher.</text_4>
+            </popup>
+
+            <popup_yesno>
+                <color_1>4a5ec1</color_1>
+                <color_2>ffffff</color_2>
+                <color_3>384db4</color_3>
+                <text_1>DO YOU WANT</text_1>
+                <text_2>20% OFF</text_2>
+                <text_3>from your order?</text_3>
+                <text_5>YES</text_5>
+                <text_6>I want!</text_6>
+                <text_7>NO</text_7>
+                <text_8>Thank you...</text_8>
+            </popup_yesno>
+
+            <popup_contact>
+                <color_1>e7402f</color_1>
+                <color_2>ffffff</color_2>
+                <color_3>4b4c4d</color_3>
+                <text_1>Wait</text_1>
+                <text_2>tell us what you are looking for?</text_2>
+                <text_3>If there is any missing feature, we can implement it for FREE!</text_3>
+            </popup_contact>
+
+
+        </exitoffer>
+
+        <captcha>
+            <frontend>
+                <areas>
+                    <exit_offer_popup>
+                        <label>Exit Intent Popup</label>
+                    </exit_offer_popup>
+                </areas>
+            </frontend>
+        </captcha>
+        <customer>
+            <captcha>
+                <always_for>
+                    <exit_offer_popup>1</exit_offer_popup>
+                </always_for>
+            </captcha>
+        </customer>
+
+    </default>
+</config>

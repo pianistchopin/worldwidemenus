@@ -1,0 +1,44 @@
+<?php
+/**
+ * @var Ophirah_Qquoteadv_Block_Renderers_Bundle $this
+ */
+?>
+
+<div class="product-image">
+    <div class="product-image-container">
+        <img src="<?php echo $this->getImage() ?>" alt="close"/>
+    </div>
+</div>
+
+<div class="product-details">
+    <div class="main-details">
+        <div class="product-renderer-text"><?php echo $this->getName() ?></div>
+        <ul>
+            <?php if($this->getPrice()): ?>
+                <li><?php echo $this->__('Price')?>: <?php echo $this->getPrice(); ?></li>
+            <?php endif; ?>
+            <li><?php echo $this->__('Qty')?>: <?php echo $this->getQty(); ?></li>
+        </ul>
+    </div>
+    <?php if ($this->hasBundleOptions()): ?>
+        <div class="configurable-options">
+            <h2><?php echo $this->__('Selected options')?></h2>
+            <ul>
+                <?php foreach ($this->getBundleOptions() as $bundleOption): ?>
+                    <li><span class="option-header"><?php echo $this->escapeHtml($bundleOption['label']) ?></span></li>
+                    <?php foreach ($bundleOption['value'] as $bundleValue): ?>
+                        <li><span class="option-item"><?php echo $bundleValue['qty'] ?><span class="qty-cross">x</span>  <?php echo $this->escapeHtml($bundleValue['title']) ?>
+                                + <?php echo Mage::helper('core')->currency($bundleValue['price'], true, false); ?></span>
+                        </li>
+                        <!--<li><span class="option-item"><?php echo $this->__('Qty:')?> <?php echo $bundleValue['qty'] ?></span></li>-->
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+    <?php if($this->getError()): ?>
+        <div id="add-to-quote-errors" style="display: none;">
+            <?php echo $this->getError(); ?>
+        </div>
+    <?php endif; ?>
+</div>

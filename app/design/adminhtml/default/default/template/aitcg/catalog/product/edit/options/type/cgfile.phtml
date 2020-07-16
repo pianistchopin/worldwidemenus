@@ -1,0 +1,398 @@
+<style type="text/css">
+    .aitoc_cpp_headings{
+        text-transform: uppercase;
+    }
+
+    .aitoc_cpp_table{
+        width: 600px !important;
+        margin-bottom: 25px;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+    .aitoc_cpp_table, .aitoc_cpp_table td, .aitoc_cpp_table th{
+        border: none !important;
+    }
+
+    .aitoc_cpp_table td{
+        padding: 5px 4px;
+    }
+
+    .aitoc_cpp_table th{
+        background-color: #e7efef;
+        width: 50%;
+    }
+
+    .aitoc_cpp_table th.aitoc_cpp_switcher{
+        font-weight: normal;
+    }
+
+    .aitoc_cpp_table th.aitoc_cpp_switcher{
+        text-align: right;
+    }
+
+    .aitoc_cpp_table td, .aitoc_cpp_table th.aitoc_cpp_note{
+        background: #fafafa;
+    }
+
+    .aitoc_cpp_note{
+        font-weight: normal;
+        text-align: left;
+    }
+
+    .aitoc_cpp_table td{
+        padding-left: 15px;
+    }
+
+    .aitoc_cpp_table td select, .aitoc_cpp_table td input.input-text{
+        width: 200px;
+    }
+
+    .aitoc_cpp_table th.aitoc_cpp_switcher input,.aitoc_cpp_table td.aitoc_cpp_radio input{
+        margin-left: 20px;
+    }
+    .aitoc_cpp_table td.aitoc_cpp_radio input:nth-child(2){
+        margin-left: 0px;
+    }
+    .aitoc_cpp_table th.aitoc_cpp_note{
+        color:#7e7e7e;
+        font-style: italic;
+        white-space: normal !important;
+        padding: 15px;
+    }
+
+    .aitoc_cpp_table span.aitoc_cpp_note{
+        color:#7e7e7e;
+        font-style: italic;
+        white-space: normal !important;
+    }
+
+    .aitoc_cpp_table tr.aitoc_cpp_first td{
+        padding-top: 15px;
+    }
+
+    .aitoc_cpp_table tr.aitoc_cpp_last td{
+        padding-bottom: 15px;
+    }
+
+    td.ait_bold{
+        font-weight: bold;
+    }
+</style>
+<script type="text/javascript">
+
+
+OptionTemplateCg = '<input type="hidden" name="validation_{{option_id}}_result" value="" >'+
+        '<table class="option-header" cellspacing="0" cellpadding="0">'+
+            '<thead>'+
+                '<th class="type-price"><?php echo Mage::helper('catalog')->__('Price') ?></th>'+
+                '<th class="type-type"><?php echo Mage::helper('catalog')->__('Price Type') ?></th>'+
+                '<th class="type-sku"><?php echo Mage::helper('catalog')->__('SKU') ?></th>'+
+                '<th class="a-right"></th>'+
+            '</thead>'+
+            '<tbody style="background: none;">'+
+                '<tr>'+
+                    '<td style="border: none;"><input class="input-text" type="text" name="product[options][{{option_id}}][price]" value="{{price}}"></td>'+
+                    '<td style="border: none;"><?php echo $this->getPriceTypeSelectHtml() ?></td>'+
+                    '<td style="border: none;"><input type="text" class="input-text" name="product[options][{{option_id}}][sku]" value="{{sku}}"></td>'+
+                    '<td style="border: none;"></td>'+
+                '</tr>'+
+            '</tbody>'+
+        '</table>'+
+
+
+        '<table cellspacing="0" cellpadding="0" class="aitoc_cpp_table">'+
+            '<tr>'+
+                '<th class="aitoc_cpp_headings" colspan="2">'+
+                    '<?php echo Mage::helper("aitcg")->__("Product Template") ?>'+
+                    ' <span class="required">*</span><br/>'+
+                '</th>'+
+            '</tr>'+
+            '<tr class="aitoc_cpp_first">'+
+                '<td colspan="2">'+
+                    '<select class="required-option-cgfile-type-template required-option-select select validate-select select-type-cgfile" id="aitcg_option_select_{{option_id}}" name="product[options][{{option_id}}][image_template_id]" onchange="aitcgImageSelector.loadImage(\'{{option_id}}\', this.value, event);">'+
+                        '<option value="0"><?php echo Mage::helper('aitcg')->__('Select Image Template') ?></option>'+
+                        <?php echo $this->getSelectImageOptions() ?>
+                    '</select>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td id="aitcg_option_select_{{option_id}}_image" colspan="2">'+
+                '</td>'+
+            '</tr>'+
+            '<tr class="aitoc_cpp_last">'+
+                '<th colspan="2" class="aitoc_cpp_note">' +
+                    '<span>'+
+                        '<?php echo Mage::helper("aitcg")->__("Click \"Edit Printable Area\" to define the part of your product that clients can customize.<br/><b>Important:</b> if you use the Popup mode of the editor, your template image will be displayed in actual size on the front end.") ?>'+
+                    '</span>' +
+                '</th>'+
+            '</tr>'+
+            '<tr>'+
+                '<td class="ait_bold"><?php echo Mage::helper('aitcg')->__('Scale Image, %: [100]') ?><br />'+
+                    '<span class="aitoc_cpp_note">Resize the original image for the Popup editor.<br />'+
+                    'Important: if you leave the scale at 100%, the actual-size image will appear in the Popup editor.</span>'+
+                '</td>'+
+                '<td>'+
+                    '<input class="input-text" type="text" name="product[options][{{option_id}}][scale_image]" id="aitcg_option_scale_image_{{option_id}}" value="{{scale_image}}"/>'+
+                '</td>'+
+            '</tr>'+
+        '</table>'+
+
+        '<table class="aitoc_cpp_table">'+
+            '<tr>'+
+                '<th class="aitoc_cpp_headings"><?php echo Mage::helper("aitcg")->__("Image") ?></th>'+
+                '<th class="aitoc_cpp_switcher">'+
+                    '<input type="hidden" id="aitcg_option_use_user_image_{{option_id}}_tmp" value="{{use_user_image}}"/>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_user_image]" id="aitcg_option_use_user_image_{{option_id}}" class="aitoc_cpp_option_on" value="1" /> <label for="aitcg_option_use_user_image_{{option_id}}">enable</label>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_user_image]" id="aitcg_option_use_user_image_{{option_id}}_dis" class="aitoc_cpp_option_off" value="0" checked="checked" /> <label for="aitcg_option_use_user_image_{{option_id}}_dis">disable</label>'+
+                '</th>'+
+            '</tr>'+
+            '<tr>'+
+                '<th colspan="2" class="aitoc_cpp_note">'+
+                    '<?php echo Mage::helper("aitcg")->__("When this option is enabled, customers can upload their own images to the editor.") ?>'+
+                '</th>'+
+            '</tr>'+
+        '</table>'+
+
+        '<table class="aitoc_cpp_table">'+
+            '<tr>'+
+                '<th class="aitoc_cpp_headings"><?php echo Mage::helper("aitcg")->__("Digital Image") ?></th>'+
+                '<th class="aitoc_cpp_switcher">'+
+                    '<input type="hidden" id="aitcg_option_use_digital_image_{{option_id}}_tmp" value="{{use_digital_image}}"/>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_digital_image]" id="aitcg_option_use_digital_image_{{option_id}}" class="aitoc_cpp_option_on" value="1" /> <label for="aitcg_option_use_digital_image_{{option_id}}">enable</label>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_digital_image]" id="aitcg_option_use_digital_image_{{option_id}}_dis" class="aitoc_cpp_option_off" value="0" checked="checked" /> <label for="aitcg_option_use_digital_image_{{option_id}}_dis">disable</label>'+
+                '</th>'+
+            '</tr>'+
+            '<tr>'+
+                '<th colspan="2" class="aitoc_cpp_note">'+
+                    '<?php echo Mage::helper("aitcg")->__("When this option is enabled, customers can upload digital image to the editor.") ?>'+
+                '</th>'+
+            '</tr>'+
+        '</table>'+
+
+        '<table class="aitoc_cpp_table">'+
+            '<tr>'+
+                '<th class="aitoc_cpp_headings"><?php echo Mage::helper("aitcg")->__("Clipart") ?></th>'+
+                '<th class="aitoc_cpp_switcher">'+
+                    '<input type="hidden"id="aitcg_option_use_predefined_image_{{option_id}}_tmp" value="{{use_predefined_image}}"/>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_predefined_image]" id="aitcg_option_use_predefined_image_{{option_id}}" class="aitoc_cpp_option_on" value="1" /> <label for="aitcg_option_use_predefined_image_{{option_id}}">enable</label>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_predefined_image]" id="aitcg_option_use_predefined_image_{{option_id}}_dis" class="aitoc_cpp_option_off" value="0" checked="checked"/> <label for="aitcg_option_use_predefined_image_{{option_id}}_dis">disable</label>'+
+                '</th>'+
+            '</tr>'+
+            '<tr class="aitoc_cpp_first aitoc_cpp_last">'+
+                '<td class="ait_bold"><?php echo Mage::helper("aitcg")->__("Clipart Categories") ?></td>'+
+                '<td>'+
+                    '<select class="select" multiple="multiple" onchange="$(\'aitcg_option_predefined_cats_{{option_id}}\').setValue($(this).getValue())" id="aitcg_option_predefined_cats_{{option_id}}_tmp">'+
+                    <?php echo Mage::helper("aitcg/category")->getPredefinedCatsOptionHtml() ?>+
+                    '</select>'+
+                    '<input type="hidden" name="product[options][{{option_id}}][predefined_cats]" id="aitcg_option_predefined_cats_{{option_id}}" value="{{predefined_cats}}"/>'+
+                '</td>'+
+            '</tr>'+
+                '<tr class="aitoc_cpp_first aitoc_cpp_last">'+
+                '<td class="ait_bold"><?php echo Mage::helper("aitcg")->__("Spread  Template") ?></td>'+
+                '<td class="aitoc_cpp_radio">'+
+    '<input type="hidden"id="aitcg_option_spread_type_{{option_id}}_tmp" value="{{spread_type}}"/>'+
+    '<input type="radio" name="product[options][{{option_id}}][spread_type]" id="aitcg_option_spread_type_{{option_id}}" class="aitoc_cpp_option_on" value="single"  checked="checked" /> <label for="aitcg_option_spread_type_{{option_id}}" >Single</label>'+
+    '<input type="radio" name="product[options][{{option_id}}][spread_type]" id="aitcg_option_spread_type_{{option_id}}_double" class="aitoc_cpp_option_off" value="double" /> <label for="aitcg_option_spread_type_{{option_id}}_dis">Double</label>'+
+                '</td>'+
+                '</tr>'+
+        '</table>'+
+
+        '<table class="aitoc_cpp_table">'+
+            '<tr>'+
+                '<th class="aitoc_cpp_headings"><?php echo Mage::helper("aitcg")->__("Text") ?></th>'+
+                '<th class="aitoc_cpp_switcher">'+
+                    '<input type="hidden" id="aitcg_option_use_text_{{option_id}}_tmp" value="{{use_text}}"/>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_text]" id="aitcg_option_use_text_{{option_id}}" class="aitoc_cpp_option_on" value="1" /> <label for="aitcg_option_use_text_{{option_id}}">enable</label>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_text]" id="aitcg_option_use_text_{{option_id}}_dis" class="aitoc_cpp_option_off" value="0" checked="checked" /> <label for="aitcg_option_use_text_{{option_id}}_dis">disable</label>'+
+                '</th>'+
+            '</tr>'+
+
+            '<tr class="aitoc_cpp_first">'+
+                '<td class="type-title ait_bold"><?php echo Mage::helper('aitcg')->__('Input box type') ?></td>'+
+                '<td><input type="hidden" id="aitcg_option_input_box_type_{{option_id}}_tmp" value="{{input_box_type}}">'+
+                    '<?php echo $this->getInputBoxTypeSelectHtml() ?></td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td class="ait_bold"><?php echo Mage::helper('aitcg')->__('Max Text Length') ?></td>'+
+                '<td>'+
+                    '<input class="input-text" type="text" name="product[options][{{option_id}}][text_length]" id="aitcg_option_text_length_{{option_id}}" value="{{text_length}}"/>'+
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td class="type-title ait_bold"><?php echo Mage::helper('aitcg')->__('Allow Distortion of Objects') ?></td>'+
+                '<td><input type="hidden" id="aitcg_option_allow_text_distortion_{{option_id}}_tmp" value="{{allow_text_distortion}}">'+
+                '<?php echo $this->getAllowTextDistortionSelectHtml() ?></td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td class="type-title ait_bold"><?php echo Mage::helper('aitcg')->__('Enable Colorpicker') ?></td>'+
+                '<td><input type="hidden" id="aitcg_option_allow_colorpick_{{option_id}}_tmp" value="{{allow_colorpick}}">'+
+                '<input type="checkbox" name="product[options][{{option_id}}][allow_colorpick]" id="aitcg_option_allow_colorpick_{{option_id}}" value="1"></td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td class="type-title ait_bold"><?php echo Mage::helper('aitcg')->__('Allow Predefined Colors Only') ?></td>'+
+                '<td><input type="hidden" id="aitcg_option_allow_predefined_colors_{{option_id}}_tmp" value="{{allow_predefined_colors}}">'+
+                '<?php echo $this->getAllowPredefinedColorsSelectHtml() ?></td>'+
+            '</tr>'+
+            '<tr class="aitoc">'+
+                '<td class="type-title ait_bold"><?php echo Mage::helper('aitcg')->__('Predefined Colors Set') ?></td>'+
+                '<td><input type="hidden" id="aitcg_option_color_set_id_{{option_id}}_tmp" value="{{color_set_id}}">'+
+                '<?php echo $this->getColorSetSelectHtml() ?></td>'+
+            '</tr>'+
+            '<tr class="aitoc_cpp_last">'+
+                '<td class="type-title ait_bold"><?php echo Mage::helper('aitcg')->__('Allow Curve Text') ?></td>'+
+                '<td><input type="hidden" id="aitcg_option_curve_text_{{option_id}}_tmp" value="{{curve_text}}">'+
+                '<?php echo $this->getCurveTextSelectHtml() ?></td>'+
+            '</tr>'+
+        '</table>'+
+
+        '<table class="aitoc_cpp_table">'+
+            '<tr>'+
+                '<th class="aitoc_cpp_headings"><?php echo Mage::helper("aitcg")->__("Shape Mask") ?></th>'+
+                '<th class="aitoc_cpp_switcher">' +
+                    '<input type="hidden" id="aitcg_option_use_masks_{{option_id}}_tmp" value="{{use_masks}}">'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_masks]" id="aitcg_option_use_masks_{{option_id}}" class="aitoc_cpp_option_on" value="1" /> <label for="aitcg_option_use_masks_{{option_id}}">enable</label>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_masks]" id="aitcg_option_use_masks_{{option_id}}_dis" class="aitoc_cpp_option_off" value="0" checked="checked" /> <label for="aitcg_option_use_masks_{{option_id}}_dis">disable</label>'+
+                '</th>'+
+            '</tr>'+
+            '<tr class="aitoc_cpp_first aitoc_mask_catagory" style="display:none">'+
+                '<td class="ait_bold"><?php echo Mage::helper("aitcg")->__("Categories of Masks") ?></td>'+
+                '<td>' +
+                    '<select class="select" multiple="multiple" onchange="$(\'aitcg_option_masks_cat_id_{{option_id}}\').setValue($(this).getValue())" id="aitcg_option_masks_cat_id_{{option_id}}_tmp">'+
+                        <?php echo Mage::helper('aitcg/mask_category')->getMaskCatsOptionHtml() ?>
+                    '</select>'+
+                    '<input type="hidden" name="product[options][{{option_id}}][masks_cat_id]" id="aitcg_option_masks_cat_id_{{option_id}}" value="{{masks_cat_id}}">' +
+                '</td>'+
+            '</tr>'+
+            '<tr class="aitoc_cpp_first aitoc_cpp_last">'+
+                '<td class="ait_bold">'+
+                    '<?php echo Mage::helper("aitcg")->__("Apply Shape Mask") ?>'+
+                '</td>'+
+                '<td>'+
+                    '<select class="select" name="product[options][{{option_id}}][mask_location]" onchange="$(\'aitcg_option_mask_location_{{option_id}}\').setValue($(this).getValue())" id="aitcg_option_mask_location_{{option_id}}_tmp">'+
+                        '<option value=0>to Printable Area</option>'+
+                        '<option value=1>to Image</option>'+
+                    '</select>'+
+                    '<input type="hidden" id="aitcg_option_mask_location_{{option_id}}" value="{{mask_location}}">' +
+                '</td>'+
+            '</tr>'+
+        '</table>'+
+
+        '<table class="aitoc_cpp_table">'+
+            '<tr>'+
+                '<th class="aitoc_cpp_headings"><?php echo Mage::helper("aitcg")->__("Instagram") ?></th>'+
+                '<th class="aitoc_cpp_switcher">'+
+                    '<input type="hidden" id="aitcg_option_use_instagram_{{option_id}}_tmp" value="{{use_instagram}}"/>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_instagram]" id="aitcg_option_use_instagram_{{option_id}}" class="aitoc_cpp_option_on" value="1" /> <label for="aitcg_option_use_instagram_{{option_id}}">enable</label>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_instagram]" id="aitcg_option_use_instagram_{{option_id}}_dis" class="aitoc_cpp_option_off" value="0" checked="checked" /> <label for="aitcg_option_use_instagram_{{option_id}}_dis">disable</label>'+
+                '</th>'+
+            '</tr>'+
+            '<tr>'+
+                '<th colspan="2" class="aitoc_cpp_note">'+
+                    '<?php echo Mage::helper("aitcg")->__("When this option is enabled, customers can upload their instagram photos.") ?>'+
+                '</th>'+
+            '</tr>'+
+        '</table>'+
+
+        '<table class="aitoc_cpp_table">'+
+            '<tr>'+
+                '<th class="aitoc_cpp_headings"><?php echo Mage::helper("aitcg")->__("Pinterest") ?></th>'+
+                '<th class="aitoc_cpp_switcher">'+
+                    '<input type="hidden" id="aitcg_option_use_pinterest_{{option_id}}_tmp" value="{{use_pinterest}}"/>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_pinterest]" id="aitcg_option_use_pinterest_{{option_id}}" class="aitoc_cpp_option_on" value="1" /> <label for="aitcg_option_use_pinterest_{{option_id}}">enable</label>'+
+                    '<input type="radio" name="product[options][{{option_id}}][use_pinterest]" id="aitcg_option_use_pinterest_{{option_id}}_dis" class="aitoc_cpp_option_off" value="0" checked="checked" /> <label for="aitcg_option_use_pinterest_{{option_id}}_dis">disable</label>'+
+                '</th>'+
+            '</tr>'+
+            '<tr>'+
+                '<th colspan="2" class="aitoc_cpp_note">'+
+                    '<?php echo Mage::helper("aitcg")->__("When this option is enabled, customers can upload their pinterest photos.") ?>'+
+                '</th>'+
+            '</tr>'+
+        '</table>'+
+
+        '<table class="aitoc_cpp_table">'+
+            '<tr>'+
+                '<th class="aitoc_cpp_headings"><?php echo Mage::helper('aitcg')->__('Save Design tab') ?></th>'+
+                '<th class="aitoc_cpp_switcher"><input type="hidden" id="aitcg_option_allow_save_graphics_{{option_id}}_tmp" value="{{allow_save_graphics}}">'+
+                    '<input type="radio" name="product[options][{{option_id}}][allow_save_graphics]" id="aitcg_option_allow_save_graphics_{{option_id}}" class="aitoc_cpp_option_on" value="1" /> <label for="aitcg_option_allow_save_graphics_{{option_id}}">enable</label>'+
+                    '<input type="radio" name="product[options][{{option_id}}][allow_save_graphics]" id="aitcg_option_allow_save_graphics_{{option_id}}_dis" class="aitoc_cpp_option_off" value="0" checked="checked" /> <label for="aitcg_option_allow_save_graphics_{{option_id}}_dis">disable</label>'+
+                '</th>'+
+            '</tr>'+
+            '<tr>'+
+                '<th colspan="2" class="aitoc_cpp_note">'+
+                    '<?php echo Mage::helper("aitcg")->__("When this option is enabled, customers will see the \"Save Design\" tab on the front end, and will be able to save the elements of their custom design in available formats.") ?>'+
+                '</th>'+
+            '</tr>'+
+        '</table>'+
+
+        '<table class="aitoc_cpp_table">'+
+            '<tr>' +
+                '<th class="aitoc_cpp_headings">Additional Settings</th>' +
+                '<th></th>'+
+            '</tr>'+
+            '<tr>'+
+                '<th colspan="2" class="aitoc_cpp_note">'+
+                    '<?php echo Mage::helper("aitcg")->__("By default, all customer graphics are placed <b>on top of</b> your template. However, you can choose to place them <b>behind</b> the template by default. This may be useful if your template contains areas with absolute transparency (e.g., a photo frame).") ?>'+
+                '</th>'+
+            '</tr>'+
+            '<tr class="aitoc_cpp_first">'+
+                '<td class="ait_bold"><?php echo Mage::helper('aitcg')->__('Place text behind template by default') ?></td>'+
+                '<td>' +
+                    '<input type="hidden" id="aitcg_option_def_img_behind_text_{{option_id}}_tmp" value="{{def_img_behind_text}}">'+
+                    '<input type="checkbox" name="product[options][{{option_id}}][def_img_behind_text]" id="aitcg_option_def_img_behind_text_{{option_id}}" value="1">' +
+                '</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td class="ait_bold"><?php echo Mage::helper('aitcg')->__('Place image behind template by default') ?></td>'+
+                '<td>' +
+                    '<input type="hidden" id="aitcg_option_def_img_behind_image_{{option_id}}_tmp" value="{{def_img_behind_image}}">'+
+                    '<input type="checkbox" name="product[options][{{option_id}}][def_img_behind_image]" id="aitcg_option_def_img_behind_image_{{option_id}}" value="1">' +
+                '</td>'+
+            '</tr>'+
+            '<tr class="ait_bold">'+
+                '<td class="ait_bold"><?php echo Mage::helper('aitcg')->__('Place clipart behind template by default') ?></td>'+
+                '<td>' +
+                    '<input type="hidden" id="aitcg_option_def_img_behind_clip_{{option_id}}_tmp" value="{{def_img_behind_clip}}">'+
+                    '<input type="checkbox" name="product[options][{{option_id}}][def_img_behind_clip]" id="aitcg_option_def_img_behind_clip_{{option_id}}" value="1">' +
+                '</td>'+
+            '</tr>'+
+            '<tr class="aitoc_cpp_last">'+
+                '<td class="ait_bold"><?php echo Mage::helper('aitcg')->__('Convert user image and text layers to black and white') ?></td>'+
+                '<td>' +
+                    '<input type="hidden" id="aitcg_option_use_black_white_{{option_id}}_tmp" value="{{use_black_white}}">'+
+                    '<input type="checkbox" name="product[options][{{option_id}}][use_black_white]" id="aitcg_option_use_black_white_{{option_id}}" value="1">' +
+                '</td>'+
+            '</tr>'+
+        '</table>'+
+
+        '<input type="hidden" id="product_option_{{option_id}}_coords_offset_x" name="product[options][{{option_id}}][area_offset_x]" value="{{area_offset_x}}">'+
+        '<input type="hidden" id="product_option_{{option_id}}_coords_offset_y" name="product[options][{{option_id}}][area_offset_y]" value="{{area_offset_y}}">'+
+        '<input type="hidden" id="product_option_{{option_id}}_coords_size_x" name="product[options][{{option_id}}][area_size_x]" value="{{area_size_x}}">'+
+        '<input type="hidden" id="product_option_{{option_id}}_coords_size_y" name="product[options][{{option_id}}][area_size_y]" value="{{area_size_y}}">';
+
+
+
+
+PrintableAreaEditor = <?php echo $this->getChildHtml('aitcg_printarea_window'); ?>;
+
+aitcgImageSelector = new Aitcg_ImageSelector_Opened(
+    <?php echo $this->getSelectImageIds()->toJson() ?>,
+    '<div class="aitcg-imgCrop-thumb" onclick="aitcgImageSelector.editor({{option_id}}).loadEditor();">' +
+         '<img src="{{thumbnail_url}}" alt="{{frontend_label}}" title="{{frontend_label}}" />' +
+         '<div style="top:{{top}}px;left:{{left}}px;width:{{width}}px;height:{{height}}px;"></div>' +
+    '</div>' +
+    '<br />' +
+    '<button type="button" class="scalable aitcg-imgCrop-but" onclick="aitcgImageSelector.editor({{option_id}}).loadEditor();"><span><?php echo Mage::helper('aitcg')->__('Edit Printable Area'); ?></span></button>'
+);
+
+Validation.addAllThese([
+    ['required-option-cgfile-type-template', '<?php echo Mage::helper('aitcg')->__('Please select Image Template.') ?>', function(v, elm) {
+        var selectTypesFlag = false;
+        if(elm.id && elm.value != 0) {
+            selectTypesFlag = true;
+        }
+        elm.advaiceContainer = elm.id+'_advice';
+        return selectTypesFlag;
+}]]);
+
+</script>

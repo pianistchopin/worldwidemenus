@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<config>
+    <api>
+        <resources>
+            <c2q_quotation translate="title" module="qquoteadv">
+                <title>Quotation API</title>
+                <model>qquoteadv/qquoteadv_api</model>
+                <acl>qquoteadv</acl>
+                <methods>
+                    <list translate="title" module="qquoteadv">
+                        <title>Retrieve list of quotations using filters</title>
+                        <method>items</method>
+                        <acl>qquoteadv/list</acl>
+                    </list>
+                    <set_imported translate="title" module="qquoteadv">
+                        <title>Set quotation as exported</title>
+                        <method>setimported</method>
+                        <acl>qquoteadv/setimported</acl>
+                    </set_imported>
+                    <info translate="title" module="qquoteadv">
+                        <title>Retrieve an quotation's information</title>
+                        <method>info</method>
+                        <acl>qquoteadv/info</acl>
+                    </info>
+                    <status_list translate="title" module="qquoteadv">
+                        <title>Retrieve list of quotation's states</title>
+                        <method>status_list</method>
+                        <acl>qquoteadv/status_list</acl>
+                    </status_list>
+                    <add_qtybyitem translate="title" module="qquoteadv">
+                        <title>Add qty by requested item</title>
+                        <method>add_qtybyitem</method>
+                        <acl>qquoteadv/add_qtybyitem</acl>
+                    </add_qtybyitem>
+                    <send_proposal translate="title" module="qquoteadv">
+                        <title>Send proposal</title>
+                        <method>send_proposal</method>
+                        <acl>qquoteadv/send_proposal</acl>
+                    </send_proposal>
+                    <set_shipping translate="title" module="qquoteadv">
+                        <title>Set shipping type</title>
+                        <method>set_shipping</method>
+                        <acl>qquoteadv/set_shipping</acl>
+                    </set_shipping>
+                    <set_proposal_comment translate="title" module="qquoteadv">
+                        <title>Send comment for proposal</title>
+                        <method>set_proposal_comment</method>
+                        <acl>qquoteadv/set_proposal_comment</acl>
+                    </set_proposal_comment>
+                    <set_item_comment translate="title" module="qquoteadv">
+                        <title>Send comment by item</title>
+                        <method>set_item_comment</method>
+                        <acl>qquoteadv/set_item_comment</acl>
+                    </set_item_comment>
+                    <delete_requested_qty translate="title" module="qquoteadv">
+                        <title>Delete requested item's qty</title>
+                        <method>delete_requested_qty</method>
+                        <acl>qquoteadv/delete_requested_qty</acl>
+                    </delete_requested_qty>
+                    <delete_requested_item translate="title" module="qquoteadv">
+                        <title>Delete requested item</title>
+                        <method>delete_requested_item</method>
+                        <acl>qquoteadv/delete_requested_item</acl>
+                    </delete_requested_item>
+                    <modify_requested_qty translate="title" module="qquoteadv">
+                        <title>Modify requested item's qty</title>
+                        <method>modify_requested_qty</method>
+                        <acl>qquoteadv/modify_requested_qty</acl>
+                    </modify_requested_qty>
+                    <add_products_to_quote translate="title" module="qquoteadv">
+                        <title>Add products to quote</title>
+                        <method>add_products_to_quote</method>
+                        <acl>qquoteadv/add_products_to_quote</acl>
+                    </add_products_to_quote>
+                    <update_quote_status translate="title" module="qquoteadv">
+                        <title>Update Quote Status</title>
+                        <method>update_quote_status</method>
+                        <acl>qquoteadv/update_quote_status</acl>
+                    </update_quote_status>
+                    <createQuote translate="title" module="qquoteadv">
+                        <title>Create a quote</title>
+                        <method>createQuote</method>
+                        <acl>qquoteadv/create_quote</acl>
+                    </createQuote>
+                    <acceptQuote translate="title" module="qquoteadv">
+                        <title>Accept a quote</title>
+                        <method>acceptQuote</method>
+                        <acl>qquoteadv/accept_quote</acl>
+                    </acceptQuote>
+                    <rejectQuote translate="title" module="qquoteadv">
+                        <title>Reject a quote</title>
+                        <method>rejectQuote</method>
+                        <acl>qquoteadv/reject_quote</acl>
+                    </rejectQuote>
+                </methods>
+                <faults module="qquoteadv">
+                    <data_invalid>
+                        <code>100</code>
+                        <message>Invalid data.</message>
+                    </data_invalid>
+                    <not_exists>
+                        <code>101</code>
+                        <message>Data not exists.</message>
+                    </not_exists>
+                    <quote_not_exists>
+                        <code>102</code>
+                        <message>Quotation not exists.</message>
+                    </quote_not_exists>
+                    <filters_invalid>
+                        <code>103</code>
+                        <message>Invalid filters specified. Details in error message.</message>
+                    </filters_invalid>
+                    <dublicate_data>
+                        <code>104</code>
+                        <message>Duplicate value entered.</message>
+                    </dublicate_data>
+                    <save_error>
+                        <code>105</code>
+                        <message>Error while saving.</message>
+                    </save_error>
+                    <delete_error>
+                        <code>106</code>
+                        <message>Error while deleting.</message>
+                    </delete_error>
+                    <store_not_exists>
+                        <code>1001</code>
+                        <message>Can not make operation because store is not exists</message>
+                    </store_not_exists>
+                    <quote_create_fault>
+                        <code>1003</code>
+                        <message>Can not create a quote. </message>
+                    </quote_create_fault>
+                </faults>
+            </c2q_quotation>
+        </resources>
+        <v2>
+            <resources_function_prefix>
+                <c2q_quotation>c2q</c2q_quotation>
+            </resources_function_prefix>
+        </v2>
+        <acl>
+            <resources>
+                <qquoteadv translate="title" module="qquoteadv">
+                    <title>Cart2Quote</title>
+                    <list translate="title" module="customer">
+                        <title>Retrieve list of quotations using filters</title>
+                    </list>
+                    <set_imported translate="title" module="qquoteadv">
+                        <title>Set quotation as exported</title>
+                    </set_imported>
+                    <info translate="title" module="qquoteadv">
+                        <title>Retrieve an quotation's information</title>
+                    </info>
+                    <status_list translate="title" module="qquoteadv">
+                        <title>Retrieve list of quotation's states</title>
+                    </status_list>
+                    <add_qtybyitem translate="title" module="qquoteadv">
+                        <title>Add qty by requested item</title>
+                    </add_qtybyitem>
+                    <send_proposal translate="title" module="qquoteadv">
+                        <title>Send proposal</title>
+                    </send_proposal>
+                    <set_shipping translate="title" module="qquoteadv">
+                        <title>Set shipping type</title>
+                    </set_shipping>
+                    <set_proposal_comment translate="title" module="qquoteadv">
+                        <title>Send comment for proposal</title>
+                    </set_proposal_comment>
+                    <set_item_comment translate="title" module="qquoteadv">
+                        <title>Send comment by item</title>
+                    </set_item_comment>
+                    <delete_requested_qty translate="title" module="qquoteadv">
+                        <title>Delete requested item's qty</title>
+                    </delete_requested_qty>
+                    <delete_requested_item translate="title" module="qquoteadv">
+                        <title>Delete requested item</title>
+                    </delete_requested_item>
+                    <modify_requested_qty translate="title" module="qquoteadv">
+                        <title>Modify requested item's qty</title>
+                    </modify_requested_qty>
+                    <add_products_to_quote translate="title" module="qquoteadv">
+                        <title>Add products to quote</title>
+                    </add_products_to_quote>
+                    <update_quote_status translate="title" module="qquoteadv">
+                        <title>Update Quote Status</title>
+                    </update_quote_status>
+                    <create_quote translate="title" module="qquoteadv">
+                        <title>Create a quote</title>
+                    </create_quote>
+                    <accept_quote translate="title" module="qquoteadv">
+                        <title>Accept a quote</title>
+                    </accept_quote>
+                    <reject_quote translate="title" module="qquoteadv">
+                        <title>Reject a quote</title>
+                    </reject_quote>
+                </qquoteadv>
+            </resources>
+        </acl>
+    </api>
+</config>

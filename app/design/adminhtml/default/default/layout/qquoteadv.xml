@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<layout version="0.1.0">
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv/tooltiphelper.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv/massupdate.js</name>
+            </action>
+            <action method="addCss">
+                <link>css/qquoteadv/tooltip.css</link>
+            </action>
+        </reference>
+    </adminhtml_system_config_edit>
+    <adminhtml_quote_export_excel>
+        <reference name="content">
+            <block type="qquoteadv/adminhtml_qquoteadv" name="qquote"/>
+        </reference>
+    </adminhtml_quote_export_excel>
+    <adminhtml_quote_export_csv>
+        <reference name="content">
+            <block type="qquoteadv/adminhtml_qquoteadv" name="qquote"/>
+        </reference>
+    </adminhtml_quote_export_csv>
+    <adminhtml_qquoteadv_index>
+        <reference name="content">
+            <block type="qquoteadv/adminhtml_qquoteadv" name="qquote"/>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <link>css/qquoteadv/edit.css</link>
+            </action>
+        </reference>
+    </adminhtml_qquoteadv_index>
+
+    <adminhtml_qquoteadv_edit>
+        <reference name="head">
+            <action method="addCss">
+                <link>css/qquoteadv/edit.css</link>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/qquoteadv/multipleupload.js</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="qquoteadv/adminhtml_qquoteadv_edit" name="cart2quote.edit"/>
+        </reference>
+        <reference name="left">
+            <block type="qquoteadv/adminhtml_qquoteadv_edit_tabs" name="cart2quote.edit.left">
+                <block type="qquoteadv/adminhtml_qquoteadv_edit_tab_product" name="cart2quote.edit.tab.product" template="qquoteadv/product.phtml">
+                    <block type="qquoteadv/adminhtml_qquoteadv_edit_items" name="quote_items" template="qquoteadv/edit/items.phtml">
+                        <action method="addItemRender">
+                            <type>default</type>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_renderers_default</block>
+                            <template>qquoteadv/edit/items/renderers/default.phtml</template>
+                        </action>
+                        <action method="addItemRender">
+                            <type>simple</type>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_renderers_default</block>
+                            <template>qquoteadv/edit/items/renderers/default.phtml</template>
+                        </action>
+                        <action method="addItemRender">
+                            <type>grouped</type>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_renderers_grouped</block>
+                            <template>qquoteadv/edit/items/renderers/default.phtml</template>
+                        </action>
+                        <action method="addItemRender">
+                            <type>configurable</type>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_renderers_configurable</block>
+                            <template>qquoteadv/edit/items/renderers/configurable.phtml</template>
+                        </action>
+                        <action method="addItemRender">
+                            <type>bundle</type>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_renderers_bundle</block>
+                            <template>qquoteadv/edit/items/renderers/bundle.phtml</template>
+                        </action>
+                        <action method="addItemRender">
+                            <type>downloadable</type>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_renderers_downloadable</block>
+                            <template>qquoteadv/edit/items/renderers/downloadable.phtml</template>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>sortable</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_sortable</block>
+                            <template>qquoteadv/edit/items/columns/sortable.phtml</template>
+                            <sort>5</sort>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>sku</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_sku</block>
+                            <template>qquoteadv/edit/items/columns/sku.phtml</template>
+                            <sort>10</sort>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>product</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_product</block>
+                            <template>qquoteadv/edit/items/columns/product.phtml</template>
+                            <sort>20</sort>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>comment</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_comment</block>
+                            <template>qquoteadv/edit/items/columns/comment.phtml</template>
+                            <sort>30</sort>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>costprice</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_costprice</block>
+                            <template>qquoteadv/edit/items/columns/costprice.phtml</template>
+                            <sort>40</sort>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>originalprice</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_originalprice</block>
+                            <template>qquoteadv/edit/items/columns/originalprice.phtml</template>
+                            <sort>50</sort>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>price</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_price</block>
+                            <template>qquoteadv/edit/items/columns/price.phtml</template>
+                            <sort>60</sort>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>qty</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_qty</block>
+                            <template>qquoteadv/edit/items/columns/qty.phtml</template>
+                            <sort>70</sort>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>rowtotal</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_rowtotal</block>
+                            <template>qquoteadv/edit/items/columns/rowtotal.phtml</template>
+                            <sort>80</sort>
+                        </action>
+                        <action method="addColumnRender">
+                            <column>margin</column>
+                            <block>qquoteadv/adminhtml_qquoteadv_edit_items_columns_margin</block>
+                            <template>qquoteadv/edit/items/columns/margin.phtml</template>
+                            <sort>90</sort>
+                        </action>
+                        <block type="core/text_list" name="order_item_extra_info"/>
+                    </block>
+                    <block type="qquoteadv/adminhtml_qquoteadv_quotedetails_costprice" name="cart2quote.quotedetails.costprice" template="qquoteadv/details/cost_price.phtml"/>
+                    <block type="qquoteadv/adminhtml_totals" name="quote_totals" template="sales/order/totals.phtml">
+                        <block type="qquoteadv/totals_tax" name="tax" template="qquoteadv/totals/tax.phtml"/>
+                    </block>
+                    <block type="qquoteadv/adminhtml_qquoteadv_quotedetails_buttons" name="quote_buttons" template="qquoteadv/details/buttons.phtml"/>
+                </block>
+                <action method="addTab">
+                    <name>quote_request</name>
+                    <block>cart2quote.edit.tab.product</block>
+                </action>
+            </block>
+        </reference>
+    </adminhtml_qquoteadv_edit>
+
+    <!--
+        <qquoteadv_adminhtml_qquoteadv_edit>
+            <reference name="head">
+               <action method="addCss"><link>css/qquoteadv/edit.css</link></action>
+            </reference>
+        </qquoteadv_adminhtml_qquoteadv_edit>
+    -->
+    <!--
+    Email layouts section
+    -->
+    <default>
+        <reference name="notifications">
+            <block type="qquoteadv/adminhtml_notifications" name="qquoteadv_notifications" template="qquoteadv/notifications.phtml"></block>
+        </reference>
+    </default>
+    <adminhtml_sales_order_view>
+        <reference name="order_info">
+            <reference name="left">
+                <block type="adminhtml/sales_order_view_tab_info"
+                       name="proposal_tab_info"
+                       after="order_tab_info"
+                       template="qquoteadv/sales/order/view/tab/linkedproposal.phtml"/>
+            </reference>
+        </reference>
+    </adminhtml_sales_order_view>
+    <!-- C2Quote Customer -->
+    <adminhtml_qquoteadv_quotes>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="qquoteadv/adminhtml_qquoteadv_grid" name="adminhtml.qquoteadv.grid.quotes"/>
+        </block>
+    </adminhtml_qquoteadv_quotes>
+    <!--
+        <qquoteadv_adminhtml_qquoteadv_quotes>
+            <block type="core/text_list" name="root" output="toHtml">
+                <block type="qquoteadv/adminhtml_qquoteadv_grid" name="adminhtml.qquoteadv.grid.quotes"/>
+            </block>
+        </qquoteadv_adminhtml_qquoteadv_quotes>
+    -->
+    <!-- C2Quote Customer -->
+    <adminhtml_catalog_product_action_attribute_edit>
+        <reference name="attributes_tabs">
+            <block type="qquoteadv/adminhtml_massaction_tab" name="tab_qquoteadvgroup" template="qquoteadv/massedit/tab.phtml">
+                <block type="qquoteadv/adminhtml_massaction_configure" name="tab_qquoteadv_allowquote" template="qquoteadv/massedit/group.phtml">
+                    <action method="setData">
+                        <name>form_id</name>
+                        <value>allowquote</value>
+                    </action>
+                    <action method="setGroupName">
+                        <value>allowquote</value>
+                    </action>
+                    <action method="setData">
+                        <name>form_label</name>
+                        <value>Enable quote for groups</value>
+                    </action>
+                </block>
+            </block>
+            <action method="addTab">
+                <name>qquoteadvgroup</name>
+                <block>tab_qquoteadvgroup</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_action_attribute_edit>
+    <adminhtml_report_salesrep_salesrep>
+        <reference name="content">
+            <block type="qquoteadv/adminhtml_report_salesrep_salesrep" template="report/grid/container.phtml" name="salesrep.report.grid.container">
+              <!--  <block type="adminhtml/store_switcher" template="report/store/switcher/enhanced.phtml" name="store.switcher"></block>
+                <block type="qquoteadv/adminhtml_report_filter_form" name="grid.filter.form">
+                    <action method="setFieldVisibility">
+                        <field>report_type</field>
+                        <visibility>0</visibility>
+                    </action>
+                </block>-->
+            </block>
+        </reference>
+    </adminhtml_report_salesrep_salesrep>
+</layout>

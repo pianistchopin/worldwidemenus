@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2018 Amasty (https://www.amasty.com)
+ * @package Amasty_GeoipRedirect
+ */
+-->
+<config>
+    <global>
+        <cache>
+            <request_processors>
+                <amredirect>Amasty_GeoipRedirect_Model_Fpc_Front</amredirect>
+            </request_processors>
+        </cache>
+        <models>
+            <core_resource>
+                <entities>
+                    <store_group>
+                        <table>core_store_group</table>
+                    </store_group>
+                </entities>
+            </core_resource>
+
+            <amgeoip>
+                <class>Amasty_Geoip_Model</class>
+                <resourceModel>amgeoip_resource</resourceModel>
+            </amgeoip>
+
+            <amgeoip_resource>
+                <class>Amasty_Geoip_Model_Resource</class>
+                <entities>
+                    <block>
+                        <table>amasty_geoip_block</table>
+                    </block>
+                    <location>
+                        <table>amasty_geoip_location</table>
+                    </location>
+                </entities>
+            </amgeoip_resource>
+        </models>
+    </global>
+</config>

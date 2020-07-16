@@ -1,0 +1,101 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+$_quote = $this->getQuote();
+$mageStore = Mage::app()->getStore();
+$currentCurrencyCode = $mageStore->getCurrentCurrencyCode();
+
+// set the currency for this quote
+if($_quote){
+    //only set when quote is set, in case of template preview
+    $currency = $_quote->getData('currency');
+} else {
+    $currency = $currentCurrencyCode;
+}
+?>
+<table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
+    <thead>
+    <tr>
+        <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px;"><?php echo Mage::helper('sales')->__('Item') ?></th>
+        <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px;"><?php echo Mage::helper('sales')->__('Name') ?></th>
+        <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px;"><?php echo Mage::helper('sales')->__('Sku') ?></th>
+        <th align="center" bgcolor="#EAEAEA"
+            style="font-size:13px; padding:3px 9px;"><?php echo $this->__('Tier/Qty') ?></th>
+
+        <?php if (!$this->isSetAutoProposal()): ?>
+            <th align="right" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px;">&nbsp;</th>
+        <?php else: ?>
+            <th align="center" bgcolor="#EAEAEA"
+                style="font-size:13px; padding:3px 9px;"><?php echo Mage::helper('sales')->__('Price') ?></th>
+            <th align="right" bgcolor="#EAEAEA"
+                style="font-size:13px; padding:3px 9px;"><?php echo Mage::helper('sales')->__('Subtotal') ?></th>
+        <?php endif; ?>
+
+    </tr>
+    </thead>
+    <?php $i = 0;
+    $mageStore->setCurrentCurrencyCode($currency);
+    foreach ($this->getAllItems() as $_item): ?>
+        <?php if ($_item->getParentItem()) continue; else $i++; ?>
+        <tbody<?php echo $i % 2 ? ' bgcolor="#F6F6F6"' : '' ?>>
+        <?php echo $this->getLayout()->getBlock('qquoteadv_item')->setItem($_item)->toHtml(); ?>
+        </tbody>
+    <?php endforeach; ?>
+    <?php $mageStore->setCurrentCurrencyCode($currentCurrencyCode); ?>
+
+    <?php if ($this->isSetAutoProposal()):
+        $colspan = 5; ?>
+
+        <!-- style for checkout button -->
+        <style>
+            .removeSpan span {display:none!important;}
+        </style>
+
+        <tbody>
+        <tr>
+            <td colspan="<?php echo($colspan + 1) ?>" style="padding:0 0;" align="right">
+                <table cellspacing="0" cellpadding="0" border="0" style="margin:0; padding:0;">
+                    <tbody>
+                    <?php Mage::register('current_quote', $_quote);
+                    echo $this->getChildHtml('quote_totals');
+                    Mage::unregister('current_quote');?>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+        <tbody>
+        
+        <tr>
+            <td colspan="<?php echo($colspan + 1) ?>" style="padding:0 6px 20px 6px; " align="right">
+                <a href="<?php echo Mage::helper('qquoteadv/licensechecks')->getAutoLoginUrl($_quote, 1); ?>"><?php echo $this->__('Visit customer dashboard for more options'); ?></a>
+            </td>
+        </tr>
+        </tbody>
+    <?php endif; ?>
+</table>

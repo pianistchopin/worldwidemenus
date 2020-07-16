@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <qquoteadv>
+            <label>Cart2Quote</label>
+            <sort_order>310</sort_order>
+        </qquoteadv>
+    </tabs>
+    <sections>
+        <qquoteadv_support>
+            <label>Support</label>
+            <tab>qquoteadv</tab>
+            <sort_order>390</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <installation>
+                    <label>Installation</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>200</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment><![CDATA[
+                            <div class="box">
+                            <p><b>Cart2Quote Core (Version 6.3.1) Provided by <a target="_blank" href="https://ophirah.nl">Ophirah | E-commerce Projects</a></b></p>
+                            For documentation and support visit<a target="_blank" href="https://www.cart2quote.com">www.cart2quote.com</a> or contact<a target="_blank" href="mailto:support@cart2quote.com">support@cart2quote.com</a>
+                            </div>
+                    ]]></comment>
+                    <expanded>1</expanded>
+                    <fields>
+                        <support_ticket>
+                            <label>Install Cart2Quote</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>ophirah_core/adminhtml_system_config_field_install</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </support_ticket>
+                    </fields>
+                </installation>
+            </groups>
+        </qquoteadv_support>
+    </sections>
+</config>

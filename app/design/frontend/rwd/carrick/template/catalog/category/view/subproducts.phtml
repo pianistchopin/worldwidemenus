@@ -1,0 +1,13 @@
+<?php
+$collection = Mage::getModel('catalog/product')->getCollection()->addCategoryFilter(5)->addAttributeToSort('size', 'ASC')->load();
+				
+$oldValue = ''; // this will hold the old attribute value which we can compare to later
+print_r($collection);
+foreach($collection as $product){
+    $newValue = $product->getSize(); // in this case we want to see if its a new color (but it can be any attribute)
+    if(!$newValue == $oldValue){ // if it does not match the old value it means that this is the beginning of a new color, in other words a new section of products in this category
+          echo '<h1>' . $newValue . ' Products</h1>'; // you can put whatever you want to show the separation vissually
+          $oldValue = $newValue; // update the old value so all products with the same value will go here
+   }
+}
+?>

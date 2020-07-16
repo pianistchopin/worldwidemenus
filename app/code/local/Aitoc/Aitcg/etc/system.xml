@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+   <sections>
+        <catalog>
+            <groups>
+                <aitcg translate="label" module="aitcg">
+                    <label>Custom Product Preview - General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>98</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <editor_settings_label translate="label">
+                            <label>Editor settings</label> 
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model> 
+                            <sort_order>10</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </editor_settings_label>
+                        <aitcg_editor_position translate="label comment">
+                            <label>Editor mode</label>
+                            <comment>Product will be edited right on the Product Detail page if On-page Editor is enabled.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aitcg/system_config_source_editor_position</source_model>  
+                            <sort_order>11</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </aitcg_editor_position>
+                        <aitcg_toolbox_style translate="label comment">
+                            <label>Editor menu type</label>
+                            <comment>Default: Icons</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aitcg/system_config_source_editor_toolbox</source_model>  
+                            <sort_order>12</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </aitcg_toolbox_style>
+                        <aitcg_allow_text_distortion>
+                            <label>Allow Distortion of Objects</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_allow_text_distortion>
+                        <aitcg_allow_place_behind>
+                            <label>Allow Place Behind Product Image</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_allow_place_behind>
+
+
+                        <image_settings_label translate="label">
+                            <label>Images settings</label> 
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model> 
+                            <sort_order>20</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </image_settings_label>
+                        <thumb_size_popup translate="label comment">
+                            <label>Thumbnail max size</label>
+                            <comment>Default: 200x200</comment>
+                            <validate>aitcg-image-size</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>21</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </thumb_size_popup>
+                        <thumb_size_gallery translate="label comment">
+                            <label>Thumbnail max size (gallery integration)</label>
+                            <comment>Default: 56x56</comment>
+                            <validate>aitcg-image-size</validate>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>22</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </thumb_size_gallery>
+                        <aitcg_image_extensions translate="label comment">
+                            <label>Allowed Files for Preview Images</label>
+                            <comment>Default: jpg, jpeg, png, gif. Allowed Files for Preview Images uploaded by customers</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_image_extensions>
+                        <aitcg_use_imagemagick translate="label">
+                            <label>Try to convert any non-standart user uploaded file</label>
+                            <comment>Note: requires ImageMagick to be installed at your host and allowed php exec command;  check http://www.imagemagick.org/script/formats.php for possible format conversions</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_use_imagemagick>
+                        <aitcg_enable_svg_to_pdf translate="label comment">
+                            <label>Enable Saving Svg Images As Pdf </label>
+                            <comment>Note: requires ImageMagick to be installed at your host and allowed php exec command;  check http://www.imagemagick.org/script/formats.php for possible format conversions</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>25</sort_order>
+                            <backend_model>aitcg/system_config_backend_enableSvgToPdf</backend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_enable_svg_to_pdf>
+
+                 
+                        <text_settings_label translate="label">
+                            <label>Text settings</label> 
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model> 
+                            <sort_order>30</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </text_settings_label> 
+                        <aitcg_font_resolution_predefine translate="label comment">
+                            <label>Custom Text Resolution (Px.)</label>
+                            <comment>Default: 200.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>31</sort_order>
+                            <validate>validate-not-negative-number</validate>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_font_resolution_predefine>  
+                        <aitcg_font_color_predefine>
+                            <label>Allow Only Predefined Colors for Fonts and Text Outline</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_font_color_predefine>
+                        <aitcg_font_outline>
+                            <label>Enable Text Outline</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>33</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_font_outline>
+                        <aitcg_font_shadow>
+                            <label>Enable Text Shadow</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>34</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_font_shadow>
+
+
+                        <seotools_settings_label translate="label">
+                            <label>Marketing settings</label>
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model> 
+                            <sort_order>40</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </seotools_settings_label> 
+                        <aitcg_enable_homepage_promo translate="label">
+                            <label>Enable homepage promo block</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>41</sort_order>
+                            <backend_model>aitcg/system_config_backend_enablehomepagepromo</backend_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_enable_homepage_promo>
+                        <aitcg_use_social_networks_sharing translate="label comment">
+                            <label>Use social networks sharing functionality</label>
+                            <comment>Add social networks share buttons to customized images</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>42</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_use_social_networks_sharing>
+                        <aitcg_social_networks_sharing_max_img_width translate="label">
+                            <label>Maximum width of social networks shared image </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>43</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_social_networks_sharing_max_img_width>
+                        <aitcg_social_networks_sharing_max_img_height translate="label">
+                            <label>Maximum height of social networks shared image </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>44</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_social_networks_sharing_max_img_height>
+                        <aitcg_share_img_template translate="label">
+                            <label>Email template for sending shared images</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_share_img_template>                                
+
+
+                        <cron_settings_label translate="label">
+                            <label>Cron settings</label> 
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model> 
+                            <sort_order>50</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </cron_settings_label> 
+                        <aitcg_cron_order translate="label comment">
+                            <label>Cron setting for Completed Orders Images (Days)</label>
+                            <comment>Affect Images for Completed orders-> Default: 150. Automatically delete all images from the orders with status: completed, close or canceled</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>52</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </aitcg_cron_order>
+
+
+                        <userconf_settings_label translate="label">
+                            <label>User Confirmation Settings</label> 
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model> 
+                            <sort_order>60</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </userconf_settings_label> 
+                        <aitcg_confirm_checkbox translate="label comment">
+                            <label>Display Image Quality confirmation check box</label>
+                            <comment>Display Image Quality confirmation check box during image file upload; Recommended</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>61</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_confirm_checkbox>
+                        <aitcg_confirm_text translate="label">
+                            <label>Short Confirmation text near Image Quality confirmation check box</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>62</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_confirm_text>  
+                        <aitcg_confirm_fullcheckbox translate="label comment">
+                            <label>Enable confirmation popup with the extended text</label>
+                            <comment>Note: popup can be used if confirmation checkbox is enabled only; Recommended</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <sort_order>63</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_confirm_fullcheckbox>
+                        <aitcg_confirm_title translate="label">
+                            <label>Confirmation popup title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>64</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_confirm_title>
+                        <aitcg_confirm_fulltext translate="label comment">
+                            <label>Extended confirmation text for the popup</label>
+                            <comment>Here admin can place Full Image Quality Requirements for the uploaded graphic file to be compliant for print</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_confirm_fulltext>     
+                        <aitcg_confirm_align translate="label comment">
+                            <label>Confirmation popup text align</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aitcg/system_config_source_editor_align</source_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: Center</comment>
+                        </aitcg_confirm_align>
+
+                        <instagram_settings_label translate="label">
+                            <label>Instagram application settings</label>
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </instagram_settings_label>
+                        <aitcg_instagram_client_id translate="label">
+                            <label>Client ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>71</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_instagram_client_id>
+                        <aitcg_instagram_client_secret translate="label">
+                            <label>Client Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>72</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_instagram_client_secret>
+                        <aitcg_instagram_redirect_uri translate="label">
+                            <label>Redirect URI</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Usually is: http://YOURSITE/index.php/aitcg/instagram/redirect</comment>
+                            <sort_order>73</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_instagram_redirect_uri>
+
+
+                        <pinterest_settings_label translate="label">
+                            <label>Pinterest application settings</label>
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </pinterest_settings_label>
+                        <aitcg_pinterest_client_id translate="label">
+                            <label>App ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>81</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_pinterest_client_id>
+                        <aitcg_pinterest_client_secret translate="label">
+                            <label>App secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>82</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_pinterest_client_secret>
+                        <aitcg_pinterest_redirect_uri translate="label">
+                            <label>Redirect URI</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Usually is: http://YOURSITE/index.php/aitcg/pinterest/redirect</comment>
+                            <sort_order>83</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </aitcg_pinterest_redirect_uri>
+                    </fields>
+                </aitcg>
+                
+                <aitcg_style translate="label" module="aitcg">
+                    <label>Custom Product Preview - Style Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>99</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <general_label translate="label">
+                            <label>General</label>
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model> 
+                            <sort_order>10</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </general_label>
+                        <tooltips_style translate="label comment">
+                            <label>Tooltips color theme</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aitcg/system_config_source_editor_tooltips</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: Dark</comment>
+                        </tooltips_style>
+                        <popups_bg translate="label comment">
+                            <label>Popups background color</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: F7F7F7</comment>
+                        </popups_bg>
+                        
+                        
+                        <buttons_label translate="label">
+                            <label>Buttons (e.g. Apply, Reset, etc.)</label>
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model> 
+                            <sort_order>20</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </buttons_label>
+                        <buttons_bg translate="label comment">
+                            <label>Background Color</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class>
+                            <sort_order>21</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: FFFFFF</comment>
+                        </buttons_bg>
+                        <buttons_bg_hover translate="label comment">
+                            <label>Background Color (hover)</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>22</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: FFFFFF</comment>
+                        </buttons_bg_hover>
+                        <buttons_border translate="label comment">
+                            <label>Border Color</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>23</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: 686868</comment>
+                        </buttons_border>
+                        <buttons_border_hover translate="label comment">
+                            <label>Border Color (hover)</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>24</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: 313131</comment>
+                        </buttons_border_hover>
+                        <buttons_text translate="label comment">
+                            <label>Text Color</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>25</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: 686868</comment>
+                        </buttons_text>
+                        <buttons_text_hover translate="label comment">
+                            <label>Text Color (hover)</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>26</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: 313131</comment>
+                        </buttons_text_hover>
+                        
+                        
+                        <icons_label translate="label">
+                            <label>Editor Menu Icons</label>
+                            <frontend_model>aitcg/system_config_form_field_heading</frontend_model> 
+                            <sort_order>30</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store> 
+                        </icons_label>
+                        <icons_style translate="label comment">
+                            <label>Icons color theme</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aitcg/system_config_source_editor_tooltips</source_model>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: Dark</comment>
+                        </icons_style>
+                        <icons_bg translate="label comment">
+                            <label>Background Color</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>32</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: FFFFFF</comment>
+                        </icons_bg>
+                        <icons_bg_hover translate="label comment">
+                            <label>Background Color (hover)</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>33</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: FFFFFF</comment>
+                        </icons_bg_hover>
+                        <icons_border translate="label comment">
+                            <label>Border Color</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>34</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: 686868</comment>
+                        </icons_border>
+                        <icons_border_hover translate="label comment">
+                            <label>Border Color (hover)</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>35</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: 313131</comment>
+                        </icons_border_hover>
+                        <icons_text translate="label comment">
+                            <label>Text Color</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>36</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: 686868</comment>
+                        </icons_text>
+                        <icons_text_hover translate="label comment">
+                            <label>Text Color (hover)</label> 
+                            <frontend_type>text</frontend_type>
+                            <frontend_class>jscolorpicker</frontend_class> 
+                            <sort_order>37</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: 313131</comment>
+                        </icons_text_hover>
+                        <icons_inactive_opacity translate="label comment">
+                            <label>Inactive Icon Opacity</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aitcg/system_config_source_editor_opacity</source_model>
+                            <sort_order>38</sort_order> 
+                            <show_in_default>1</show_in_default> 
+                            <show_in_website>1</show_in_website> 
+                            <show_in_store>1</show_in_store>
+                            <comment>Default: 50%</comment>
+                        </icons_inactive_opacity>
+                        
+                    </fields>
+                </aitcg_style>
+            </groups>
+        </catalog>
+    </sections>
+</config>

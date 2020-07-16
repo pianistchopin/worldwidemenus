@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout>
+    <formkey>
+        <block type="core/template" name="formkey" as="formkey" template="formkey.phtml"/>
+    </formkey>	
+    <adminhtml_index_login>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="adminhtml/template" name="content" template="adminlogin.phtml">
+                <block type="core/text_list" name="form.additional.info" />
+            </block>
+        </block>
+    </adminhtml_index_login>
+</layout>

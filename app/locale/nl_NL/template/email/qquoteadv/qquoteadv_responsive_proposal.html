@@ -1,0 +1,98 @@
+<!--@subject {{var quote.getStoreGroupName()}}: Nieuw voorstel voor offerteaanvraag # {{var quote.increment_id}} @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0" style="padding: 10px;">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="email-heading">
+                        <h2>Beste {{htmlescape var=$customer.name}},</h2>
+
+                        <h1>Nogmaals bedankt voor uw offerteaanvraag bij {{var store.getFrontendName()}}.</h1>
+
+                        <p>{{if attach_pdf}}U vindt ons voorstel in de bijgevoegde PDF vinden.{{/if}}<br>
+                            Onze Algemene Voorwaarden zijn {{if attach_pdf}} ook {{/if}} bijgevoegd als PDF.
+                            <br> Om alle details te bekijken, te wijzigen of om deze offerte te accepteren bezoek dan
+                            <a style="color:#1E7EC8;" href="{{var link}}">Mijn Offertes</a> in uw klanten dashboard.
+                            {{if quote.getPath()}}<br>De download {{var quote.getFileTitle()}} kan gevonden worden op:<a
+                                    style="color:#1E7EC8;" href="{{var quote.getFullPath()}}">{{var
+                                quote.getFullPath()}}</a>{{/if}}
+                    </td>
+                    <td class="store-info">
+                        <h4>Vragen over uw offerte?</h4>
+
+                        <p>
+                          {{depend store_phone}}
+                          <b>Wij zijn bereikbaar op:</b>
+                          <a href="tel:{{var phone}}">{{var store_phone}}</a><br>
+                          {{/depend}}
+                          {{depend store_hours}}
+                          <b>van maandag - vrijdag, tussen 8:30hr - 17:00hr.</b>
+                          <span class="no-link">{{var store_hours}}</span><br>
+                          {{/depend}}
+                          {{depend store_email}}
+                          <b>E-mail:</b> <a href="mailto:{{var store_email}}">{{var store_email}}</a>
+                          {{/depend}}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="quote-details">
+            <h3>Uw Offerteaanvraag<span class="no-link">#{{var
+                                quote.increment_id}}</span></h3>
+
+            <p>geplaatst op {{var quote.getCreatedAtFormated('long')}}</p>
+        </td>
+    </tr>
+    <tr class="quote-information">
+        <td>
+            <table cellspacing="0" cellpadding="0" class="message-container">
+                <tr>
+                    <td class="address-details">
+                        <h6>Opmerkingen bij uw aanvraag</h6>
+
+                        <p>{{htmlescape var=$quote.getClientRequest()}}</p></td>
+                </tr>
+            </table>
+            {{layout handle="qquoteadv_email_qquoteadv_items" quote=$quote autoproposal=1}}
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="address-details">
+                        <h6>Factuurinformatie:</h6>
+
+                        <p><span class="no-link">{{var quote.getBillingAddress().format('html')}}</span></p>
+                    </td>
+                    <td class="address-details">
+                        <h6>Verzendinformatie:</h6>
+
+                        <p><span class="no-link">{{var quote.getShippingAddress().format('html')}}</span></p>
+                    </td>
+                </tr>
+            </table>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                <tr>
+                    <td class="address-details">
+                        <h6>Bijlagen</h6>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                {{var quote.getFileUploadsToHtml()}}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

@@ -1,0 +1,99 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+$_quote  = $this->getQuote();
+$_source = $this->getSource();
+$_fullInfo = $this->getFullTaxInfo();
+$_weees = array();// $this->helper('tax')->getAllWeee($_order);
+global $taxIter; $taxIter++;
+$hasItemsInTaxSection = 0;
+?>
+<?php  ?>
+
+<?php if ($this->displayFullSummary()): ?>
+    <?php $isTop = 1; ?>
+    <?php if ($_fullInfo) foreach ($_fullInfo as $info): ?>
+        <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
+        <?php
+        $percent    = $info['percent'];
+        $amount     = $info['amount'];
+        $rates      = $info['rates'];
+        $isFirst    = 1;
+        ?>
+        <?php foreach ($rates as $rate): ?>
+            <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>"<?php if (!$this->getIsPlaneMode()):?> style="display:none;"<?php endif;?>>
+                <td <?php echo $this->getLabelProperties()?>>
+                    <?php echo $this->escapeHtml($rate['title']); ?>
+                    <?php if (!is_null($rate['percent'])): ?>
+                        (<?php echo (float)$rate['percent']; ?>%)
+                    <?php endif; ?>
+                    <br />
+                </td>
+                <?php if ($isFirst): ?>
+                    <td <?php echo $this->getValueProperties()?> rowspan="<?php echo count($rates); ?>">
+                        <?php echo $_quote->formatPrice($amount); ?>
+                    </td>
+                <?php endif; ?>
+            </tr>
+            <?php $isFirst = 0; ?>
+            <?php $isTop = 0; ?>
+            <?php $hasItemsInTaxSection = 1 ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+
+    <?php foreach ($_weees as $weeeTitle => $weeeAmount): ?>
+        <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>"<?php if (!$this->getIsPlaneMode()):?> style="display:none;"<?php endif;?>>
+            <td <?php echo $this->getLabelProperties()?>>
+                <?php echo $this->escapeHtml($weeeTitle); ?>
+                <br/>
+            </td>
+            <td <?php echo $this->getValueProperties()?> rowspan="1">
+                <?php echo $_quote->formatPrice($weeeAmount); ?>
+            </td>
+        </tr>
+        <?php $hasItemsInTaxSection = 1 ?>
+    <?php endforeach; ?>
+
+<?php endif;?>
+
+<?php if ($this->displayFullSummary() && $hasItemsInTaxSection && !$this->getIsPlaneMode()): ?>
+<tr class="summary-total" onclick="expandDetails(this, '.summary-details-<?php echo $taxIter;?>')">
+    <?php elseif ($this->displayFullSummary() && $hasItemsInTaxSection && $this->getIsPlaneMode()): ?>
+<tr class="show-details">
+    <?php else: ?>
+<tr>
+    <?php endif; ?>
+    <td <?php echo $this->getLabelProperties()?>>
+        <?php if ($this->displayFullSummary() && !$this->getIsPlaneMode()): ?>
+            <div class="summary-collapse"><?php echo $this->__('Tax'); ?></div>
+        <?php else: ?>
+            <?php echo $this->__('Tax'); ?>
+        <?php endif;?>
+    </td>
+    <td <?php echo $this->getValueProperties()?>><?php echo $_quote->formatPrice($_source->getTaxAmount()) ?></td>
+</tr>

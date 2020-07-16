@@ -1,0 +1,52 @@
+<?php
+$_product = $this->getProduct();
+$_img = '<img id="image" src="'.Mage::helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" />';
+$productImage = Mage::helper('catalog/output')->productAttribute($_product, $_img, 'image');
+?>
+
+<script type="text/javascript">
+    var adjConfig = <?php echo $this->getAdjAttributesConfig() ?>;
+    var adjImages = <?php echo $this->getImagesSet() ?>;
+    var productImage = <?php echo Mage::helper('core')->jsonEncode($productImage) ?>;
+
+    document.onreadystatechange = function () {
+        $$('.more-views li').each(function(el) {
+            el.addClassName('product_image_conf');
+        });
+    }
+
+    var zoomTemplate = '<p class="zoom-notice" id="track_hint"><?php echo addslashes($this->__('Double click on above image to view full picture')) ?></p>' +
+        '<div class="zoom">' +
+        '<img id="zoom_out" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_out.gif') ?>" alt="<?php echo $this->__('Zoom Out') ?>" title="<?php echo $this->__('Zoom Out') ?>" class="btn-zoom-out" />' +
+        '<div id="track">' +
+        '<div id="handle"></div>' +
+        '</div>' +
+        '<img id="zoom_in" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_in.gif') ?>" alt="<?php echo $this->__('Zoom In') ?>" title="<?php echo $this->__('Zoom In') ?>" class="btn-zoom-in" />' +
+        '</div>' +
+        '<div class="more-views">' +
+        '<h2><?php echo $this->__('More Views') ?></h2>' +
+        '<ul></ul>' +
+        '</div>';
+
+    Validation.addAllThese([
+        ['adjicon_input_config', '<?php echo addslashes(Mage::helper('adjicon')->__('Please select one of the options.')) ?>', function(v, elm) {
+            var id = elm.name.match(/([\d]+)/g)[0];
+            var inputs = $$('input[name="' + elm.name + '"]');
+            var error = 1;
+            for(var i=0;i<inputs.length;i++) {
+                if(inputs[i].type == 'checkbox' && inputs[i].checked == true) {
+                    error = 0;
+                }
+                if(Validation.isOnChange && inputs[i].type == 'checkbox') {
+                    Validation.reset(inputs[i]);
+                }
+            }
+            elm.advaiceContainer = id+'_advice';
+
+            if( error == 0 ) {
+                return true;
+            } else {
+                return false;
+            }
+        }]]);
+</script>

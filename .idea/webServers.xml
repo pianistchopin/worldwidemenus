@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b11837ee-fc86-429d-a750-8d8ba86a0fe3" name="palmer">
+        <fileTransfer rootFolder="/home/carrick/public_html" accessType="SFTP" host="5.134.13.69" port="22" sshConfigId="819cff8e-ac49-4726-aa11-70b30069d78b" sshConfig="carrick@5.134.13.69:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

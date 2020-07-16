@@ -1,0 +1,52 @@
+﻿<!--@subject {{var quote.getStoreGroupName()}}: Quote # {{var quote.increment_id}} will expire today @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>Olá {{htmlescape var=$customer.name}}</strong>,<br/><br>
+
+                            <h3
+                                    style="font-size: 1.05em; padding-bottom: 1px;">Sua cotação #{{var
+                                quote.increment_id}}
+                                <small>(solicitada em {{var quote.getCreatedAtFormated('long')}})</small>
+                                expira hoje
+                            </h3>
+                            <p>
+                                Você ainda pode <a href="{{store url='customer/account/'}}"
+                                style="color:#1E7EC8;">acessar</a> <span
+                                    style="font-size: 1.05em; padding-bottom: 1px;">e editar sua cotação</span></p>
+                            <br>
+
+                            <p>Se você tem alguma dúvida sobre sua <span style="font-size: 1.05em; padding-bottom: 1px;">cotação</span>
+                            entre em contato conosco pelo email <a
+                                href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config
+                            path='trans_email/ident_support/email'}}</a> ou por telefone <span class="nobr">{{config path='general/store_information/phone'}}</span>Segunda
+                            - Sexta, 8:00 - 17:00 (Horário de Brasília).
+                            </p><br>
+
+                            <p>Obrigado novamente por sua confiança.</p>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>

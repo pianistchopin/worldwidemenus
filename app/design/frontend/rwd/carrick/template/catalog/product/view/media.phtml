@@ -1,0 +1,151 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+
+/* @var $this Mage_Catalog_Block_Product_View_Media */
+?>
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+	$customLayoutFlag = $_product->getData('update_layout');
+?>
+<div class="product-image product-image-zoom">
+    <div class="product-image-gallery">
+        <img id="image-main"
+             class="gallery-image visible"
+             src="<?php echo $this->helper('catalog/image')->init($_product, 'image') ?>"
+             alt="<?php echo $this->escapeHtml($_product->getName()); ?>"
+             title="<?php echo $this->escapeHtml($this->getImageLabel()); ?>" />
+
+        <?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+            <?php if ($this->isGalleryImageVisible($_image)): ?>
+            <img id="image-<?php echo $i; ?>"
+                 class="gallery-image"
+                 src="<?php echo $this->getGalleryImageUrl($_image); ?>"
+                 data-zoom-image="<?php echo  $this->getGalleryImageUrl($_image); ?>"
+				 alt="<?php echo $this->escapeHtml($_product->getName()); ?>" />
+            <?php endif; ?>
+        <?php $i++; endforeach; ?>
+    </div>
+</div>
+
+<?php //Thomas Code ?>
+<?php if ($customLayoutFlag == 0) : ?>
+	<?php if (count($this->getGalleryImages()) > 0): ?>
+	<div class="more-views">
+		<h2><?php echo $this->__('More Views') ?></h2>
+		<ul class="product-image-thumbs">
+		<?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+			<?php if ($this->isGalleryImageVisible($_image)): ?>
+			<li>
+				<a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>">
+					<img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>"
+						 width="75" height="75" alt="<?php echo $this->escapeHtml($_product->getName()); ?>" />
+				</a>
+			</li>
+			<?php endif; ?>
+		<?php $i++; endforeach; ?>
+		</ul>
+	</div>
+	<?php endif; ?>
+<?php else : ?>
+	<?php if (count($this->getGalleryImages()) > 0): ?>
+	<div class="sw-flexslider-element carousel-container default-theme square-nav-style always-nav-show outside-nav-position -pagination-style no-pagination-show -pagination-position top-loader-position">
+		<div class="sw-flexslider-container">
+			<div id="carousel-carousel" class="more-views sw-flexslider carousel flexslider-carousel">
+				<ul class="product-image-thumbs slides">
+				<?php $i=0; foreach ($this->getGalleryImages() as $_image): ?>
+					<?php if ($this->isGalleryImageVisible($_image)): ?>
+					<li>
+						<a class="thumb-link" href="#" title="<?php echo $this->escapeHtml($_image->getLabel()) ?>" data-image-index="<?php echo $i; ?>">
+							<img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(300); ?>"
+								 width="300" height="300" alt="<?php echo $this->escapeHtml($_product->getName()); ?>" />
+						</a>
+					</li>
+					<?php endif; ?>
+				<?php $i++; endforeach; ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<?php endif; ?>
+	<script>
+		if (typeof ProductMediaManager !== 'undefined') {
+
+			// Override image zoom in /skin/frontend/rwd/default/js/app.js
+			// and prevent the zooming of images on hover
+			ProductMediaManager.createZoom = function(image) { return; }
+
+		}
+	</script>
+	<div class="main-image-larged" style="display: none">
+		<img id="main-image" src="" />
+		<a id="close-button" href="#">Close</a>
+	</div>
+	
+	
+	<script>
+		jQuery(document).ready(function($){
+			$('.product-image-zoom').click(function($) {
+				var imagePath = jQuery('.gallery-image.visible').attr("src");
+				jQuery('#main-image').attr('src', imagePath);
+				jQuery('.main-image-larged').show();
+			});
+			$('#close-button').click(function ($) {
+				jQuery('.main-image-larged').hide();
+			});
+		});
+	</script>
+<?php endif; ?>
+
+
+<?php echo $this->getChildHtml('after'); ?>
+
+<script type="text/javascript">
+	solide(window).load(function() {
+				solide('#carousel-carousel').flexslider({
+					namespace: 				"sw-flexslider-",
+					controlNav: 			false,
+					animation: 				"slide",
+					itemWidth: 				300,
+					itemMargin: 			5,
+					minItems:				1,
+					maxItems:				6,
+					move: 					1,
+					slideshow: 			true,
+					animationLoop:		true,
+					start: function(slider){
+						solide('.sw-flexslider-container').removeClass('loading');
+					},
+				});	
+		// end if not carousel
+	}); // end window.load
+</script>

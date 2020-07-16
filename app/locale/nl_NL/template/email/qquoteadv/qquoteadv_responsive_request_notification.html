@@ -1,0 +1,30 @@
+<!--@subject {{var quote.getStoreGroupName()}}: Nieuw offerteverzoek # {{var quote.increment_id}} @-->
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="email-heading">
+                        <h1>Beste,</h1>
+
+                        <p>U heeft een offerteaanvraag binnengekregen van {{htmlescape var=$customer.name}} voor de website {{var
+                            store.getFrontendName()}}.<br/>
+
+                            <a href="{{var quoteUrl}}" style="color:#1E7EC8;">Offerteaanvraag bekijken</a></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="quote-details">
+            <h3>Offerteaanvraag met nummer<span class="no-link">#{{var
+                                quote.increment_id}}</span></h3>
+
+            <p>Geplaatst op {{var quote.getCreatedAtFormated('long')}}</p>
+        </td>
+    </tr>
+</table>

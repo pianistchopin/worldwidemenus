@@ -1,0 +1,79 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<input type='hidden' id='customer_isQuote' name='customer[is_quote]' value='1'/>
+<input style="display:none;" type='submit' name='submitOrder' id="submitOrder" class='form-button'
+       value="<?php echo $this->__('Request quote') ?>"/>
+
+<script type="text/javascript">
+    setQuoteListAction = function () {
+        var quotelistForm = new VarienForm('quotelist');
+        quotelistForm.form.action = '<?php echo $this->getUrl('qquoteadv/index/quoteRequest'); ?>';
+    }
+
+    quotelist.onsubmit = function () {
+        var allowSubmit = true;
+        var quotelistForm = new VarienForm('quotelist');
+
+        //if validation error
+        if (!quotelistForm.validator.validate()) {
+            allowSubmit = false;
+
+            //check for form change and change button if so
+            $(this).observe('change', function () {
+                quotelistForm.validator.validate();
+            });
+        }
+
+        //make sure that the form is only submitted once
+        if (allowSubmit) {
+            //set opacity of submit buttons to 0.5
+            $$('.btn-checkout').each(
+                function (button) {
+                    button.setOpacity(0.5);
+                    button.disable();
+                }
+            );
+
+            //hide shipping estimate button
+            $('shipEstimates').setOpacity(0.5);
+            $('shipEstimates').disable();
+        } else {
+            //show shipping estimate button
+            $('shipEstimates').setOpacity(1.0);
+            $('shipEstimates').enable();
+
+            return false;
+        }
+    }
+</script>
+
+<button onclick="event.preventDefault(); event.stopPropagation(); setQuoteListAction(); $('submitOrder').click();"
+        class="button btn-proceed-checkout btn-checkout"
+        title="<?php echo $this->__('Request quote') ?>" type="button">
+    <span><span><?php echo $this->__('Request quote') ?></span></span>
+</button>

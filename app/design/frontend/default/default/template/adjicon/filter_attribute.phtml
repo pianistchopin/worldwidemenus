@@ -1,0 +1,18 @@
+<?php
+$items        = $this->getItems();
+$displayStyle = $this->getColumnsNum();
+$iconColor    = $this->getIconColor();
+$textColor    = $this->getIconTextColor();
+$helper       = Mage::helper('adjicon');
+?>
+<ol>
+    <?php if(1 == $displayStyle || AdjustWare_Icon_Helper_Data::VISUALIZATION_TYPE_NONE == $this->getVisualizationType()): // one column ?>
+        <?php foreach ($items as $_item): ?>
+            <li><?php echo $helper->collectAttributeFilterItems($_item, $this) ?></li>
+        <?php endforeach ?>
+    <?php elseif(2 == $displayStyle): // only images ?>
+        <li>
+            <?php foreach($items as $_item) echo $helper->collectAttributeFilterItems($_item, $this) ?>
+        </li>
+    <?php endif ?>
+</ol>

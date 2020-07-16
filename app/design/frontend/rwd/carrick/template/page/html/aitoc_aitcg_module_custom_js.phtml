@@ -1,0 +1,94 @@
+<?php // All code are written to fix the image URL for Aitoc_Aitcg module SVG images on checkout cart and index page and their popups. ?>
+
+<?php $websitecode = Mage::app()->getWebsite()->getCode(); ?>
+
+<script>
+jQuery(window).load(function() {
+
+	// Start: Remove website code from checkout cartpage for SVG image URLs
+	setTimeout(function(){
+		var websitecode = '<?php echo $websitecode; ?>';
+		var imgClass = 'body.checkout-cart-index .input-box .aitcg_image_div svg image, body.checkout-onepage-index .input-box .aitcg_image_div svg image';
+		jQuery(imgClass).each(function (i, elem) {
+			var imgUrl = jQuery(this).attr('href');
+			if(typeof(imgUrl) === 'undefined'){ 
+		    	//console.log('Imaage URL Undefined.');
+			} else {
+				if(jQuery(this).attr('href').includes(websitecode)){
+					jQuery(this).attr('href', jQuery(this).attr('href').replace('/'+websitecode, ''));
+				}
+			}
+		});
+	}, 100);
+	// END: Remove website code from checkout cartpage for SVG image URLs
+
+
+
+	// Start: Remove website code from checkout onepage review tab for SVG image URLs
+	jQuery('div#payment-buttons-container button').click(function(){
+		setTimeout(function(){
+			var websitecode = '<?php echo $websitecode; ?>';
+			var imgClass = 'body.checkout-onepage-index .input-box svg image';
+		    jQuery(imgClass).each(function (i, elem) {
+				var imgUrl = jQuery(this).attr('href');
+				if(typeof(imgUrl) === 'undefined'){ 
+			    	//console.log('Imaage URL Undefined.');
+				} else {
+					if(jQuery(this).attr('href').includes(websitecode)){
+						jQuery(this).attr('href', jQuery(this).attr('href').replace('/'+websitecode, ''));
+					}
+				}
+			});
+		}, 1500);
+	});
+	// END: Remove website code from checkout onepage review tab for SVG image URLs
+
+
+
+	// Start: Remove website code from popup window on checkout cart page for SVG image URLs
+	jQuery('.aitcg_image_div').click(function(){
+		setTimeout(function(){
+			var websitecode = '<?php echo $websitecode; ?>';
+			var imgClass = '#message-popup-window svg image';
+			jQuery(imgClass).each(function (i, elem) {
+				var imgUrl = jQuery(this).attr('href');
+				if(typeof(imgUrl) === 'undefined'){ 
+			    	//console.log('Imaage URL Undefined.');
+				} else {
+					if(jQuery(this).attr('href').includes(websitecode)){
+						jQuery(this).attr('href', jQuery(this).attr('href').replace('/'+websitecode, ''));
+					}
+				}
+			});
+		}, 100);
+	});
+	// END: Remove website code from popup window for SVG image URLs
+
+
+
+
+	// Start: Remove website code from popup window on checkout index page for SVG image URLs
+	jQuery('div#payment-buttons-container button').click(function(){
+		setTimeout(function(){
+			jQuery('.aitcg_image_div').click(function(){
+				setTimeout(function(){
+					var websitecode = '<?php echo $websitecode; ?>';
+					var imgClass = '#message-popup-window svg image';
+					jQuery(imgClass).each(function (i, elem) {
+						var imgUrl = jQuery(this).attr('href');
+						if(typeof(imgUrl) === 'undefined'){ 
+					    	//console.log('Imaage URL Undefined.');
+						} else {
+							if(jQuery(this).attr('href').includes(websitecode)){
+								jQuery(this).attr('href', jQuery(this).attr('href').replace('/'+websitecode, ''));
+							}
+						}
+					});
+				}, 100);
+			});
+		}, 1500);
+	});
+	// END: Remove website code from popup window for SVG image URLs
+	
+});
+</script>

@@ -1,0 +1,331 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <aitcg_index_sharedimage>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference> 
+        <reference name="head">
+            <block type="aitcg/sharedimage_head" name="aitcg.sharediamge.head" as="aitcg_sharedimage_head" template="aitcg/sharedimage/head.phtml" /> 
+        </reference>
+        <reference name="content">
+            <block type="aitcg/sharedimage_content" name="aitcg.sharediamge.content" as="aitcg_sharedimage_content" template="aitcg/sharedimage/content.phtml" /> 
+        </reference>
+    </aitcg_index_sharedimage>
+    <catalog_product_view>
+        <reference name="product.info.options">
+            <action method="addOptionRenderer">
+                <type>cgfile</type>
+                <block>catalog/product_view_options_type_file</block>
+                <template>aitcg/view/options/type/cgfile.phtml</template>
+            </action>
+            <action method="addOptionRenderer">
+                <type>text</type>
+                <block>catalog/product_view_options_type_text</block>
+                <template>aitcg/view/options/type/text.phtml</template>
+            </action>
+            <action method="addOptionRenderer">
+                <type>select</type>
+                <block>catalog/product_view_options_type_select</block>
+                <template>aitcg/view/options/type/select.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>aitoc/aitcg/aim.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/product.zoom.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/ColorSet.js</script></action>
+            <action method="addCss"><stylesheet>aitoc/aitcg/css/colorset.css</stylesheet></action>
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+        <reference name="product.info.media.after">
+            <action method="append">
+                <block>product.info.options.wrapper</block>
+            </action>
+        </reference>
+
+        <reference name="product.info.container1">
+            <action method="unsetchild">
+                <child>product.info.options.wrapper</child>
+                <key>alias_in_layout</key>
+                <key>options_container</key>
+            </action>
+        </reference>
+        <reference name="product.info.container2">
+            <action method="unsetchild">
+                <child>product.info.options.wrapper</child>
+                <key>alias_in_layout</key>
+                <key>options_container</key>
+            </action>
+        </reference>
+
+
+    </catalog_product_view>
+    <cms_index_index>
+        <reference name="top.menu">
+            <block type="cms/block" name="aitcg-homepage-promo-block" before="-">
+                <action method="setBlockId" ifconfig="catalog/aitcg/aitcg_enable_homepage_promo"><block_id>aitcg-homepage-promo-block</block_id></action>
+            </block>
+        </reference>
+    </cms_index_index>
+    <checkout_cart_index>
+        <reference name="head">
+            <action method="addJs"><script>aitoc/aitcg/aim.js</script></action>
+        </reference>  
+        <reference name="content">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>       
+    </checkout_cart_index>
+    <checkout_onepage_review>
+        <reference name="checkout.onepage.review.info.items.before">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </checkout_onepage_review>
+    <sales_order_view>
+        <reference name="my.account.wrapper">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </sales_order_view>
+    <sales_order_invoice>
+        <reference name="my.account.wrapper">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </sales_order_invoice>
+    <sales_order_shipment>
+        <reference name="my.account.wrapper">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </sales_order_shipment>
+    <sales_order_creditmemo>
+        <reference name="my.account.wrapper">
+            <block type="aitcg/catalog_product_view_socialbuttons" name="aitcg.socialbuttons" as="aitcg_socialbuttons" template="aitcg/view/social_networks_buttons.phtml" before="-" /> 
+        </reference>
+    </sales_order_creditmemo>
+    <sales_order_print>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>        
+    </sales_order_print>
+    <sales_order_printinvoice>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>        
+    </sales_order_printinvoice>
+    <sales_order_printshipment>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>        
+    </sales_order_printshipment>
+    <sales_order_printcreditmemo>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+        </reference>        
+    </sales_order_printcreditmemo>
+    <catalog_product_view>
+        <reference name="head">
+            <action method="addJs"><script helper="aitoc_common/js_events/getLatestFileName" /></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Option.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Tooltip.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Gallery.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Gallery_Rwd.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Mirror.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Shape.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Trackers.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Box.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Resize.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Rotate.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Symbol/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Delete.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToFront.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToBack.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityInc.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityDec.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Debug.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tools.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/PredefinedImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/UserImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/CustomOptions.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/CategoryPreview.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Mask.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Social.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Save.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Text.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Spine.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/AreaEditor.js</script></action>
+            
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+            <action method="addJs"><script>aitoc/aitcg/raphael.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/jscolor/jscolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/rgbcolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/canvg.js</script></action>
+            
+            <action method="addCss"><stylesheet>aitoc/aitcg/css/custom.css</stylesheet></action>
+            
+            <block type="aitcg/template" name="aitcg_js_styles" template="aitcg/js_styles.phtml" />
+        </reference>
+    </catalog_product_view>
+    <checkout_cart_index>
+        <reference name="head">
+            <action method="addJs"><script helper="aitoc_common/js_events/getLatestFileName" /></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Option.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Tooltip.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Gallery.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Gallery_Rwd.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Mirror.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Shape.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Trackers.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Box.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Resize.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Rotate.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Symbol/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Delete.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToFront.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToBack.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityInc.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityDec.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Debug.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tools.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/PredefinedImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/UserImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/CategoryPreview.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Mask.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Social.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Save.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Text.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Spine.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/AreaEditor.js</script></action>
+            
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+            <action method="addJs"><script>aitoc/aitcg/raphael.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/jscolor/jscolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/rgbcolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/canvg.js</script></action>
+            
+            <action method="addCss"><stylesheet>aitoc/aitcg/css/custom.css</stylesheet></action>
+            
+            <block type="aitcg/template" name="aitcg_js_styles" template="aitcg/js_styles.phtml" />
+        </reference>
+    </checkout_cart_index>
+
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs"><script helper="aitoc_common/js_events/getLatestFileName" /></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Option.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Tooltip.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Gallery.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Gallery_Rwd.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Mirror.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Shape.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Trackers.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Box.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Resize.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Rotate.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Symbol/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Delete.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToFront.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToBack.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityInc.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityDec.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Debug.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tools.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/PredefinedImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/UserImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/CategoryPreview.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Mask.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Social.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Save.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Text.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Spine.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/AreaEditor.js</script></action>
+            
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+            <action method="addJs"><script>aitoc/aitcg/raphael.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/jscolor/jscolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/rgbcolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/canvg.js</script></action>
+            
+            <action method="addCss"><stylesheet>aitoc/aitcg/css/custom.css</stylesheet></action>
+            
+            <block type="aitcg/template" name="aitcg_js_styles" template="aitcg/js_styles.phtml" />
+        </reference>
+    </checkout_onepage_index>
+    <sales_order_view>
+        <reference name="head">
+            <action method="addJs"><script helper="aitoc_common/js_events/getLatestFileName" /></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Option.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Tooltip.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Gallery.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/View/Gallery_Rwd.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Mirror.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Shape.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Trackers.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Box.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Resize.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Rotate.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Symbol/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Delete.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToFront.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/ToBack.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityInc.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/OpacityDec.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Canvas/Tracker/Debug.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tools.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Abstract.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/PredefinedImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/UserImage.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/CategoryPreview.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Mask.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Social.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Save.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Text.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Editor/Tool/Spine.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/Popup.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/Aitcg/AreaEditor.js</script></action>
+            
+            <action method="addItem"><type>js_css</type><name>aitoc/aitcg/aitcg.css</name></action>
+            <action method="addJs"><script>aitoc/aitcg/raphael.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/jscolor/jscolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/rgbcolor.js</script></action>
+            <action method="addJs"><script>aitoc/aitcg/canvg.js</script></action>
+            
+            <action method="addCss"><stylesheet>aitoc/aitcg/css/custom.css</stylesheet></action>
+            
+            <block type="aitcg/template" name="aitcg_js_styles" template="aitcg/js_styles.phtml" />
+        </reference>
+    </sales_order_view>
+</layout> 

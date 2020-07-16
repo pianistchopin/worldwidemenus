@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+-->
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
+            <complexType name="c2qEntity">
+                <all>
+                    <element name="quote_id" type="xsd:string" minOccurs="0"/>
+                    <element name="created_at" type="xsd:string" minOccurs="0"/>
+                    <element name="updated_at" type="xsd:string" minOccurs="0"/>
+                    <element name="is_quote" type="xsd:string" minOccurs="0"/>
+                    <element name="status" type="xsd:string" minOccurs="0"/>
+                    <element name="customer_id" type="xsd:string" minOccurs="0"/>
+                    <element name="prefix" type="xsd:string" minOccurs="0"/>
+                    <element name="firstname" type="xsd:string" minOccurs="0"/>
+                    <element name="middlename" type="xsd:string" minOccurs="0"/>
+                    <element name="lastname" type="xsd:string" minOccurs="0"/>
+                    <element name="suffix" type="xsd:string" minOccurs="0"/>
+                    <element name="company" type="xsd:string" minOccurs="0"/>
+                    <element name="email" type="xsd:string" minOccurs="0"/>
+                    <element name="country_id" type="xsd:string" minOccurs="0"/>
+                    <element name="region" type="xsd:string" minOccurs="0"/>
+                    <element name="region_id" type="xsd:string" minOccurs="0"/>
+                    <element name="city" type="xsd:string" minOccurs="0"/>
+                    <element name="address" type="xsd:string" minOccurs="0"/>
+                    <element name="postcode" type="xsd:string" minOccurs="0"/>
+                    <element name="telephone" type="xsd:string" minOccurs="0"/>
+                    <element name="fax" type="xsd:string" minOccurs="0"/>
+                    <element name="client_request" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_type" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_price" type="xsd:string" minOccurs="0"/>
+                    <element name="store_id" type="xsd:string" minOccurs="0"/>
+                    <element name="increment_id" type="xsd:string" minOccurs="0"/>
+                    <element name="file_title" type="xsd:string" minOccurs="0"/>
+                    <element name="path" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_prefix" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_firstname" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_middlename" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_lastname" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_suffix" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_company" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_country_id" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_region" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_region_id" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_city" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_address" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_postcode" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_telephone" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_fax" type="xsd:string" minOccurs="0"/>
+                    <element name="user_id" type="xsd:string" minOccurs="0"/>
+                    <element name="imported" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="quoteEntity">
+                <all>
+                    <element name="proposal_sent" type="xsd:string" minOccurs="0"/>
+                    <element name="status" type="xsd:string" minOccurs="0"/>
+                    <element name="substatus" type="xsd:string" minOccurs="0"/>
+                    <element name="salesrule" type="xsd:string" minOccurs="0"/>
+                    <element name="customer_id" type="xsd:string" minOccurs="0"/>
+                    <element name="prefix" type="xsd:string" minOccurs="0"/>
+                    <element name="firstname" type="xsd:string" minOccurs="0"/>
+                    <element name="middlename" type="xsd:string" minOccurs="0"/>
+                    <element name="lastname" type="xsd:string" minOccurs="0"/>
+                    <element name="suffix" type="xsd:string" minOccurs="0"/>
+                    <element name="company" type="xsd:string" minOccurs="0"/>
+                    <element name="email" type="xsd:string" minOccurs="0"/>
+                    <element name="country_id" type="xsd:string" minOccurs="0"/>
+                    <element name="region" type="xsd:string" minOccurs="0"/>
+                    <element name="region_id" type="xsd:string" minOccurs="0"/>
+                    <element name="city" type="xsd:string" minOccurs="0"/>
+                    <element name="address" type="xsd:string" minOccurs="0"/>
+                    <element name="postcode" type="xsd:string" minOccurs="0"/>
+                    <element name="telephone" type="xsd:string" minOccurs="0"/>
+                    <element name="fax" type="xsd:string" minOccurs="0"/>
+                    <element name="client_request" type="xsd:string" minOccurs="0"/>
+                    <element name="internal_comment" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_type" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_price" type="xsd:string" minOccurs="0"/>
+                    <element name="store_id" type="xsd:string" minOccurs="0"/>
+                    <element name="increment_id" type="xsd:string" minOccurs="0"/>
+                    <element name="original_increment_id" type="xsd:string" minOccurs="0"/>
+                    <element name="relation_child_id" type="xsd:string" minOccurs="0"/>
+                    <element name="relation_child_real_id" type="xsd:string" minOccurs="0"/>
+                    <element name="relation_parent_id" type="xsd:string" minOccurs="0"/>
+                    <element name="relation_parent_real_id" type="xsd:string" minOccurs="0"/>
+                    <element name="file_title" type="xsd:string" minOccurs="0"/>
+                    <element name="path" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_prefix" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_firstname" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_middlename" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_lastname" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_suffix" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_company" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_country_id" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_region" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_region_id" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_city" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_address" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_postcode" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_telephone" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_fax" type="xsd:string" minOccurs="0"/>
+                    <element name="user_id" type="xsd:string" minOccurs="0"/>
+                    <element name="imported" type="xsd:string" minOccurs="0"/>
+                    <element name="currency" type="xsd:string" minOccurs="0"/>
+                    <element name="no_expiry" type="xsd:string" minOccurs="0"/>
+                    <element name="no_reminder" type="xsd:string" minOccurs="0"/>
+                    <element name="no_followup" type="xsd:string" minOccurs="0"/>
+                    <element name="base_to_quote_rate" type="xsd:string" minOccurs="0"/>
+                    <element name="expiry" type="xsd:string" minOccurs="0"/>
+                    <element name="reminder" type="xsd:string" minOccurs="0"/>
+                    <element name="followup" type="xsd:string" minOccurs="0"/>
+                    <element name="itemprice" type="xsd:string" minOccurs="0"/>
+                    <element name="alt_checkout" type="xsd:string" minOccurs="0"/>
+                    <element name="hash" type="xsd:string" minOccurs="0"/>
+                    <element name="create_hash" type="xsd:string" minOccurs="0"/>
+                    <element name="base_subtotal" type="xsd:string" minOccurs="0"/>
+                    <element name="base_grand_total" type="xsd:string" minOccurs="0"/>
+                    <element name="base_shipping_amount" type="xsd:string" minOccurs="0"/>
+                    <element name="base_tax_amount" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_amount" type="xsd:string" minOccurs="0"/>
+                    <element name="grand_total" type="xsd:string" minOccurs="0"/>
+                    <element name="tax_amount" type="xsd:string" minOccurs="0"/>
+                    <element name="subtotal" type="xsd:string" minOccurs="0"/>
+                    <element name="subtotal_incl_tax" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_incl_tax" type="xsd:string" minOccurs="0"/>
+                    <element name="base_shipping_incl_tax" type="xsd:string" minOccurs="0"/>
+                    <element name="base_subtotal_incl_tax" type="xsd:string" minOccurs="0"/>
+                    <element name="items_qty" type="xsd:string" minOccurs="0"/>
+                    <element name="items_count" type="xsd:string" minOccurs="0"/>
+                    <element name="applied_taxes" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_method" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_method_title" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_carrier" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_carrier_title" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_code" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_description" type="xsd:string" minOccurs="0"/>
+                    <element name="address_shipping_description" type="xsd:string" minOccurs="0"/>
+                    <element name="address_shipping_method" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_amount_incl_tax" type="xsd:string" minOccurs="0"/>
+                    <element name="base_shipping_tax_amount" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_tax_amount" type="xsd:string" minOccurs="0"/>
+                    <element name="base_shipping_amount_incl_tax" type="xsd:string" minOccurs="0"/>
+                    <element name="free_shipping" type="xsd:string" minOccurs="0"/>
+                    <element name="shipping_base_price" type="xsd:string" minOccurs="0"/>
+                    <element name="created_from_quote_id" type="xsd:string" minOccurs="0"/>
+                    <element name="extra_field_1" type="xsd:string" minOccurs="0"/>
+                    <element name="extra_field_2" type="xsd:string" minOccurs="0"/>
+                    <element name="extra_field_3" type="xsd:string" minOccurs="0"/>
+                    <element name="extra_field_4" type="xsd:string" minOccurs="0"/>
+                    <element name="customer_group_id" type="xsd:string" minOccurs="0"/>
+                    <element name="payment_method" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="c2qEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:c2qEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+        </schema>
+    </types>
+    <message name="c2qListRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="filters" type="typens:filters"/>
+    </message>
+    <message name="c2qListResponse">
+        <part name="result" type="typens:c2qEntityArray"/>
+    </message>
+    <message name="c2qSet_importedRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quote_id" type="xsd:int"/>
+        <part name="value" type="xsd:boolean"/>
+    </message>
+    <message name="c2qSet_importedResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="c2qInfoRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quote_id" type="xsd:int"/>
+    </message>
+    <message name="c2qInfoResponse">
+        <part name="result" type="xsd:anyType"/>
+    </message>
+    <message name="c2qStatus_listRequest">
+        <part name="sessionId" type="xsd:string"/>
+    </message>
+    <message name="c2qStatus_listResponse">
+        <part name="result" type="xsd:anyType"/>
+    </message>
+    <message name="c2qSend_proposalRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quote_id" type="xsd:int"/>
+    </message>
+    <message name="c2qSend_proposalResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="c2qDelete_requested_qtyRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quote_id" type="xsd:int"/>
+        <part name="request_id" type="xsd:int"/>
+    </message>
+    <message name="c2qDelete_requested_qtyResponse">
+        <part name="result" type="xsd:anyType"/>
+    </message>
+    <message name="c2qDelete_requested_itemRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quote_id" type="xsd:int"/>
+        <part name="primary_key" type="xsd:int"/>
+    </message>
+    <message name="c2qDelete_requested_itemResponse">
+        <part name="result" type="xsd:anyType"/>
+    </message>
+    <message name="c2qModify_requested_qtyRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quote_id" type="xsd:int"/>
+        <part name="request_id" type="xsd:int"/>
+        <part name="product_id" type="xsd:int"/>
+        <part name="request_qty" type="xsd:int"/>
+        <part name="owner_base_price" type="xsd:string"/>
+        <part name="original_price" type="xsd:string"/>
+        <part name="quoteadv_product_id" type="xsd:int"/>
+    </message>
+    <message name="c2qModify_requested_qtyResponse">
+        <part name="result" type="xsd:anyType"/>
+    </message>
+    <message name="c2qSet_item_commentRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteadv_product_id" type="xsd:int"/>
+        <part name="comment" type="xsd:string"/>
+    </message>
+    <message name="c2qSet_item_commentResponse">
+        <part name="result" type="xsd:anyType"/>
+    </message>
+    <message name="c2qSet_proposal_commentRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quote_id" type="xsd:int"/>
+        <part name="comment" type="xsd:string"/>
+    </message>
+    <message name="c2qSet_proposal_commentResponse">
+        <part name="result" type="xsd:anyType"/>
+    </message>
+    <message name="c2qSet_shippingRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quote_id" type="xsd:int"/>
+        <part name="shipping_price" type="xsd:string"/>
+        <part name="shipping_type" type="xsd:string"/>
+    </message>
+    <message name="c2qSet_shippingResponse">
+        <part name="result" type="xsd:anyType"/>
+    </message>
+    <message name="c2qAdd_qtybyitemRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quote_id" type="xsd:int"/>
+        <part name="product_id" type="xsd:int"/>
+        <part name="quoteadv_product_id" type="xsd:int"/>
+        <part name="request_qty" type="xsd:string"/>
+        <part name="owner_base_price" type="xsd:string"/>
+        <part name="original_price" type="xsd:string"/>
+    </message>
+    <message name="c2qAdd_qtybyitemResponse">
+        <part name="result" type="xsd:anyType"/>
+    </message>
+    <message name="c2qCreateQuoteRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="data" type="typens:quoteEntity"/>
+    </message>
+    <message name="c2qCreateQuoteResponse">
+        <part name="quoteId" type="xsd:int"/>
+    </message>
+    <message name="c2qAcceptQuoteRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+    </message>
+    <message name="c2qAcceptQuoteResponse">
+        <part name="success" type="xsd:boolean"/>
+    </message>
+    <message name="c2qRejectQuoteRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="quoteId" type="xsd:int"/>
+    </message>
+    <message name="c2qRejectQuoteResponse">
+        <part name="success" type="xsd:boolean"/>
+    </message>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="c2qList">
+            <documentation>Retrieve list of quotations using filters</documentation>
+            <input message="typens:c2qListRequest"/>
+            <output message="typens:c2qListResponse"/>
+        </operation>
+        <operation name="c2qSet_imported">
+            <documentation>Set quotation as exported</documentation>
+            <input message="typens:c2qSet_importedRequest"/>
+            <output message="typens:c2qSet_importedResponse"/>
+        </operation>
+        <operation name="c2qInfo">
+            <documentation>Retrieve an quotation's information</documentation>
+            <input message="typens:c2qInfoRequest"/>
+            <output message="typens:c2qInfoResponse"/>
+        </operation>
+        <operation name="c2qStatus_list">
+            <documentation>Retrieve list of quotation's states</documentation>
+            <input message="typens:c2qStatus_listRequest"/>
+            <output message="typens:c2qStatus_listResponse"/>
+        </operation>
+        <operation name="c2qCreateQuote">
+            <documentation>Create a Quote</documentation>
+            <input message="typens:c2qCreateQuoteRequest"/>
+            <output message="typens:c2qCreateQuoteResponse"/>
+        </operation>
+        <operation name="c2qAcceptQuote">
+            <documentation>Accept a Quote</documentation>
+            <input message="typens:c2qAcceptQuoteRequest"/>
+            <output message="typens:c2qAcceptQuoteResponse"/>
+        </operation>
+        <operation name="c2qRejectQuote">
+            <documentation>Reject a Quote</documentation>
+            <input message="typens:c2qRejectQuoteRequest"/>
+            <output message="typens:c2qRejectQuoteResponse"/>
+        </operation>
+        <operation name="c2qSend_proposal">
+            <documentation>Send proposal</documentation>
+            <input message="typens:c2qSend_proposalRequest"/>
+            <output message="typens:c2qSend_proposalResponse"/>
+        </operation>
+        <operation name="c2qDelete_requested_qty">
+            <documentation>Delete requested item's qty</documentation>
+            <input message="typens:c2qDelete_requested_qtyRequest"/>
+            <output message="typens:c2qDelete_requested_qtyResponse"/>
+        </operation>
+        <operation name="c2qDelete_requested_item">
+            <documentation>Delete requested item</documentation>
+            <input message="typens:c2qDelete_requested_itemRequest"/>
+            <output message="typens:c2qDelete_requested_itemResponse"/>
+        </operation>
+        <operation name="c2qModify_requested_qty">
+            <documentation>Modify requested qty by item</documentation>
+            <input message="typens:c2qModify_requested_qtyRequest"/>
+            <output message="typens:c2qModify_requested_qtyResponse"/>
+        </operation>
+        <operation name="c2qSet_item_comment">
+            <documentation>Set comment by item</documentation>
+            <input message="typens:c2qSet_item_commentRequest"/>
+            <output message="typens:c2qSet_item_commentResponse"/>
+        </operation>
+        <operation name="c2qSet_proposal_comment">
+            <documentation>Set proposal comment</documentation>
+            <input message="typens:c2qSet_proposal_commentRequest"/>
+            <output message="typens:c2qSet_proposal_commentResponse"/>
+        </operation>
+        <operation name="c2qSet_shipping">
+            <documentation>Set shipping type and price</documentation>
+            <input message="typens:c2qSet_shippingRequest"/>
+            <output message="typens:c2qSet_shippingResponse"/>
+        </operation>
+        <operation name="c2qAdd_qtybyitem">
+            <documentation>Add qty by requested item</documentation>
+            <input message="typens:c2qAdd_qtybyitemRequest"/>
+            <output message="typens:c2qAdd_qtybyitemResponse"/>
+        </operation>
+    </portType>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="c2qCreateQuote">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qAcceptQuote">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qRejectQuote">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qSet_imported">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qStatus_list">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qSend_proposal">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qDelete_requested_qty">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qDelete_requested_item">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qModify_requested_qty">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qSet_item_comment">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qSet_proposal_comment">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qSet_shipping">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="c2qAdd_qtybyitem">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action"/>
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}"/>
+        </port>
+    </service>
+</definitions>

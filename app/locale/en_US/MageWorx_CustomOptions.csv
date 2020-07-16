@@ -1,0 +1,206 @@
+"%s of the items will be backordered.","%s of the items will be backordered."
+"(Incl. Tax %s)","(Incl. Tax %s)"
+"-- Please Select --","-- Please Select --"
+"ALL GROUPS","ALL GROUPS"
+AND,AND
+APO,APO
+Action,Action
+Actions,Actions
+Active,Active
+"Add Image","Add Image"
+"Add New Row","Add New Row"
+"Add Options Template","Add Options Template"
+"Add Special Price","Add Special Price"
+"Add Tier Price","Add Tier Price"
+"Advanced Custom Options","Advanced Custom Options"
+"Allow Backorders","Allow Backorders"
+"Allow Backorders and Notify Customer","Allow Backorders and Notify Customer"
+"Allowed file extensions to upload","Allowed file extensions to upload"
+"Append to Product Gallery","Append to Product Gallery"
+"Apply Option SKU Policy to","Apply Option SKU Policy to"
+"Attrib. Set Name","Attrib. Set Name"
+Backend,Backend
+"Backend Only","Backend Only"
+"Beside Option","Beside Option"
+"Bundle with dynamic pricing cannot include custom defined options. Options will not be saved","Bundle with dynamic pricing cannot include custom defined options. Options will not be saved"
+"Cart and Order","Cart and Order"
+Category,Category
+Change,Change
+"Change Image","Change Image"
+"Change Quantity","Change Quantity"
+"Change status","Change status"
+"Characters left:","Characters left:"
+Copy,Copy
+Cost,Cost
+"Current option price:","Current option price:"
+"Custom Options","Custom Options"
+"Default Option Qty Field Label","Default Option Qty Field Label"
+"Default Option SKU Policy","Default Option SKU Policy"
+Delete,Delete
+"Delete Image","Delete Image"
+"Delete Row","Delete Row"
+"Description’s Edit Mode","Description’s Edit Mode"
+Disable,Disable
+"Disable Inventory","Disable Inventory"
+"Disable and Display &quot;Out of Stock&quot;","Disable and Display &quot;Out of Stock&quot;"
+Disabled,Disabled
+"Display Including Low Stock","Display Including Low Stock"
+"Display Low Stock Message","Display Low Stock Message"
+"Display for Low Stock Only","Display for Low Stock Only"
+"Display for in Stock Only","Display for in Stock Only"
+"Do Not Restore Deleted Options","Do Not Restore Deleted Options"
+Done,Done
+Duplicate,Duplicate
+Edit,Edit
+"Edit Template '%s'","Edit Template '%s'"
+Enable,Enable
+"Enable ""Starting at"" Price Prefix","Enable ""Starting at"" Price Prefix"
+"Enable Absolute Price","Enable Absolute Price"
+"Enable Absolute Weight","Enable Absolute Weight"
+"Enable Cost","Enable Cost"
+"Enable Custom Options Inventory","Enable Custom Options Inventory"
+"Enable Custom Options for Customer Groups","Enable Custom Options for Customer Groups"
+"Enable Custom Options for Store Views","Enable Custom Options for Store Views"
+"Enable Date for Special Price","Enable Date for Special Price"
+"Enable Dependent Custom Options","Enable Dependent Custom Options"
+"Enable Extras","Enable Extras"
+"Enable Image Mode","Enable Image Mode"
+"Enable Option Description","Enable Option Description"
+"Enable Option SKU Policy","Enable Option SKU Policy"
+"Enable Option’s Variation Description","Enable Option’s Variation Description"
+"Enable Pre-populating Text for Input Options","Enable Pre-populating Text for Input Options"
+"Enable Qnty Field for Custom Options on the Front-end","Enable Qnty Field for Custom Options on the Front-end"
+"Enable Special Price","Enable Special Price"
+"Enable Specifying CSS Class in Option Div","Enable Specifying CSS Class in Option Div"
+"Enable Tier Price","Enable Tier Price"
+"Enable UPC","Enable UPC"
+"Enable Weight","Enable Weight"
+Export,Export
+"Export to:","Export to:"
+"File format error.","File format error."
+Grouped,Grouped
+Hidden,Hidden
+Hide,Hide
+"Hide Dependent Custom Options","Hide Dependent Custom Options"
+ID,ID
+"If you delete this item(s) all the options inside will be deleted as well?","If you delete this item(s) all the options inside will be deleted as well?"
+"Images Above Options (except Radio and Checkbox)","Images Above Options (except Radio and Checkbox)"
+Import,Import
+"Incl. Tax","Incl. Tax"
+Independent,Independent
+"Inventory Qty for Options on the Front-end","Inventory Qty for Options on the Front-end"
+"Items left:","Items left:"
+"Keep Options on Unlink","Keep Options on Unlink"
+"Last Modified Date","Last Modified Date"
+"Link Assigned Product's Attributes to Option via SKU","Link Assigned Product's Attributes to Option via SKU"
+"Linked Sku","Linked Sku"
+"Low Stock Value","Low Stock Value"
+"Low stock","Low stock"
+"MageWorx > Catalog","MageWorx > Catalog"
+"Main Section","Main Section"
+"Manage Options Templates","Manage Options Templates"
+"Manage Templates","Manage Templates"
+"Max Input Vars Left:","Max Input Vars Left:"
+"Maximum Qty Allowed in Shopping Cart","Maximum Qty Allowed in Shopping Cart"
+"Maximum image height')?&gt;: &lt;strong&gt;&lt;?php echo $_option-&gt;getImageSizeY() ?&gt; &lt;?php echo Mage::helper('catalog","Maximum image height')?&gt;: &lt;strong&gt;&lt;?php echo $_option-&gt;getImageSizeY() ?&gt; &lt;?php echo Mage::helper('catalog"
+"Maximum image width')?&gt;: &lt;strong&gt;&lt;?php echo $_option-&gt;getImageSizeX() ?&gt; &lt;?php echo Mage::helper('catalog","Maximum image width')?&gt;: &lt;strong&gt;&lt;?php echo $_option-&gt;getImageSizeX() ?&gt; &lt;?php echo Mage::helper('catalog"
+"Minimum Qty Allowed in Shopping Cart","Minimum Qty Allowed in Shopping Cart"
+Name,Name
+"New Options Template","New Options Template"
+"New Template","New Template"
+"Next page","Next page"
+No,No
+None,None
+OR,OR
+"Open Manual","Open Manual"
+"Option Name","Option Name"
+"Options Template:","Options Template:"
+"Options Templates","Options Templates"
+"Options Templates:","Options Templates:"
+"Options Title '%s' already exist","Options Title '%s' already exist"
+"Options do not exist","Options do not exist"
+"Options were successfully deleted","Options were successfully deleted"
+"Options were successfully duplicated","Options were successfully duplicated"
+"Options were successfully saved","Options were successfully saved"
+"Order Only","Order Only"
+"Out-of-Stock Options","Out-of-Stock Options"
+"Out of stock","Out of stock"
+Overlay,Overlay
+Page,Page
+"Plain Text","Plain Text"
+"Please note that the stock report is generated only when the setting “Enable Custom Options Inventory” is enabled.","Please note that the stock report is generated only when the setting “Enable Custom Options Inventory” is enabled."
+"Please note that the stock report is generated only when the setting “Enable Custom Options Inventory” is enabled. &lt;br&gt; The quantity of options linked to other SKUs won’t be updated from this report. To update their stock values you should edit the quantity of the linked product. &lt;br&gt; In order to udate quantities in bulk you should select custom options you need to update, choose the “Change Quantity” action and enter the stock value you want to set. You can use “+” and “-” to increase or decrease the stock by a specific value. &lt;br&gt; Example: &lt;br&gt; 10 - set a stock value for all selected options to 10; &lt;br&gt; +10 - increase a stock value for all selected options by 10; &lt;br&gt; -10 - decrease a stock value for all selected options by 10.","Please note that the stock report is generated only when the setting “Enable Custom Options Inventory” is enabled. &lt;br&gt; The quantity of options linked to other SKUs won’t be updated from this report. To update their stock values you should edit the quantity of the linked product. &lt;br&gt; In order to udate quantities in bulk you should select custom options you need to update, choose the “Change Quantity” action and enter the stock value you want to set. You can use “+” and “-” to increase or decrease the stock by a specific value. &lt;br&gt; Example: &lt;br&gt; 10 - set a stock value for all selected options to 10; &lt;br&gt; +10 - increase a stock value for all selected options by 10; &lt;br&gt; -10 - decrease a stock value for all selected options by 10."
+"Please select Option(s)","Please select Option(s)"
+"Please select Row(s)","Please select Row(s)"
+"Please specify the product required option(s)","Please specify the product required option(s)"
+"Previous page","Previous page"
+Price,Price
+"Product Id","Product Id"
+"Product Name","Product Name"
+"Product Sku","Product Sku"
+"Product has required options","Product has required options"
+"Product prices reindexed (100%)...","Product prices reindexed (100%)..."
+Products,Products
+Qty,Qty
+"Replace Product Gallery","Replace Product Gallery"
+Replacement,Replacement
+SKU,SKU
+"SKU Policy","SKU Policy"
+Save,Save
+"Save And Continue Edit","Save And Continue Edit"
+"Select All","Select All"
+"Select Children","Select Children"
+"Select Options Templates and Save the product to apply options or &lt;a href=&quot;%s&quot; target=&quot;_blank&quot;&gt;click here to define&lt;/a&gt;","Select Options Templates and Save the product to apply options or &lt;a href=&quot;%s&quot; target=&quot;_blank&quot;&gt;click here to define&lt;/a&gt;"
+"Select Visible","Select Visible"
+"Select type options required values rows.","Select type options required values rows."
+"Set Product Out of Stock if Required Option is Out of Stock","Set Product Out of Stock if Required Option is Out of Stock"
+"Show Qty per Option in Cart","Show Qty per Option in Cart"
+"Size of Thumbnails","Size of Thumbnails"
+"Some options are not available for your customer group","Some options are not available for your customer group"
+"Some options are not available for your customer group. Please, edit product &quot;%s&quot;","Some options are not available for your customer group. Please, edit product &quot;%s&quot;"
+Standard,Standard
+"Starting applying options to products...","Starting applying options to products..."
+"Starting at","Starting at"
+Status,Status
+"Stock Report","Stock Report"
+"Stock Reports","Stock Reports"
+Swatch,Swatch
+"Swatch Multiselect","Swatch Multiselect"
+"Template &quot;%s&quot; (ID:%d) already exists.","Template &quot;%s&quot; (ID:%d) already exists."
+"Template &quot;%s&quot; (ID:%d) was successfully imported.","Template &quot;%s&quot; (ID:%d) was successfully imported."
+"Template Options","Template Options"
+Templates,Templates
+"Text Area","Text Area"
+"Text Field","Text Field"
+"The maximum quantity allowed for purchase &quot;%s - %s&quot; option is %s.","The maximum quantity allowed for purchase &quot;%s - %s&quot; option is %s."
+"The minimum quantity allowed for purchase &quot;%s - %s&quot; option is %s.","The minimum quantity allowed for purchase &quot;%s - %s&quot; option is %s."
+"The quantity of some custom options of products is not allowed for purchase.","The quantity of some custom options of products is not allowed for purchase."
+"There are no Options","There are no Options"
+"The requested quantity for &quot;%s&quot; is not available.","The requested quantity for &quot;%s&quot; is not available."
+Title,Title
+Tooltip,Tooltip
+"Total %1$s, processed %2$s products (%3$s%%)...","Total %1$s, processed %2$s products (%3$s%%)..."
+"Total %d records found","Total %d records found"
+"Total of %d record(s) were not updated because they are linked to products via SKU.","Total of %d record(s) were not updated because they are linked to products via SKU."
+"Total of %d record(s) were successfully deleted","Total of %d record(s) were successfully deleted"
+"Total of %d record(s) were successfully updated","Total of %d record(s) were successfully updated"
+"Total price for characters:","Total price for characters:"
+Type,Type
+"Unable to find Options to save","Unable to find Options to save"
+"Unassigned options removed (100%)...","Unassigned options removed (100%)..."
+"Unselect All","Unselect All"
+"Unselect Visible","Unselect Visible"
+"Update Assigned Options\' Stock on Save","Update Assigned Options\' Stock on Save"
+"Use Config","Use Config"
+"Value Name","Value Name"
+"Value Qty","Value Qty"
+View,View
+"View Product","View Product"
+Visibility,Visibility
+Visible,Visible
+WYSIWYG,WYSIWYG
+Weight,Weight
+"items selected","items selected"
+"of %s pages","of %s pages"
+" per character"," per character"
+"per page","per page"

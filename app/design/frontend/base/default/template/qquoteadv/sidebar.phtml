@@ -1,0 +1,79 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+/**
+ * Shoping cart sidebar
+ *
+ * @see Mage_Checkout_Block_Cart_Sidebar
+ * @var Ophirah_Qquoteadv_Block_Sidebar $this
+ */
+
+?>
+
+<div class="block block-cart block-quote">
+    <?php $_quoteQty = $this->getQuoteQty() ?>
+    <div class="block-title">
+        <strong><span><?php echo $this->__('My Quote') ?></span></strong>
+    </div>
+
+    <div class="block-content">
+        <?php if ($_quoteQty > 0): ?>
+            <div class="summary">
+                <?php if ($_quoteQty == 1): ?>
+                    <p class="amount"><?php echo $this->__('There is <a href="%s">1 item</a> in your quote.', $this->getUrl('qquoteadv/index/')) ?></p>
+                <?php else: ?>
+                    <p class="amount"><?php echo $this->__('There are <a href="%s">%s items</a> in your quote.', $this->getUrl('qquoteadv/index/'), $_quoteQty) ?></p>
+                <?php endif ?>
+
+            </div>
+            <div class="actions">
+                <button type="button" title="<?php echo $this->__('Submit Quote') ?>" class="button"
+                        onclick="setLocation('<?php echo Mage::getUrl('qquoteadv/index/'); ?>')">
+                    <span><span><?php echo $this->__('Submit Quote') ?></span></span></button>
+            </div>
+            <p class="block-subtitle"><?php echo Mage::helper('checkout')->__('Recently added item(s)') ?></p>
+            <ol id="cart-sidebar" class="mini-products-list">
+                <?php foreach ($this->getQuote() as $item) {
+                    $product = $this->getProduct($item->getProductId());
+                    $quoteByProduct = Mage::helper('qquoteadv')->getQuoteItem($product, $item->getAttribute(), null, $item);
+                    $quoteItems = $quoteByProduct->getAllItems();
+                    $quoteItems = $this->makeRecentItems($quoteItems);
+                    foreach ($quoteItems as $_item) {
+                        $_item->setId($item->getId());
+                        if ($_item->getProductId() == $product->getId()) {
+                            echo $this->getItemHtml($_item);
+                        }
+                    }
+                }
+                ?>
+            </ol>
+        <?php else: ?>
+            <p class="empty"><?php echo $this->__('You have no items in your quote.') ?></p>
+        <?php endif ?>
+    </div>
+</div>
+

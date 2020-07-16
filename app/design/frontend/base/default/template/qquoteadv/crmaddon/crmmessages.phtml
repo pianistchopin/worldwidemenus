@@ -1,0 +1,215 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Crmaddon
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+?>
+<?php
+//list the HTML tags that don't need escaping
+/** @var \Ophirah_Crmaddon_Helper_Data $helper */
+$helper = Mage::helper('crmaddon');
+$allowedTags = $helper->getAllowedHtmlTags();
+?>
+<?php $quoteModel = $this->getQuote(); ?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-account"><?php echo $this->__('Message History') ?></h4>
+    </div>
+    <div class="fieldset-wrapper">
+        <form method='post' id="crmform" name="crmform" enctype="multipart/form-data" action='<?php echo $this->getUrl('crmaddon/message/send', array('_secure' => Mage::app()->getStore()->isCurrentlySecure() )) ?>'>
+            <fieldset>
+                <table class="form-list" cellspacing="0" style="width: 100%;">
+                    <tbody>
+
+                    <?php
+                    // Preparing variables
+                    $crmaddon_templates = $helper->getTemplates();
+                    $crmaddon_messages = $helper->getMessages($quoteModel->getData('quote_id'), false);
+
+                    // Create empty message if DB is empty
+                    $crm_messages = $crmaddon_messages;
+
+                    $crm_customer = array('firstname' => $quoteModel->getFirstname(),
+                        'middlename' => $quoteModel->getMiddlename(),
+                        'lastname' => $quoteModel->getLastname(),
+                        'name' => $this->getCustomerName($quoteModel->getData('customer_id')),
+                        'email' => $quoteModel->getEmail()
+                    );
+
+                    // Filling templates variables with data
+                    $vars['customer'] = $crm_customer;
+                    $vars['template'] = (isset($crmaddon_templates['default']['template'])) ? $crmaddon_templates['default']['template'] : '';
+                    $vars['sender'] = Mage::getModel('qquoteadv/qqadvcustomer')->load($quoteModel->getData('quote_id'))->getEmailSenderInfo();
+                    $vars['qquote'] = $quoteModel;
+                    ?>
+
+                    <?php if (Mage::getStoreConfig('qquoteadv_sales_representatives/messaging/enabled_customer') == "1"): ?>
+                    <!-- start message form -->
+                    <tr>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="label">
+                                            <label class="crm_left" style="text-align: left;"><?php echo $this->__('Subject') ?></label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input class="crm_left" style="width:100%;" type="text" value="<?php echo $this->__('Quotation #%s - Proposal', $quoteModel->getIncrementId()); ?>" name="crm_subject" maxlength="150">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="value" style="width: 100%;">
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tbody>
+                                    <tr>
+                                        <td class="label">
+                                            <label class="crm_left" style="text-align: left;"><?php echo $this->__('Message') ?></label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 100%;">
+                                            <textarea name="crm_message" title="crm_message" id="crmaddon_template" title="Messsage" style="height:8em; width: 100%; max-width: 100% !important;" rows="2"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+<!--                                            onclick="$('crmform').submit();"-->
+                                            <button class="button button-secondary" style="margin: 10px 0 10px 5px;" type="submit" form="crmform" value="Submit" >
+                                                <span>
+                                                    <span><?php echo $this->__('Send Message') ?></span>
+                                                </span>
+                                            </button>
+                                            <?php echo $this->getChildHtml('crmaddon.attachment.new'); ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- end message form -->
+                    <?php endif; ?>
+                    <tbody>
+                </table>
+
+
+                <input type="hidden" value="<?php echo $quoteModel->getData('quote_id'); ?>" name="crm_id" id="crm_id">
+                <input type="hidden" value="<?php echo $quoteModel->getStoreId(); ?>" name="crm_storeId" id="crm_storeId">
+                <input type="hidden" value="<?php echo $this->escapeHtml($crm_customer['name']); ?>" name="crm_customerName" id="crm_customerName">
+                <input type="hidden" value="<?php echo $this->escapeHtml($crm_customer['email']); ?>" name="crm_customerEmail" id="crm_customerEmail">
+                <input type="hidden" value="<?php echo $this->getRequest()->getModuleName(); ?>" name="crm_moduleName" id="crm_moduleName">
+                <input type="hidden" value="<?php echo $this->getRequest()->getControllerName(); ?>" name="crm_controllerName" id="crm_controllerName">
+                <input type="hidden" value="<?php echo $this->getRequest()->getActionName(); ?>" name="crm_actionName" id="crm_actionName">
+
+                <div id="crm_msgContainer" >
+                    <div class="crm_msgWrapper" style="margin-top=30px;">
+                        <ul>
+                            <?php foreach ($crm_messages as $crm_message):
+                                $this->setActiveCrmMessage($crm_message);
+                                if(isset($crm_message['send_from_frontend'])) {
+                                    $odd = $crm_message['send_from_frontend'];
+                                } else {
+                                    $odd = false;
+                                    $crm_message['send_from_frontend'] = 0;
+                                }
+                            ?>
+                                <li style="margin: 4px 0; ">
+                                    <div class="divider" style="
+                                                                margin: 0 !important;
+                                                                display: block;
+                                                                height: 1px;
+                                                                margin: 8px 0;
+                                                                background: #ddd;
+                                                                overflow: hidden;"></div>
+                                </li>
+                                <div id="crm_message">
+                                    <div id="crm_message_content">
+                                        <li class="crm_msgicon" style="<?php if($odd) echo 'background: #f4f4f4; "'; ?> " >
+                                            <ul class="crm_msghead">
+                                                <li class="crm_date">
+                                                    <strong><?php echo $this->helper('core')->formatDate($crm_message['created_at'], 'medium') ?></strong>
+                                                    &nbsp;
+                                                    <?php echo $this->helper('core')->formatTime($crm_message['created_at'], 'medium'); ?>
+                                                    &nbsp;|
+                                                    <?php echo $this->escapeHtml($crm_message['subject']); ?>
+                                                    <?php
+                                                        if ($crm_message['send_from_frontend']) {
+                                                            $customer = Mage::getModel('customer/customer')->load($crm_message['customer_id']);
+                                                            $customerName = $customer->getFirstname() . ' ' . $customer->getLastname();
+                                                            echo '| &nbsp;by '.$this->escapeHtml($customerName).'';
+                                                        } else {
+                                                            if(isset($crm_message['user_id']) && !empty($crm_message['user_id'])){
+                                                                $admin = Mage::getModel('admin/user')->load($crm_message['user_id']);
+                                                                $adminName = $admin->getFirstname() . ' ' . $admin->getLastname();
+                                                                echo '| &nbsp;by '.$this->escapeHtml($adminName).'';
+                                                            }
+                                                        }
+                                                    ?>
+                                                </li>
+                                            </ul>
+
+                                            <ul class="crm_msgmessage" style="padding: 15px 0;">
+                                                <?php if (isset($crm_message['message_2'])): ?>
+                                                    <li>
+                                                        <div
+                                                            id="dots_crm<?php echo $crm_message['message_id']; ?>"><?php echo $helper->escapeHtml($crm_message['message_1'], $allowedTags, true) . " ..."; ?></div>
+                                                        <div
+                                                            id="msg2_crm<?php echo $crm_message['message_id']; ?>"><?php echo $helper->escapeHtml(html_entity_decode($crm_message['message']), $allowedTags, true); ?></div>
+                                                        <script type="text/javascript">
+                                                            $('msg2_crm<?php echo $crm_message['message_id'];?>').hide();
+                                                            $('msg2_crm<?php echo $crm_message['message_id'];?>').up().observe('mouseover', function () {
+                                                                $('msg2_crm<?php echo $crm_message['message_id'];?>').show();
+                                                            });
+                                                            $('msg2_crm<?php echo $crm_message['message_id'];?>').up().observe('mouseover', function () {
+                                                                $('dots_crm<?php echo $crm_message['message_id'];?>').hide();
+                                                            });
+                                                            $('msg2_crm<?php echo $crm_message['message_id'];?>').up().observe('mouseout', function () {
+                                                                $('msg2_crm<?php echo $crm_message['message_id'];?>').hide();
+                                                            });
+                                                            $('msg2_crm<?php echo $crm_message['message_id'];?>').up().observe('mouseout', function () {
+                                                                $('dots_crm<?php echo $crm_message['message_id'];?>').show();
+                                                            });
+                                                        </script>
+                                                    </li>
+                                                <?php else: ?>
+                                                    <li><?php echo $helper->escapeHtml(html_entity_decode($crm_message['message']), $allowedTags, true); ?></li>
+                                                <?php endif; ?>
+                                            </ul>
+                                        </li>
+                                    </div>
+                                    <?php echo $this->getChildHtml('crmaddon.attachment', false); ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

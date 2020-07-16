@@ -1,0 +1,40 @@
+<!--@subject {{var quote.getStoreGroupName()}}: Quote # {{var quote.increment_id}} is accepted @-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%"
+           style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top"><a href="{{store url=''}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
+                    </tr>
+                </table>
+                <!-- [ middle starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+                            <p>
+                                <strong>你好 {{var adminname}}</strong>,<br/><br>
+                            </p>
+
+                            <h3 style="font-size: 1.05em; padding-bottom: 1px;">
+                                你的询价单 #{{var quote.increment_id}}
+                                <small>(放在 {{var quote.getCreatedAtFormated('long')}})</small>
+                                已经被顾客接受.
+                            </h3>
+                            <p>
+                                这说明是通知你，客户在按下接受按钮，仍然需要在完成结账过程之前，将报价单全部转换为订单。
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,101 @@
+<?php
+$_product = $this->getProduct();
+$size = 265;
+if(Mage::getStoreConfig('design/package/name') == 'ultimo')
+{
+    $size = 364;
+}
+
+$helpZoom = $this->helper('infortis_cloudzoom');
+$helpImg = $this->helper('infortis/image');
+$imgWidth       = intval($helpZoom->getCfg('images/main_width'));
+$imgHeight      = intval($helpZoom->getCfg('images/main_height'));
+$bigImageWidth  = intval($helpZoom->getCfg('general/big_image_width'));
+$bigImageHeight = intval($helpZoom->getCfg('general/big_image_height'));
+
+$thumbImgWidth  = 65; //intval($helpZoom->getCfg('images/thumbnail_width'));
+$thumbImgHeight = 65; //intval($helpZoom->getCfg('images/thumbnail_height'));
+
+//If main image width is not specified, use default values
+if ($imgWidth <= 0)
+{
+    $imgWidth = 363;
+    $imgHeight = 363;
+}
+//$imgBorder = 1;
+//$imgPadd = 5;
+//$imgTotalPadd = ($imgBorder + $imgPadd) * 2; //12
+//$imgWidth -= $imgTotalPadd;
+//$imgHeight -= $imgTotalPadd;
+
+//If main image width is not specified, use default values
+if ($bigImageWidth <= 0)
+{
+    $bigImageWidth = 650;
+    $bigImageHeight= 650;
+}
+
+//Aspect ratio settings
+if ($helpZoom->getCfg('images/aspect_ratio'))
+{
+    //Height will be calculated automatically based on width to keep the aspect ratio of each image
+    $imgHeight = 0;
+    $bigImageHeight= 0;
+    $thumbImgHeight = 0;
+}
+
+$_img = '<img id="image" src="'.$helpImg->getImg($_product, $imgWidth, $imgHeight).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" href="'.$helpImg->getImg($_product, $bigImageWidth, $bigImageHeight).'" />';
+$productImage = Mage::helper('catalog/output')->productAttribute($_product, $_img, 'image');
+?>
+
+<script type="text/javascript">
+    var adjConfig = <?php echo $this->getAdjAttributesConfig() ?>;
+    var adjImages = <?php echo $this->getImagesSet() ?>;
+    var productImage = <?php echo Mage::helper('core')->jsonEncode($productImage) ?>;
+
+    document.onreadystatechange = function () {
+        $$('.more-views li').each(function(el) {
+            el.addClassName('product_image_conf');
+        });
+    }
+
+    var zoomTemplate = '<p class="zoom-notice" id="track_hint"><?php echo addslashes($this->__('Double click on above image to view full picture')) ?></p>' +
+        '<div class="zoom">' +
+        '<img id="zoom_out" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_out.gif') ?>" alt="<?php echo $this->__('Zoom Out') ?>" title="<?php echo $this->__('Zoom Out') ?>" class="btn-zoom-out" />' +
+        '<div id="track">' +
+        '<div id="handle"></div>' +
+        '</div>' +
+        '<img id="zoom_in" src="<?php echo $this->getSkinUrl('images/slider_btn_zoom_in.gif') ?>" alt="<?php echo $this->__('Zoom In') ?>" title="<?php echo $this->__('Zoom In') ?>" class="btn-zoom-in" />' +
+        '</div>' +
+        '<div class="more-views">' +
+        '<h2><?php echo $this->__('More Views') ?></h2>' +
+        '<ul></ul>' +
+        '</div>';
+
+    var cloudZoomTemplate = '<div class="more-images slider-arrows3 count-multi">'+
+        '<div id="itemslider-zoom" class="thumbnails show-all auto-adjust-width">'+
+        '</div>'+
+        '</div>';
+
+    Validation.addAllThese([
+        ['adjicon_input_config', '<?php echo addslashes(Mage::helper('adjicon')->__('Please select one of the options.')) ?>', function(v, elm) {
+            var id = elm.name.match(/([\d]+)/g)[0];
+            var inputs = $$('input[name="' + elm.name + '"]');
+            var error = 1;
+            for(var i=0;i<inputs.length;i++) {
+                if(inputs[i].type == 'checkbox' && inputs[i].checked == true) {
+                    error = 0;
+                }
+                if(Validation.isOnChange && inputs[i].type == 'checkbox') {
+                    Validation.reset(inputs[i]);
+                }
+            }
+            elm.advaiceContainer = id+'_advice';
+
+            if( error == 0 ) {
+                return true;
+            } else {
+                return false;
+            }
+        }]]);
+</script>

@@ -1,0 +1,107 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses
+ */
+
+$_product = Mage::getModel("catalog/product")->load($this->getProduct()->getId());
+$addCartUrl = $this->getAddToCartUrl($_product);
+$html = '';
+$ordermode = '';
+$quotemode = '';
+$btnQuoteTitle = $this->__("Add to Quote");
+$btnCartTitle = Mage::helper('catalog')->__('Add to Cart');
+$isQuickQuote = Mage::helper('qquoteadv')->checkQuickQuote();
+$allowed_to_quotemode = $_product->getAllowedToQuotemode();
+$quoteButton = false;
+$cartButton = false;
+$twoButtons = false;
+$oneButton = false;
+$noButton = false;
+$extraClassCart = '';
+$extraClassQuote = '';
+
+$hideCartButton = false;
+$hideQuoteButton = Mage::helper('qquoteadv')->hideQuoteButton($_product) || Mage::getStoreConfig('qquoteadv_quote_frontend/catalog/layout_update_listgrid_activated') == 0;
+if (Mage::getConfig()->getModuleConfig('Ophirah_Not2Order')->is('active', 'true') && $_product->getData('quotemode_conditions') > 0) {
+    $hideCartButton = Mage::helper('not2order')->autoHideCartButton($hideQuoteButton);
+}
+?>
+
+<?php
+//check if buttons are visible
+if ($allowed_to_quotemode == 1 && $hideQuoteButton === false){
+    $quoteButton = true;
+}
+if ($_product->isSaleable() && $hideCartButton === false){
+    $cartButton = true;
+}
+
+//check how manny buttons to show
+if($quoteButton && $cartButton){
+    $twoButtons = true;
+    $extraClassCart = 'btn-cart-first';
+    $extraClassQuote = 'btn-quote-second';
+} elseif($quoteButton || $cartButton) {
+    $oneButton = true;
+    $extraClassCart = 'btn-cart-single';
+    $extraClassQuote = 'btn-quote-single';
+} else {
+    $noButton = true;
+}
+?>
+
+<?php if ($cartButton):?>
+    <p class="action">
+        <button type="button" title="<?php echo $btnCartTitle;?>" class="button btn-cart <?php echo $extraClassCart;?>" onclick="setLocation('<?php echo $addCartUrl;?>')">
+        <span>
+            <span><?php echo $btnCartTitle;?></span>
+        </span>
+        </button>
+    </p>
+<?php endif;?>
+
+<?php if ($quoteButton):?>
+    <?php
+    if ($_product->getTypeId() == 'grouped'|| $isQuickQuote) {
+        $url = $_product->getProductUrl() . "?c2qredirect=1";
+    } else {
+        $url = $this->helper('qquoteadv/catalog_product_data')->getUrlAdd2QquoteadvList($_product);
+    }
+
+    $isAjax = Mage::getStoreConfig('qquoteadv_quote_frontend/catalog/ajax_add');
+    if ($isAjax) {
+        $actionQuote = "addQuoteList('$url', $isAjax);";
+    } else {
+        $actionQuote = "setLocation('$url');";
+    }
+    ?>
+    <p class="action">
+        <button title="<?php echo $btnQuoteTitle;?>" type="button" class="button btn-cart btn-quote <?php echo $extraClassQuote;?>" onclick="<?php echo $actionQuote;?>">
+        <span>
+            <span><?php echo $btnQuoteTitle;?></span>
+        </span>
+        </button>
+    </p>
+<?php endif;?>

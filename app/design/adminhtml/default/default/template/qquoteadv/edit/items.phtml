@@ -1,0 +1,118 @@
+<?php
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+/** @var $this Ophirah_Qquoteadv_Block_Adminhtml_Qquoteadv_Edit_Items */
+?>
+
+<?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_PRODUCT_INFORMATION)): ?>
+<?php $_quote = $this->getQuote() ?>
+<a name="products" style="position: absolute; margin-top: -50px;"></a>
+<div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Product Information') ?></h4>
+
+    <div style="float:right; margin:3px;">
+        <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_BUTTONS)): ?>
+            <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_BUTTONS_ADD_CUSTOM_PRODUCT)): ?>
+                <?php echo $this->getParentBlock()->getChildHtml('customproducts.button'); ?>
+            <?php endif; ?>
+            <?php if(Ophirah_Qquoteadv_Helper_Acl::allowed(Ophirah_Qquoteadv_Helper_Acl::VIEW_BUTTONS_EDIT_PRODUCTS)): ?>
+                <?php print '&nbsp;&nbsp;' . $this->getEditProductsButton()->_toHtml(); ?>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+</div>
+<div class="grid np">
+    <div class="hor-scroll">
+        <table id="qquoteadv_product_table" cellspacing="0" class="data order-tables">
+            <thead>
+            <tr class="headings">
+                <?php foreach($this->getColumnHeaderInfo() as $column): ?>
+                    <th class="<?php echo $column->getCssClasses()?>" width="<?php echo $column->getWidth()?>"><?php echo $column->getColumnTitle()?></th>
+                <?php endforeach; ?>
+            </tr>
+            </thead>
+            <?php $_items = $this->getItemsCollection() ?>
+            <?php
+            $i=0;
+            $productCounter = 0;
+            foreach ($_items as $_item):
+                ?>
+                <?php if ($_item->getParentItem()) continue; else $i++;?>
+                <tbody class="<?php echo $i%2?'even':'odd' ?>" id="order_<?php echo $_item->getId() ?>">
+                <tr>
+                    <?php $_item->setCounter($productCounter); $productCounter++?>
+                    <?php echo $this->getAllColumnsHtml($_item) ?>
+                </tr>
+                </tbody>
+            <?php endforeach; ?>
+            <tfoot>
+            <tr>
+                <?php foreach($this->getColumnHeaderInfo() as $column): ?>
+                    <?php $column->setProductCount($productCounter); ?>
+                    <td class="<?php echo $column->getColumnTotalCssClass()?>">
+                        <?php echo $column->getColumnTotal() ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<br />
+<?php endif; ?>
+
+<script src="<?php echo Mage::getBaseUrl('js') ?>qquoteadv/jquery-3.3.1.min.js"></script>
+<script src="<?php echo Mage::getBaseUrl('js') ?>qquoteadv/jquery-ui.min.js"></script>
+<script src="<?php echo Mage::getBaseUrl('js') ?>lib/jquery/noconflict.js"></script>
+<script type="text/javascript">
+    jQuery( function() {
+        jQuery( "#qquoteadv_product_table" ).sortable({
+            items : 'tbody',
+            handle : '.drag',
+            update: function (event, ui) {
+                var data = jQuery("#qquoteadv_product_table").sortable("toArray");
+                var url = "<?php echo $this->getUrl('*/*/ajaxsort') ?>";
+                var formKey = "<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>";
+                var quoteId = "<?php echo $_quote->getId();?>";
+
+                jQuery.ajax({
+                    data: {form_key:formKey, data:data, quote_id:quoteId},
+                    type: 'POST',
+                    url: url
+                });
+            }
+        });
+
+        jQuery(document).ajaxStart(function() {
+            $('loading-mask').show();
+        });
+
+        jQuery(document).ajaxStop(function() {
+            $('loading-mask').hide();
+        });
+    });
+</script>

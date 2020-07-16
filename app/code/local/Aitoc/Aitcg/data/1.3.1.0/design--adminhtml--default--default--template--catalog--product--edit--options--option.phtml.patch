@@ -1,0 +1,35 @@
+diff -aurBb /home/httpd/htdocs/users/kirichenko/cpp/var/ait_patch_orig/compare95113116849344e2eb9465f9c0 /home/httpd/htdocs/users/kirichenko/cpp/var/ait_patch_modif/compare95113116849344e2eb9465f9c0
+--- /home/httpd/htdocs/users/kirichenko/cpp/var/ait_patch_orig/compare95113116849344e2eb9465f9c0	2011-07-26 15:55:34 +0300
++++ /home/httpd/htdocs/users/kirichenko/cpp/var/ait_patch_modif/compare95113116849344e2eb9465f9c0	2011-07-26 15:55:34 +0300
+@@ -131,6 +131,10 @@
+                 template = OptionTemplateFile;
+                 group = 'file';
+                 break;
++            case 'aitcustomer_image':
++                template = OptionTemplateCg;
++                group = 'cgfile';
++                break;                
+             case 'drop_down':
+             case 'radio':
+             case 'checkbox':
+@@ -212,6 +216,10 @@
+                 template = OptionTemplateFile;
+                 group = 'file';
+                 break;
++            case 'aitcustomer_image':
++                template = OptionTemplateCg;
++                group = 'cgfile';
++                break;
+             case 'drop_down':
+             case 'radio':
+             case 'checkbox':
+@@ -257,6 +265,9 @@
+                 });
+                 selectOptionType.bindAddButton();
+                 break;
++            case 'aitcustomer_image':
++                aitcgImageSelector.setOptionId(data.id, data.image_template_id);
++                break;
+         }
+ 
+         if (data.price_type) {
