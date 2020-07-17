@@ -1,0 +1,46 @@
+
+.aitcg_colorset_container
+{
+    padding-bottom: 10px;
+}
+
+.aitcg_colorset
+{
+    width: 100%;
+    max-height: 180px;
+    position:relative;
+    padding-top: 5px;
+/*    background-color: #D4D0C8;*/
+    top:5px;
+/*    border: solid;
+    border-width: 1px;
+    border-color: ThreeDHighlight ThreeDShadow ThreeDShadow ThreeDHighlight;*/
+    overflow:auto;
+}
+
+.aitcg_colorset_color
+{
+    float: left;
+    width: 65px;
+    height: 65px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#2F2F2F;
+    margin-bottom:40px;
+    margin-left:5px;
+    position:relative;
+}
+
+.aitcg_colorset_color label.aitcg_colorset_label
+{
+    position: absolute;
+    bottom: -45px;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    text-transform: none !important;
+    display: inline-block;
+    width: 65px;
+    height: 35px;
+    font-family: cera-regular;
+    line-height: 12px;
+}

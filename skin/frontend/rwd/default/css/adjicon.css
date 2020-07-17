@@ -1,0 +1,59 @@
+img.adj-icon
+{
+	float:left;
+}
+.adj-icon {
+    float: left;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+.adj-icons-list:after,
+.adj-icons-grid:after,
+.adj-icons-view:after{
+    content:"."; display:block; clear:both; font-size:0; line-height:0; height:0; overflow:hidden;
+}
+
+/*comment out if we use Layered Navigation Pro ? */
+a.adj-nav-icon{}
+
+.block-layered-nav dd 
+{
+    overflow:hidden;
+}
+.adj-icons-view {
+    overflow:hidden;
+    clear:both;
+}
+
+.adjicon_icon_img {
+    margin-left: 5px;
+    margin-top: 3px;
+    display: inline !important;
+    padding: 0 !important;
+}
+
+.adjicon_icon_img img
+{
+	vertical-align:middle;
+    margin-top: 4px;
+    display: inline !important;
+}
+
+a span.label {
+    margin-right: 4px;
+}
+
+.input-box li
+{
+    list-style-type: none;
+    display: inline-block;
+}
+
+.adjicon_icon_config img{
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+/*Layered Navigation compatibility*/
+.adjicon_icon_img a {padding:0 !important;}
+

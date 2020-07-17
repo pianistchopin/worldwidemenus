@@ -1,0 +1,17 @@
+.ajaxvatchecker-validating-vat-loader {
+    display:block;
+    float:left;
+    width:30px;
+    margin-left:5px;
+}
+
+.form-list li input.ajaxvatchecker_inputtext {
+    background-image: url("../images/ajax-loader.gif");
+    background-repeat:no-repeat;
+    background-position:  bottom right; 
+    background-size: 25px;
+}
+
+.ajaxvatchecker-validating-message.success{
+    color:#11b400;
+}

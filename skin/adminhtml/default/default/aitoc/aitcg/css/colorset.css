@@ -1,0 +1,61 @@
+
+#aitcg_colorset
+{
+    margin-right: 20px;
+}
+
+#aitcg_colorset .aitcg_colorset_color
+{
+    float: left;
+    width: 70px;
+    height: 70px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#406A83;
+    margin-top:20px;
+    margin-left: 20px;
+    margin-bottom: 50px;
+}
+
+#aitcg_colorset .aitcg_colorset_color_input
+{
+    width: 70px;
+    border-width:0px;
+    margin-top: 11px;
+    text-align: center; 
+}
+
+#aitcg_colorset .aitcg_colorset_color_delete
+{
+    float: right;
+    width: 13px;
+    height: 13px;
+    background: url("../../../../../default/default/images/dashboard-close.gif") 0 0 no-repeat;
+    opacity:0.4;
+    filter:alpha(opacity=40);
+}
+
+#aitcg_colorset .aitcg_colorset_color_add
+{
+    float: left;
+    width: 70px;
+    height: 70px;
+    border-style:solid;
+    border-width:1px;
+    border-color:#406A83;
+    margin-top:20px;
+    margin-left: 20px;
+}
+
+#aitcg_colorset .aitcg_colorset_color_add_text
+{
+    margin-top:18px;
+    margin-left: 20px;
+}
+
+#aitcg_colorset .aitcg_colorset_label_input
+{
+    position: relative;
+    width: 65px;
+    bottom: -40px;
+}

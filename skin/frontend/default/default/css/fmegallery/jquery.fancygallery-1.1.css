@@ -1,0 +1,80 @@
+/*
+	The style sheets which have comments can bet customize by you.
+*/
+
+a, img  { 
+	text-decoration: none; 
+	outline: none; 
+	border: 0px; 
+}
+
+.fg-menu {
+	padding: 3px 5px;
+	font-size: 12px; /*size of the menu text*/
+	color: #515151; /*color of the menu text*/
+	margin: 3px 10px 5px 30px;
+	float: left;
+}
+
+.fg-menuSelected {
+	background: #cccccc; /*background color when a menu is selected*/
+	/* shadow and border radius(not supported in all browsers) */
+	-webkit-box-shadow: 0px 1px 0 #FFFFFF, 0px 0px 2px #000000 inset;
+	-moz-box-shadow: 0px 1px 0 #FFFFFF, 0px 0px 2px #000000 inset;
+	box-shadow: 0px 1px 0 #FFFFFF, 0px 0px 2px #000000 inset;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+}
+
+.fg-image, .fg-image a img	{
+	position: absolute;
+}
+
+.fg-title	{
+	font-family: Georgia, "Times New Roman", Times, serif; /* the font of the title */
+	font-size: 12px; /* the size of the title */
+	position: absolute;
+	bottom: 12px;
+	left: 5px;
+	color: #666; /* the color of the title */
+}
+
+.fg-shadow	{
+	background: url('../../images/fmegallery/fancygallery/shadow.png') no-repeat transparent; /* the path of the shadow image */
+	position: absolute;
+	margin-left:-20px;
+	width: 250px; /* the width of the shadow */
+	height: 40px; /* the height of the shadow */
+}
+
+/* line between menu and images */
+#fg-line {
+	border: 0px;
+ 	border-top: solid 1px #AEAEAE; /* the top color of the line */
+	border-bottom: solid 1px #FFFFFF;  /* the bottom color of the line */
+	clear:both;
+	margin: 0px;
+	margin-bottom:20px;
+}
+
+#fg-prev	{
+	background: url('../../images/fmegallery/fancygallery/previous.png') no-repeat transparent; /* the path of the previous button image */
+	position: absolute;
+	width: 25px; /* the width of the previous button image */
+	height: 40px; /* the width of the previous button image */
+	visibility: hidden;
+	z-index: 1003;
+}
+
+#fg-next	{
+	background: url('../../images/fmegallery/fancygallery/next.png') no-repeat transparent; /* the path of the next button image */
+	position: absolute;
+	width: 25px; /* the width of the next button image */
+	height: 40px; /* the width of the next button image */
+	visibility: hidden;
+	z-index: 1004;
+}
+
+#fg-thumbHolder	{
+	position: relative;
+}

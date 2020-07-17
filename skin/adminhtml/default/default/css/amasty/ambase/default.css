@@ -1,0 +1,10 @@
+
+.ambase-grid-message {
+    padding-left: 58px;
+    min-height: 53px;
+    background: url(../../../images/ambase/logo_m_table.png) no-repeat;
+}
+
+.ambase-grid-message.amasty-grid-logo {
+    background: url(../../../images/ambase/logo_table.png) no-repeat;
+}

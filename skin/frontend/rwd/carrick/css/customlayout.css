@@ -1,0 +1,465 @@
+.product-view.customlayout {
+
+	margin-top: 30px;
+
+	padding: 0 30px;
+
+}
+
+.product-view.customlayout .product-img-box {
+
+	width: 100%;
+
+}
+
+.product-view.customlayout .product-img-box .product-image {
+
+	width: 60%;
+
+    margin: 0 auto;
+
+}
+
+.product-view.customlayout .product-shop {
+
+	width: 100%;
+
+}
+
+.product-view.customlayout .product-options {
+
+	display: none;
+
+}
+
+.product-view.customlayout .add-to-cart-wrapper {
+
+	display: none;
+
+}
+
+.main-image-larged {
+
+	position: absolute;
+
+    top: 50px;
+
+    z-index: 999;
+
+    border: 1px solid gray;
+
+    width: 80%;
+
+    left: 10%;
+
+    padding: 50px;
+
+    background: white;
+
+}
+
+#main-image {
+
+	width: 100%;
+
+    height: 100%;
+
+}
+
+#close-button {
+
+	position: absolute;
+
+    top: 20px;
+
+    right: 20px;
+
+}
+
+.custom-options {
+
+	display: flex;
+
+    width: 100%;
+
+}
+
+.custom-options .options-header {
+
+	position: relative;
+
+	line-height: .5;
+
+    padding-top: 25px;
+
+    padding-bottom: 25px;
+
+    text-align: center;
+
+    overflow: hidden;
+
+	width: 100%;
+
+}
+
+.custom-options .options-header:before {
+
+    content: url(/media/images/diamond.png);
+
+    position: absolute;
+
+    left: 50%;
+
+    margin-left: -10px;
+
+    top: 0;
+
+}
+
+.custom-options .options-header h2 {
+
+    position: relative;
+
+    font-family: cera-regular;
+
+    text-transform: none;
+
+	display: inline-block;
+
+    margin-top: 0;
+
+    margin-bottom: 0;
+
+}
+
+.custom-options .options-header h2:after, .custom-options .options-header h2:before {
+
+    content: "";
+
+    position: absolute;
+
+    height: 5px;
+
+    border-bottom: 1px solid #000;
+
+    top: 14px;
+
+    width: 900px;
+
+}
+
+.custom-options .options-header h2:before {
+
+	right: 100%;
+
+    margin-right: 15px;
+
+}
+
+.custom-options .items {
+
+	display: flex;
+
+    text-align: center;
+
+    justify-content: center;
+
+}
+
+.custom-options .items.slides {
+
+	overflow: hidden;
+
+    overflow-x: scroll;
+
+}
+
+.custom-options .items .item {
+
+	float: left;
+
+	padding: 12px;
+
+	cursor: pointer;
+
+}
+
+.custom-options .items .item .thumb-item {
+
+	max-width: 150px;
+
+	margin-bottom: 15px;
+
+}
+
+.custom-options .corner-protector .items .item .thumb-item, .custom-options .personalisation .items .item .thumb-item, .custom-options .foilColourStandard .items .item .thumb-item, .custom-options .foilColourEmbossed .items .item .thumb-item {
+
+	max-width: 180px;
+
+}
+
+.custom-options .items .item.hovered {
+
+	border: 1px solid gray;
+
+}
+
+.custom-options .items .item.selected {
+
+	border: 1px solid red;
+
+}
+
+.custom-options .row h4 {
+
+	margin-top: 20px;
+
+	font-family: cera-regular;
+
+}
+
+.custom-options .row {
+
+	display: none;
+
+}
+
+.custom-options .options-header .row:first-of-type {
+
+    display: block;
+
+}
+
+.product-view.customlayout .price-box .price {
+
+	font-family: cera-bold;
+
+	color: #3C3C3B;
+
+	font-size: 24px;
+
+}
+
+.custom-options .row.fixing-style .item {
+
+	display: none;
+
+}
+
+#sku_text {
+
+	font-size: 24px;
+
+}
+
+#additional_notes {
+
+	width: 50%;
+
+}
+
+.thumb-price {
+
+	font-family: cera-bold;
+
+    font-size: 16px;
+
+}
+
+.thumbnail-modal {
+
+	position: fixed;
+
+    top: 150px;
+
+    margin: 0 auto;
+
+    left: calc((100% - 260px)/2);
+
+    z-index: 999;
+
+    padding: 30px 10px 10px;
+
+    background: white;
+
+    border: 1px solid gray;
+
+}
+
+#close-button-thumbnail {
+
+	position: absolute;
+
+    top: 10px;
+
+    right: 10px;
+
+}
+
+.btn-enlarge {
+
+	padding: 4px 10px;
+
+    border: 1px solid black;
+
+    color: black !important;
+
+    text-decoration: none !important;
+
+}
+
+.foilColourStandard, .foilColourEmbossed {
+
+	display: none;
+
+}
+
+@media(min-width: 1280px) {
+
+	.custom-options .outer-material .items .item .thumb-item, .custom-options .inner-material .items .item .thumb-item {
+
+		max-width: 80px;
+
+	}
+
+	.custom-options .outer-material .items, .custom-options .inner-material .items {
+
+		justify-content: normal;
+
+	}
+
+}
+
+@media(max-width: 1280px) {
+
+	.custom-options .items .item .thumb-item {
+
+		max-width: 100px;
+
+	}
+
+	.custom-options .corner-protector .items .item .thumb-item, .custom-options .personalisation .items .item .thumb-item, .custom-options .foilColourStandard .items .item .thumb-item, .custom-options .foilColourEmbossed .items .item .thumb-item {
+
+		max-width: 150px;
+
+	}
+
+}
+
+@media(max-width: 960px) {
+
+	.custom-options .corner-protector .items .item .thumb-item, .custom-options .personalisation .items .item .thumb-item, .custom-options .foilColourStandard .items .item .thumb-item, .custom-options .foilColourEmbossed .items .item .thumb-item {
+
+		max-width: 100px;
+
+	}
+
+}
+
+@media(max-width: 768px) {
+
+	.product-view.customlayout .product-img-box .product-image {
+
+		width: 100%;
+
+	}
+
+	.main-image-larged {
+
+		width: 90%;
+
+		left: 5%;
+
+		padding: 25px;
+
+		top: 0px;
+
+	}
+
+	#close-button {
+
+		top: 5px;
+
+		right: 5px;
+
+	}
+
+	.custom-options .items {
+
+		display: inline-block;
+
+	}
+
+	.custom-options .items .item {
+
+		width: 40%;
+
+		cursor: pointer;
+
+		display: inline-block !important;
+
+		float: none;
+
+		padding: 5px;
+
+		margin-top: 1px;
+
+		margin-bottom: 1px;
+
+	}
+
+	.custom-options .items .item .thumb-item {
+
+		max-width: 100%;
+
+		margin-bottom: 0px;
+
+	}
+
+	.custom-options .outer-material .items .item, .custom-options .inner-material .items .item {
+
+		padding-bottom: 15px;
+
+		margin-top: 10px;
+
+	}
+
+	.custom-options .outer-material .items .item .thumb-item, .custom-options .inner-material .items .item .thumb-item {
+
+		margin-bottom: 15px;
+
+	}
+
+	.custom-options .items.slides {
+
+		max-height: 200px;
+
+		overflow-y: scroll;
+
+	}
+
+	.product-view.customlayout .price-box {
+
+		text-align: center;
+
+	}
+
+	#additional_notes {
+
+		width: 90%;
+
+	}
+
+	.custom-options .corner-protector .items .item .thumb-item, .custom-options .personalisation .items .item .thumb-item, .custom-options .foilColourStandard .items .item .thumb-item, .custom-options .foilColourEmbossed .items .item .thumb-item {
+
+		max-width: 100%;
+
+	}
+
+	.custom-options .foilColourStandard .items .item .thumb-item, .custom-options .foilColourEmbossed .items .item .thumb-item {
+
+		margin-bottom: 10px;
+
+	}
+
+}

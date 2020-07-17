@@ -1,0 +1,169 @@
+/**
+ * MageWorx
+ * CustomOptions Extension
+ * 
+ * @category   MageWorx
+ * @package    MageWorx_CustomOptions
+ * @copyright  Copyright (c) 2015 MageWorx (http://www.mageworx.com/)
+ */
+.custom-options .type-title {
+    width: 240px !important;
+}
+
+.custom-options .opt-title {
+    width: 200px !important;
+}
+
+.custom-options .option-box .border input.select-type-title  {
+    width: 240px !important;
+}
+
+.custom-options .option-box .border {
+    width: 940px !important;
+}
+
+.custom-options .type-type {
+     width: 180px;
+ }
+
+.custom-options .type-description {
+    width: 250px !important;
+}
+.custom-options .option-box .border input.select-type-description  {
+    width: 250px !important;
+}
+
+
+.custom-options .option-header .textarea {
+    width: 97%;
+}
+
+
+.custom-options button.narrow-add-button {
+    width: 23px !important;
+    height: 23px !important;
+    padding: 1px 4px !important;
+    -webkit-border-fit: border !important;
+}
+.custom-options button.narrow-add-button span {
+    width: 13px !important;
+    padding: 0 !important;
+    text-indent: -999em !important;
+    display: block;
+}
+
+.custom-options button.narrow-delete-button {
+    width: 23px !important;
+    height: 22px !important;
+    padding: 1px 3px 2px 3px !important;
+}
+.custom-options button.narrow-delete-button span {
+    width: 16px !important;
+    padding: 0 !important;
+}
+
+.custom-options .th-normal {
+    font-weight: normal;
+    text-align:center;
+}
+
+.custom-options .opt-order {
+    width: 70px;
+}
+
+.custom-options .opt-enabled {
+    width: 80px;
+}
+
+.custom-options .opt-dependent {
+    width: 80px;
+}
+
+.custom-options .opt-sku-policy {
+    width: 100px;
+}
+
+.custom-options .opt-image-mode {
+    width: 170px;
+}
+
+.custom-options .opt-one-time {
+    width: 80px;
+}
+
+.custom-options .opt-show-swatch-title {
+    width: 120px;
+}
+
+.custom-options .opt-qnty-input {
+    width: 80px;
+}
+.custom-options .option-header .input-sort-order {
+    width: 85% !important;
+}
+
+.template-title {
+    position:relative; top: -8px; height:10px; color:#A64612;
+}
+
+.custom-options .type-special-comment {
+    width: 150px;
+}
+
+.custom-options .type-qty {
+    width: 55px;
+}
+.custom-options .type-default {
+    width: 35px;
+}
+
+.custom-options .type-text-default {
+    width: 530px;
+}
+.custom-options .type-dependent-ids {
+    width: 150px;
+}
+
+
+.custom-options .input-sku {
+    width: 145px;
+}
+.custom-options .input-sku-ok {
+    width: 130px;
+}
+.custom-options .input-sku-red {
+    width: 145px !important;
+    color:red !important;
+}
+
+.custom-options .input-children {
+    width: 125px;
+}
+
+
+.custom-options li.image {
+    float:left; text-align:center; margin-right: 2px;
+}
+
+.custom-options a.close {
+    text-decoration:none;
+}
+
+.custom-options .input-color {
+    width: 70px;
+}
+
+.custom-options-popup-children-show {
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: 6px;
+    text-align: left;
+    display: none;
+    cursor: default;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+}

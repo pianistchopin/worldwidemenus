@@ -1,0 +1,69 @@
+/* Dark icons set */
+.aitcg-toolbox-icons .aitcg-dark #aitcg-tool-title-PredefinedImage .icon {
+    background-image: url('../images/dark/clipart.png');
+}
+
+.aitcg-toolbox-icons .aitcg-dark #aitcg-tool-title-UserImage .icon {
+    background-image: url('../images/dark/upload.png');
+}
+
+.aitcg-toolbox-icons .aitcg-dark #aitcg-tool-title-Mask .icon {
+    background-image: url('../images/dark/mask.png');
+}
+
+.aitcg-toolbox-icons .aitcg-dark #aitcg-tool-title-Text .icon {
+    background-image: url('../images/dark/text.png');
+}
+
+.aitcg-toolbox-icons .aitcg-dark #aitcg-tool-title-Save .icon {
+    background-image: url('../images/dark/save.png');
+}
+
+/* Light icons set */
+.aitcg-toolbox-icons .aitcg-light #aitcg-tool-title-PredefinedImage .icon {
+    background-image: url('../images/light/clipart.png');
+}
+
+.aitcg-toolbox-icons .aitcg-light #aitcg-tool-title-UserImage .icon {
+    background-image: url('../images/light/upload.png');
+}
+
+.aitcg-toolbox-icons .aitcg-light #aitcg-tool-title-Mask .icon {
+    background-image: url('../images/light/mask.png');
+}
+
+.aitcg-toolbox-icons .aitcg-light #aitcg-tool-title-Text .icon {
+    background-image: url('../images/light/text.png');
+}
+
+.aitcg-toolbox-icons .aitcg-light #aitcg-tool-title-Save .icon {
+    background-image: url('../images/light/save.png');
+}
+
+.fb-like iframe{visibility:inherit !important;}
+
+.icon.align-button {
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    box-sizing: content-box;
+    float: left;
+    height: 16px;
+    margin: 5px;
+    padding: 0px;
+    width: 16px;
+    opacity: 0.5;
+}
+.icon.align-button:hover, .icon.align-button.selected {
+    opacity: 1;
+}
+.icon.align-button.button-left {
+    background-image: url("../images/text_left.png");
+}
+.icon.align-button.button-right {
+    background-image: url("../images/text_right.png");
+}
+.icon.align-button.button-center {
+    background-image: url("../images/text_center.png");
+}
+

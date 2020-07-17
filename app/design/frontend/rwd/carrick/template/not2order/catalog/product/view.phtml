@@ -332,6 +332,11 @@ $customLayoutFlag = $_product->getData('update_layout');
 
                             //                              tom 07.17.2020
                             $trimArray = array();
+                            $frontMaterialArray = array();
+                            $backMaterialArray = array();
+                            $spineArray = array();
+                            $woodArray = array();
+
 
                             $outerMaterialOptionId = 0;
                             $innerMaterialOptionId = 0;
@@ -341,7 +346,13 @@ $customLayoutFlag = $_product->getData('update_layout');
                             $foilEmbossedOptionId = 0;
                             $additionalNoteOptionId = 0;
 
+                            //                              tom 07.17.2020
                             $trimOptionId = 0;
+                            $frontMaterialOptionId = 0;
+                            $backMaterialOptionId = 0;
+                            $spineOptionId = 0;
+                            $woodOptionId = 0;
+
 
                             $values = '';
                             $fixingStyle = '';
@@ -368,9 +379,23 @@ $customLayoutFlag = $_product->getData('update_layout');
                                 } else if ($o->getTitle() === 'Foil Colour/Embossed Logo') {
                                     $foilEmbossedOptionId = $o->getId();
                                     $foilEmbossedArray = $o->getValues();
+
+                                //                              tom 07.17.2020
                                 } else if ($o->getTitle() === 'Trim Colour') {
                                     $trimOptionId = $o->getId();
                                     $trimArray = $o->getValues();
+                                } else if ($o->getTitle() === 'Front Material Colour') {
+                                    $frontMaterialOptionId = $o->getId();
+                                    $frontMaterialArray = $o->getValues();
+                                } else if ($o->getTitle() === 'Back Material Colour') {
+                                    $backMaterialOptionId = $o->getId();
+                                    $backMaterialArray = $o->getValues();
+                                } else if ($o->getTitle() === 'Spine Colour') {
+                                    $spineOptionId = $o->getId();
+                                    $spineArray = $o->getValues();
+                                } else if ($o->getTitle() === 'Wood Colour') {
+                                    $woodOptionId = $o->getId();
+                                    $woodArray = $o->getValues();
                                 }
                             }
                             ?>
@@ -383,7 +408,16 @@ $customLayoutFlag = $_product->getData('update_layout');
                                 echo "var additionalNoteOptionId = '{$additionalNoteOptionId}';".PHP_EOL;
                                 echo "var foilStandardOptionId = '{$foilStandardOptionId}';".PHP_EOL;
                                 echo "var foilEmbossedOptionId = '{$foilEmbossedOptionId}';".PHP_EOL;
+
+                                //                              tom 07.17.2020
                                 echo "var trimOptionId = '{$trimOptionId}';".PHP_EOL;
+                                echo "var frontMaterialOptionId = '{$frontMaterialOptionId}';".PHP_EOL;
+                                echo "var backMaterialOptionId = '{$backMaterialOptionId}';".PHP_EOL;
+                                echo "var spineOptionId = '{$spineOptionId}';".PHP_EOL;
+                                echo "var woodOptionId = '{$woodOptionId}';".PHP_EOL;
+
+
+
                                 echo "var totalCount = '{$totalCount}';".PHP_EOL;
                                 echo "var index = 0;".PHP_EOL;
                                 echo "var origsku = '{$sku}';".PHP_EOL;
@@ -612,7 +646,7 @@ $customLayoutFlag = $_product->getData('update_layout');
                                         <?php foreach ($trimArray as $k => $v) : ?>
                                             <li class="item" id="<?php echo $v->getId(); ?>">
                                                 <?php
-                                                $url = Mage::getBaseUrl('skin').'custom_option/trim/'.$v->getTitle().'.jpg';
+                                                $url = Mage::getBaseUrl('skin').'custom_option/material/'.$v->getTitle().'.jpg';
                                                 ?>
                                                 <img class="thumb-item" src="<?php echo $url; ?>">
                                                 <a class="btn-enlarge"><span>Enlarge</span></a>
@@ -621,12 +655,118 @@ $customLayoutFlag = $_product->getData('update_layout');
                                     </ul>
                                     <script>
                                         jQuery(document).ready(function($){
-                                            item_hover_effect($('.trim .item'));
-                                            item_click_event($('.trim .item'));
+                                            item_hover_event($('.trim .item'));
+                                            item_click_event($('.trim .item'), trimOptionId);
                                         });
                                     </script>
                                 </div>
                             <?php endif; ?>
+
+
+                            <?php if ($frontMaterialOptionId > 0) : ?>
+                                <div class="row front-material">
+                                    <h4>Front Material Colour</h4>
+                                    <ul class="items slides">
+                                        <?php foreach ($frontMaterialArray as $k => $v) : ?>
+                                            <li class="item" id="<?php echo $v->getId(); ?>">
+                                                <?php
+                                                $url = Mage::getBaseUrl('skin').'custom_option/material/'.$v->getTitle().'.jpg';
+                                                /*if (!getImageSize($url)) {
+                                                    $url = Mage::getBaseUrl('skin').'custom_option/material/'.$v->getTitle().'.png';
+                                                }*/
+                                                ?>
+                                                <img class="thumb-item" src="<?php echo $url; ?>">
+                                                <a class="btn-enlarge"><span>Enlarge</span></a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            item_hover_event($('.front-material .item'));
+                                            item_click_event($('.front-material .item'), frontMaterialOptionId);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($backMaterialOptionId > 0) : ?>
+                                <div class="row back-material">
+                                    <h4>Back Material Colour</h4>
+                                    <ul class="items slides">
+                                        <?php foreach ($backMaterialArray as $k => $v) : ?>
+                                            <li class="item" id="<?php echo $v->getId(); ?>">
+                                                <?php
+                                                $url = Mage::getBaseUrl('skin').'custom_option/material/'.$v->getTitle().'.jpg';
+                                                /*if (!getImageSize($url)) {
+                                                    $url = Mage::getBaseUrl('skin').'custom_option/material/'.$v->getTitle().'.png';
+                                                }*/
+                                                ?>
+                                                <img class="thumb-item" src="<?php echo $url; ?>">
+                                                <a class="btn-enlarge"><span>Enlarge</span></a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            item_hover_event($('.back-material .item'));
+                                            item_click_event($('.back-material .item'), backMaterialOptionId);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($spineOptionId > 0) : ?>
+                                <div class="row spine">
+                                    <h4>Spine Colour</h4>
+                                    <ul class="items slides">
+                                        <?php foreach ($spineArray as $k => $v) : ?>
+                                            <li class="item" id="<?php echo $v->getId(); ?>">
+                                                <?php
+                                                $url = Mage::getBaseUrl('skin').'custom_option/material/'.$v->getTitle().'.jpg';
+                                                /*if (!getImageSize($url)) {
+                                                    $url = Mage::getBaseUrl('skin').'custom_option/material/'.$v->getTitle().'.png';
+                                                }*/
+                                                ?>
+                                                <img class="thumb-item" src="<?php echo $url; ?>">
+                                                <a class="btn-enlarge"><span>Enlarge</span></a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            item_hover_event($('.spine .item'));
+                                            item_click_event($('.spine .item'), spineOptionId);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($woodOptionId > 0) : ?>
+                                <div class="row wood">
+                                    <h4>Wood Colour</h4>
+                                    <ul class="items slides">
+                                        <?php foreach ($woodArray as $k => $v) : ?>
+                                            <li class="item" id="<?php echo $v->getId(); ?>">
+                                                <?php
+                                                $url = Mage::getBaseUrl('skin').'custom_option/material/'.$v->getTitle().'.jpg';
+                                                /*if (!getImageSize($url)) {
+                                                    $url = Mage::getBaseUrl('skin').'custom_option/material/'.$v->getTitle().'.png';
+                                                }*/
+                                                ?>
+                                                <img class="thumb-item" src="<?php echo $url; ?>">
+                                                <a class="btn-enlarge"><span>Enlarge</span></a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            item_hover_event($('.wood .item'));
+                                            item_click_event($('.wood .item'), woodOptionId);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
 
                             <?php if ($cornerProtectorOptionId > 0) : ?>
                                 <div class="row corner-protector">
@@ -960,33 +1100,31 @@ $customLayoutFlag = $_product->getData('update_layout');
 
 <script type="text/javascript">
 
-        function item_hover_effect(classElement){
-            classElement.hover(function ($) {
-                classElement.removeClass('hovered');
-                jQuery(this).addClass('hovered');
-            });
-            classElement.mouseleave(function ($) {
-                classElement.removeClass('hovered');
-            });
-        }
+    function item_hover_event(element){
+        element.hover(function ($) {
+            element.removeClass('hovered');
+            jQuery(this).addClass('hovered');
+        });
+        element.mouseleave(function ($) {
+            element.removeClass('hovered');
+        });
+    }
 
-        function item_click_event(classElement, optionId){
-            classElement.click(function ($) {
-                var SelectObjId = '#select_' + optionId;
-                jQuery(SelectObjId).val(jQuery(this).attr('id'));
-                opConfig.reloadPrice();
-                classElement.removeClass('selected');
-                jQuery(this).addClass('selected');
-                //jQuery('.corner-protector').show();
-                if (index == totalCount) {
-                    jQuery('.add-to-cart-wrapper').show();
-                } else {
-                    jQuery('.custom-options .row').eq(index + 2).show();
-                    index++;
-                }
-            });
-        }
-
-
+    function item_click_event(element, optionId){
+        element.click(function ($) {
+            var selectObjId = '#select_' + optionId;
+            jQuery(selectObjId).val(jQuery(this).attr('id'));
+            opConfig.reloadPrice();
+            element.removeClass('selected');
+            jQuery(this).addClass('selected');
+            //jQuery('.corner-protector').show();
+            if (index == totalCount) {
+                jQuery('.add-to-cart-wrapper').show();
+            } else {
+                jQuery('.custom-options .row').eq(index + 2).show();
+                index++;
+            }
+        });
+    }
 </script>
 

@@ -1,0 +1,12 @@
+.small-input {
+    width: 90px !important;
+}
+
+#field_edit_button,
+#field_add_new_button {
+    display: none;
+}
+
+#field_edit_button .add {
+    margin-left: 15px;
+}

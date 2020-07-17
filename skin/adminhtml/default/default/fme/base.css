@@ -1,0 +1,13 @@
+.links { width:100%; }
+
+.links ul { width:100%; list-style:none; text-align:center; }
+
+.links ul li { display:inline-block; margin:0 15px }
+
+.links ul li a { font-family:'Open Sans', sans-serif; font-size:15px; font-weight:600; color:#484848; text-transform:uppercase; }
+
+.links ul li a:hover { color:#db4d2d; }
+
+.links ul li img.logo { margin-bottom:-28px; }
+
+.links ul li img.icon { margin-bottom:-6px; }

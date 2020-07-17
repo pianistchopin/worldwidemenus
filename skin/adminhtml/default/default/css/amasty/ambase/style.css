@@ -1,0 +1,188 @@
+#amasty_store {
+    border: none;
+    height: 1700px; /* fallback */
+    width: 100%;
+}
+
+.amasty-store-tab {
+    position: relative;
+}
+
+.amasty-store-tab span:after {
+    top: 0;
+    right: 3px;
+    position: absolute;
+    content: " ";
+    display: block;
+    background: url(../../../images/ambase/shop.png) no-repeat;
+    width: 55px;
+    height: 23px;
+}
+
+.ambase-debug-section {
+    background: #FFF;
+    padding: 10px;
+    border: 1px solid #d6d6d6;
+}
+
+.ambase-debug-section table td {
+    padding: 5px 10px;
+    vertical-align: top;
+}
+
+.ambase-debug-section .green {
+    color: green;
+}
+
+.ambase-debug-section .red {
+    color: red;
+}
+
+.ambase-debug-header {
+    font-weight: bold;
+    padding: 10px 0;
+    font-size: 1.3em;
+}
+
+.ambase-show-instruction {
+    color: grey;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ambase-instruction {
+    font-size: 0.8em;
+}
+
+.ambase-instruction li {
+    margin: 0;
+}
+
+.ambase-file {
+    font-size: 0.8em;
+    color: grey;
+}
+
+.ambase-debug-header-click {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ambase-hidden {
+    visibility: hidden;
+}
+
+.ambase-notice {
+    padding: 10px;
+    background-color: #fff9e9;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.comment .ambase-notice {
+    color: #ea7601;
+}
+
+/* additional tab in config section*/
+.amasty-info-block {
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.amasty-info-block .upgrade-error, .amasty-disable-extensions p, .amasty-conflicts {
+    padding: 5px 17px 5px 47px;
+    background: #fff9e9 url('../../../images/error_msg_icon.gif') 17px 5px no-repeat;
+    border: 1px solid #eee2be;
+    margin: 5px 0;
+    display: inline-block;
+}
+
+.module-version {
+    color: #ea7601;
+}
+
+.amasty-info-block .module-version.last-version {
+    color: green;
+}
+
+.amasty-info-block > div {
+    margin-bottom: 10px;
+}
+
+.amasty-conflicts-title,
+.version-title,
+.module-version {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.amasty-conflicts-title {
+    margin-top: 20px;
+
+}
+
+.amasty-user-guide,
+.amasty-additional-content {
+    border: 1px solid #95a486;
+    color: #3d6611;
+    background: #eff5ea url('../../../images/success_msg_icon.gif') no-repeat 10px 10px;
+    min-height: 23px;
+    margin-bottom: 11px;
+    padding: 8px 8px 2px 32px;
+}
+
+.amasty-info-block .amasty-success {
+    border: 1px solid #95a486;
+    color: #3d6611;
+    background: #eff5ea url('../../../images/success_msg_icon.gif') no-repeat 10px 10px;
+}
+
+.amasty-info-block .amasty-notice {
+    border: 1px solid #ffd967;
+    color: #3d6611;
+    background: #fffbf0 url('../../../images/note_msg_icon.gif') no-repeat 10px 10px;
+}
+
+.amasty-info-block .amasty-warning {
+    border: 1px solid #666e73;
+    color: #000000;
+    background: #e6e6e6 url('../../../images/warning_msg_icon.gif') no-repeat 10px 10px;
+}
+
+.amasty-info-block  .amasty-error {
+    border: 1px solid #f16048;
+    color: #df280a;
+    background: #faebe7 url('../../../images/error_msg_icon.gif') no-repeat 10px 10px;
+}
+
+.ambase-unsubscribe {
+    max-width: 1px;
+    position: absolute;
+}
+
+.ambase-icon {
+    margin-right: 5px;
+}
+
+.ambase-module-name {
+    line-height: 14px;
+    vertical-align: top;
+}
+
+#ambase_extensions .form-list tr .value {
+    color: #e60303;
+}
+
+#ambase_extensions .form-list tr[id$="is_latest"] .value {
+    color: #038603;
+}
+
+.amasty_not_instaled {
+    color: #f70606;
+}
+
+.amasty_is_instaled {
+    color: #00f702;
+}

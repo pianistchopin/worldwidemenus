@@ -1,0 +1,51 @@
+#attachment_new{
+    float: right;
+    width: 25%;
+}
+
+.attachment_single img{
+    float:left;
+}
+
+.attachment_single{
+    height:100%;
+    margin: 2px 0 2px 0;
+    background: #dddddd;
+    color: #636363;
+    padding: 7px 15px;
+    text-align:center;
+    font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+
+.clearfix {
+    clear: both;
+    font-size: 1px;
+}
+
+#crm_message{
+    display: table;
+    width: 100%;
+}
+
+#crm_message_content{
+    display: table-cell;
+    padding-right: 2%;
+}
+
+#attachment_view{
+    display: table-cell;
+    width: 25%;
+}
+
+.crm_attach_file_link{
+    float:right;
+}
+
+.input_to_link {
+    background-color: transparent;
+    cursor: pointer;
+    padding:10px;
+}
+

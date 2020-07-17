@@ -1,0 +1,252 @@
+/**
+ *
+ * CART2QUOTE CONFIDENTIAL
+ * __________________
+ *
+ *  [2009] - [2020] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *
+ * NOTICE OF LICENSE
+ *
+ * All information contained herein is, and remains
+ * the property of Cart2Quote B.V. and its suppliers,
+ * if any.  The intellectual and technical concepts contained
+ * herein are proprietary to Cart2Quote B.V.
+ * and its suppliers and may be covered by European and Foreign Patents,
+ * patents in process, and are protected by trade secret or copyright law.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Cart2Quote B.V.
+ *
+ * @category    Ophirah
+ * @package     Qquoteadv
+ * @copyright   Copyright (c) 2020 Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+/* Redesign Mark */
+/* Edge */
+@supports (-ms-accelerator:true) {
+    #quickQuote input {line-height:1!important;font-size:100%!important;}
+    #quickQuote select {padding-top:7px!important;padding-bottom:4px!important;}
+    #quickQuote .validation-advice {margin-top:-2px!important;}
+}
+/* IE 8 */
+    #quickQuote .checkbox-container input {*display:block;display:block\9;}
+    #quickQuote input {line-height:1!important\9;font-size:100%!important\9;padding-top:11px!important\9;padding-bottom:9px!important\9;}
+    #quickQuote select {padding-right:12px!important\9;background:#000!important\9;}
+    #quickQuote .validation-advice {margin-top:-2px!important\9;}
+
+/* IE 9 */
+@media screen and (min-width:0\0) and (min-resolution: .001dpcm) {
+    #quickQuote input {line-height:1!important;font-size:100%!important;padding-top:10px!important;padding-bottom:10px!important;}
+    #quickQuote select {padding-right:12px!important;background:url('../images/qquoteadv/input-select-background-ie.png') center right no-repeat!important;}
+    #quickQuote .validation-advice {margin-top:-2px!important;}
+}
+/* IE 10 & IE 11 */
+@media all and (-ms-high-contrast:none) {
+    /* IE 10 */
+    #quickQuote input {padding-top:10px!important;padding-bottom:10px!important;line-height:1!important;font-size:100%!important;}
+    select::-ms-expand {display:none!important;}
+    #quickQuote .validation-advice {margin-top:-2px!important;}
+    /* IE 11 */
+    *::-ms-backdrop, #quickQuote input {padding-top:8px!important;padding-bottom:12px!important;}
+    select::-ms-expand {display:none!important;}
+    #quickQuote .validation-advice {margin-top:-2px!important;}
+}
+
+#quickQuote h1, #quickQuote h2, #quickQuote h3, #quickQuote h4, #quickQuote h5, #quickQuote h6, #quickQuote p, #quickQuote blockquote, #quickQuote pre, #quickQuote a, #quickQuote abbr, #quickQuote acronym, #quickQuote address, #quickQuote hr, #quickQuote cite, #quickQuote code, #quickQuote del, #quickQuote dfn, #quickQuote em, #quickQuote img, #quickQuote q, #quickQuote s, #quickQuote samp, #quickQuote small, #quickQuote strike, #quickQuote strong, #quickQuote sub, #quickQuote sup, #quickQuote tt, #quickQuote var, #quickQuote dd, #quickQuote dl, #quickQuote dt, #quickQuote li, #quickQuote ol, #quickQuote ul, #quickQuote fieldset, #quickQuote form, #quickQuote label, #quickQuote legend, #quickQuote button, #quickQuote table, #quickQuote caption, #quickQuote tbody, #quickQuote tfoot, #quickQuote thead, #quickQuote tr, #quickQuote th, #quickQuote td, #quickQuote menu, #quickQuote img, #quickQuote figure, #quickQuote figcaption {margin:0;padding:0;border:0;font-family:"Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;font-weight:300;font-style:normal;font-size:100%;line-height:inherit;}
+#quickQuote h1 {font-size:2em;color:#3399cc;}
+@media (max-width:767px) { #quickQuote h1 {font-size:1.4em;} }
+#quickQuoteWrapper, #quickQuoteBack {z-index:14000000;}
+#quickQuoteBack {position:fixed;top:0;left:0;width:100%;height:100%;}
+#quickQuoteBack {top:0;background-color:#333;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity:0.8;opacity:0.8;z-index:150000000;}
+#quickQuote {font-family:"Raleway", "Helvetica Neue", Verdana, Arial, sans-serif!important;font-weight:300;letter-spacing:0;white-space:normal;text-align:left;-webkit-font-smoothing:subpixel-antialiased!important;line-height:1.5;color:#636363;font-size:15px!important;box-sizing:border-box;display:table;-webkit-box-shadow:0 1px 10px 5px rgba(50, 50, 50, 0.17);-moz-box-shadow:0 1px 10px 5px rgba(50, 50, 50, 0.17);box-shadow:0 1px 10px 5px rgba(50, 50, 50, 0.17);width:980px;left:50%;top:50px;position:absolute;z-index:15500000000;margin-left:-490px;margin-bottom:50px;max-width:inherit;background:#f9f9f9;border:none;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;overflow:hidden;}
+@media (min-width:820px) and (max-width:1100px) { #quickQuote {width:800px;margin-left:-400px;} }
+@media (min-width:460px) and (max-width:819px) { #quickQuote {width:90%;margin-left:-45%;} }
+@media (max-width:459px) { #quickQuote {width:96%;margin-left:-48%;} }
+#quickQuote .qquote-product-details {box-sizing:border-box;display:table-cell;width:25%;background:#f3f3f3;border-top-left-radius:5px;-webkit-border-top-left-radius:5px;-moz-border-top-left-radius:5px;border-bottom-left-radius:5px;-webkit-border-bottom-left-radius:5px;-moz-border-bottom-left-radius:5px;}
+@media (min-width:820px) and (max-width:1100px) { #quickQuote .qquote-product-details {width:20%;} }
+@media (max-width:819px) { #quickQuote .qquote-product-details {width:100%;display:block;border-bottom-left-radius:0;border-top-right-radius:5px;-webkit-border-top-right-radius:5px;-moz-border-top-right-radius:5px;} }
+#quickQuote .qquote-container {position:relative;}
+#quickQuote .qquote-client-collaterals {float:none;box-sizing:border-box;display:table-cell;margin:0;background:none;vertical-align:top;height:100%;width:75%;max-width:inherit;box-shadow:-8px 0 26px -10px #e0e0e0;-webkit-box-shadow:-8px 0 26px -10px #e0e0e0;-moz-box-shadow:-8px 0 26px -10px #e0e0e0;}
+@media (min-width:820px) and (max-width:1100px) { #quickQuote .qquote-client-collaterals {width:80%;} }
+@media (max-width:819px) { #quickQuote .qquote-client-collaterals {width:100%;display:block;box-shadow:0 -20px 28px -20px #e0e0e0;-webkit-box-shadow: -20px 28px -20px #e0e0e0;-moz-box-shadow: -20px 28px -20px #e0e0e0;font-size:95%;} }
+@media (max-width:459px) { #quickQuote .qquote-client-collaterals {font-size:80%!important;} }
+#quickQuote .qquote-client-collaterals, #quickQuote .qquote-product-details {padding:48px 30px;float:none!important;margin:0;}
+@media (min-width:460px) and (max-width:819px) { #quickQuote .qquote-client-collaterals, #quickQuote .qquote-product-details {padding:30px;} }
+@media (max-width:459px) { #quickQuote .qquote-client-collaterals, #quickQuote .qquote-product-details {padding:20px;} }
+#quickQuote .qquote-client-collaterals  {text-transform:inherit;font-family:"Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;font-weight:300;margin:0 0 10px 0;font-size:1em;color:inherit;}
+#quickQuote .qquote-client-collaterals .introduction {border:none;border-bottom:1px solid #cdcdcd;padding:0;margin:0 0 25px 0;background:none;float:none;}
+#quickQuote .qquote-client-collaterals #back-content .introduction {padding:0 0 10px 0;}
+#quickQuote .qquote-client-collaterals .introduction p {margin:0 0 15px 0;}
+#quickQuote .qquote-client-collaterals h4 {font-family:"Raleway", "Helvetica Neue", Verdana, Arial, sans-serif!important;font-weight:500;text-transform:inherit;font-size:1.2em;padding:0;margin:0 0 0 0;color:#636363;}
+@media (max-width:767px) { #quickQuote .qquote-client-collaterals h4 {font-size:1.1em;} }
+#quickQuote .qquote-client-collaterals #billDiv h4 {margin:0 0 15px 0;}
+#quickQuote p {font-family:"Raleway", "Helvetica Neue", Verdana, Arial, sans-serif!important;font-weight:300;-webkit-font-smoothing:subpixel-antialiased!important;line-height:1.5;color:#636363;font-size:inherit;margin:0;padding:0;}
+@media (max-width:1024px) { .qquote-client-collaterals>.quote-forms, .qquote-client-collaterals .qquote-cart-collaterals {width:100%;float:none;} }
+#quickQuote .qquote-client-collaterals .qquote-cart-collaterals {width:100%;float:none;margin:0;padding:0;background:none;border:none;}
+#quickQuote button, #quickQuote input, #quickQuote select, #quickQuote table, #quickQuote textarea, #quickQuote label {font-family:inherit!important;max-height:none;text-transform:none;font-size:1.0em;!important;text-shadow:none;box-shadow:none;-webkit-font-smoothing:subpixel-antialiased!important;}
+#quickQuote .input-box {white-space:normal;}
+#quickQuote input.disabled {opacity:1;}
+#quickQuote table {width:100%;max-width:100%;border-collapse:collapse;margin:0;padding:0;background:transparent!important;border:none;float:none;}
+#quickQuote table tr {background:transparent!important;border:none;}
+#quickQuote table tr td {position:relative;vertical-align:top;width:50%;float:none!important;background:transparent!important;border:none;margin:0;}
+/*#quickQuote .address-selection>p select {margin:0 0 15px 0;}*/
+@media (max-width:609px) { #quickQuote table tr td, #shipDiv .left, #billDiv .left {display:block;box-sizing:border-box;clear:both;width:100%;} }
+#quickQuote table tr td:nth-child(1) {padding-right:15px;}
+#quickQuote table tr td:nth-child(2) {padding-left:15px;}
+@media (max-width:609px) { #quickQuote table tr td:nth-child(1), #quickQuote table tr td:nth-child(2) {padding-left:0;padding-right:0;} }
+#billDiv {margin:15px 0 0 0;}
+#quickQuote .box {margin:0;padding:0;border:none;background:none;}
+#quickQuote h1, #quickQuote h2, #quickQuote h3, #quickQuote h4 {letter-spacing:0;text-transform:inherit;font-family:"Raleway", "Helvetica Neue", Verdana, Arial, sans-serif!important;font-weight:500;}
+#quickQuote h3 {font-weight:400;}
+
+@media (max-width:819px) { #quickQuote .qquoteadv {display:table;width:100%;} }
+
+#quickQuote .remark-container, #quickQuote table tr td {padding:0 0 12px 0;}
+#quickQuote .toggle-remark {margin:0 0 12px 0;}
+
+#quickQuote .close-icon {position:absolute;top:0;right:0;margin:33px 43px 0 0;cursor:pointer;z-index:999999999999;}
+#quickQuote .close-icon img:hover {cursor:pointer;}
+@media (max-width:819px) { #quickQuote .close-icon {margin:19px 17px 0 0;} }
+@media (max-width:459px) { #quickQuote .close-icon {margin:12px 10px 0 0;} }
+
+#quickQuote .client-data {background:none;border:none;border-radius:0;padding:0;line-height:inherit;}
+#quickQuote #front-content {display:block;float:none;background:none;border:none;}
+#quickQuote #front-content .client-data {margin:20px 0 0 0;}
+#quickQuote #back-content {display:none;float:none;background:none;border:none;}
+#quickQuote #back-content .content {margin:20px 0 0 0;float:none;border:none;background:none;}
+#quickQuote #back-content .buttonContainer {text-align:right;padding:50px 0 0 0;}
+#quickQuote .close-icon img {width:13px;height:13px;}
+
+#quickQuote p.required {display:none;}
+#quickQuote span.required {position:absolute;right:0;margin:0 28px 0 0;top:32px;border:none;}
+#quickQuote .required:after {font-family:Verdana, Arial, sans-serif;content:' *';color:#df280a;font-weight:normal;font-size:8px;float:none;margin:0;padding:0;background:none;}
+@media (min-width:610px) and (max-width:819px) { #quickQuote span.required {margin-right:30px;} }
+@media (min-width:460px) and (max-width:609px) { #quickQuote span.required {margin-right:14px;} }
+@media (max-width:459px) { #quickQuote span.required {margin-right:14px;margin-top:0;top:28px;} }
+#quickQuote #billDiv p.address-description {display:none;margin-bottom:20px;background:none;float:none;border:none;}
+#quickQuote #shipDiv p.address-description {margin-bottom:20px!important;padding:0;float:none;border:none;}
+#quickQuote .remarks-header {display:none;}
+#quickQuote table tr td:nth-child(2) span.required {margin-right:14px;}
+#quickQuote table tr td:nth-child(2).input-select span.required {margin-right:60px;}
+#quickQuote #qquote-tbl-address td {padding-bottom:20px;}
+@media (max-width:609px) { #quickQuote #qquote-tbl-address td {padding-bottom:10px;} }
+#quickQuote input, #quickQuote select, #quickQuote textarea, #quickQuote .validation-advice {width:100%;}
+#quickQuote .validation-advice:before {content:none;}
+#quickQuote input, #quickQuote select, #quickQuote textarea, #quickQuote select,  #quickQuote .validation-advice, #quickQuote input[type="checkbox"] + label:before, #quickQuote input[type="checkbox"]:checked + label:before, #quickQuote .product-image, #quickQuote .product-image .product-image-container {line-height:1.5;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;box-sizing:border-box;}
+#quickQuote input, #quickQuote textarea, #quickQuote select, #quickQuote input[type="checkbox"] + label:before {width:100%;height:auto;border:1px solid #a1a1a1;background:transparent;-webkit-box-shadow:inset 0 3px 3px #e7e7e7;-moz-box-shadow:inset 0 3px 3px #e7e7e7;box-shadow:inset 0 3px 3px #e7e7e7;font-weight:600;color:#636363;margin:0;padding:9px 25px;}
+#quickQuote input:focus, #quickQuote input:active, #quickQuote textarea:focus, #quickQuote textarea:active, #quickQuote select:focus, #quickQuote select:active, #quickQuote input[type="checkbox"]:checked + label:before {border:1px solid #3399cc;outline:none;-webkit-box-shadow:0 2px 5px 0 #d7e7ef;-moz-box-shadow:0 2px 5px 0 #d7e7ef;box-shadow:0 2px 5px 0 #d7e7ef;}
+#quickQuote select {-webkit-appearance:none;-moz-appearance:none;appearance:none;height:inherit;padding:9px 80px 9px 25px;background:url('../images/qquoteadv/input-select-background.png') center right no-repeat!important;background-size:46px 42px!important;}
+@media (max-width:459px) { #quickQuote select {padding-top:10px;padding-bottom:10px;} }
+#quickQuote input[name="shipping[street][1]"], #quickQuote input[name="billing[street][1]"], #quickQuote input[name="shipping[region]"] {margin-top:10px;}
+#quickQuote p select {margin:0 0 13px 0;}
+#quickQuote textarea {max-width:inherit;height:130px;}
+@media (max-width:459px) { #quickQuote textarea {height:100px;} }
+#quickQuote input[type="checkbox"] {width:auto;box-shadow:none;display:none;}
+#quickQuote label.checkbox {display:inherit;color:inherit;height:auto;width:auto;}
+#quickQuote label.checkbox span {position:absolute;cursor:pointer;background:none;padding:0 0 0 15px;margin:0;color:inherit;float:none;}
+#quickQuote .btn-proceed-checkout, #quickQuote .btn-back, #quickQuote .button {border-radius:5px;line-height:inherit;-webkit-border-radius:5px;-moz-border-radius:5px;text-transform:inherit;cursor:pointer;background-image:none;line-height:inherit;height:auto;min-width:0;width:auto;max-width:100%;padding:10px 30px;margin:0;}
+#quickQuote .btn-proceed-checkout, #quickQuote .btn-proceed-checkout:hover, #quickQuote .btn-proceed-checkout:focus, #quickQuote .btn-proceed-checkout:active, #quickQuote .btn-back, #quickQuote .btn-back:hover, #quickQuote .btn-back:focus, #quickQuote .btn-back:active {outline:none;border-top:none;border-right:none;border-left:none;text-decoration:none;}
+#quickQuote .btn-proceed-checkout {background:#3399cc;background-image:none!important;color:#fff;border-bottom:4px solid #247fac;}
+#quickQuote .btn-proceed-checkout span, #quickQuote .btn-proceed-checkout span span {background-image:none!important;color:#fff;float:none;line-height:inherit;height:auto;padding-right:0;padding-left:0;text-shadow:none;}
+#quickQuote .btn-proceed-checkout.error span, #quickQuote .btn-proceed-checkout.error span span {color:inherit;}
+#quickQuote .btn-proceed-checkout:hover {background:#2e8ab8;}
+#quickQuote .btn-proceed-checkout:focus, #quickQuote .btn-proceed-checkout:active {background:#297aa3;}
+#quickQuote .btn-back {border-bottom:4px solid #d6d6d3;background:#e4e4e2;color:#636363;}
+#quickQuote .btn-back:hover {background:#e0e0de;}
+#quickQuote .btn-back:focus, #quickQuote .btn-back:active {background:#d4d4d4;}
+#quickQuote .btn-back, #quickQuote .btn-back span, #quickQuote .btn-back span span {background-image:none!important;}
+#quickQuote .btn-back span, #quickQuote .btn-back span span {background:none;border:none;color:inherit;height:auto;}
+#quickQuote .btn-proceed-checkout:hover, #quickQuote .btn-proceed-checkout:focus, #quickQuote .btn-proceed-checkout:active, #quickQuote .btn-back:hover, #quickQuote .btn-back:focus, #quickQuote .btn-back:active {padding-top:12px;padding-bottom:8px;border-bottom-color:transparent;}
+#quickQuote .btn-proceed-checkout:hover {-webkit-box-shadow:0 2px 5px 0 #d7e7ef;-moz-box-shadow:0 2px 5px 0 #d7e7ef;box-shadow:0 2px 5px 0 #d7e7ef;}
+#quickQuote .btn-proceed-checkout:focus, #quickQuote .btn-proceed-checkout:active {background:#297aa3;}
+#quickQuote .checkbox-container, #quickQuote .checkbox-container:hover {cursor:pointer;margin:0;padding:0;}
+#quickQuote .input-box {padding:0 0 20px 0;margin:0;float:none;border:none;background:none;}
+#quickQuote input[type="checkbox"]:checked + label:before {opacity:1;padding:0;content:"";background-color:#3399cc;background-image:url('../images/qquoteadv/checkbox-selected.png');background-size:10px 8px;background-position:center center;background-repeat:no-repeat;width:20px;height:20px;cursor:pointer;text-align:center;display:inline-block;}
+#quickQuote input[type="checkbox"] + label:before {opacity:1;padding:0;background-color:transparent;content:"";text-align:center;cursor:pointer;width:20px;height:20px;display:inline-block;}
+#quickQuote input:-webkit-autofill, #quickQuote select:-webkit-autofill {-webkit-box-shadow: 0 0 0 50px #f9f9f9 inset!important;}
+#quickQuote #submit-quote-request {margin:5px 0 0 0;padding:0;}
+@media (max-width:819px) { #quickQuote #submit-quote-request, #quickQuote .quickQuoteButtons, #quickQuote .btn-proceed-checkout {float:none!important;} }
+@media (max-width:819px) { #quickQuote #submit-quote-request {text-align:right;} }
+@media (max-width:819px) { #quickQuote .btn-proceed-checkout {width:auto;display:inline-block;} }
+#quickQuote .btn-proceed-checkout span, #quickQuote .btn-back span, #quickQuote .btn-proceed-checkout span span, #quickQuote .btn-back span span {border:none;height:auto;padding:0;margin:0;background:none;font-family:"Raleway", "Helvetica Neue", Verdana, Arial, sans-serif!important;font-weight:300;font-size:14px;}
+.product-essential h2 {font-family:"Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;font-weight:500;}
+
+#quickQuote .qquote-client-collaterals label {text-transform:inherit;font-size:inherit;font-weight:inherit;padding:0 10px 0 0;margin:0;border:none;background:none;text-align:left;width:100%;height:auto;}
+#quickQuote label.checkbox {padding-left:0;}
+#quickQuote label.no-obligations {display:none;}
+
+#quickQuote input.validation-failed, #quickQuote textarea.validation-failed, #quickQuote select.validation-failed {background:transparent!important;border:1px solid #df280a!important;-webkit-box-shadow:inset 0 3px 3px #f3e0e0;-moz-box-shadow:inset 0 3px 3px #f3e0e0;box-shadow:inset 0 3px 3px #f3e0e0;border-bottom-left-radius:0;-webkit-border-bottom-left-radius:0;-moz-border-bottom-left-radius:0;border-bottom-right-radius:0;-webkit-border-bottom-right-radius:0;-moz-border-bottom-right-radius:0;}
+#quickQuote .validation-advice {font-weight:normal;background:#f5ecec;border:1px solid #df280a;border-top-color:transparent;color:#df280a;border-top-left-radius:0;-webkit-border-top-left-radius:0;-moz-border-top-left-radius:0;border-top-right-radius:0;-webkit-border-top-right-radius:0;-moz-border-top-right-radius:0;position:relative;margin:-1px 0 0 0;font-size:11px;padding:5px 0 5px 25px;}
+
+#quickQuote .toggle-remark {display:block;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;border:1px solid #dbb84f;background:#f7eed3;cursor:pointer;padding:10px 19px;position:inherit;}
+#quickQuote .toggle-remark span {text-decoration:underline;padding-right:5px;}
+#quickQuote .toggle-remark:hover span {text-decoration:none;}
+#quickQuote .remark-container {display:none;}
+
+#quickQuote .grouped-product-container {margin:0 0 10px 0;background:none;border:none;}
+#quickQuote .grouped-product-container:last-child {margin-bottom:0}
+#quickQuote .grouped-product-container ul {border-bottom:1px dotted #d2d2d2;}
+#quickQuote .grouped-product-container:last-child ul {border-bottom:none;}
+#quickQuote .grouped-product-container ul li:not(:first-child) {padding-left:30px;}
+#quickQuote .product-image {width:200px;height:200px;border:none;display:table;margin:0 0 30px 0;padding:0;position:inherit;background:none;}
+@media (min-width:820px) and (max-width:1100px) { #quickQuote .product-image {width:170px;height:170px;} }
+@media (min-width:460px) and (max-width:819px) { #quickQuote .product-image {width:150px;height:150px;} }
+@media (max-width:819px) { #quickQuote .product-image {float:none;display:table-cell;margin-bottom:0;} }
+@media (max-width:459px) { #quickQuote .product-image {width:80px;height:80px;} }
+#quickQuote .product-image .product-image-container {background:#fff;display:table-cell;vertical-align:middle;position:relative;overflow:hidden;-webkit-box-shadow:0 2px 6px 0 rgba(50, 50, 50, 0.05);-moz-box-shadow:0 2px 6px 0 rgba(50, 50, 50, 0.05);box-shadow:0 2px 6px 0 rgba(50, 50, 50, 0.05);}
+#quickQuote .product-image .product-image-container img {width:100%;height:inherit;max-width:100%;max-height:100%;display:block;margin:0;padding:0;position:inherit!important;}
+#quickQuote .product-image:hover {border:none;outline:none;}
+#quickQuote .special-price {float:none;}
+#quickQuote .main-details {float:none;border:none;background:none;margin:0;padding:0;}
+#quickQuote .price-box {font-size:inherit;display:inline;font-weight:inherit;height:auto;float:none;position:inherit;background:none;border:none;}
+#quickQuote .price-box .regular-price {color:#636363;background:none;border:none;float:none;}
+#quickQuote .price-box .old-price {display:inline;}
+#quickQuote .price-box .special-price {display:inline;}
+#quickQuote .price {float:none;height:auto;padding:0;margin:0;background:none;border:none;}
+
+#quickQuote .shipping-adress {margin:0;padding:0;background:none;border:none;float:none;}
+#quickQuote .product-details {background:none;border:none;color:inherit;float:none;margin:0;padding:0;}
+@media (max-width:819px) { #quickQuote .product-details {float:none;display:table-cell;vertical-align:top;background:none;border:none;color:inherit;} }
+@media (max-width:819px) { #quickQuote .product-information {display:table-cell;vertical-align:top;} }
+@media (max-width:819px) { #quickQuote .product-information .product-details {display:block;} }
+@media (min-width:460px) and (max-width:819px) { #quickQuote .product-details {font-size:90%!important;padding-left:20px;padding-top:10px;} }
+@media (max-width:459px) { #quickQuote .product-details {font-size:80%;padding-left:20px;padding-top:10px;} }
+#quickQuote .product-details h2 {text-transform:inherit;font-size:1.2em;margin:0 0 11px 0;padding:0;background:none;border:none;font-weight:400;color:#636363;}
+@media (max-width:819px) { #quickQuote .product-details h2 {line-height:0.9;} }
+#quickQuote ul {list-style:none;margin:0 0 25px 0;padding:0;background:none;float:none;}
+#quickQuote .configurable-options {position:inherit;background:none;margin:0;padding:0;color:inherit;border:none;}
+#quickQuote .configurable-options ul {margin:0 0 10px 0;padding:0 0 10px 0;}
+#quickQuote ol {list-style:decimal;margin:0 0 25px 0;padding:0 0 0 30px;}
+@media (min-width:460px) and (max-width:819px) { #quickQuote .product-details ul {margin-bottom:15px;} }
+@media (max-width:459px) { #quickQuote .product-details ul {margin-bottom:15px;} }
+@media (min-width:460px) and (max-width:819px) { #quickQuote .product-details .configurable-options ul {margin-bottom:0;} }
+@media (max-width:459px) { #quickQuote .product-details .configurable-options ul {margin-bottom:0;} }
+#quickQuote .product-details ul li {padding:0 0 0 15px;margin:0;float:none;border:none;background:none;}
+#quickQuote li {margin:0;padding:0;background:none;color:inherit;border:none;}
+
+#quickQuote #how-does-it-work {bottom:50px;position:absolute;cursor:pointer;text-decoration:underline;background:none;border:none;margin:0 0 0 14px;padding:0;}
+@media (max-width:819px) { #quickQuote #how-does-it-work {font-size:90%!important;bottom:42px;} }
+@media (max-width:459px) { #quickQuote #how-does-it-work {font-size:80%!important;bottom:35px;} }
+#quickQuote #how-does-it-work, #quickQuote #how-does-it-work:hover, #quickQuote #how-does-it-work:focus, #quickQuote #how-does-it-work:active {outline:none;}
+#quickQuote #how-does-it-work:hover {text-decoration:none;}
+#quickQuote #how-does-it-work.btn-disable {cursor:default;pointer-events:none;text-decoration:none;opacity:.5;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;}
+
+/* Loader */
+.quick-quote-submit-loader {background:rgba(243, 243, 243, 0.7);top:0;right:0;left:0;bottom:0;position:absolute;z-index:10000000000000;}
+.cssload-container {position:absolute;top:50%;left:50%;margin-top:-24.5px;margin-left:-24.5px;}
+.cssload-speeding-wheel {width:49px;height:49px;margin:0 auto;border:3px solid rgb(99, 99, 99);border-radius:50%;border-left-color:transparent;border-right-color:transparent;animation:cssload-spin 1550ms infinite linear;-o-animation:cssload-spin 1550ms infinite linear;-ms-animation:cssload-spin 1550ms infinite linear;-webkit-animation:cssload-spin 1550ms infinite linear;-moz-animation:cssload-spin 1550ms infinite linear;}
+@keyframes cssload-spin { 100% {transform:rotate(360deg);} }
+@-o-keyframes cssload-spin { 100% {-o-transform:rotate(360deg);transform:rotate(360deg);} }
+@-ms-keyframes cssload-spin { 100% {-ms-transform:rotate(360deg);transform:rotate(360deg);} }
+@-webkit-keyframes cssload-spin { 100% {-webkit-transform:rotate(360deg);transform:rotate(360deg);} }
+@-moz-keyframes cssload-spin { 100% {-moz-transform:rotate(360deg);transform:rotate(360deg);} }
+
+/* Error */
+#quickQuote .error-container-quickquote {text-align:center;background:#e75a5a;color:white;width:50%;top:42%;margin:0 auto;position:absolute;left:25%;border-radius:5px;padding:30px;-webkit-box-shadow:0 1px 10px 5px rgba(50, 50, 50, 0.17);-moz-box-shadow:0 1px 10px 5px rgba(50, 50, 50, 0.17);box-shadow:0 1px 10px 5px rgba(50, 50, 50, 0.17);}
+@media (max-width:767px) { #quickQuote .error-container-quickquote {width:80%;left:10%;} }
+#quickQuote .error-container-quickquote .button.btn-proceed-checkout.error {background:#fff;color:#636363;border-bottom-color:#f7f7f7;margin-top:20px;}
+#quickQuote .error-container-quickquote .button.btn-proceed-checkout.error:hover {background:#f7f7f7;color:#636363;border-bottom-color:#efefef;}
+#quickQuote .error-container-quickquote .button.btn-proceed-checkout.error:active, .error-container-quickquote .btn-proceed-checkout.error:focus {background:#efefef;color:#636363;border-bottom-color:#e6e6e6;}

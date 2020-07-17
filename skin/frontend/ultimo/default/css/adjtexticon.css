@@ -1,0 +1,162 @@
+.icon0, .icon1, .icon2 {
+    display: inline-block;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    -webkit-transition: color 0.3s;
+    -moz-transition: color 0.3s;
+    transition: color 0.3s;
+}
+
+.adjdef, .adj-icons-grid .adj-icon, .adj-icons-grid .adj-icon a {
+    cursor: pointer;
+}
+
+.adjprod {
+    margin-top: 0 !important;
+}
+
+.input-box .adjicon_icon_config, input-box .adjicon_icon_config, input-box .adjicon_icon_config {
+    margin-right: 6px;
+    margin-top: 6px;
+}
+
+.icon0 span, .icon1 span, .icon2 span {
+    top: -2px;
+    left: -2px;
+    padding: 2px;
+    z-index: -1;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: '';
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-transition: -webkit-transform 0.2s, opacity 0.3s;
+    -moz-transition: -moz-transform 0.2s, opacity 0.3s;
+    transition: transform 0.2s, opacity 0.3s;
+}
+
+.icon0.adjselected, .icon0.adjdef:hover, .icon1.adjselected, .icon1.adjdef:hover, .icon2.adjselected, .icon2.adjdef:hover {
+    text-decoration:none;
+}
+
+.icon0.adjselected span, .icon1.adjselected span, .icon2.adjselected span, .icon0.adjdef:hover span, .icon1.adjdef:hover span, .icon2.adjdef:hover span {
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -ms-transform: scale(1.3);
+    transform: scale(1.3);
+    opacity: 0;
+}
+
+.adjcolor0.adjdisabled, .adjcolor1.adjdisabled, .adjcolor2.adjdisabled, .icon0.adjdisabled, .icon1.adjdisabled, .icon2.adjdisabled, .adjimage.adjdisabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.icon3, .icon4, .icon5, .adjdisabled, .adjdisabled:hover, .icon3:hover, .icon4:hover, .icon5:hover {
+    text-decoration:none;
+}
+
+/* Color Icons */
+.adjcolor0, .adjcolor1, .adjcolor2, .adjcolor3, .adjcolor4, .adjcolor5, .icon3, .icon4, .icon5 {
+    display:inline-block;
+    overflow:hidden;
+    margin-top: 2px;
+    text-decoration:none;
+    text-align: center;
+    position:relative;
+    box-shadow:0 0 2px rgba(0,0,0,0.4);
+    -moz-box-shadow:0 0 2px rgba(0,0,0,0.4);
+    -webkit-box-shadow:0 0 2px rgba(0,0,0,0.4);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
+
+.adjcolor2, .adjcolor2:before, .adjcolor5, .adjcolor5:before,
+.icon2, .icon2 span, .icon5, .icon5:before {
+    border-radius:25%;
+    -moz-border-radius:25%;
+    -webkit-border-radius:25%;
+}
+
+.adjcolor0, .adjcolor0:before,
+.adjcolor4, .adjcolor4:before,
+.icon0, .icon0 span, .icon3, .icon3:before {
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+}
+
+span.adjmedium {
+    margin: 5px 5px;
+}
+
+.adjlarge, .adjmedium {
+    cursor: default;
+}
+
+.adjcolor3.adjdisabled, .adjcolor4.adjdisabled, .adjcolor5.adjdisabled, .icon3.adjdisabled, .icon4.adjdisabled, .icon5.adjdisabled {
+    cursor: default;
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, rgba(0, 0, 0, 0.3) 25%, rgba(0, 0, 0, 0.3) 50%, rgba(255, 255, 255, .3) 51%, rgba(255, 255, 255, .3) 75%, rgba(0, 0, 0, 0.3) 76%, rgba(0, 0, 0, 0.3)) !important;
+    background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, rgba(0, 0, 0, 0.3) 25%, rgba(0, 0, 0, 0.3) 50%, rgba(255, 255, 255, .3) 51%, rgba(255, 255, 255, .3) 75%, rgba(0, 0, 0, 0.3) 76%, rgba(0, 0, 0, 0.3)) !important;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .3) 25%, rgba(0, 0, 0, 0.3) 25%, rgba(0, 0, 0, 0.3) 50%, rgba(255, 255, 255, .3) 51%, rgba(255, 255, 255, .3) 75%, rgba(0, 0, 0, 0.3) 76%, rgba(0, 0, 0, 0.3)) !important;
+}
+
+.icon3.adjdef, .icon4.adjdef, .icon5.adjdef,
+.icon3.adjdisabled, .icon4.adjdisabled, .icon5.adjdisabled,
+.adjcolor3.adjdef, .adjcolor4.adjdef, .adjcolor5.adjdef,
+.adjcolor3.adjdisabled, .adjcolor4.adjdisabled, .adjcolor5.adjdisabled {
+    border: 1px solid #808080;
+    position: relative;
+}
+
+a[class*='adjcolor'], .icon3, .icon4, .icon5  {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+
+.icon3.adjdef:before, .icon4.adjdef:before, .icon5.adjdef:before, .icon3.adjdisabled:before, .icon4.adjdisabled:before, .icon5.adjdisabled:before,
+.adjcolor3:before, .adjcolor4:before, .adjcolor5:before, a[class*='adjcolor'].adjselected:before {
+    position: absolute;
+    display: block;
+    content: '';
+    border: 1px solid #fff;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.icon3.adjselected, .icon4.adjselected, .icon5.adjselected {
+    border: 1px solid #000000;
+    position: relative;
+}
+
+a.adjselected img, a[class*='adjcolor'].adjselected {
+    border: 2px solid #000000;
+    position: relative;
+}
+
+a.adjdef img, a.adjdisabled img {
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.adjprod {
+    margin-top: 0 !important;
+}
+
+span.adjprice {
+    padding-left: 5px;
+    font-weight: bold;
+}

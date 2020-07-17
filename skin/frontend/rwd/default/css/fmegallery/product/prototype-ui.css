@@ -1,0 +1,71 @@
+/* Horizontal Carousel */
+#horizontal_carouselp {
+  float: left;
+  width: 685px;
+  height: 240px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+#horizontal_carouselp .container {
+  float: left;
+  width: 620px;
+  height: 240px;
+  position: relative;    
+  overflow: hidden;
+}
+
+#horizontal_carouselp ul {
+  margin: 0;
+  padding:0;
+  width: 100000px;
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 240px;
+}                      
+
+#horizontal_carouselp ul li {
+  width: 155px;
+  height: 200px;
+  text-align: center; 
+  list-style:none;   
+  float:left;
+  margin-top:30px;
+}
+
+#horizontal_carouselp .previous_button {
+  float:left;  
+  width: 32px;
+  height: 175px;
+  background: url(../../../images/fmegallery/product/left.png);
+  z-index: 100;
+  cursor: pointer;
+}
+
+#horizontal_carouselp .previous_button_over {
+  background: url(../../../images/fmegallery/product/left_over.png);
+}
+
+#horizontal_carouselp .previous_button_disabled {
+  background: url(../../../images/fmegallery/product/left_disabled.png);
+  cursor: default;
+}
+
+#horizontal_carouselp .next_button {
+  float:left;  
+  width: 32px;
+  height: 175px;
+  background: url(../../../images/fmegallery/product/right.png);
+  z-index: 100;
+  cursor: pointer;
+}
+
+#horizontal_carouselp .next_button_over {
+  background: url(../../../images/fmegallery/product/right_over.png);
+}
+
+#horizontal_carouselp .next_button_disabled {
+  background: url(../../../images/fmegallery/product/right_disabled.png);
+  cursor: default;
+}

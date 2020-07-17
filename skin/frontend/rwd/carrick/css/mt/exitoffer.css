@@ -1,0 +1,584 @@
+.mteo-theme-default #mteo_msg_error,
+.mteo-theme-default #mteo_subscription_success_with_coupon,
+.mteo-theme-default #mteo_subscription_success {
+    display: none;
+}
+
+#mteo_popup_bg_layer {
+    position: absolute;
+    z-index: 2147483647;
+    background: url(../../images/mt/exitoffer/mteo_dark2.png);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    display: none;
+}
+
+#mteo_popup_content {
+    background: #ffffff;
+    position: relative;
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Default theme */
+
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../../font/mt/exitoffer/roboto/Roboto-Light.woff2") format("woff2"), url("../../font/mt/exitoffer/roboto/Roboto-Light.woff") format("woff"), url("../../font/mt/exitoffer/roboto/Roboto-Light.ttf") format("truetype");
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../../font/mt/exitoffer/roboto/Roboto-Regular.woff2") format("woff2"), url("../../font/mt/exitoffer/roboto/Roboto-Regular.woff") format("woff"), url("../../font/mt/exitoffer/roboto/Roboto-Regular.ttf") format("truetype");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../../font/mt/exitoffer/roboto/Roboto-Bold.woff2") format("woff2"), url("../../font/mt/exitoffer/roboto/Roboto-Bold.woff") format("woff"), url("../../font/mt/exitoffer/roboto/Roboto-Bold.ttf") format("truetype");
+    font-weight: 700;
+}
+
+.mteo-theme-default select,
+.mteo-theme-default label,
+.mteo-theme-default input,
+.mteo-theme-default a,
+.mteo-theme-default {
+    font-family: "Roboto", Arial, sans-serif;
+}
+
+.mteo-theme-default {
+    width: 760px;
+    height: auto;
+    min-height: 480px;
+    display: block;
+    overflow: hidden;
+}
+
+.mteo-theme-default .mteo-text-row-1 {
+    margin-top: 70px;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Arial, sans-serif;
+    font-weight: 300;
+}
+
+.mteo-theme-default .mteo-text-row-2 {
+    margin: 14px 0 0 0;
+    font-size: 60px;
+    line-height: 60px;
+    height: auto;
+    overflow: hidden;
+}
+
+.mteo-text-row-3 {
+    margin: 0px 0 0px 0;
+    font-size: 28px;
+    line-height: 30px;
+    height: auto;
+    overflow: hidden;
+    font-weight: 300;
+}
+
+ .mteo-theme-default .mteo-text-row-4 {
+    margin: 0px 0 17px 0;
+    font-size: 16px;
+    height: auto;
+    overflow: hidden;
+    font-weight: 300;
+}
+.mteo-theme-default #mteo_subcription_form {
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 55px;
+}
+.mteo-theme-default .mteo-subscribe {
+    margin: 50px 55px 0px;
+    width: 60%;
+    display: inline-block;
+	float: left;
+}
+
+.mteo-theme-default .mteo-subscribe input#mteo_email {
+    display: inline-block;
+    float: left;
+    width: 70%;
+    height: 40px;
+    background-color: #ffffff;
+    border: 0;
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 16px;
+    color: #3d3d3d;
+
+    -webkit-border-top-left-radius: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -moz-border-radius-topleft: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+	border: 1px solid #000000;
+	margin-bottom: 15px;
+}
+
+.mteo-theme-default .mteo-subscribe a#mteo_contact_submit,
+.mteo-theme-default .mteo-subscribe a#mteo_submit {
+    font-size: 16px;
+    width: 30%;
+    height: 40px;
+    line-height: 36px;
+    text-decoration: none;
+    color: #ffffff;
+    display: inline-block;
+    float: left;
+    font-weight: 300;
+
+    -webkit-border-top-right-radius: 2px;
+    -webkit-border-bottom-right-radius: 2px;
+    -moz-border-radius-topright: 2px;
+    -moz-border-radius-bottomright: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+	clear: both;
+}
+
+.mteo-theme-default .mteo-popup-close  {
+    background: url('../../images/mt/exitoffer/mteo-close.png') no-repeat center center;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 16px;
+    display: inline-block;
+}
+
+.mteo-theme-default #mteo_msg_error {
+    margin: 15px 0 0 0;
+    padding: 0 0 0 55px;
+    background: url('../../images/mt/exitoffer/mteo-error.png') no-repeat left top;
+    font-size: 16px;
+    display: none;
+    text-align: center;
+    min-height: 24px;
+    line-height: 24px;
+    max-width: 65%;
+    height: auto;
+    overflow: hidden;
+}
+
+.mteo-theme-default #mteo_subscription_success_with_coupon {
+    margin: 100px 0 0 0;
+    height: auto;
+    overflow: hidden;
+}
+
+.mteo-theme-default .mteo-success-msg,
+.mteo-theme-default #mteo_msg_success {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+
+.mteo-theme-default .mteo-box-shop-now-button {
+    padding: 40px 0;
+}
+
+.mteo-theme-default .mteo-box-shop-now-button a{
+    padding: 25px 45px;
+    font-size: 18px;
+    font-weight: 700;
+    display: inline-block;
+    clear: both;
+    text-decoration: none;
+}
+.mteo-theme-default #mteo_coupon_code {
+    font-size: 24px;
+    font-weight: 300;
+    display: inline-block;
+    padding: 20px 40px;
+    margin: 30px 0 0 0;
+    width: auto;
+    border-style: dashed;
+    border-width: 5px;
+}
+
+.mteo-theme-default .mteo-success-msg{
+    margin: 140px 0 0 ;
+    padding: 100px 0 0 0;
+    background: url('../../images/mt/exitoffer/mteo-success.png') no-repeat center top;
+    height: auto;
+    overflow: hidden;
+}
+.mteo-theme-default .mteo-success-msg span ,
+.mteo-theme-default #mteo_msg_success span{
+    font-size: 16px;
+    display: block;
+}
+
+/* with additional fields */
+
+.mteo-theme-default .mteo-form-with-additional#mteo_subcription_form {
+    padding: 40px 0;
+    height: auto;
+    overflow: hidden;
+}
+
+.mteo-theme-default .mteo-form-with-additional .mteo-text-row-1 {
+    margin-top: 0px;
+}
+
+.mteo-theme-default .mteo-form-with-additional .mteo-subscribe {
+    margin-top: 35px;
+}
+
+.mteo-theme-default .mteo-form-with-additional input#mteo_email,
+.mteo-theme-default .mteo-form-with-additional .mteo-additional-field {
+    width: 70%;
+    height: 30px;
+    line-height: 28px;
+    clear: both;
+    margin: 0 auto 8px;
+    border: 0;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 15px;
+    font-size: 14px;
+    color: #3d3d3d;
+    float: none;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.mteo-theme-default .mteo-form-with-additional select.mteo-additional-field {
+    padding: 0 15px 0 12px;
+}
+.mteo-theme-default .mteo-checkbox-after-form .checkbox-field input,
+.mteo-theme-default .mteo-form-with-additional .checkbox-field input {
+    width: auto!important;
+    margin: 0 15px 0 0;
+    float: left;
+
+}
+.mteo-theme-default .mteo-checkbox-after-form .checkbox-field label,
+.mteo-theme-default .mteo-form-with-additional .checkbox-field label {
+    float: left;
+    font-size: 14px;
+
+}
+
+.mteo-theme-default .mteo-checkbox-after-form .checkbox-field,
+.mteo-theme-default .mteo-form-with-additional .checkbox-field {
+    width: 70%;
+    line-height: 28px;
+    font-size: 14px;
+    color: #ffffff;
+    display: block;
+    float: left;
+    margin: 0 15%;
+    text-align: left;
+}
+
+.mteo-theme-default .mteo-form-with-additional textarea.mteo-additional-field {
+    height: 57px;
+    resize: none;
+    line-height: 18px;
+    padding: 10px 15px;
+}
+
+
+.mteo-theme-default .mteo-form-with-additional .mteo-subscribe a#mteo_contact_submit,
+.mteo-theme-default .mteo-form-with-additional .mteo-subscribe a#mteo_submit {
+    height: 40px;
+    line-height: 40px;
+    clear: both;
+    margin: 20px auto 0;
+    display: inline-block;
+    float: none;
+}
+
+.mteo-theme-default .mteo-form-with-additional  .mteo-subscribe {
+    margin: 15px 20% 0;
+    height: auto;
+    overflow: hidden;
+}
+
+/* YES NO buttons */
+.mteo_buttons {
+    margin: 15px 20% 0;
+}
+
+.mteo_yes,
+.mteo_no {
+    display: inline-block;
+    padding: 18px 50px;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 20px;
+    margin: 40px 10px 30px;
+}
+
+a.mteo_yes:hover,
+a.mteo_no:hover {
+    text-decoration: none;
+}
+
+.mteo_yes span,
+.mteo_no span{
+    font-size: 14px;
+    font-weight: normal;
+    display: block;
+}
+
+.mteo-theme-default.mteo_content_yes_no {
+    min-height: 460px;
+}
+
+.mteo-theme-default .checkbox-field,
+.mteo-theme-default .mteo-checkbox-after-form .checkbox-field {
+    position: relative;
+    width: 100%;
+    margin: 15px 0 15px;
+}
+
+.mteo-theme-default .checkbox-field input,
+.mteo-theme-default .mteo-checkbox-after-form .checkbox-field input {
+    position: absolute;
+    top:3px;
+    height:auto !important;
+}
+
+.mteo-theme-default .checkbox-field label a,
+.mteo-theme-default .mteo-checkbox-after-form .checkbox-field label a,
+.mteo-theme-default .checkbox-field label a:hover,
+.mteo-theme-default .mteo-checkbox-after-form .checkbox-field label a:hover{
+    color: #ffffff;
+    text-decoration: underline;
+    font-weight: normal;
+}
+
+.mteo-theme-default .checkbox-field label,
+.mteo-theme-default .mteo-checkbox-after-form .checkbox-field label {
+    padding-left: 30px;
+    line-height: normal;
+    height:auto;
+    overflow: hidden;
+    font-weight: normal;
+}
+
+.mteo-theme-default .mteo-checkbox-after-form .mteo-form-fields {
+    position: relative;
+    height:auto;
+    overflow: hidden;
+}
+
+.mteo-theme-default .mteo-checkbox-after-form .mteo-subscribe a#mteo_submit {
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+
+    /* contact form */
+
+
+
+.mteo-theme-default.mteo_content_contact_form .mteo-text-row-1 {
+    background: url('../../images/mt/exitoffer/mteo-wait.png') no-repeat left center;
+    margin-top: 0px;
+    font-size: 100px;
+    line-height: 110px;
+    height: 110px;
+    overflow: hidden;
+    display: inline-block;
+    padding-left: 110px;
+    width: auto;
+}
+
+.mteo-theme-default.mteo_content_contact_form  .mteo-text-row-2 {
+    margin: 0px 5%;
+    font-size: 32px;
+    line-height: 38px;
+    height: auto;
+    overflow: hidden;
+    font-weight: 300;
+}
+
+.mteo-theme-default.mteo_content_contact_form .mteo-text-row-3 {
+    margin: 30px 0 15px 0;
+    font-size: 17px;
+    height: auto;
+    overflow: hidden;
+    font-weight: 300;
+    line-height: 20px;
+
+}
+
+.mteo-theme-default .mteo-captcha label {
+    color: #fff;
+}
+.mteo-theme-default .mteo-captcha input {
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+.mteo-theme-default .mteo-captcha-image {
+    width: 100%;
+    text-align: center;
+    height:auto;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.mteo-theme-default .captcha-image{
+    width: 70%;
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    float: none;
+
+}
+
+@media only screen and (max-width: 790px) {
+    #mteo_popup_content,
+    #mteo_popup_content .mteo-theme-default {
+        width: 100%;
+    }
+
+    #mteo_popup_bg_layer {
+        width:100%;
+        padding: 0 2%;
+    }
+
+    .mteo-theme-default .mteo_buttons {
+        width: 80%;
+        margin: 0px 10%;
+    }
+    .mteo-theme-default .mteo-subscribe {
+        width: 60%;
+    }
+
+    .mteo-theme-default .mteo-subscribe,
+    .mteo-theme-default .mteo-form-with-additional .mteo-subscribe {
+        margin: 50px 10% 0;
+    }
+
+    .mteo-theme-default .mteo-text-row-2 {
+        font-size: 80px;
+        line-height: 80px;
+    }
+
+    .mteo-theme-default .mteo-text-row-3 {
+        font-size: 28px;
+    }
+}
+@media only screen and (max-width: 650px) {
+
+}
+@media only screen and (max-width: 560px) {
+    .mteo-theme-default .mteo-text-row-2 {
+        font-size: 60px;
+        line-height: 60px;
+    }
+
+    .mteo-theme-default .mteo-text-row-3 {
+        font-size: 26px;
+    }
+
+    .mteo-theme-default .mteo_buttons,
+    .mteo-theme-default .mteo-subscribe {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .mteo-theme-default .mteo_no {
+        margin-top: 0px;
+    }
+    .mteo-theme-default .mteo_yes {
+        margin-bottom: 20px;
+    }
+
+}
+@media only screen and (max-width: 460px) {
+
+
+    .mteo-theme-default .mteo-subscribe {
+        width: 90%;
+    }
+
+    .mteo-theme-default .mteo-subscribe,
+    .mteo-theme-default .mteo-form-with-additional .mteo-subscribe {
+        margin: 30px 5% 0;
+    }
+
+    .mteo-theme-default .mteo-text-row-2 {
+        line-height: 50px;
+    }
+
+    .mteo-theme-default .mteo-subscribe a#mteo_contact_submit, .mteo-theme-default .mteo-subscribe a#mteo_submit {
+        width: 40%;
+    }
+
+    .mteo-theme-default .mteo-form-with-additional input#mteo_email,
+    .mteo-theme-default .mteo-form-with-additional .mteo-additional-field,
+    .mteo-theme-default .mteo-checkbox-after-form .checkbox-field,
+    .mteo-theme-default .mteo-form-with-additional .checkbox-field {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .mteo-theme-default .mteo-subscribe input#mteo_email {
+        width: 100%;
+        border-bottom-right-radius: 2px;
+        border-top-right-radius: 2px;
+    }
+
+    .mteo-theme-default .mteo-subscribe a#mteo_contact_submit,
+    .mteo-theme-default .mteo-subscribe a#mteo_submit {
+        display: inline-block;
+        margin: 20px auto;
+        float: none;
+        clear: both;
+    }
+    .mteo-theme-default {
+        min-height: 350px;
+    }
+
+    .mteo-theme-default .mteo-text-row-1 {
+        margin-top: 40px;
+    }
+
+    .mteo-theme-default.mteo_content_contact_form .mteo-text-row-1 {
+        font-size: 70px;
+        line-height: 70px;
+        height: 70px;
+        padding-left: 80px;
+        margin: 0 5%;
+        background: url('../../images/mt/exitoffer/mteo-wait-small.png') no-repeat left center;
+
+    }
+
+    .mteo-theme-default #mteo_msg_error {
+        max-width: 90%;
+        background: none;
+        padding-left: 0;
+    }
+
+    .mteo-theme-default .mteo-checkbox-after-form .mteo-subscribe a#mteo_submit {
+        position: relative;
+    }
+
+}
