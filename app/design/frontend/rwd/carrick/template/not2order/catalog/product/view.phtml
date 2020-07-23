@@ -254,16 +254,25 @@ $customLayoutFlag = $_product->getData('update_layout');
     $attributeOptions = array();
     foreach ($productAttributeOptions as $productAttribute) {
         foreach ($productAttribute['values'] as $attribute) {
+
             $attributeOptions[$productAttribute['label']][$attribute['value_index']] = $attribute['store_label'];
+
         }
     }
+
     $spConfig_Sp = array();
+
     foreach ($attributeOptions["Paper Size"] as $k => $v) {
+
         $childProducts = Mage::getModel('catalog/product_type_configurable')
             ->getUsedProductCollection($product)
             ->addAttributeToSelect('*')
             ->addFieldToFilter('size', array('eq' => $k));
         foreach ($childProducts as $child) {
+
+
+
+
             $childProduct = Mage::getModel('catalog/product');
             $childProduct->load($child->getId());
             $baseCurrencyCode = Mage::app()->getStore()->getBaseCurrencyCode();
@@ -278,6 +287,9 @@ $customLayoutFlag = $_product->getData('update_layout');
     <script type="text/javascript">
         var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
         var spConfig_Sp = <?php echo json_encode($spConfig_Sp); ?>;
+
+        var paper_size_select_flag = 0;
+        var fixing_style_select_flag = "";
     </script>
     <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
     <div class="product-view customlayout">
@@ -336,6 +348,20 @@ $customLayoutFlag = $_product->getData('update_layout');
                             $backMaterialArray = array();
                             $spineArray = array();
                             $woodArray = array();
+                            $pvcA4_arr = array();
+                            $pvcA5_arr = array();
+                            $pvcA4_12_arr = array();
+                            $pvcA4_23_arr = array();
+                            $internalA4_arr = array();
+                            $internalA5_arr = array();
+                            $internalA4_12_arr = array();
+                            $internalA4_23_arr = array();
+                            $externalA4_arr = array();
+                            $externalA5_arr = array();
+                            $externalA4_12_arr = array();
+                            $externalA4_23_arr = array();
+
+                            $paper_fixing_arr = array();
 
 
                             $outerMaterialOptionId = 0;
@@ -353,6 +379,20 @@ $customLayoutFlag = $_product->getData('update_layout');
                             $spineOptionId = 0;
                             $woodOptionId = 0;
 
+                            $pvcA4_id = 0;
+                            $pvcA5_id = 0;
+                            $pvcA4_12_id = 0;
+                            $pvcA4_23_id = 0;
+                            $internalA4_id = 0;
+                            $internalA5_id = 0;
+                            $internalA4_12_id = 0;
+                            $internalA4_23_id = 0;
+                            $externalA4_id = 0;
+                            $externalA5_id = 0;
+                            $externalA4_12_id = 0;
+                            $externalA4_23_id = 0;
+
+                            $paper_fixing_id = 0;
 
                             $values = '';
                             $fixingStyle = '';
@@ -362,7 +402,8 @@ $customLayoutFlag = $_product->getData('update_layout');
                                 if ($o->getTitle() === 'Outer Material Colour') {
                                     $outerMaterialOptionId = $o->getId();
                                     $outerMaterialArray = $o->getValues();
-                                } else if ($o->getTitle() === 'Inner Material Colour') {
+                                 }
+                                else if ($o->getTitle() === 'Inner Material Colour') {
                                     $innerMaterialOptionId = $o->getId();
                                     $innerMaterialArray = $o->getValues();
                                 } else if ($o->getTitle() === 'Corner Protectors') {
@@ -396,10 +437,73 @@ $customLayoutFlag = $_product->getData('update_layout');
                                 } else if ($o->getTitle() === 'Wood Colour') {
                                     $woodOptionId = $o->getId();
                                     $woodArray = $o->getValues();
+                                } else if ($o->getTitle() === 'A4 PVC Pocket Cover Views') {
+                                    $pvcA4_id = $o->getId();
+                                    $pvcA4_arr = $o->getValues();
+                                } else if ($o->getTitle() === 'A5 PVC Pocket Cover Views') {
+                                    $pvcA5_id = $o->getId();
+                                    $pvcA5_arr = $o->getValues();
+                                } else if ($o->getTitle() === '1-2 A4 PVC Pocket Cover Views') {
+                                    $pvcA4_12_id = $o->getId();
+                                    $pvcA4_12_arr = $o->getValues();
+                                } else if ($o->getTitle() === '2-3 A4 PVC Pocket Cover Views') {
+                                    $pvcA4_23_id = $o->getId();
+                                    $pvcA4_23_arr = $o->getValues();
+                                } else if ($o->getTitle() === 'A4 Internal Screw Views') {
+                                    $internalA4_id = $o->getId();
+                                    $internalA4_arr = $o->getValues();
+                                } else if ($o->getTitle() === 'A5 Internal Screw Views') {
+                                    $internalA5_id = $o->getId();
+                                    $internalA5_arr = $o->getValues();
+                                } else if ($o->getTitle() === '1-2 A4 Internal Screw Views') {
+                                    $internalA4_12_id = $o->getId();
+                                    $internalA4_12_arr = $o->getValues();
+                                } else if ($o->getTitle() === '2-3 A4 Internal Screw Views') {
+                                    $internalA4_23_id = $o->getId();
+                                    $internalA4_23_arr = $o->getValues();
+                                } else if ($o->getTitle() === 'A4 External Screw Views') {
+                                    $externalA4_id = $o->getId();
+                                    $externalA4_arr = $o->getValues();
+                                } else if ($o->getTitle() === 'A5 External Screw Views') {
+                                    $externalA5_id = $o->getId();
+                                    $externalA5_arr = $o->getValues();
+                                } else if ($o->getTitle() === '1-2 A4 External Screw Views') {
+                                    $externalA4_12_id = $o->getId();
+                                    $externalA4_12_arr = $o->getValues();
+                                } else if ($o->getTitle() === '2-3 A4 External Screw Views') {
+                                    $externalA4_23_id = $o->getId();
+                                    $externalA4_23_arr = $o->getValues();
                                 }
                             }
                             ?>
                             <script type="text/javascript">
+                                var paper_fixing_arr;
+                                var pvcA4_arr = <?php echo json_encode($pvcA4_arr)?>
+                                var pvcA5_arr = <?php echo json_encode($pvcA5_arr)?>
+                                var pvcA4_12_arr = <?php echo json_encode($pvcA4_12_arr)?>
+                                var pvcA4_23_arr = <?php echo json_encode($pvcA4_23_arr)?>
+                                var internalA4_arr = <?php echo json_encode($internalA4_arr)?>
+                                var internalA5_arr = <?php echo json_encode($internalA5_arr)?>
+                                var internalA4_12_arr = <?php echo json_encode($internalA4_12_arr)?>
+                                var internalA4_23_arr = <?php echo json_encode($internalA4_23_arr)?>
+                                var externalA4_arr = <?php echo json_encode($externalA4_arr)?>
+                                var externalA5_arr = <?php echo json_encode($externalA5_arr)?>
+                                var externalA4_12_arr = <?php echo json_encode($externalA4_12_arr)?>
+                                var externalA4_23_arr = <?php echo json_encode($externalA4_23_arr)?>
+
+                                var pvcA4_id = <?php echo $pvcA4_id?>
+                                var pvcA5_id = <?php echo $pvcA5_id?>
+                                var pvcA4_12_id = <?php echo $pvcA4_12_id?>
+                                var pvcA4_23_id = <?php echo $pvcA4_23_id?>
+                                var internalA4_id = <?php echo $internalA4_id?>
+                                var internalA5_id = <?php echo $internalA5_id?>
+                                var internalA4_12_id = <?php echo $internalA4_12_id?>
+                                var internalA4_23_id = <?php echo $internalA4_23_id?>
+                                var externalA4_id = <?php echo $externalA4_id?>
+                                var externalA5_id = <?php echo $externalA5_id?>
+                                var externalA4_12_id = <?php echo $externalA4_12_id?>
+                                var externalA4_23_id = <?php echo $externalA4_23_id?>
+
                                 <?php
                                 echo "var outerMaterialOptionId = '{$outerMaterialOptionId}';".PHP_EOL;
                                 echo "var innerMaterialOptionId = '{$innerMaterialOptionId}';".PHP_EOL;
@@ -427,6 +531,9 @@ $customLayoutFlag = $_product->getData('update_layout');
                                 echo "var cornerPrice = 0;".PHP_EOL;
                                 echo "var personalisationPrice = 0;".PHP_EOL;
                                 ?>
+
+                                var paper_fixing_id = 0;
+
                             </script>
 
                             <?php if (count($attributeOptions["Paper Size"]) > 0) : ?>
@@ -470,6 +577,18 @@ $customLayoutFlag = $_product->getData('update_layout');
                                             });
                                             $('.paper-size .item').click(function ($) {
                                                 var value = jQuery(this).attr('id').replace("paper_size", "");
+// Tom 7.22
+                                                var paper_name = jQuery(this).attr('name');
+                                                if(paper_name == 'A4'){
+                                                    paper_size_select_flag = 1
+                                                }else if(paper_name == 'A5'){
+                                                    paper_size_select_flag = 2
+                                                }else if(paper_name == '2-3 A4'){
+                                                    paper_size_select_flag = 3
+                                                }else if(paper_name == '1-2 A4'){
+                                                    paper_size_select_flag = 4
+                                                }
+
                                                 jQuery('#attribute132').val(value);
                                                 triggerEvent($$("select[id^=attribute132]")[0],'change');
                                                 opConfig.reloadPrice();
@@ -520,31 +639,108 @@ $customLayoutFlag = $_product->getData('update_layout');
                                             });
                                             $('.fixing-style .item').click(function ($) {
                                                 var value = jQuery(this).attr('id').replace("fixing_style", "");
+                                                var fixing_style_name = jQuery(this).attr('name');
+
+
                                                 jQuery('#attribute142').val(value);
                                                 triggerEvent($$("select[id^=attribute142]")[0],'change');
                                                 opConfig.reloadPrice();
                                                 jQuery('.fixing-style .item').removeClass('selected');
                                                 jQuery(this).addClass('selected');
 
-                                                if (index == totalCount) {
-                                                    jQuery('.add-to-cart-wrapper').show();
-                                                } else {
-                                                    jQuery('.custom-options .row').eq(index + 2).show();
-                                                    index++;
+// Tom 7.22
+                                                if(fixing_style_name == 'PVC Pockets'){
+
+
+                                                    if(paper_size_select_flag == 1){
+                                                        paper_fixing_arr = pvcA4_arr;
+                                                        paper_fixing_id = pvcA4_id;
+                                                    }else if(paper_size_select_flag == 2){
+                                                        paper_fixing_arr = pvcA5_arr;
+                                                        paper_fixing_id = pvcA5_id;
+
+                                                    }else if(paper_size_select_flag == 3){
+                                                        paper_fixing_arr = pvcA4_12_arr;
+                                                        paper_fixing_id = pvcA4_12_id;
+                                                    }else if(paper_size_select_flag == 4){
+                                                        paper_fixing_arr = pvcA4_23_arr;
+                                                        paper_fixing_id = pvcA4_23_id;
+                                                    }
+                                                }else if(fixing_style_name == 'Internal Screw'){
+                                                    if(paper_size_select_flag == 1){
+                                                        paper_fixing_arr = internalA4_arr;
+                                                        paper_fixing_id = internalA4_id;
+                                                    }else if(paper_size_select_flag == 2){
+                                                        paper_fixing_arr = internalA5_arr;
+                                                        paper_fixing_id = internalA5_id;
+                                                    }else if(paper_size_select_flag == 3){
+                                                        paper_fixing_arr = internalA4_12_arr;
+                                                        paper_fixing_id = internalA4_12_id;
+                                                    }else if(paper_size_select_flag == 4){
+                                                        paper_fixing_arr = internalA4_23_arr;
+                                                        paper_fixing_id = internalA4_23_id;
+                                                    }
+
+                                                }else if(fixing_style_name == 'External Screw'){
+                                                    if(paper_size_select_flag == 1){
+                                                        paper_fixing_arr = externalA4_arr;
+                                                        paper_fixing_id = externalA4_id;
+                                                    }else if(paper_size_select_flag == 2){
+                                                        paper_fixing_arr = externalA5_arr;
+                                                        paper_fixing_id = externalA5_id;
+                                                    }else if(paper_size_select_flag == 3){
+                                                        paper_fixing_arr = externalA4_12_arr;
+                                                        paper_fixing_id = externalA4_12_id;
+                                                    }else if(paper_size_select_flag == 4){
+                                                        paper_fixing_arr = externalA4_23_arr;
+                                                        paper_fixing_id = externalA4_23_id;
+                                                    }
                                                 }
 
-                                                var paper_value = jQuery('.paper-size .item.selected').attr('id').replace("paper_size", "");
-                                                jQuery('#sku_text').html(spConfig_Sp[paper_value][value]['sku']);
-                                                fixedStylePrice = spConfig_Sp[paper_value][value]['price'];
-                                                totalPrice = parseFloat(fixedStylePrice) + parseFloat(cornerPrice) + parseFloat(personalisationPrice);
-                                                jQuery('#totalPrice').html(parseFloat(totalPrice).toFixed(2));
-                                                jQuery('#custom_total_price').val(parseFloat(totalPrice).toFixed(2));
-                                                jQuery('.regular-price .price').html(parseFloat(totalPrice).toFixed(2));
+                                                    if (index == totalCount) {
+                                                        jQuery('.add-to-cart-wrapper').show();
+                                                    } else {
+                                                        jQuery('.custom-options .row').eq(index + 2).show();
+                                                        index++;
+                                                    }
+
+                                                    var paper_value = jQuery('.paper-size .item.selected').attr('id').replace("paper_size", "");
+                                                    jQuery('#sku_text').html(spConfig_Sp[paper_value][value]['sku']);
+                                                    fixedStylePrice = spConfig_Sp[paper_value][value]['price'];
+                                                    totalPrice = parseFloat(fixedStylePrice) + parseFloat(cornerPrice) + parseFloat(personalisationPrice);
+                                                    jQuery('#totalPrice').html(parseFloat(totalPrice).toFixed(2));
+                                                    jQuery('#custom_total_price').val(parseFloat(totalPrice).toFixed(2));
+                                                    jQuery('.regular-price .price').html(parseFloat(totalPrice).toFixed(2));
+
+
+                                                <?php echo "paper_fixing_id = '{$paper_fixing_id}';".PHP_EOL;?>
+
+
                                             });
                                         });
                                     </script>
                                 </div>
                             <?php endif; ?>
+
+                            <?php if ($paper_fixing_id > 0) : ?>
+                            <div class="row outer-material">
+                                <h4>Outer Material Colour</h4>
+                                <ul class="items slides">
+                                    <?php foreach ($paper_fixing_arr as $k => $v) : ?>
+                                        <li class="item" id="<?php echo $v->getId(); ?>">
+                                            <?php
+                                            $url = Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg';
+                                            ?>
+                                            <img class="thumb-item" src="<?php echo $url; ?>">
+
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+
+                            <?php endif; ?>
+
+
                             <?php if ($outerMaterialOptionId > 0) : ?>
                                 <div class="row outer-material">
                                     <h4>Outer Material Colour</h4>

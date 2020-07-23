@@ -316,13 +316,26 @@
 
 @media(min-width: 1280px) {
 
-	.custom-options .outer-material .items .item .thumb-item, .custom-options .inner-material .items .item .thumb-item {
+	.custom-options .outer-material .items .item .thumb-item,
+	.custom-options .inner-material .items .item .thumb-item,
+	.custom-options .trim .items .item .thumb-item,
+	.custom-options .front-material .items .item .thumb-item,
+	.custom-options .back-material .items .item .thumb-item,
+	.custom-options .spine .items .item .thumb-item,
+	.custom-options .wood .items .item .thumb-item{
 
 		max-width: 80px;
 
 	}
 
-	.custom-options .outer-material .items, .custom-options .inner-material .items {
+	.custom-options .outer-material .items,
+	.custom-options .inner-material .items,
+	.custom-options .trim .items,
+	.custom-options .front-material .items,
+	.custom-options .back-material .items,
+	.custom-options .spine .items,
+	.custom-options .wood .items
+	{
 
 		justify-content: normal;
 
@@ -416,7 +429,13 @@
 
 	}
 
-	.custom-options .outer-material .items .item, .custom-options .inner-material .items .item {
+	.custom-options .outer-material .items .item .thumb-item,
+	.custom-options .inner-material .items .item .thumb-item,
+	.custom-options .trim .items .item .thumb-item,
+	.custom-options .front-material .items .item .thumb-item,
+	.custom-options .back-material .items .item .thumb-item,
+	.custom-options .spine .items .item .thumb-item,
+	.custom-options .wood .items .item .thumb-item{
 
 		padding-bottom: 15px;
 
@@ -424,7 +443,14 @@
 
 	}
 
-	.custom-options .outer-material .items .item .thumb-item, .custom-options .inner-material .items .item .thumb-item {
+	.custom-options .outer-material .items,
+	.custom-options .inner-material .items,
+	.custom-options .trim .items,
+	.custom-options .front-material .items,
+	.custom-options .back-material .items,
+	.custom-options .spine .items,
+	.custom-options .wood .items
+	{
 
 		margin-bottom: 15px;
 
