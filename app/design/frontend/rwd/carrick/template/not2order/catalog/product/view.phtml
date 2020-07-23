@@ -478,31 +478,31 @@ $customLayoutFlag = $_product->getData('update_layout');
                             ?>
                             <script type="text/javascript">
                                 var paper_fixing_arr;
-                                var pvcA4_arr = <?php echo json_encode($pvcA4_arr)?>
-                                var pvcA5_arr = <?php echo json_encode($pvcA5_arr)?>
-                                var pvcA4_12_arr = <?php echo json_encode($pvcA4_12_arr)?>
-                                var pvcA4_23_arr = <?php echo json_encode($pvcA4_23_arr)?>
-                                var internalA4_arr = <?php echo json_encode($internalA4_arr)?>
-                                var internalA5_arr = <?php echo json_encode($internalA5_arr)?>
-                                var internalA4_12_arr = <?php echo json_encode($internalA4_12_arr)?>
-                                var internalA4_23_arr = <?php echo json_encode($internalA4_23_arr)?>
-                                var externalA4_arr = <?php echo json_encode($externalA4_arr)?>
-                                var externalA5_arr = <?php echo json_encode($externalA5_arr)?>
-                                var externalA4_12_arr = <?php echo json_encode($externalA4_12_arr)?>
-                                var externalA4_23_arr = <?php echo json_encode($externalA4_23_arr)?>
+                                var pvcA4_arr = <?php echo json_encode($pvcA4_arr)?>;
+                                var pvcA5_arr = <?php echo json_encode($pvcA5_arr)?>;
+                                var pvcA4_12_arr = <?php echo json_encode($pvcA4_12_arr)?>;
+                                var pvcA4_23_arr = <?php echo json_encode($pvcA4_23_arr)?>;
+                                var internalA4_arr = <?php echo json_encode($internalA4_arr)?>;
+                                var internalA5_arr = <?php echo json_encode($internalA5_arr)?>;
+                                var internalA4_12_arr = <?php echo json_encode($internalA4_12_arr)?>;
+                                var internalA4_23_arr = <?php echo json_encode($internalA4_23_arr)?>;
+                                var externalA4_arr = <?php echo json_encode($externalA4_arr)?>;
+                                var externalA5_arr = <?php echo json_encode($externalA5_arr)?>;
+                                var externalA4_12_arr = <?php echo json_encode($externalA4_12_arr)?>;
+                                var externalA4_23_arr = <?php echo json_encode($externalA4_23_arr)?>;
 
-                                var pvcA4_id = <?php echo $pvcA4_id?>
-                                var pvcA5_id = <?php echo $pvcA5_id?>
-                                var pvcA4_12_id = <?php echo $pvcA4_12_id?>
-                                var pvcA4_23_id = <?php echo $pvcA4_23_id?>
-                                var internalA4_id = <?php echo $internalA4_id?>
-                                var internalA5_id = <?php echo $internalA5_id?>
-                                var internalA4_12_id = <?php echo $internalA4_12_id?>
-                                var internalA4_23_id = <?php echo $internalA4_23_id?>
-                                var externalA4_id = <?php echo $externalA4_id?>
-                                var externalA5_id = <?php echo $externalA5_id?>
-                                var externalA4_12_id = <?php echo $externalA4_12_id?>
-                                var externalA4_23_id = <?php echo $externalA4_23_id?>
+                                var pvcA4_id = <?php echo $pvcA4_id?>;
+                                var pvcA5_id = <?php echo $pvcA5_id?>;
+                                var pvcA4_12_id = <?php echo $pvcA4_12_id?>;
+                                var pvcA4_23_id = <?php echo $pvcA4_23_id?>;
+                                var internalA4_id = <?php echo $internalA4_id?>;
+                                var internalA5_id = <?php echo $internalA5_id?>;
+                                var internalA4_12_id = <?php echo $internalA4_12_id?>;
+                                var internalA4_23_id = <?php echo $internalA4_23_id?>;
+                                var externalA4_id = <?php echo $externalA4_id?>;
+                                var externalA5_id = <?php echo $externalA5_id?>;
+                                var externalA4_12_id = <?php echo $externalA4_12_id?>;
+                                var externalA4_23_id = <?php echo $externalA4_23_id?>;
 
                                 <?php
                                 echo "var outerMaterialOptionId = '{$outerMaterialOptionId}';".PHP_EOL;
@@ -530,9 +530,8 @@ $customLayoutFlag = $_product->getData('update_layout');
                                 echo "var fixedStylePrice = 0;".PHP_EOL;
                                 echo "var cornerPrice = 0;".PHP_EOL;
                                 echo "var personalisationPrice = 0;".PHP_EOL;
+                                echo "var views_sides_price = 0;".PHP_EOL;
                                 ?>
-
-                                var paper_fixing_id = 0;
 
                             </script>
 
@@ -578,6 +577,10 @@ $customLayoutFlag = $_product->getData('update_layout');
                                             $('.paper-size .item').click(function ($) {
                                                 var value = jQuery(this).attr('id').replace("paper_size", "");
 // Tom 7.22
+//                                              first view_sides is selected and retry to select paper size: view_sides select clear ---
+                                                views_shows_clear();
+                                                views_sides_selected_clear();
+                                                //----------------------------------
                                                 var paper_name = jQuery(this).attr('name');
                                                 if(paper_name == 'A4'){
                                                     paper_size_select_flag = 1
@@ -649,86 +652,331 @@ $customLayoutFlag = $_product->getData('update_layout');
                                                 jQuery(this).addClass('selected');
 
 // Tom 7.22
-                                                if(fixing_style_name == 'PVC Pockets'){
-
-
+                                                views_shows_clear();
+                                                views_sides_selected_clear();
+                                                if(pvcA4_id==0 || pvcA5_id==0 || pvcA4_12_id==0 || pvcA4_23_id==0 || internalA4_id==0 || internalA5_id==0 || internalA4_12_id==0 || internalA4_23_id==0 || externalA4_id==0 || externalA5_id==0 || externalA4_12_id==0 || externalA4_23_id==0){
+                                                    jQuery('.custom-options .row').eq(2).show();
+                                                    index = 1;
+                                                }
+                                                else if(fixing_style_name == 'PVC Pockets'){
                                                     if(paper_size_select_flag == 1){
-                                                        paper_fixing_arr = pvcA4_arr;
-                                                        paper_fixing_id = pvcA4_id;
-                                                        <?php $paper_fixing_arr = $pvcA4_arr; $paper_fixing_id = $pvcA4_id?>
+
+                                                        jQuery('.pvcA4').show();
                                                     }else if(paper_size_select_flag == 2){
-                                                        <?php $paper_fixing_arr = $pvcA5_arr; $paper_fixing_id = $pvcA5_id?>
+                                                        jQuery('.pvcA5').show();
                                                     }else if(paper_size_select_flag == 3){
-                                                        <?php $paper_fixing_arr = $pvcA4_12_arr; $paper_fixing_id = $pvcA4_12_id?>
+                                                        jQuery('.pvcA4_12').show();
                                                     }else if(paper_size_select_flag == 4){
-                                                        <?php $paper_fixing_arr = $pvcA4_23_arr; $paper_fixing_id = $pvcA4_23_id?>
+                                                        jQuery('.pvcA4_23').show();
                                                     }
                                                 }else if(fixing_style_name == 'Internal Screw'){
                                                     if(paper_size_select_flag == 1){
-                                                        <?php $paper_fixing_arr = $internalA4_arr; $paper_fixing_id = $internalA4_id?>
+                                                        jQuery('.internalA4').show();
                                                     }else if(paper_size_select_flag == 2){
-                                                        <?php $paper_fixing_arr = $internalA5_arr; $paper_fixing_id = $internalA5_id?>
+                                                        jQuery('.internalA5').show();
                                                     }else if(paper_size_select_flag == 3){
-                                                        <?php $paper_fixing_arr = $internalA4_12_arr; $paper_fixing_id = $internalA4_12_id?>
+                                                        jQuery('.internalA4_12').show();
                                                     }else if(paper_size_select_flag == 4){
-                                                        <?php $paper_fixing_arr = $internalA4_23_arr; $paper_fixing_id = $internalA4_23_id?>
+                                                        jQuery('.internalA4_23').show();
                                                     }
 
                                                 }else if(fixing_style_name == 'External Screw'){
                                                     if(paper_size_select_flag == 1){
-                                                        <?php $paper_fixing_arr = $externalA4_arr; $paper_fixing_id = $externalA4_id?>
+                                                        jQuery('.externalA4').show();
                                                     }else if(paper_size_select_flag == 2){
-                                                        <?php $paper_fixing_arr = $externalA5_arr; $paper_fixing_id = $externalA5_id?>
+                                                        jQuery('.externalA5').show();
                                                     }else if(paper_size_select_flag == 3){
-                                                        <?php $paper_fixing_arr = $externalA4_12_arr; $paper_fixing_id = $externalA4_12_id?>
+                                                        jQuery('.externalA4_12').show();
                                                     }else if(paper_size_select_flag == 4){
-                                                        <?php $paper_fixing_arr = $externalA4_23_arr; $paper_fixing_id = $externalA4_23_id?>
+                                                        jQuery('.externalA4_23').show();
                                                     }
                                                 }
-
+                                                else{
                                                     if (index == totalCount) {
                                                         jQuery('.add-to-cart-wrapper').show();
                                                     } else {
-                                                        jQuery('.custom-options .row').eq(index + 2).show();
-                                                        index++;
+                                                        jQuery('.custom-options .row').eq(14).show();
+                                                        index = 13;
                                                     }
+                                                }
 
-                                                    var paper_value = jQuery('.paper-size .item.selected').attr('id').replace("paper_size", "");
-                                                    jQuery('#sku_text').html(spConfig_Sp[paper_value][value]['sku']);
-                                                    fixedStylePrice = spConfig_Sp[paper_value][value]['price'];
-                                                    totalPrice = parseFloat(fixedStylePrice) + parseFloat(cornerPrice) + parseFloat(personalisationPrice);
-                                                    jQuery('#totalPrice').html(parseFloat(totalPrice).toFixed(2));
-                                                    jQuery('#custom_total_price').val(parseFloat(totalPrice).toFixed(2));
-                                                    jQuery('.regular-price .price').html(parseFloat(totalPrice).toFixed(2));
-
-
-                                                <?php echo "paper_fixing_id = '{$paper_fixing_id}';".PHP_EOL;?>
-
-
+                                                var paper_value = jQuery('.paper-size .item.selected').attr('id').replace("paper_size", "");
+                                                jQuery('#sku_text').html(spConfig_Sp[paper_value][value]['sku']);
+                                                fixedStylePrice = spConfig_Sp[paper_value][value]['price'];
+                                                totalPrice = parseFloat(fixedStylePrice) + parseFloat(cornerPrice) + parseFloat(personalisationPrice) + parseFloat(views_sides_price);
+                                                jQuery('#totalPrice').html(parseFloat(totalPrice).toFixed(2));
+                                                jQuery('#custom_total_price').val(parseFloat(totalPrice).toFixed(2));
+                                                jQuery('.regular-price .price').html(parseFloat(totalPrice).toFixed(2));
                                             });
                                         });
                                     </script>
                                 </div>
                             <?php endif; ?>
 
-                            <?php if ($paper_fixing_id > 0) : ?>
-                            <div class="row outer-material">
-                                <h4>Outer Material Colour</h4>
-                                <ul class="items slides">
-                                    <?php foreach ($paper_fixing_arr as $k => $v) : ?>
-                                        <li class="item" id="<?php echo $v->getId(); ?>">
-                                            <?php
-                                            $url = Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg';
-                                            ?>
-                                            <img class="thumb-item" src="<?php echo $url; ?>">
-
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-
+<!------------------------------------------------------                            Tom 07.23-->
+                            <?php if ($pvcA4_id > 0) : ?>
+                                <div class="row pvcA4">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($pvcA4_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.pvcA4 .item'));
+                                            views_sides_item_click_event($('.pvcA4 .item'), pvcA4_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+<!---->
+                            <?php if ($pvcA5_id > 0) : ?>
+                                <div class="row pvcA5">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($pvcA5_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.pvcA5 .item'));
+                                            views_sides_item_click_event($('.pvcA5 .item'), pvcA5_id);
+                                        });
+                                    </script>
+                                </div>
                             <?php endif; ?>
 
+                            <!---->
+                            <?php if ($pvcA4_12_id > 0) : ?>
+                                <div class="row pvcA4_12">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($pvcA4_12_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.pvcA4_12 .item'));
+                                            views_sides_item_click_event($('.pvcA4_12 .item'), pvcA4_12_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+
+                            <!---->
+                            <?php if ($pvcA4_23_id > 0) : ?>
+                                <div class="row pvcA4_23">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($pvcA4_23_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.pvcA4_23 .item'));
+                                            views_sides_item_click_event($('.pvcA4_23 .item'), pvcA4_23_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <!---->
+                            <?php if ($internalA4_id > 0) : ?>
+                                <div class="row internalA4">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($internalA4_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.internalA4 .item'));
+                                            views_sides_item_click_event($('.internalA4 .item'), internalA4_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <!---->
+                            <?php if ($internalA5_id > 0) : ?>
+                                <div class="row internalA5">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($internalA5_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.internalA5 .item'));
+                                            views_sides_item_click_event($('.internalA5 .item'), internalA5_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <!---->
+                            <?php if ($internalA4_12_id > 0) : ?>
+                                <div class="row internalA4_12">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($internalA4_12_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.internalA4_12 .item'));
+                                            views_sides_item_click_event($('.internalA4_12 .item'), internalA4_12_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <!---->
+                            <?php if ($internalA4_23_id > 0) : ?>
+                                <div class="row internalA4_23">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($internalA4_23_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.internalA4_23 .item'));
+                                            views_sides_item_click_event($('.internalA4_23 .item'), internalA4_23_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+
+                            <!---->
+                            <?php if ($externalA4_id > 0) : ?>
+                                <div class="row externalA4">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($externalA4_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.externalA4 .item'));
+                                            views_sides_item_click_event($('.externalA4 .item'), externalA4_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <!---->
+                            <?php if ($externalA5_id > 0) : ?>
+                                <div class="row externalA5">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($externalA5_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.externalA5 .item'));
+                                            views_sides_item_click_event($('.externalA5 .item'), externalA5_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <!---->
+                            <?php if ($externalA4_12_id > 0) : ?>
+                                <div class="row externalA4_12">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($externalA4_12_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.externalA4_12 .item'));
+                                            views_sides_item_click_event($('.externalA4_12 .item'), externalA4_12_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
+
+                            <!---->
+                            <?php if ($externalA4_23_id > 0) : ?>
+                                <div class="row externalA4_23">
+                                    <h4>Views Sides</h4>
+                                    <ul class="items slides justify-left">
+                                        <?php foreach ($externalA4_23_arr as $k => $v) : ?>
+                                            <li class="item" name="<?php echo $v; ?>" id="<?php echo $v->getId(); ?>">
+                                                <img class="thumb-item" src="<?php echo Mage::getBaseUrl('skin').'custom_option/viewing_sides/'.$v->getTitle().'.jpg'; ?>">
+                                                <span class="thumb-price"><?php echo '+'.$currency_symbol.number_format((float) Mage::helper('directory')->currencyConvert($v->getPrice(), $baseCurrencyCode, $currentCurrencyCode), 2, '.', ''); ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <script>
+                                        jQuery(document).ready(function($){
+                                            //Tom 07.23
+                                            item_hover_event($('.externalA4_23 .item'));
+                                            views_sides_item_click_event($('.externalA4_23 .item'), externalA4_23_id);
+                                        });
+                                    </script>
+                                </div>
+                            <?php endif; ?>
 
                             <?php if ($outerMaterialOptionId > 0) : ?>
                                 <div class="row outer-material">
@@ -990,7 +1238,7 @@ $customLayoutFlag = $_product->getData('update_layout');
                                                     index++;
                                                 }
                                                 cornerPrice = parseFloat(jQuery(this).find('.thumb-price').html().slice(2));
-                                                totalPrice = parseFloat(fixedStylePrice) + parseFloat(cornerPrice) + parseFloat(personalisationPrice);
+                                                totalPrice = parseFloat(fixedStylePrice) + parseFloat(cornerPrice) + parseFloat(personalisationPrice) + parseFloat(views_sides_price);
                                                 jQuery('#totalPrice').html(parseFloat(totalPrice).toFixed(2));
                                                 jQuery('#custom_total_price').val(parseFloat(totalPrice).toFixed(2));
                                                 jQuery('.regular-price .price').html(parseFloat(totalPrice).toFixed(2));
@@ -1059,7 +1307,7 @@ $customLayoutFlag = $_product->getData('update_layout');
                                                 }
                                                 //personalisationPrice = parseFloat(jQuery(this).find('.thumb-price').html().slice(2));
                                                 personalisationPrice = parseFloat(jQuery(this).find('.thumb-price .real-price').html().slice(2));
-                                                totalPrice = parseFloat(fixedStylePrice) + parseFloat(cornerPrice) + parseFloat(personalisationPrice);
+                                                totalPrice = parseFloat(fixedStylePrice) + parseFloat(cornerPrice) + parseFloat(personalisationPrice) + parseFloat(views_sides_price);
                                                 jQuery('#totalPrice').html(parseFloat(totalPrice).toFixed(2));
                                                 jQuery('#custom_total_price').val(parseFloat(totalPrice).toFixed(2));
                                                 jQuery('.regular-price .price').html(parseFloat(totalPrice).toFixed(2));
@@ -1310,6 +1558,68 @@ $customLayoutFlag = $_product->getData('update_layout');
                 index++;
             }
         });
+    }
+
+    function views_sides_item_click_event(element, optionId){
+        element.click(function ($) {
+            var selectObjId = '#select_' + optionId;
+            jQuery(selectObjId).val(jQuery(this).attr('id'));
+            opConfig.reloadPrice();
+            element.removeClass('selected');
+            jQuery(this).addClass('selected');
+            //jQuery('.corner-protector').show();
+
+            if (index == totalCount) {
+                jQuery('.add-to-cart-wrapper').show();
+            } else {
+                jQuery('.custom-options .row').eq(14).show();
+                index = 13;
+            }
+
+            views_sides_price = parseFloat(jQuery(this).find('.thumb-price').html().slice(2));
+            totalPrice = parseFloat(fixedStylePrice) + parseFloat(cornerPrice) + parseFloat(personalisationPrice) + parseFloat(views_sides_price);
+            jQuery('#totalPrice').html(parseFloat(totalPrice).toFixed(2));
+            jQuery('#custom_total_price').val(parseFloat(totalPrice).toFixed(2));
+            jQuery('.regular-price .price').html(parseFloat(totalPrice).toFixed(2));
+        });
+    }
+
+    function item_selected_clear(element, optionId){
+        var selectObjId = '#select_' + optionId;
+        jQuery(selectObjId).val();
+        opConfig.reloadPrice();
+        element.removeClass('selected');
+    }
+
+    function views_sides_selected_clear(){
+        item_selected_clear(jQuery('.pvcA4 .item'), pvcA4_id);
+        item_selected_clear(jQuery('.pvcA5 .item'), pvcA5_id);
+        item_selected_clear(jQuery('.pvcA4_12 .item'), pvcA4_12_id);
+        item_selected_clear(jQuery('.pvcA4_23 .item'), pvcA4_23_id);
+        item_selected_clear(jQuery('.internalA4 .item'), internalA4_id);
+        item_selected_clear(jQuery('.internalA5 .item'), internalA5_id);
+        item_selected_clear(jQuery('.internalA4_12 .item'), internalA4_12_id);
+        item_selected_clear(jQuery('.internalA4_23 .item'), internalA4_23_id);
+        item_selected_clear(jQuery('.externalA4 .item'), externalA4_id);
+        item_selected_clear(jQuery('.externalA5 .item'), externalA5_id);
+        item_selected_clear(jQuery('.externalA4_12 .item'), externalA4_12_id);
+        item_selected_clear(jQuery('.externalA4_23 .item'), externalA4_23_id);
+        views_sides_price = 0;
+    }
+
+    function views_shows_clear(){
+        jQuery('.pvcA4').hide();
+        jQuery('.pvcA5').hide();
+        jQuery('.pvcA4_12').hide();
+        jQuery('.pvcA4_23').hide();
+        jQuery('.internalA4').hide();
+        jQuery('.internalA5').hide();
+        jQuery('.internalA4_12').hide();
+        jQuery('.internalA4_23').hide();
+        jQuery('.externalA4').hide();
+        jQuery('.externalA5').hide();
+        jQuery('.externalA4_12').hide();
+        jQuery('.externalA4_23').hide();
     }
 </script>
 

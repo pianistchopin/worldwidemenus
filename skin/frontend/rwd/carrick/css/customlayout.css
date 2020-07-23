@@ -218,6 +218,9 @@
 
 }
 
+.justify-left{
+	justify-content: normal!important;
+}
 .custom-options .row {
 
 	display: none;
